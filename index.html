@@ -3,502 +3,215 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="Jamison Taylor Jr. — Mechanical Design, Robotics, Product Development" />
-  <title>Jamison Taylor Jr. | Portfolio</title>
+  <title>MAE XXXX — Lab Portfolio</title>
+  <meta name="description" content="Course lab portfolio with clickable lab project pages." />
 
   <style>
     :root{
-      --bg: #0b1220;
-      --panel: #0f1a33;
-      --text: #e8eefc;
-      --muted: #b7c3e6;
-      --line: rgba(255,255,255,.10);
-      --accent: #6aa6ff;
-      --accent2: #7cf0d6;
-      --shadow: 0 10px 30px rgba(0,0,0,.35);
-      --radius: 18px;
-      --max: 1080px;
+      --bg:#0b1220; --panel:#0f1a33; --text:#e8eefc; --muted:#b7c3e6;
+      --line:rgba(255,255,255,.12); --accent:#6aa6ff; --accent2:#7cf0d6;
+      --shadow:0 10px 30px rgba(0,0,0,.35); --r:18px; --max:1050px;
       --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
-      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
     }
-
-    *{ box-sizing: border-box; }
-    html,body{ height:100%; }
+    *{box-sizing:border-box}
     body{
-      margin:0;
-      font-family: var(--sans);
+      margin:0; font-family:var(--sans); color:var(--text); line-height:1.55;
       background:
         radial-gradient(1200px 700px at 15% 10%, rgba(106,166,255,.20), transparent 55%),
         radial-gradient(900px 600px at 90% 20%, rgba(124,240,214,.16), transparent 50%),
         linear-gradient(180deg, var(--bg), #070b14 70%);
-      color: var(--text);
-      line-height: 1.55;
     }
-
-    a{ color: inherit; text-decoration: none; }
-    a:hover{ color: var(--accent2); }
-
-    .wrap{ max-width: var(--max); margin: 0 auto; padding: 28px 18px 60px; }
-
-    /* Top nav */
+    a{color:inherit; text-decoration:none}
+    a:hover{color:var(--accent2)}
+    .wrap{max-width:var(--max); margin:0 auto; padding:26px 18px 60px}
     .nav{
-      position: sticky; top: 0;
+      position:sticky; top:0; z-index:10;
       backdrop-filter: blur(10px);
       background: rgba(11,18,32,.65);
-      border-bottom: 1px solid var(--line);
-      z-index: 10;
+      border-bottom:1px solid var(--line);
     }
     .nav-inner{
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 12px 18px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 14px;
+      max-width:var(--max); margin:0 auto; padding:12px 18px;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
     }
-    .brand{
-      display:flex; align-items:center; gap:10px;
-      font-weight: 700;
-      letter-spacing: .2px;
-    }
-    .dot{
-      width:10px; height:10px; border-radius: 999px;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      box-shadow: 0 0 18px rgba(122,240,214,.35);
-    }
-    .links{
-      display:flex; flex-wrap:wrap; gap: 12px;
-      font-size: 14px;
-      color: var(--muted);
-    }
-    .links a{ padding: 6px 10px; border-radius: 999px; }
-    .links a:hover{ background: rgba(255,255,255,.06); }
-
-    /* Hero */
-    .hero{
-      margin-top: 28px;
-      display:grid;
-      grid-template-columns: 1.4fr .8fr;
-      gap: 18px;
-      align-items: stretch;
-    }
-    @media (max-width: 900px){
-      .hero{ grid-template-columns: 1fr; }
-    }
-
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:.2px}
+    .dot{width:10px;height:10px;border-radius:999px;background:linear-gradient(135deg,var(--accent),var(--accent2))}
+    .links{display:flex; gap:10px; flex-wrap:wrap; font-size:14px; color:var(--muted)}
+    .links a{padding:6px 10px; border-radius:999px}
+    .links a:hover{background:rgba(255,255,255,.06)}
     .card{
       background: rgba(15,26,51,.72);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 22px;
+      border:1px solid var(--line);
+      border-radius:var(--r);
+      box-shadow:var(--shadow);
+      padding:22px;
     }
-
-    .headline{
-      font-size: 44px;
-      line-height: 1.05;
-      margin: 0 0 10px;
-      letter-spacing: -0.7px;
-    }
-    @media (max-width: 520px){
-      .headline{ font-size: 36px; }
-    }
-    .sub{
-      margin: 0 0 16px;
-      color: var(--muted);
-      font-size: 16px;
-      max-width: 70ch;
-    }
-    .pill-row{
-      display:flex; flex-wrap:wrap; gap: 10px;
-      margin-top: 14px;
+    .hero{margin-top:20px}
+    h1{margin:0 0 8px; font-size:40px; letter-spacing:-.6px}
+    .sub{margin:0; color:var(--muted); max-width:75ch}
+    .meta-row{
+      margin-top:14px; display:flex; flex-wrap:wrap; gap:10px;
+      color:var(--muted); font-size:13px;
     }
     .pill{
-      font-size: 13px;
-      color: var(--muted);
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.04);
-      padding: 7px 10px;
-      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.14);
+      background:rgba(255,255,255,.04);
+      padding:6px 10px; border-radius:999px;
     }
-    .cta{
-      display:flex; flex-wrap:wrap; gap: 10px;
-      margin-top: 16px;
-    }
-    .btn{
-      display:inline-flex; align-items:center; justify-content:center;
-      gap: 10px;
-      padding: 10px 14px;
-      border-radius: 12px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.06);
-      color: var(--text);
-      font-weight: 600;
-      font-size: 14px;
-      transition: transform .12s ease, background .12s ease;
-    }
-    .btn:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10); }
-    .btn.primary{
-      border: none;
-      background: linear-gradient(135deg, var(--accent), var(--accent2));
-      color: #0b1220;
-    }
-    .btn.primary:hover{ filter: brightness(1.02); }
 
-    .mini{
-      display:flex; flex-direction:column; gap: 12px;
-    }
-    .mini h3{
-      margin:0;
-      font-size: 16px;
-      color: var(--muted);
-      font-weight: 700;
-      letter-spacing: .2px;
-    }
-    .stat{
-      display:flex; justify-content:space-between; align-items:flex-end;
-      padding: 12px 14px;
-      border-radius: 14px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.03);
-    }
-    .stat .k{ color: var(--muted); font-size: 13px; }
-    .stat .v{ font-family: var(--mono); font-weight: 700; font-size: 14px; }
-
-    /* Sections */
-    section{ margin-top: 18px; }
     .section-title{
-      display:flex; align-items:baseline; justify-content:space-between; gap: 12px;
-      margin: 18px 0 10px;
+      display:flex; align-items:baseline; justify-content:space-between; gap:10px;
+      margin:18px 0 10px;
     }
-    .section-title h2{
-      margin:0;
-      font-size: 18px;
-      letter-spacing: .2px;
-    }
-    .section-title p{
-      margin:0;
-      color: var(--muted);
-      font-size: 13px;
-    }
+    .section-title h2{margin:0; font-size:18px}
+    .section-title p{margin:0; color:var(--muted); font-size:13px}
 
-    /* Project grid */
     .grid{
       display:grid;
       grid-template-columns: repeat(12, 1fr);
-      gap: 14px;
+      gap:14px;
     }
-    .proj{ grid-column: span 6; }
-    @media (max-width: 900px){ .proj{ grid-column: span 12; } }
+    .lab{grid-column: span 6;}
+    @media (max-width: 900px){ .lab{grid-column: span 12;} }
 
-    .proj .top{
-      display:flex; justify-content:space-between; gap: 10px;
-      align-items:flex-start;
+    .lab a{
+      display:block;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      border-radius: var(--r);
+      padding:16px;
+      transition: transform .12s ease, background .12s ease;
+      height:100%;
     }
-    .proj h3{ margin: 0; font-size: 16px; }
+    .lab a:hover{
+      transform: translateY(-2px);
+      background: rgba(255,255,255,.06);
+    }
+    .lab .top{
+      display:flex; justify-content:space-between; align-items:flex-start; gap:10px;
+    }
+    .lab h3{margin:0; font-size:16px}
     .badge{
-      font-size: 12px;
-      color: #0b1220;
+      font-size:12px; font-weight:800; color:#0b1220;
       background: rgba(124,240,214,.9);
-      padding: 4px 10px;
-      border-radius: 999px;
-      font-weight: 700;
-      white-space: nowrap;
+      padding:4px 10px; border-radius:999px; white-space:nowrap;
     }
-    .proj p{
-      margin: 10px 0 0;
-      color: var(--muted);
-      font-size: 14px;
-    }
-    .meta{
-      display:flex; flex-wrap:wrap; gap: 8px;
-      margin-top: 12px;
-    }
+    .lab p{margin:10px 0 0; color:var(--muted); font-size:14px}
+    .tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:12px}
     .tag{
-      font-size: 12px;
-      color: var(--muted);
-      border: 1px solid rgba(255,255,255,.12);
-      padding: 4px 8px;
-      border-radius: 999px;
+      font-size:12px; color:var(--muted);
+      border:1px solid rgba(255,255,255,.12);
+      padding:4px 8px; border-radius:999px;
       background: rgba(0,0,0,.12);
     }
-    .proj .actions{
-      margin-top: 14px;
-      display:flex; gap: 10px; flex-wrap:wrap;
-    }
-    .proj .actions a{
-      font-size: 13px;
-      color: var(--text);
-      padding: 7px 10px;
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.05);
-    }
-    .proj .actions a:hover{ background: rgba(255,255,255,.10); }
-
-    /* Experience */
-    .timeline{
-      display:flex; flex-direction:column; gap: 12px;
-    }
-    .item{
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.03);
-      border-radius: var(--radius);
-      padding: 16px;
-    }
-    .item .row{
-      display:flex; justify-content:space-between; gap: 12px;
-      flex-wrap:wrap;
-    }
-    .item h3{ margin:0; font-size: 15px; }
-    .item .when{ color: var(--muted); font-size: 13px; font-family: var(--mono); }
-    .item ul{
-      margin: 10px 0 0;
-      padding-left: 18px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
-    /* Footer */
     footer{
-      margin-top: 22px;
-      color: var(--muted);
-      font-size: 13px;
-      display:flex; justify-content:space-between; gap: 12px; flex-wrap:wrap;
-      opacity: .95;
+      margin-top:20px; color:var(--muted); font-size:13px;
+      display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap;
     }
-    .mono{ font-family: var(--mono); }
+    .mono{font-family:var(--mono)}
   </style>
 </head>
 
 <body>
   <div class="nav">
     <div class="nav-inner">
-      <div class="brand">
-        <span class="dot" aria-hidden="true"></span>
-        <span>Jamison Taylor Jr.</span>
-      </div>
-
+      <div class="brand"><span class="dot"></span><span>MAE XXXX — Lab Portfolio</span></div>
       <div class="links">
-        <a href="#projects">Projects</a>
-        <a href="#experience">Experience</a>
+        <a href="#labs">Labs</a>
         <a href="#about">About</a>
-        <a href="#contact">Contact</a>
         <a href="https://github.com/YOUR_USERNAME" target="_blank" rel="noreferrer">GitHub ↗</a>
       </div>
     </div>
   </div>
 
   <main class="wrap">
-    <!-- HERO -->
-    <div class="hero">
-      <div class="card">
-        <h1 class="headline">Mechanical design + robotics, built for the real world.</h1>
-        <p class="sub">
-          I’m a Mechanical Engineering student focused on product design, mechatronics, and rapid prototyping.
-          I like building things that move, sense, and survive the messy parts of reality.
-        </p>
-
-        <div class="cta">
-          <a class="btn primary" href="#projects">See projects</a>
-          <a class="btn" href="assets/Jamison_Taylor_Resume.pdf">Download resume</a>
-          <a class="btn" href="mailto:YOUR_EMAIL@domain.com">Email me</a>
-        </div>
-
-        <div class="pill-row">
-          <span class="pill">Fusion 360 • FEA</span>
-          <span class="pill">Arduino • Embedded</span>
-          <span class="pill">Robotics • Mechatronics</span>
-          <span class="pill">Prototyping • Testing</span>
-        </div>
-      </div>
-
-      <aside class="card mini">
-        <h3>Quick facts</h3>
-        <div class="stat">
-          <div class="k">Currently</div>
-          <div class="v">Cornell ME (M.Eng.)</div>
-        </div>
-        <div class="stat">
-          <div class="k">Focus</div>
-          <div class="v">Design • Robotics</div>
-        </div>
-        <div class="stat">
-          <div class="k">Looking for</div>
-          <div class="v">Product Design Roles</div>
-        </div>
-        <div class="stat">
-          <div class="k">Location</div>
-          <div class="v">Ithaca, NY</div>
-        </div>
-      </aside>
-    </div>
-
-    <!-- PROJECTS -->
-    <section id="projects" class="card">
-      <div class="section-title">
-        <h2>Projects</h2>
-        <p>Selected builds (swap these with your real links)</p>
-      </div>
-
-      <div class="grid">
-        <article class="item proj">
-          <div class="top">
-            <h3>Mechanical Test Bed (VAM Resin Testing)</h3>
-            <span class="badge">Featured</span>
-          </div>
-          <p>
-            Multi-mode test bed for torsion, bending, and compression of VAM-printed structures with modular fixtures and sensing.
-          </p>
-          <div class="meta">
-            <span class="tag">Design iteration</span>
-            <span class="tag">Optical sensing</span>
-            <span class="tag">Motor control</span>
-            <span class="tag">Rapid prototyping</span>
-          </div>
-          <div class="actions">
-            <a href="#">Case study</a>
-            <a href="#">GitHub repo</a>
-            <a href="#">Video demo</a>
-          </div>
-        </article>
-
-        <article class="item proj">
-          <div class="top">
-            <h3>Virtual Fencing Enclosure + FEA</h3>
-            <span class="badge" style="background: rgba(106,166,255,.9);">Design</span>
-          </div>
-          <p>
-            Enclosure design with simulation-driven material decisions and real-world testing to handle bite/chew loads.
-          </p>
-          <div class="meta">
-            <span class="tag">ANSYS / Fusion FEA</span>
-            <span class="tag">Nylon 6/66</span>
-            <span class="tag">DFM</span>
-          </div>
-          <div class="actions">
-            <a href="#">Write-up</a>
-            <a href="#">CAD renders</a>
-          </div>
-        </article>
-
-        <article class="item proj">
-          <div class="top">
-            <h3>AeroDry (Closet Clothes Dryer)</h3>
-            <span class="badge" style="background: rgba(124,240,214,.9);">Prototype</span>
-          </div>
-          <p>
-            Modular airflow dryer designed for small closets; optimized outlet area to reduce backflow and improve drying performance.
-          </p>
-          <div class="meta">
-            <span class="tag">Product design</span>
-            <span class="tag">User constraints</span>
-            <span class="tag">Concept to prototype</span>
-          </div>
-          <div class="actions">
-            <a href="#">Concept deck</a>
-            <a href="#">Prototype notes</a>
-          </div>
-        </article>
-
-        <article class="item proj">
-          <div class="top">
-            <h3>Shade Splash (Physical 1D Game)</h3>
-            <span class="badge" style="background: rgba(255,255,255,.85);">Mechatronics</span>
-          </div>
-          <p>
-            Custom controller build with IMU + LEDs and a physical interaction design focused on intuitive motion-based gameplay.
-          </p>
-          <div class="meta">
-            <span class="tag">MPU6050</span>
-            <span class="tag">Arduino</span>
-            <span class="tag">Enclosure design</span>
-          </div>
-          <div class="actions">
-            <a href="#">Demo video</a>
-            <a href="#">Code</a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- EXPERIENCE -->
-    <section id="experience" class="card">
-      <div class="section-title">
-        <h2>Experience</h2>
-        <p>Short, recruiter-friendly highlights</p>
-      </div>
-
-      <div class="timeline">
-        <div class="item">
-          <div class="row">
-            <h3>Organic Robotics Lab — Mechanical Design Engineer</h3>
-            <div class="when">2025–Present</div>
-          </div>
-          <ul>
-            <li>Designed experimental hardware for resin structure testing with modular fixtures and repeatable actuation.</li>
-            <li>Integrated sensing + embedded control to collect consistent test data across modes.</li>
-          </ul>
-        </div>
-
-        <div class="item">
-          <div class="row">
-            <h3>NSBE Upstate Zone — Vice Chair</h3>
-            <div class="when">2025–2026</div>
-          </div>
-          <ul>
-            <li>Coordinated zone-wide communication, planning, and conference logistics across multiple chapters.</li>
-            <li>Built sponsor-facing materials and streamlined board operations.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- ABOUT -->
-    <section id="about" class="card">
-      <div class="section-title">
-        <h2>About</h2>
-        <p>Keep this human and specific</p>
-      </div>
-      <p style="margin:0; color: var(--muted); font-size: 15px;">
-        I’m into mechanical systems that blend clean design with real constraints—space limits, rough handling, repeatability,
-        and cost. If it needs to be prototyped, tested, iterated, and shipped, I’m in.
+    <section class="card hero">
+      <h1>Labs + build notes</h1>
+      <p class="sub">
+        This page is a hub for each lab project. Click a lab to see the goal, design approach,
+        results, code, and files (plots, PDFs, photos, etc.).
       </p>
+      <div class="meta-row">
+        <span class="pill">Course: MAE XXXX</span>
+        <span class="pill">Term: Spring 2026</span>
+        <span class="pill">Student: Jamison Taylor Jr.</span>
+      </div>
     </section>
 
-    <!-- CONTACT -->
-    <section id="contact" class="card">
+    <section id="labs" class="card" style="margin-top:18px;">
       <div class="section-title">
-        <h2>Contact</h2>
-        <p>Best way to reach me</p>
+        <h2>Lab projects</h2>
+        <p>Click any lab to open its page</p>
       </div>
 
       <div class="grid">
-        <div class="item" style="grid-column: span 7;">
-          <p style="margin:0; color: var(--muted);">
-            Email: <a class="mono" href="mailto:YOUR_EMAIL@domain.com">YOUR_EMAIL@domain.com</a><br/>
-            LinkedIn: <a class="mono" href="https://www.linkedin.com/in/YOUR_HANDLE" target="_blank" rel="noreferrer">linkedin.com/in/YOUR_HANDLE</a><br/>
-            GitHub: <a class="mono" href="https://github.com/YOUR_USERNAME" target="_blank" rel="noreferrer">github.com/YOUR_USERNAME</a>
-          </p>
+        <!-- LAB 1 -->
+        <div class="lab">
+          <a href="labs/lab1.html">
+            <div class="top">
+              <h3>Lab 1 — Sensor Calibration</h3>
+              <span class="badge">Report</span>
+            </div>
+            <p>Calibrate a sensor, characterize error, and generate a correction model.</p>
+            <div class="tags">
+              <span class="tag">Data</span>
+              <span class="tag">Regression</span>
+              <span class="tag">Uncertainty</span>
+            </div>
+          </a>
         </div>
 
-        <div class="item" style="grid-column: span 5;">
-          <p style="margin:0; color: var(--muted); font-size: 14px;">
-            Want the site to auto-update from your repos?<br/>
-            Switch to Jekyll later (I can set that up too).
-          </p>
-          <div class="cta" style="margin-top: 12px;">
-            <a class="btn primary" href="mailto:YOUR_EMAIL@domain.com">Let’s talk</a>
-            <a class="btn" href="#projects">Back to projects</a>
-          </div>
+        <!-- LAB 2 -->
+        <div class="lab">
+          <a href="labs/lab2.html">
+            <div class="top">
+              <h3>Lab 2 — Control + Actuation</h3>
+              <span class="badge" style="background:rgba(106,166,255,.9);">Build</span>
+            </div>
+            <p>Implement a closed-loop controller and evaluate step response + stability.</p>
+            <div class="tags">
+              <span class="tag">PID</span>
+              <span class="tag">Arduino</span>
+              <span class="tag">System ID</span>
+            </div>
+          </a>
         </div>
+
+        <!-- LAB 3 -->
+        <div class="lab">
+          <a href="labs/lab3.html">
+            <div class="top">
+              <h3>Lab 3 — Design + Validation</h3>
+              <span class="badge" style="background:rgba(255,255,255,.85);">Test</span>
+            </div>
+            <p>Design a mechanism, test performance, compare to predictions.</p>
+            <div class="tags">
+              <span class="tag">CAD</span>
+              <span class="tag">FEA</span>
+              <span class="tag">Experiment</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- ADD MORE LABS: copy one of the blocks above -->
       </div>
+    </section>
+
+    <section id="about" class="card" style="margin-top:18px;">
+      <div class="section-title">
+        <h2>About this site</h2>
+        <p>Quick context for instructors / recruiters</p>
+      </div>
+      <p style="margin:0; color:var(--muted);">
+        Each lab page includes: objective, method, key results, what I’d improve next time,
+        plus links to code/data and the final report.
+      </p>
     </section>
 
     <footer>
       <span>© <span id="year"></span> Jamison Taylor Jr.</span>
-      <span class="mono">Built for GitHub Pages</span>
+      <span class="mono">GitHub Pages • /index.html</span>
     </footer>
   </main>
 

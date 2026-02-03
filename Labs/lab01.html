@@ -154,7 +154,7 @@
               </div>
               <!-- Prelab 1B: Board Bring-Up Checklist -->
               <div class="mt-4">
-                <h4 class="fw-bolder mb-2">Prelab 1B: Board Bring-Up Checklist</h4>
+                <h4 class="fw-bolder mb-2">Prelab 1B: Preparing my Computer</h4>
                 
                 <p class="text-muted mb-3">
                    Lab 1B focuses on establishing Bluetooth communication between your computer and the Artemis board. 
@@ -164,7 +164,7 @@
 
                 <div class="card border-0 shadow-sm rounded-4 mb-3">
                   <div class="card-body p-4">
-                    <h5 class="fw-bolder mb-2">1) Connect + Select Board/Port</h5>
+                    <h5 class="fw-bolder mb-2">1) Jupiter Notebook</h5>
                     <p class="text-muted mb-3">
                       Down below is my command prompt showing my FastRobots folder being activated and then opening
                       Jupyter Notebook, to then complete the Lab tasks in the latter sections.
@@ -195,13 +195,30 @@
                       <!-- EDIT ME -->
                       [Explain what you sent, what the Artemis returned, and how you verified it.]
                     </p>
-
+                    <div class="bg-light rounded-4 p-4 mb-4">
+                  
                     <div class="row g-3">
                       <div class="col-md-6">
                         <div class="border rounded-4 p-3 h-100">
-                          <div class="small text-muted">Evidence: Jupyter / Python output</div>
-                          <div class="fw-semibold">[Screenshot of “Robot says -> HiHello :)”]</div>
-                        </div>
+                          <div class="small text-muted">Jupyter / Python output</div>
+                        <div class="small text-muted mb-2">Task 1: ECHO Command</div>
+                    <pre class="mb-0"><code>
+                  case ECHO:
+
+                    char char_arr[MAX_MSG_SIZE];
+
+                    // Extract the next value from the command string as a character array
+                    success = robot_cmd.get_next_value(char_arr);
+                    if (!success)
+                        return;
+                        Serial.print("Board: ");
+                        Serial.print(char_arr);
+                        Serial.println(".");
+
+                    break;
+                  </code></pre>
+                  </div>                        
+
                       </div>
                       <div class="col-md-6">
                         <div class="border rounded-4 p-3 h-100">
@@ -216,17 +233,39 @@
                 <div class="card border-0 shadow-sm rounded-4 mb-4">
                   <div class="card-body p-4">
                     <div class="d-flex justify-content-between align-items-start">
-                      <h3 class="h5 fw-bolder mb-1">Task 2 — SEND_THREE_FLOATS (send 3 floats, parse on Artemis)</h3>
+                      <h3 class="h5 fw-bolder mb-1">Task 2: SEND_THREE_FLOATS</h3>
                       <span class="badge bg-light text-dark border">BLE</span>
                     </div>
+                    <pre class="mb-0">
+                      case SEND_THREE_FLOATS:
+                        float flo_a, flo_b, flo_c;
+
+                        success = robot_cmd.get_next_value(flo_a);
+                        if (!success)
+                            return;
+
+                        // Extract the next value from the command string as an integer
+                        success = robot_cmd.get_next_value(flo_b);
+                        if (!success)
+                            return;
+
+                        success = robot_cmd.get_next_value(flo_c);
+                        if (!success)
+                            return;
+
+                        Serial.print("Don't play with me! I'm not the '");
+                        Serial.print(flo_a);
+                        Serial.print("', or the '");
+                        Serial.print(flo_b);
+                        Serial.print("', or the '");
+                        Serial.print(flo_c);
+                        Serial.println(". Today is not that day!");
+                    
+                    break;
+                      <code>
+
                     <p class="text-muted mb-3">[Explain how you formatted the message and extracted floats in Arduino.]</p>
 
-                    <div class="bg-light rounded-4 p-3">
-                      <div class="small text-muted mb-1">Evidence</div>
-                      <div class="fw-semibold">[Screenshot of parsed float values printed correctly]</div>
-                    </div>
-                  </div>
-                </div>
 
                 <div class="card border-0 shadow-sm rounded-4 mb-4">
                   <div class="card-body p-4">

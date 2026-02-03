@@ -45,35 +45,12 @@
       <section class="py-5">
         <div class="container px-5">
           <div class="text-center mb-4">
-            <h1 class="fw-bolder">Lab 1: <span class="text-gradient">Setup + Artemis + BLE Debugging</span></h1>
-            <p class="lead fw-light text-muted mb-0">MAE 5190 (Fast Robots) · Lab 401</p>
+            <h1 class="fw-bolder">Lab 1: <span class="text-gradient">The Artemis board and Bluetooth</span></h1>
           </div>
-
-
-          <!-- MAIN CONTENT -->
-          <div class="card shadow border-0 rounded-4 mb-5">
-            <div class="card-body p-5">
-
-              <!-- Objective -->
-              <section id="objective" class="mb-5">
-                <h2 class="fw-bolder mb-3">Objective</h2>
-                <p class="text-muted">
-                  <!-- EDIT ME -->
-                  The purpose of Lab 1 is to set up the Arduino IDE and Artemis board, verify core I/O (LED + Serial),
-                  and build a wireless debugging pipeline using BLE so I can send timestamped messages and sensor data reliably.
-                </p>
-
-                <div class="bg-light rounded-4 p-4">
-                  <div class="small text-muted mb-1">Evidence (optional)</div>
-                  <div class="fw-semibold">[Add one screenshot/photo showing your board connected + running a basic example]</div>
-                </div>
-              </section>
-
-              <hr class="my-5" />
-
               <!-- Prelab: Board Bring-Up Checklist -->
               <div class="mt-4">
-                <h4 class="fw-bolder mb-2">Artemis Bring-Up Checklist (Prelab)</h4>
+                <h4 class="fw-bolder mb-2">Hook Up Artemis Board</h4>
+                
                 <p class="text-muted mb-3">
                   Before starting the BLE portion, I verified that my Artemis could reliably upload code, print to Serial,
                   and read onboard sensors using the built-in example sketches.
@@ -88,31 +65,17 @@
                     </ul>
 
                     <div class="bg-light rounded-4 p-3">
-                      <div class="small text-muted mb-1">Evidence</div>
-                      <div class="fw-semibold">[Screenshot of Arduino IDE showing board + port selected]</div>
+                      <img class="img-fluid rounded-4 mt-3" src="../assets/prelab1/prelab1.png" alt="Description">
                     </div>
                   </div>
                 </div>
 
-                <div class="card border-0 shadow-sm rounded-4 mb-3">
-                  <div class="card-body p-4">
-                    <h5 class="fw-bolder mb-2">2) Common Connection Issues I Watched For</h5>
-                    <ul class="text-muted mb-0">
-                      <li><span class="fw-semibold">Loose USB connection:</span> ensured the connector was fully seated in the board.</li>
-                      <li><span class="fw-semibold">Windows slow first compile:</span> if needed, added my Arduino install/project folder to antivirus exclusions.</li>
-                      <li><span class="fw-semibold">Bootloader/driver:</span> if the bootloader couldn’t connect, CH340 driver may need updating (teaching team first).</li>
-                    </ul>
-                  </div>
-                </div>
+                
 
                 <div class="card border-0 shadow-sm rounded-4 mb-3">
                   <div class="card-body p-4">
-                    <h5 class="fw-bolder mb-2">3) Verified Basic Examples</h5>
-                    <p class="text-muted mb-3">
-                      I ran the following Arduino example sketches to confirm uploads, Serial I/O, and sensor functionality.
-                      I also double-checked baud rates if output looked wrong.
-                    </p>
-
+                    <h5 class="fw-bolder mb-2">2) Basic Examples</h5>
+          
                     <div class="row g-3">
                       <div class="col-md-6">
                         <div class="border rounded-4 p-3 h-100">
@@ -121,7 +84,9 @@
                           <div class="text-muted small mt-2">Notes: adjusted baud rate / timing if needed.</div>
                           <div class="bg-light rounded-4 p-3 mt-3">
                             <div class="small text-muted">Evidence</div>
-                            <div class="fw-semibold">[Short video or photo showing LED blinking]</div>
+                            <video class="w-100 rounded-4 shadow-sm mb-4" controls>
+                              <source src="../assets/prelab1/prelab2.MOV" type="video/quicktime" />
+                            </video>
                           </div>
                         </div>
                       </div>
@@ -132,8 +97,7 @@
                           <div class="text-muted small">File → Examples → Apollo3 → Example4_Serial</div>
                           <div class="text-muted small mt-2">Notes: opened Serial Monitor + matched baud rate.</div>
                           <div class="bg-light rounded-4 p-3 mt-3">
-                            <div class="small text-muted">Evidence</div>
-                            <div class="fw-semibold">[Screenshot of Serial Monitor input/output]</div>
+                            <img class="img-fluid rounded-4" src="../assets/prelab1/prelab3.png" alt="Screenshot of Serial Monitor input/output">
                           </div>
                         </div>
                       </div>
@@ -146,8 +110,7 @@
                             Test: blowing on/touching the chip changed readings (with a short delay for heat transfer).
                           </div>
                           <div class="bg-light rounded-4 p-3 mt-3">
-                            <div class="small text-muted">Evidence</div>
-                            <div class="fw-semibold">[Screenshot/plot of temperature changing over time]</div>
+                            <img class="img-fluid rounded-4" src="../assets/prelab1/prelab4.png" alt="Screenshot of temperature changing over time">
                           </div>
                         </div>
                       </div>
@@ -159,7 +122,7 @@
                           <div class="text-muted small mt-2">Test: speaking/whistling changed measured frequency content.</div>
                           <div class="bg-light rounded-4 p-3 mt-3">
                             <div class="small text-muted">Evidence</div>
-                            <div class="fw-semibold">[Screenshot of output / short video of you speaking + changing readings]</div>
+                            <img class="img-fluid rounded-4" src="../assets/prelab1/prelab5.png" alt="Screenshot of output / short video of you speaking + changing readings">
                           </div>
                         </div>
                       </div>

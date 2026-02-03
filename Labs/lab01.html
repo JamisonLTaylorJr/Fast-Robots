@@ -212,7 +212,9 @@
                 </div>
 
                 <p class="text-muted mb-3">
-                  [Explain what you sent, what the Artemis returned, and how you verified it.]
+                  For this task I updated the ECHO command to the Arduino code that takes in a string value from the python code over BLE.
+                  In the python code I called ECHO using send_command and sent it a string value ("Wazzaaap!!").
+                  The Arduino board then printed out a message using this string value to the Serial Monitor saying "Robot: Wazzaaap!!.".
                 </p>
 
                 <div class="row g-3">
@@ -223,12 +225,12 @@
   char char_arr[MAX_MSG_SIZE];
 
   success = robot_cmd.get_next_value(char_arr);
-  if (!success) return;
+   if (!success) return;
 
-  Serial.print("Board: ");
+  Serial.print("Robot: ");
   Serial.print(char_arr);
   Serial.println(".");
-  break;</code></pre>
+break;</code></pre>
                     </div>
                   </div>
 
@@ -251,7 +253,9 @@
                 </div>
 
                 <p class="text-muted mb-3">
-                  [Explain what you sent, how you parsed it on the Artemis, and what was printed back.]
+                  For this task I added a updated a command (SEND_THREE_FLOATS) to the Arduino code that takes in three float values
+                  from the python code over BLE. In the python code I called SEND_THREE_FLOATS using send_command and sent it three float values (1.0,2.0,3.0).
+                  The Arduino board then printed out a message using these three float values to the Serial Monitor.
                 </p>
 
                 <div class="row g-3">
@@ -262,13 +266,13 @@
   float flo_a, flo_b, flo_c;
 
   success = robot_cmd.get_next_value(flo_a);
-  if (!success) return;
+    if (!success) return;
 
   success = robot_cmd.get_next_value(flo_b);
-  if (!success) return;
+    if (!success) return;
 
   success = robot_cmd.get_next_value(flo_c);
-  if (!success) return;
+    if (!success) return;
 
   Serial.print("Don't play with me! I'm not the '");
   Serial.print(flo_a);
@@ -277,7 +281,8 @@
   Serial.print("', or the '");
   Serial.print(flo_c);
   Serial.println(". Today is not that day!");
-  break;</code></pre>
+break;
+</code></pre>
                     </div>
                   </div>
 
@@ -302,68 +307,54 @@
                 <div class="d-flex justify-content-between align-items-start">
                   <h3 class="h5 fw-bolder mb-1">Task 3: GET_TIME_MILLIS </h3>
                 </div>
-                <p class="text-muted mb-3">[Explain command + output format + sample replies.]</p>
+                <p class="text-muted mb-3">
+                  For this task I added a new command (GET_TIME_MILLIS) to the 
+                  Arduino code that sends the current time in milliseconds over BLE. 
+                  In the python code I called GET_TIME_MILLIS and pulled it from the robot
+                  to print it out and get the time in milliseconds.
+
+                </p>
                 
                 <div class="row g-3">
                   <div class="col-md-6">
                     <div class="border rounded-4 p-3 h-100">
                       <div class="small text-muted mb-2">Relevant Code Snippet</div>
-                      <pre class="mb-0"><code>
-                
-                  case GET_TIME_MILLIS:
-            tx_estring_value.clear();
-            tx_estring_value.append("T:");
-            tx_estring_value.append(int(millis()));
-            tx_characteristic_string.writeValue(tx_estring_value.c_str());
+                      <pre class="mb-0"><code>case GET_TIME_MILLIS:
+  tx_estring_value.clear();
+  tx_estring_value.append("T:");
+  tx_estring_value.append(int(millis()));
+  tx_characteristic_string.writeValue(tx_estring_value.c_str());
 
-            //Serial.print("T:");
-            Serial.println(tx_estring_value.c_str());
+  Serial.println(tx_estring_value.c_str());
 
-            break;
-
-        case CURRENT_TIME:{
-          unsigned long starttime = millis();
-          unsigned long countloop = 0;
-          const unsigned long stoptime = 5000;
-              while (millis() - starttime < stoptime){
-                tx_estring_value.clear();
-                tx_estring_value.append("T:");
-                tx_estring_value.append(int(millis()));
-                tx_characteristic_string.writeValue(tx_estring_value.c_str());
-
-                Serial.print("Board: ");
-                Serial.println(tx_estring_value.c_str());
-                countloop++;
-              }
-          Serial.print("Function CURRENT_TIME ran ");
-          Serial.print(countloop);
-          Serial.print(" times for ");
-          Serial.print(stoptime / 1000);
-          Serial.println(" seconds with 10 bytes each.");
-          Serial.print("Transfer Rate (bytes/sec) = ");
-          Serial.println((countloop * 10.0) / (stoptime / 1000.0));
-        break;
-}            </code></pre>    
+break;
+                </code></pre>    
               </div>
             </div>
-          <div class="bg-light rounded-4 p-3">
-                  <img class="img-fluid rounded-4" src="../assets/prelab1/q3.png" alt="Arduino board and port selection" />
-                </div>
-                
             <div class="border rounded-4 p-3">
                   <div class="small text-muted">Board return and Jupyter command</div>
+          <div class="bg-light rounded-4 p-3">
+                  <img class="img-fluid rounded-4" src="../assets/prelab1/q3.png" alt="Arduino board and port selection" />
+                
+                </div>
+                
+            
             
                   <!-- Task 4 -->
             <div class="card border-0 shadow-sm rounded-4 mb-4">
               <div class="card-body p-4">
                 <div class="d-flex justify-content-between align-items-start">
                   <h3 class="h5 fw-bolder mb-1">Task 4: Python notification handler</h3>
-                  <span class="badge bg-light text-dark border">Python</span>
                 </div>
-                <p class="text-muted mb-3">[Describe callback function + parsing logic.]</p>
+                <p class="text-muted mb-3">
+                  Here I set up a notification handler in Python to receive and process the time data sent from the Arduino board.
+                  The callback function notif_handler is defined to handle incoming notifications. When the Arduino sends the current time in milliseconds,
+                  this function is triggered. It decodes the incoming byte data to a string, and extracts the time.
+
+                </p>
 
                  <div class="bg-light rounded-4 p-3">
-                  <div class="small text-muted">Evidence</div>
+                  <div class="small text-muted">Python Code</div>
                 <div class="bg-light rounded-4 p-3">
                   <img class="img-fluid rounded-4" src="../assets/prelab1/q4.png" alt="Arduino board and port selection" />
                 </div>                
@@ -375,39 +366,49 @@
             <div class="card border-0 shadow-sm rounded-4 mb-4">
               <div class="card-body p-4">
                 <div class="d-flex justify-content-between align-items-start">
-                  <h3 class="h5 fw-bolder mb-1">Task 5: Stream timestamps for a few seconds (data rate)</h3>
-                  <span class="badge bg-light text-dark border">Plot</span>
+                  <h3 class="h5 fw-bolder mb-1">Task 5: Transfer Rate</h3>
                 </div>
-                <p class="text-muted mb-3">[Explain how you collected timestamps and computed effective rate (msgs/sec or bytes/sec).]</p>
+                <p class="text-muted mb-3">
+                  Here I needed to add a new command (CURRENT_TIME) to the Arduino code that continuously sends the current time in milliseconds
+                  for 5 seconds without using recieve_string. In the new command I added a while loop, and used the millis() funciton to capture 
+                  its start time, and make the while loop run for an extra 5000 milliseconds and added a countloop vairable to count
+                  how many times the while loop ran. 
+
+                  Now outside of the while loop, I printed the number of loops ran, the total seconds it ran for
+                  the amount of data send to each loop, and calculated the transfer rate in bytes/second by multiplying the number of loops
+                  by 10 bytes (the size of the string being sent) and dividing it by the total time in seconds (stoptime/1000). Trasfer Rate: 296 bytes/second.
+
+                  To display this on my comupter I called the def notif_handler function, which then called the CURRENT_TIME 
+                  command to print the changing time on my computer(Jupyter Notebook). 
+                </p>
                 
                 <div class="row g-3">
                   <div class="col-md-6">
                     <div class="border rounded-4 p-3 h-100">
                       <div class="small text-muted mb-2">Arduino Code</div>
-                      <pre class="mb-0"><code>
-                
-                case CURRENT_TIME:{
-          unsigned long starttime = millis();
-          unsigned long countloop = 0;
-          const unsigned long stoptime = 5000;
-              while (millis() - starttime < stoptime){
-                tx_estring_value.clear();
-                tx_estring_value.append("T:");
-                tx_estring_value.append(int(millis()));
-                tx_characteristic_string.writeValue(tx_estring_value.c_str());
+                      <pre class="mb-0"><code>case CURRENT_TIME:{
+  unsigned long starttime = millis();
+  unsigned long countloop = 0;
+  const unsigned long stoptime = 5000;
+  
+  while (millis() - starttime < stoptime){
+    tx_estring_value.clear();
+    tx_estring_value.append("T:");
+    tx_estring_value.append(int(millis()));
+    tx_characteristic_string.writeValue(tx_estring_value.c_str());
 
-                Serial.print("Board: ");
-                Serial.println(tx_estring_value.c_str());
-                countloop++;
-              }
-          Serial.print("Function CURRENT_TIME ran ");
-          Serial.print(countloop);
-          Serial.print(" times for ");
-          Serial.print(stoptime / 1000);
-          Serial.println(" seconds with 10 bytes each.");
-          Serial.print("Transfer Rate (bytes/sec) = ");
-          Serial.println((countloop * 10.0) / (stoptime / 1000.0));
-        break;
+    Serial.print("Board: ");
+    Serial.println(tx_estring_value.c_str());
+    countloop++;
+    }
+  Serial.print("Function CURRENT_TIME ran ");
+  Serial.print(countloop);
+  Serial.print(" times for ");
+  Serial.print(stoptime / 1000);
+  Serial.println(" seconds with 10 bytes each.");
+  Serial.print("Transfer Rate (bytes/sec) = ");
+  Serial.println((countloop * 10.0) / (stoptime / 1000.0));
+break;
 }
                  </code></pre>    
               </div>

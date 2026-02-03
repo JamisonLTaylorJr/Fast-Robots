@@ -47,9 +47,9 @@
           <div class="text-center mb-4">
             <h1 class="fw-bolder">Lab 1: <span class="text-gradient">The Artemis board and Bluetooth</span></h1>
           </div>
-              <!-- Prelab: Board Bring-Up Checklist -->
+              <!-- Prelab A: Board Bring-Up Checklist -->
               <div class="mt-4">
-                <h4 class="fw-bolder mb-2">Hook Up Artemis Board</h4>
+                <h4 class="fw-bolder mb-2">Prelab 1A: Hook Up Artemis Board</h4>
                 
                 <p class="text-muted mb-3">
                   Before starting the BLE portion, I verified that my Artemis could reliably upload code, print to Serial,
@@ -62,6 +62,8 @@
                     <ul class="text-muted mb-3">
                       <li>Connected the Artemis to my computer via USB and confirmed a stable physical connection.</li>
                       <li>In Arduino IDE, selected <span class="fw-semibold">Board: RedBoard Artemis Nano</span> and the correct <span class="fw-semibold">Port</span>.</li>
+                      <li>At "Basic Examples" I will be doing multiple board checks to make sure my board works as it should.</span>.</li>
+
                     </ul>
 
                     <div class="bg-light rounded-4 p-3">
@@ -69,8 +71,6 @@
                     </div>
                   </div>
                 </div>
-
-                
 
                 <div class="card border-0 shadow-sm rounded-4 mb-3">
                   <div class="card-body p-4">
@@ -81,9 +81,8 @@
                         <div class="border rounded-4 p-3 h-100">
                           <div class="fw-semibold">Blink</div>
                           <div class="text-muted small">File → Examples → 01.Basics → Blink</div>
-                          <div class="text-muted small mt-2">Notes: adjusted baud rate / timing if needed.</div>
+                          <div class="text-muted small mt-2">The first check is to use the Blink example. Here I was able to make the boards LED blink of an on with intervals. </div>
                           <div class="bg-light rounded-4 p-3 mt-3">
-                            <div class="small text-muted">Evidence</div>
                             <video class="w-100 rounded-4 shadow-sm mb-4" controls>
                               <source src="../assets/prelab1/prelab2.MOV" type="video/quicktime" />
                             </video>
@@ -95,7 +94,7 @@
                         <div class="border rounded-4 p-3 h-100">
                           <div class="fw-semibold">Serial Example</div>
                           <div class="text-muted small">File → Examples → Apollo3 → Example4_Serial</div>
-                          <div class="text-muted small mt-2">Notes: opened Serial Monitor + matched baud rate.</div>
+                          <div class="text-muted small mt-2">The Serial example was able to print to the Serial Monitor without any issues and I was also able to type characters in the Serial Monator and have it printed back to me.</div>
                           <div class="bg-light rounded-4 p-3 mt-3">
                             <img class="img-fluid rounded-4" src="../assets/prelab1/prelab3.png" alt="Screenshot of Serial Monitor input/output">
                           </div>
@@ -107,7 +106,8 @@
                           <div class="fw-semibold">Temperature Sensor</div>
                           <div class="text-muted small">File → Examples → Apollo3 → Example2_analogRead</div>
                           <div class="text-muted small mt-2">
-                            Test: blowing on/touching the chip changed readings (with a short delay for heat transfer).
+                            The next test was using analog read and identifying the tempurature sensor component of the board. Even though this boards temp. sensor was not the greatest, I was able to 
+                            use a heat source (my finger) to see a general change in the temperature readings over time.
                           </div>
                           <div class="bg-light rounded-4 p-3 mt-3">
                             <img class="img-fluid rounded-4" src="../assets/prelab1/prelab4.png" alt="Screenshot of temperature changing over time">
@@ -119,9 +119,9 @@
                         <div class="border rounded-4 p-3 h-100">
                           <div class="fw-semibold">Microphone (PDM)</div>
                           <div class="text-muted small">File → Examples → PDM → Example1_MicrophoneOutput</div>
-                          <div class="text-muted small mt-2">Test: speaking/whistling changed measured frequency content.</div>
+                          <div class="text-muted small mt-2">
+                            Here I was testing the boards microphon sensor. I ran the code and spoke into the microphone and saw the measured frequency (Hz) content change.</div>
                           <div class="bg-light rounded-4 p-3 mt-3">
-                            <div class="small text-muted">Evidence</div>
                             <img class="img-fluid rounded-4" src="../assets/prelab1/prelab5.png" alt="Screenshot of output / short video of you speaking + changing readings">
                           </div>
                         </div>
@@ -134,11 +134,13 @@
               
                       <div class="col-md-6">
                         <div class="border rounded-4 p-3 h-100">
-                          <div class="fw-semibold">Musical Note Tuner</div>
-                          <div class="text-muted small">For 5000 Level Students</div>
-                          <div class="text-muted small mt-2">Test: speaking/whistling changed measured frequency content.</div>
+                          <div class="fw-semibold">For 5000 Level Students: Musical Note Tuner</div>
+                          <div class="text-muted small mt-2">
+                            Here I was able to use the microphone and its paired example to detect musical notes and display them in the Serial Monitor.
+                            I searched up the frequencies of the notes C, E, and G in the 6th octave and played each note to see if the board could detect them correctly.
+                            It was able to detect each note with no major issues.
+                          </div>
                           <div class="bg-light rounded-4 p-3 mt-3">
-                            <div class="small text-muted">Evidence</div>
                             <video controls class="img-fluid rounded-4">
                               <source src="../assets/prelab1/prelab6.mp4" type="video/mp4">
                             </video>
@@ -150,6 +152,29 @@
                   </div>
                 </div>
               </div>
+              <!-- Prelab 1B: Board Bring-Up Checklist -->
+              <div class="mt-4">
+                <h4 class="fw-bolder mb-2">Prelab 1B: Board Bring-Up Checklist</h4>
+                
+                <p class="text-muted mb-3">
+                   Lab 1B focuses on establishing Bluetooth communication between your computer and the Artemis board. 
+                   Using Python commands sent from a Jupyter notebook, the computer will communicate with an Artemis board programmed and displayed in Arduino. 
+                   This lab also sets up a reusable framework for transmitting data from the Artemis back to the computer over Bluetooth, which will used in later labs.
+                </p>
+
+                <div class="card border-0 shadow-sm rounded-4 mb-3">
+                  <div class="card-body p-4">
+                    <h5 class="fw-bolder mb-2">1) Connect + Select Board/Port</h5>
+                    <p class="text-muted mb-3">
+                      Down below is my command prompt showing my FastRobots folder being activated and then opening
+                      Jupyter Notebook, to then complete the Lab tasks in the latter sections.
+                    </p>
+                    <div class="bg-light rounded-4 p-3">
+                      <img class="img-fluid rounded-4 mt-3" src="../assets/prelab1/prelab7.png" alt="Description">
+                    </div>
+                  </div>
+                </div>
+
 
 
               <!-- Lab Tasks -->

@@ -300,31 +300,76 @@
             <div class="card border-0 shadow-sm rounded-4 mb-4">
               <div class="card-body p-4">
                 <div class="d-flex justify-content-between align-items-start">
-                  <h3 class="h5 fw-bolder mb-1">Task 3: GET_TIME_MILLIS (reply like “T:123456”)</h3>
-                  <span class="badge bg-light text-dark border">Timing</span>
+                  <h3 class="h5 fw-bolder mb-1">Task 3: GET_TIME_MILLIS </h3>
                 </div>
                 <p class="text-muted mb-3">[Explain command + output format + sample replies.]</p>
-                <div class="border rounded-4 p-3">
-                  <div class="small text-muted">Evidence</div>
-                  <div class="fw-semibold">[Screenshot of messages showing T:xxxxx]</div>
-                </div>
+                
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <div class="border rounded-4 p-3 h-100">
+                      <div class="small text-muted mb-2">Relevant Code Snippet</div>
+                      <pre class="mb-0"><code>
+                
+                  case GET_TIME_MILLIS:
+            tx_estring_value.clear();
+            tx_estring_value.append("T:");
+            tx_estring_value.append(int(millis()));
+            tx_characteristic_string.writeValue(tx_estring_value.c_str());
+
+            //Serial.print("T:");
+            Serial.println(tx_estring_value.c_str());
+
+            break;
+
+        case CURRENT_TIME:{
+          unsigned long starttime = millis();
+          unsigned long countloop = 0;
+          const unsigned long stoptime = 5000;
+              while (millis() - starttime < stoptime){
+                tx_estring_value.clear();
+                tx_estring_value.append("T:");
+                tx_estring_value.append(int(millis()));
+                tx_characteristic_string.writeValue(tx_estring_value.c_str());
+
+                Serial.print("Board: ");
+                Serial.println(tx_estring_value.c_str());
+                countloop++;
+              }
+          Serial.print("Function CURRENT_TIME ran ");
+          Serial.print(countloop);
+          Serial.print(" times for ");
+          Serial.print(stoptime / 1000);
+          Serial.println(" seconds with 10 bytes each.");
+          Serial.print("Transfer Rate (bytes/sec) = ");
+          Serial.println((countloop * 10.0) / (stoptime / 1000.0));
+        break;
+}            </code></pre>    
               </div>
             </div>
-
-            <!-- Task 4 -->
+          <div class="bg-light rounded-4 p-3">
+                  <img class="img-fluid rounded-4" src="../assets/prelab1/q3.png" alt="Arduino board and port selection" />
+                </div>
+                
+            <div class="border rounded-4 p-3">
+                  <div class="small text-muted">Board return and Jupyter command</div>
+            
+                  <!-- Task 4 -->
             <div class="card border-0 shadow-sm rounded-4 mb-4">
               <div class="card-body p-4">
                 <div class="d-flex justify-content-between align-items-start">
-                  <h3 class="h5 fw-bolder mb-1">Task 4: Python notification handler (extract time from string)</h3>
+                  <h3 class="h5 fw-bolder mb-1">Task 4: Python notification handler</h3>
                   <span class="badge bg-light text-dark border">Python</span>
                 </div>
                 <p class="text-muted mb-3">[Describe callback function + parsing logic.]</p>
-                <div class="bg-light rounded-4 p-3">
+
+                 <div class="bg-light rounded-4 p-3">
                   <div class="small text-muted">Evidence</div>
-                  <div class="fw-semibold">[Snippet of handler output or screenshot]</div>
-                </div>
+                <div class="bg-light rounded-4 p-3">
+                  <img class="img-fluid rounded-4" src="../assets/prelab1/q4.png" alt="Arduino board and port selection" />
+                </div>                
               </div>
             </div>
+          </div>
 
             <!-- Task 5 -->
             <div class="card border-0 shadow-sm rounded-4 mb-4">
@@ -334,12 +379,54 @@
                   <span class="badge bg-light text-dark border">Plot</span>
                 </div>
                 <p class="text-muted mb-3">[Explain how you collected timestamps and computed effective rate (msgs/sec or bytes/sec).]</p>
+                
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <div class="border rounded-4 p-3 h-100">
+                      <div class="small text-muted mb-2">Arduino Code</div>
+                      <pre class="mb-0"><code>
+                
+                case CURRENT_TIME:{
+          unsigned long starttime = millis();
+          unsigned long countloop = 0;
+          const unsigned long stoptime = 5000;
+              while (millis() - starttime < stoptime){
+                tx_estring_value.clear();
+                tx_estring_value.append("T:");
+                tx_estring_value.append(int(millis()));
+                tx_characteristic_string.writeValue(tx_estring_value.c_str());
+
+                Serial.print("Board: ");
+                Serial.println(tx_estring_value.c_str());
+                countloop++;
+              }
+          Serial.print("Function CURRENT_TIME ran ");
+          Serial.print(countloop);
+          Serial.print(" times for ");
+          Serial.print(stoptime / 1000);
+          Serial.println(" seconds with 10 bytes each.");
+          Serial.print("Transfer Rate (bytes/sec) = ");
+          Serial.println((countloop * 10.0) / (stoptime / 1000.0));
+        break;
+}
+                 </code></pre>    
+              </div>
+            </div>
+                
                 <div class="border rounded-4 p-3">
                   <div class="small text-muted">Plot / Figure</div>
-                  <div class="fw-semibold">[Insert plot image or screenshot]</div>
+                  <div class="fw-semibold">Command in Jupyter and Return in Arduino</div>
                 </div>
               </div>
             </div>
+
+            <div class="bg-light rounded-4 p-3">
+                  <img class="img-fluid rounded-4" src="../assets/prelab1/q5.png" alt="Arduino board and port selection" />
+                </div> 
+            
+            <div class="bg-light rounded-4 p-3">
+                  <img class="img-fluid rounded-4" src="../assets/prelab1/q51.png" alt="Arduino board and port selection" />
+                </div> 
 
             <!-- Task 6 -->
             <div class="card border-0 shadow-sm rounded-4 mb-4">
@@ -349,6 +436,18 @@
                   <span class="badge bg-light text-dark border">Buffering</span>
                 </div>
                 <p class="text-muted mb-3">[Explain array size, overflow protection, and how SEND_TIME_DATA transmits stored points.]</p>
+                
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <div class="border rounded-4 p-3 h-100">
+                      <div class="small text-muted mb-2">Arduino Code</div>
+                      <pre class="mb-0"><code>
+                
+                ////////code snippet////////
+                 </code></pre>    
+              </div>
+            </div>
+                
                 <div class="bg-light rounded-4 p-3">
                   <div class="small text-muted">Evidence</div>
                   <div class="fw-semibold">[Python list shows all values received / count matches]</div>
@@ -364,6 +463,18 @@
                   <span class="badge bg-light text-dark border">Sensors</span>
                 </div>
                 <p class="text-muted mb-3">[Explain paired timestamp/temp format and parsing into two Python lists.]</p>
+                
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <div class="border rounded-4 p-3 h-100">
+                      <div class="small text-muted mb-2">Arduino Code</div>
+                      <pre class="mb-0"><code>
+                
+                ////////code snippet////////
+                 </code></pre>    
+              </div>
+            </div>
+                
                 <div class="border rounded-4 p-3">
                   <div class="small text-muted">Evidence</div>
                   <div class="fw-semibold">[Plot temp vs time or screenshot of parsed lists]</div>
@@ -382,6 +493,18 @@
                   [Discuss streaming vs buffering: overhead, reliability, timing resolution, scenarios to use each, how quickly method 2 records,
                   and estimate max stored data given 384 kB RAM.]
                 </p>
+
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <div class="border rounded-4 p-3 h-100">
+                      <div class="small text-muted mb-2">Arduino Code</div>
+                      <pre class="mb-0"><code>
+                
+                ////////code snippet////////
+                 </code></pre>    
+              </div>
+            </div>
+
               </div>
             </div>
           </section>

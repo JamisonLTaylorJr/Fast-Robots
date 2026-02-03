@@ -71,7 +71,7 @@
                     <span class="fw-semibold">Port</span>.
                   </li>
                   <li>
-                    Next, I ran multiple built-in examples to confirm the board’s LED, Serial, temperature sensor, and microphone were working.
+                    At “Basic Examples” I did multiple board checks to confirm the board works as expected.
                   </li>
                 </ul>
 
@@ -92,10 +92,9 @@
                       <div class="fw-semibold">Blink</div>
                       <div class="text-muted small">File → Examples → 01.Basics → Blink</div>
                       <div class="text-muted small mt-2">
-                        The first check was running Blink. I was able to make the board LED blink on and off at set intervals.
+                        The first check was running Blink. I made the board LED blink on and off at set intervals.
                       </div>
                       <div class="bg-light rounded-4 p-3 mt-3">
-                        <!-- NOTE: GitHub Pages is case-sensitive. If your file is prelab2.MOV, keep it exactly. -->
                         <video class="w-100 rounded-4 shadow-sm" controls>
                           <source src="../assets/prelab1/prelab2.MOV" type="video/quicktime" />
                           Your browser does not support the video tag.
@@ -185,7 +184,8 @@
               <div class="card-body p-4">
                 <h5 class="fw-bolder mb-2">1) Jupyter Notebook</h5>
                 <p class="text-muted mb-3">
-                  Below is my command prompt showing my FastRobots folder being activated and then opening Jupyter Notebook to complete the lab tasks.
+                  Down below is my command prompt showing my FastRobots folder being activated and then opening
+                  Jupyter Notebook, to then complete the Lab tasks in the latter sections.
                 </p>
                 <div class="bg-light rounded-4 p-3">
                   <img class="img-fluid rounded-4" src="../assets/prelab1/prelab7.png" alt="Command prompt and Jupyter launch" />
@@ -222,7 +222,6 @@
                       <pre class="mb-0"><code>case ECHO:
   char char_arr[MAX_MSG_SIZE];
 
-  // Extract the next value from the command string as a character array
   success = robot_cmd.get_next_value(char_arr);
   if (!success) return;
 
@@ -243,7 +242,7 @@
               </div>
             </div>
 
-            <!-- Task 2 (REBUILT cleanly) -->
+            <!-- Task 2 -->
             <div class="card border-0 shadow-sm rounded-4 mb-4">
               <div class="card-body p-4">
                 <div class="d-flex justify-content-between align-items-start">
@@ -297,9 +296,168 @@
               </div>
             </div>
 
-            <!-- Keep the rest of your tasks below (Task 3+) -->
-            <!-- (Your existing Task 3..8 sections can follow here unchanged) -->
+            <!-- Task 3 -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-start">
+                  <h3 class="h5 fw-bolder mb-1">Task 3: GET_TIME_MILLIS (reply like “T:123456”)</h3>
+                  <span class="badge bg-light text-dark border">Timing</span>
+                </div>
+                <p class="text-muted mb-3">[Explain command + output format + sample replies.]</p>
+                <div class="border rounded-4 p-3">
+                  <div class="small text-muted">Evidence</div>
+                  <div class="fw-semibold">[Screenshot of messages showing T:xxxxx]</div>
+                </div>
+              </div>
+            </div>
 
+            <!-- Task 4 -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-start">
+                  <h3 class="h5 fw-bolder mb-1">Task 4: Python notification handler (extract time from string)</h3>
+                  <span class="badge bg-light text-dark border">Python</span>
+                </div>
+                <p class="text-muted mb-3">[Describe callback function + parsing logic.]</p>
+                <div class="bg-light rounded-4 p-3">
+                  <div class="small text-muted">Evidence</div>
+                  <div class="fw-semibold">[Snippet of handler output or screenshot]</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Task 5 -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-start">
+                  <h3 class="h5 fw-bolder mb-1">Task 5: Stream timestamps for a few seconds (data rate)</h3>
+                  <span class="badge bg-light text-dark border">Plot</span>
+                </div>
+                <p class="text-muted mb-3">[Explain how you collected timestamps and computed effective rate (msgs/sec or bytes/sec).]</p>
+                <div class="border rounded-4 p-3">
+                  <div class="small text-muted">Plot / Figure</div>
+                  <div class="fw-semibold">[Insert plot image or screenshot]</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Task 6 -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-start">
+                  <h3 class="h5 fw-bolder mb-1">Task 6: Timestamp array + SEND_TIME_DATA</h3>
+                  <span class="badge bg-light text-dark border">Buffering</span>
+                </div>
+                <p class="text-muted mb-3">[Explain array size, overflow protection, and how SEND_TIME_DATA transmits stored points.]</p>
+                <div class="bg-light rounded-4 p-3">
+                  <div class="small text-muted">Evidence</div>
+                  <div class="fw-semibold">[Python list shows all values received / count matches]</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Task 7 -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-start">
+                  <h3 class="h5 fw-bolder mb-1">Task 7: Temp array + GET_TEMP_READINGS</h3>
+                  <span class="badge bg-light text-dark border">Sensors</span>
+                </div>
+                <p class="text-muted mb-3">[Explain paired timestamp/temp format and parsing into two Python lists.]</p>
+                <div class="border rounded-4 p-3">
+                  <div class="small text-muted">Evidence</div>
+                  <div class="fw-semibold">[Plot temp vs time or screenshot of parsed lists]</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Task 8 -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-start">
+                  <h3 class="h5 fw-bolder mb-1">Task 8: Method Comparison + Memory Estimate</h3>
+                  <span class="badge bg-light text-dark border">Analysis</span>
+                </div>
+                <p class="text-muted mb-0">
+                  [Discuss streaming vs buffering: overhead, reliability, timing resolution, scenarios to use each, how quickly method 2 records,
+                  and estimate max stored data given 384 kB RAM.]
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <hr class="my-5" />
+
+          <!-- 5000-level analysis -->
+          <section id="grad5000" class="mb-5">
+            <h2 class="fw-bolder mb-3">5000-Level Analysis (if applicable)</h2>
+
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <h3 class="h5 fw-bolder mb-2">Effective Data Rate + Overhead</h3>
+                <p class="text-muted">
+                  [Send a message from the computer and receive a reply from the Artemis board. Note the times.
+                  Calculate data rate for 5-byte replies and 120-byte replies (and optionally other sizes). Include at least one plot.
+                  Discuss overhead and whether larger packets reduce it.]
+                </p>
+                <div class="border rounded-4 p-3">
+                  <div class="small text-muted">Plot placeholder</div>
+                  <div class="fw-semibold">[Data rate vs payload size]</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <h3 class="h5 fw-bolder mb-2">Reliability</h3>
+                <p class="text-muted mb-0">
+                  [What happens when you send data faster? Does the computer miss any published data? Include evidence.]
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <hr class="my-5" />
+
+          <!-- Discussion -->
+          <section id="discussion" class="mb-5">
+            <h2 class="fw-bolder mb-3">Discussion</h2>
+            <p class="text-muted">
+              [Keep this succinct: what you learned, challenges you faced, and how you fixed them. Mention any unique solutions.]
+            </p>
+          </section>
+
+          <hr class="my-5" />
+
+          <!-- Code Snippets -->
+          <section id="codesnips" class="mb-5">
+            <h2 class="fw-bolder mb-3">Code Snippets (Relevant Only)</h2>
+            <p class="text-muted">
+              Include only the relevant functions used for each task. Do not paste your full codebase. Link full code separately if needed.
+            </p>
+
+            <div class="bg-light rounded-4 p-4 mb-3">
+              <div class="small text-muted mb-2">Arduino: command parsing / handlers</div>
+              <pre class="mb-0"><code>// ECHO handler
+// SEND_THREE_FLOATS handler
+// GET_TIME_MILLIS handler
+// buffer + SEND_TIME_DATA / GET_TEMP_READINGS handlers</code></pre>
+            </div>
+
+            <div class="bg-light rounded-4 p-4">
+              <div class="small text-muted mb-2">Python: BLE notification handler</div>
+              <pre class="mb-0"><code># Notification callback + parsing logic
+# Timestamp/temperature collection loop</code></pre>
+            </div>
+
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-between mt-4">
+              <a class="btn btn-outline-dark" href="../index.html#labs">
+                <i class="bi bi-arrow-left"></i> Back to Labs
+              </a>
+              <a class="btn btn-primary" href="lab02.html">
+                Next Lab <i class="bi bi-arrow-right"></i>
+              </a>
+            </div>
           </section>
 
         </div><!-- /container -->

@@ -3,17 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="MAE 5190 Fast Robots - Lab 01" />
+    <meta name="description" content="MAE 5190 Fast Robots - Lab 1" />
     <meta name="author" content="Jamison L. Taylor Jr." />
-    <title>Lab 01 | MAE 5190 Fast Robots</title>
+    <title>Lab 1 | MAE 5190 Fast Robots</title>
 
-    <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
-
-    <!-- Bootstrap Icons-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
-
-    <!-- Core theme CSS (includes Bootstrap)-->
     <link href="../css/styles.css" rel="stylesheet" />
   </head>
 
@@ -46,160 +41,356 @@
         </div>
       </nav>
 
-      <!-- Page Header -->
+      <!-- Header -->
       <section class="py-5">
         <div class="container px-5">
-          <div class="text-center mb-5">
-            <h1 class="fw-bolder">
-              Lab 01: <span class="text-gradient">[Put Your Lab Title Here]</span>
-            </h1>
+          <div class="text-center mb-4">
+            <h1 class="fw-bolder">Lab 1: <span class="text-gradient">Setup + Artemis + BLE Debugging</span></h1>
             <p class="lead fw-light text-muted mb-0">MAE 5190 (Fast Robots) · Lab 401</p>
           </div>
 
-          <!-- MAIN CARD -->
+          <!-- Quick Info -->
+          <div class="row g-3 mb-4">
+            <div class="col-md-4">
+              <div class="bg-light rounded-4 p-3 h-100">
+                <div class="small text-muted">Date</div>
+                <div class="fw-semibold">[MM/DD/YYYY]</div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="bg-light rounded-4 p-3 h-100">
+                <div class="small text-muted">Tools</div>
+                <div class="fw-semibold">Arduino IDE · Jupyter/Python · BLE</div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="bg-light rounded-4 p-3 h-100">
+                <div class="small text-muted">Hardware</div>
+                <div class="fw-semibold">SparkFun RedBoard Artemis Nano</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TOC -->
+          <div class="card shadow border-0 rounded-4 mb-4">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-center mb-2">
+                <i class="bi bi-list-check me-2"></i>
+                <h2 class="h5 fw-bolder mb-0">Table of Contents</h2>
+              </div>
+              <div class="row g-2">
+                <div class="col-12 col-md-6">
+                  <a class="text-decoration-none" href="#objective">1) Objective</a><br />
+                  <a class="text-decoration-none" href="#prelab">2) Prelab</a><br />
+                  <a class="text-decoration-none" href="#labtasks">3) Lab Tasks</a><br />
+                  <a class="text-decoration-none" href="#discussion">4) Discussion</a><br />
+                </div>
+                <div class="col-12 col-md-6">
+                  <a class="text-decoration-none" href="#grad5000">5) 5000-Level Analysis (if applicable)</a><br />
+                  <a class="text-decoration-none" href="#codesnips">6) Code Snippets</a><br />
+                </div>
+              </div>
+              <div class="small text-muted mt-3">
+                Tip: Keep this under <span class="fw-semibold">1000 words</span> and show evidence (screenshots, plots, short clips).
+              </div>
+            </div>
+          </div>
+
+          <!-- MAIN CONTENT -->
           <div class="card shadow border-0 rounded-4 mb-5">
-            <div class="card-body p-5 p-md-6">
-              <!-- QUICK INFO ROW -->
-              <div class="row g-3 mb-4">
-                <div class="col-md-4">
-                  <div class="bg-light rounded-4 p-3 h-100">
-                    <div class="small text-muted">Date</div>
-                    <div class="fw-semibold">[MM/DD/YYYY]</div>
+            <div class="card-body p-5">
+
+              <!-- Objective -->
+              <section id="objective" class="mb-5">
+                <h2 class="fw-bolder mb-3">Objective</h2>
+                <p class="text-muted">
+                  <!-- EDIT ME -->
+                  The purpose of Lab 1 is to set up the Arduino IDE and Artemis board, verify core I/O (LED + Serial),
+                  and build a wireless debugging pipeline using BLE so I can send timestamped messages and sensor data reliably.
+                </p>
+
+                <div class="bg-light rounded-4 p-4">
+                  <div class="small text-muted mb-1">Evidence (optional)</div>
+                  <div class="fw-semibold">[Add one screenshot/photo showing your board connected + running a basic example]</div>
+                </div>
+              </section>
+
+              <hr class="my-5" />
+
+              <!-- Prelab -->
+              <section id="prelab" class="mb-5">
+                <h2 class="fw-bolder mb-3">Prelab</h2>
+
+                <h3 class="h5 fw-bolder mt-4">Setup</h3>
+                <p class="text-muted">
+                  <!-- EDIT ME -->
+                  [Briefly describe installing Arduino IDE + SparkFun Apollo3 board manager, selecting RedBoard Artemis Nano, and confirming COM port.]
+                </p>
+
+                <!-- Evidence blocks -->
+                <div class="row g-3 mt-2">
+                  <div class="col-md-6">
+                    <div class="border rounded-4 p-4 h-100">
+                      <div class="small text-muted">Screenshot / Photo</div>
+                      <div class="fw-semibold">[Arduino board + port selected]</div>
+                      <!-- Example image (drop into assets/labs/lab01/) -->
+                      <!-- <img class="img-fluid rounded-4 mt-3" src="../assets/labs/lab01/setup.png" alt="Setup screenshot" /> -->
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="border rounded-4 p-4 h-100">
+                      <div class="small text-muted">Result</div>
+                      <div class="fw-semibold">[MAC address / BLE service detected / first successful upload]</div>
+                    </div>
                   </div>
                 </div>
-                <div class="col-md-4">
-                  <div class="bg-light rounded-4 p-3 h-100">
-                    <div class="small text-muted">Tools</div>
-                    <div class="fw-semibold">[Arduino / C++ / ROS / etc.]</div>
+
+                <h3 class="h5 fw-bolder mt-5">Codebase + BLE Understanding</h3>
+                <p class="text-muted">
+                  <!-- EDIT ME -->
+                  [Explain at a high level how BLE works here: computer ↔ Artemis, commands, GATT characteristic reads/writes, notifications, etc.]
+                </p>
+
+                <div class="bg-light rounded-4 p-4">
+                  <div class="small text-muted mb-2">Quick diagram (optional)</div>
+                  <div class="fw-semibold">Computer → Command → Artemis → Notification back to computer</div>
+                </div>
+              </section>
+
+              <hr class="my-5" />
+
+              <!-- Lab Tasks -->
+              <section id="labtasks" class="mb-5">
+                <h2 class="fw-bolder mb-3">Lab Tasks</h2>
+                <p class="text-muted">
+                  For each task below, I included evidence (serial output, Jupyter logs, plots, photos, or videos) to show the system works.
+                </p>
+
+                <!-- Task Card Template: copy/paste for more -->
+                <div class="card border-0 shadow-sm rounded-4 mb-4">
+                  <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-start">
+                      <h3 class="h5 fw-bolder mb-1">Task 1 — ECHO command (string in → augmented string out)</h3>
+                      <span class="badge bg-light text-dark border">BLE</span>
+                    </div>
+                    <p class="text-muted mb-3">
+                      <!-- EDIT ME -->
+                      [Explain what you sent, what the Artemis returned, and how you verified it.]
+                    </p>
+
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <div class="border rounded-4 p-3 h-100">
+                          <div class="small text-muted">Evidence: Jupyter / Python output</div>
+                          <div class="fw-semibold">[Screenshot of “Robot says -> HiHello :)”]</div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="border rounded-4 p-3 h-100">
+                          <div class="small text-muted">Evidence: Artemis side</div>
+                          <div class="fw-semibold">[Serial print / debug logs]</div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div class="col-md-4">
-                  <div class="bg-light rounded-4 p-3 h-100">
-                    <div class="small text-muted">Hardware</div>
-                    <div class="fw-semibold">[Board / sensors / motors]</div>
+
+                <div class="card border-0 shadow-sm rounded-4 mb-4">
+                  <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-start">
+                      <h3 class="h5 fw-bolder mb-1">Task 2 — SEND_THREE_FLOATS (send 3 floats, parse on Artemis)</h3>
+                      <span class="badge bg-light text-dark border">BLE</span>
+                    </div>
+                    <p class="text-muted mb-3">[Explain how you formatted the message and extracted floats in Arduino.]</p>
+
+                    <div class="bg-light rounded-4 p-3">
+                      <div class="small text-muted mb-1">Evidence</div>
+                      <div class="fw-semibold">[Screenshot of parsed float values printed correctly]</div>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              <!-- OVERVIEW -->
-              <h2 class="fw-bolder mb-3">Overview</h2>
-              <p class="text-muted">
-                <!-- EDIT ME: quick 4–8 sentences -->
-                [Write what this lab was about, what you built, and what the goal was.]
-              </p>
-
-              <hr class="my-4" />
-
-              <!-- OBJECTIVES -->
-              <h2 class="fw-bolder mb-3">Objectives</h2>
-              <ul class="text-muted">
-                <!-- EDIT ME -->
-                <li>[Objective 1]</li>
-                <li>[Objective 2]</li>
-                <li>[Objective 3]</li>
-              </ul>
-
-              <hr class="my-4" />
-
-              <!-- BUILD / PROCESS -->
-              <h2 class="fw-bolder mb-3">Build / Process</h2>
-              <p class="text-muted">
-                <!-- EDIT ME -->
-                [Explain your setup, wiring, design choices, and steps.]
-              </p>
-
-              <!-- IMAGE EXAMPLE -->
-              <div class="mt-4">
-                <h3 class="h5 fw-bolder mb-3">Photos</h3>
-
-                <!-- ✅ Drop images into: assets/labs/lab01/ -->
-                <figure class="mb-4">
-                  <img
-                    class="img-fluid rounded-4 shadow-sm"
-                    src="../assets/labs/lab01/photo1.jpg"
-                    alt="Lab 1 photo"
-                  />
-                  <figcaption class="small text-muted mt-2">
-                    Fig 1. [Caption for your image]
-                  </figcaption>
-                </figure>
-
-                <!-- Duplicate this block for more images -->
-                <!--
-                <figure class="mb-4">
-                  <img class="img-fluid rounded-4 shadow-sm" src="../assets/labs/lab01/photo2.jpg" alt="Lab 1 photo" />
-                  <figcaption class="small text-muted mt-2">Fig 2. [Caption]</figcaption>
-                </figure>
-                -->
-              </div>
-
-              <hr class="my-4" />
-
-              <!-- CODE / SOFTWARE -->
-              <h2 class="fw-bolder mb-3">Software / Code</h2>
-              <p class="text-muted">
-                [Describe your code structure, key logic, and what you learned.]
-              </p>
-
-              <!-- OPTIONAL: Code snippet box (easy copy/paste) -->
-              <div class="bg-light rounded-4 p-4 mb-4">
-                <div class="small text-muted mb-2">Code Snippet</div>
-                <pre class="mb-0"><code>// Paste a short snippet here
-// Or link to GitHub instead</code></pre>
-              </div>
-
-              <hr class="my-4" />
-
-              <!-- RESULTS -->
-              <h2 class="fw-bolder mb-3">Results</h2>
-              <p class="text-muted">
-                [What worked, what didn’t, performance, bugs, data, etc.]
-              </p>
-
-              <!-- VIDEO SECTION -->
-              <div class="mt-4">
-                <h3 class="h5 fw-bolder mb-3">Videos</h3>
-
-                <!-- ✅ Option A: YouTube embed (best for websites) -->
-                <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm mb-4">
-                  <!-- Replace the URL with your YouTube embed link -->
-                  <iframe
-                    src="https://www.youtube.com/embed/VIDEO_ID_HERE"
-                    title="Lab 1 Demo"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                  ></iframe>
+                <div class="card border-0 shadow-sm rounded-4 mb-4">
+                  <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-start">
+                      <h3 class="h5 fw-bolder mb-1">Task 3 — GET_TIME_MILLIS (reply like “T:123456”)</h3>
+                      <span class="badge bg-light text-dark border">Timing</span>
+                    </div>
+                    <p class="text-muted mb-3">[Explain command + output format + sample replies.]</p>
+                    <div class="border rounded-4 p-3">
+                      <div class="small text-muted">Evidence</div>
+                      <div class="fw-semibold">[Screenshot of messages showing T:xxxxx]</div>
+                    </div>
+                  </div>
                 </div>
 
-                <!-- ✅ Option B: Local video file -->
-                <!-- Put video into: assets/labs/lab01/demo.mp4 -->
-                <!--
-                <video class="w-100 rounded-4 shadow-sm mb-4" controls>
-                  <source src="../assets/labs/lab01/demo.mp4" type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-                -->
-              </div>
+                <div class="card border-0 shadow-sm rounded-4 mb-4">
+                  <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-start">
+                      <h3 class="h5 fw-bolder mb-1">Task 4 — Python notification handler (extract time from string)</h3>
+                      <span class="badge bg-light text-dark border">Python</span>
+                    </div>
+                    <p class="text-muted mb-3">[Describe callback function + parsing logic.]</p>
+                    <div class="bg-light rounded-4 p-3">
+                      <div class="small text-muted">Evidence</div>
+                      <div class="fw-semibold">[Snippet of handler output or screenshot]</div>
+                    </div>
+                  </div>
+                </div>
 
-              <hr class="my-4" />
+                <div class="card border-0 shadow-sm rounded-4 mb-4">
+                  <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-start">
+                      <h3 class="h5 fw-bolder mb-1">Task 5 — Stream timestamps for a few seconds (data rate)</h3>
+                      <span class="badge bg-light text-dark border">Plot</span>
+                    </div>
+                    <p class="text-muted mb-3">
+                      [Explain how you collected timestamps and computed effective rate (msgs/sec or bytes/sec).]
+                    </p>
 
-              <!-- REFLECTION -->
-              <h2 class="fw-bolder mb-3">Reflection</h2>
-              <ul class="text-muted">
-                <li>[Biggest lesson learned]</li>
-                <li>[What you’d improve next time]</li>
-                <li>[Debugging tips / design tradeoffs]</li>
-              </ul>
+                    <div class="border rounded-4 p-3">
+                      <div class="small text-muted">Plot / Figure</div>
+                      <div class="fw-semibold">[Insert plot image or screenshot]</div>
+                      <!-- <img class="img-fluid rounded-4 mt-3" src="../assets/labs/lab01/rate_plot.png" alt="Data rate plot"> -->
+                    </div>
+                  </div>
+                </div>
 
-              <!-- NAV BUTTONS -->
-              <div class="d-grid gap-2 d-sm-flex justify-content-sm-between mt-4">
-                <a class="btn btn-outline-dark" href="../index.html#labs">
-                  <i class="bi bi-arrow-left"></i> Back to Labs
-                </a>
-                <a class="btn btn-primary" href="lab02.html">
-                  Next Lab <i class="bi bi-arrow-right"></i>
-                </a>
-              </div>
+                <div class="card border-0 shadow-sm rounded-4 mb-4">
+                  <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-start">
+                      <h3 class="h5 fw-bolder mb-1">Task 6 — Store timestamps in an array; SEND_TIME_DATA dumps later</h3>
+                      <span class="badge bg-light text-dark border">Buffering</span>
+                    </div>
+                    <p class="text-muted mb-3">
+                      [Explain array size, how you avoid overflow, and how SEND_TIME_DATA transmits it.]
+                    </p>
+                    <div class="bg-light rounded-4 p-3">
+                      <div class="small text-muted">Evidence</div>
+                      <div class="fw-semibold">[Python list shows all values received / count matches]</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card border-0 shadow-sm rounded-4 mb-4">
+                  <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-start">
+                      <h3 class="h5 fw-bolder mb-1">Task 7 — Add temperature array; GET_TEMP_READINGS sends paired data</h3>
+                      <span class="badge bg-light text-dark border">Sensors</span>
+                    </div>
+                    <p class="text-muted mb-3">
+                      [Explain: timestamp[i] matches temp[i], parsing format, and how you verified it.]
+                    </p>
+                    <div class="border rounded-4 p-3">
+                      <div class="small text-muted">Evidence</div>
+                      <div class="fw-semibold">[Plot temp vs time or screenshot of parsed lists]</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card border-0 shadow-sm rounded-4 mb-4">
+                  <div class="card-body p-4">
+                    <div class="d-flex justify-content-between align-items-start">
+                      <h3 class="h5 fw-bolder mb-1">Task 8 — Discussion of the two data methods (pros/cons + memory estimate)</h3>
+                      <span class="badge bg-light text-dark border">Analysis</span>
+                    </div>
+                    <p class="text-muted mb-0">
+                      [Discuss streaming vs buffering: overhead, reliability, timing resolution, and how much RAM is usable.
+                      Include: how “quickly” method 2 records data + estimate max data before running out of memory.]
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              <hr class="my-5" />
+
+              <!-- 5000-level -->
+              <section id="grad5000" class="mb-5">
+                <h2 class="fw-bolder mb-3">5000-Level Analysis (if applicable)</h2>
+
+                <div class="card border-0 shadow-sm rounded-4 mb-4">
+                  <div class="card-body p-4">
+                    <h3 class="h5 fw-bolder mb-2">Effective Data Rate + Overhead</h3>
+                    <p class="text-muted">
+                      [Send a message from computer → receive reply. Record times. Calculate data rate for 5-byte replies and 120-byte replies.
+                      Include at least one plot. Discuss overhead vs packet size.]
+                    </p>
+                    <div class="border rounded-4 p-3">
+                      <div class="small text-muted">Plot placeholder</div>
+                      <div class="fw-semibold">[Data rate vs payload size]</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="card border-0 shadow-sm rounded-4">
+                  <div class="card-body p-4">
+                    <h3 class="h5 fw-bolder mb-2">Reliability</h3>
+                    <p class="text-muted mb-0">
+                      [What happens at higher publish rates? Do you miss packets? How do you know? Include evidence.]
+                    </p>
+                  </div>
+                </div>
+              </section>
+
+              <hr class="my-5" />
+
+              <!-- Discussion -->
+              <section id="discussion" class="mb-5">
+                <h2 class="fw-bolder mb-3">Discussion</h2>
+                <p class="text-muted">
+                  [Keep this short: what you learned, biggest challenges, and how you fixed them.
+                  Mention any unique debugging steps or improvements you made.]
+                </p>
+
+                <!-- Optional: short video evidence -->
+                <div class="mt-4">
+                  <h3 class="h6 fw-bolder mb-2">Optional Video Evidence</h3>
+                  <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm">
+                    <iframe
+                      src="https://www.youtube.com/embed/VIDEO_ID_HERE"
+                      title="Lab 1 Demo"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowfullscreen
+                    ></iframe>
+                  </div>
+                </div>
+              </section>
+
+              <hr class="my-5" />
+
+              <!-- Code Snippets -->
+              <section id="codesnips" class="mb-2">
+                <h2 class="fw-bolder mb-3">Code Snippets (Relevant Only)</h2>
+                <p class="text-muted">
+                  The goal here is to include only the key functions / handlers. Do <span class="fw-semibold">not</span> paste your entire codebase.
+                  Use GitHub Gists or link to your repo if needed.
+                </p>
+
+                <div class="bg-light rounded-4 p-4 mb-3">
+                  <div class="small text-muted mb-2">Arduino: command parsing / handlers</div>
+                  <pre class="mb-0"><code>// Paste ONLY the relevant functions:
+// - ECHO handler
+// - SEND_THREE_FLOATS handler
+// - GET_TIME_MILLIS handler
+// - buffer + SEND_TIME_DATA / GET_TEMP_READINGS handlers</code></pre>
+                </div>
+
+                <div class="bg-light rounded-4 p-4">
+                  <div class="small text-muted mb-2">Python: BLE notification handler</div>
+                  <pre class="mb-0"><code># Paste ONLY your notification callback + parsing logic
+# and the collection loop (timestamps / temp)</code></pre>
+                </div>
+
+                <div class="d-grid gap-2 d-sm-flex justify-content-sm-between mt-4">
+                  <a class="btn btn-outline-dark" href="../index.html#labs">
+                    <i class="bi bi-arrow-left"></i> Back to Labs
+                  </a>
+                  <a class="btn btn-primary" href="lab02.html">
+                    Next Lab <i class="bi bi-arrow-right"></i>
+                  </a>
+                </div>
+              </section>
+
             </div>
           </div>
           <!-- /card -->
@@ -207,7 +398,6 @@
       </section>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-white py-4 mt-auto">
       <div class="container px-5">
         <div class="row align-items-center justify-content-between flex-column flex-sm-row">
@@ -221,7 +411,6 @@
       </div>
     </footer>
 
-    <!-- Bootstrap core JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

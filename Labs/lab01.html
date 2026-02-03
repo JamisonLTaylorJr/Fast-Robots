@@ -45,438 +45,264 @@
       <section class="py-5">
         <div class="container px-5">
           <div class="text-center mb-4">
-            <h1 class="fw-bolder">Lab 1: <span class="text-gradient">The Artemis board and Bluetooth</span></h1>
+            <h1 class="fw-bolder">
+              Lab 1: <span class="text-gradient">The Artemis board and Bluetooth</span>
+            </h1>
           </div>
-              <!-- Prelab A: Board Bring-Up Checklist -->
-              <div class="mt-4">
-                <h4 class="fw-bolder mb-2">Prelab 1A: Hook Up Artemis Board</h4>
-                
-                <p class="text-muted mb-3">
-                  Before starting the BLE portion, I verified that my Artemis could reliably upload code, print to Serial,
-                  and read onboard sensors using the built-in example sketches.
-                </p>
 
-                <div class="card border-0 shadow-sm rounded-4 mb-3">
-                  <div class="card-body p-4">
-                    <h5 class="fw-bolder mb-2">1) Connect + Select Board/Port</h5>
-                    <ul class="text-muted mb-3">
-                      <li>Connected the Artemis to my computer via USB and confirmed a stable physical connection.</li>
-                      <li>In Arduino IDE, selected <span class="fw-semibold">Board: RedBoard Artemis Nano</span> and the correct <span class="fw-semibold">Port</span>.</li>
-                      <li>At "Basic Examples" I will be doing multiple board checks to make sure my board works as it should.</span>.</li>
+          <!-- ========================= -->
+          <!-- Prelab 1A -->
+          <!-- ========================= -->
+          <div class="mt-4">
+            <h4 class="fw-bolder mb-2">Prelab 1A: Hook Up Artemis Board</h4>
 
-                    </ul>
+            <p class="text-muted mb-3">
+              Before starting the BLE portion, I verified that my Artemis could reliably upload code, print to Serial,
+              and read onboard sensors using the built-in example sketches.
+            </p>
 
-                    <div class="bg-light rounded-4 p-3">
-                      <img class="img-fluid rounded-4 mt-3" src="../assets/prelab1/prelab1.png" alt="Description">
-                    </div>
-                  </div>
-                </div>
+            <div class="card border-0 shadow-sm rounded-4 mb-3">
+              <div class="card-body p-4">
+                <h5 class="fw-bolder mb-2">1) Connect + Select Board/Port</h5>
+                <ul class="text-muted mb-3">
+                  <li>Connected the Artemis to my computer via USB and confirmed a stable physical connection.</li>
+                  <li>
+                    In Arduino IDE, selected <span class="fw-semibold">Board: RedBoard Artemis Nano</span> and the correct
+                    <span class="fw-semibold">Port</span>.
+                  </li>
+                  <li>
+                    Next, I ran multiple built-in examples to confirm the board’s LED, Serial, temperature sensor, and microphone were working.
+                  </li>
+                </ul>
 
-                <div class="card border-0 shadow-sm rounded-4 mb-3">
-                  <div class="card-body p-4">
-                    <h5 class="fw-bolder mb-2">2) Basic Examples</h5>
-          
-                    <div class="row g-3">
-                      <div class="col-md-6">
-                        <div class="border rounded-4 p-3 h-100">
-                          <div class="fw-semibold">Blink</div>
-                          <div class="text-muted small">File → Examples → 01.Basics → Blink</div>
-                          <div class="text-muted small mt-2">The first check is to use the Blink example. Here I was able to make the boards LED blink of an on with intervals. </div>
-                          <div class="bg-light rounded-4 p-3 mt-3">
-                            <video class="w-100 rounded-4 shadow-sm mb-4" controls>
-                              <source src="../assets/prelab1/prelab2.MOV" type="video/quicktime" />
-                            </video>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-md-6">
-                        <div class="border rounded-4 p-3 h-100">
-                          <div class="fw-semibold">Serial Example</div>
-                          <div class="text-muted small">File → Examples → Apollo3 → Example4_Serial</div>
-                          <div class="text-muted small mt-2">The Serial example was able to print to the Serial Monitor without any issues and I was also able to type characters in the Serial Monator and have it printed back to me.</div>
-                          <div class="bg-light rounded-4 p-3 mt-3">
-                            <img class="img-fluid rounded-4" src="../assets/prelab1/prelab3.png" alt="Screenshot of Serial Monitor input/output">
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-md-6">
-                        <div class="border rounded-4 p-3 h-100">
-                          <div class="fw-semibold">Temperature Sensor</div>
-                          <div class="text-muted small">File → Examples → Apollo3 → Example2_analogRead</div>
-                          <div class="text-muted small mt-2">
-                            The next test was using analog read and identifying the tempurature sensor component of the board. Even though this boards temp. sensor was not the greatest, I was able to 
-                            use a heat source (my finger) to see a general change in the temperature readings over time.
-                          </div>
-                          <div class="bg-light rounded-4 p-3 mt-3">
-                            <img class="img-fluid rounded-4" src="../assets/prelab1/prelab4.png" alt="Screenshot of temperature changing over time">
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="col-md-6">
-                        <div class="border rounded-4 p-3 h-100">
-                          <div class="fw-semibold">Microphone (PDM)</div>
-                          <div class="text-muted small">File → Examples → PDM → Example1_MicrophoneOutput</div>
-                          <div class="text-muted small mt-2">
-                            Here I was testing the boards microphon sensor. I ran the code and spoke into the microphone and saw the measured frequency (Hz) content change.</div>
-                          <div class="bg-light rounded-4 p-3 mt-3">
-                            <img class="img-fluid rounded-4" src="../assets/prelab1/prelab5.png" alt="Screenshot of output / short video of you speaking + changing readings">
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
+                <div class="bg-light rounded-4 p-3">
+                  <img class="img-fluid rounded-4" src="../assets/prelab1/prelab1.png" alt="Arduino board and port selection" />
                 </div>
               </div>
-              
-                      <div class="col-md-6">
-                        <div class="border rounded-4 p-3 h-100">
-                          <div class="fw-semibold">For 5000 Level Students: Musical Note Tuner</div>
-                          <div class="text-muted small mt-2">
-                            Here I was able to use the microphone and its paired example to detect musical notes and display them in the Serial Monitor.
-                            I searched up the frequencies of the notes C, E, and G in the 6th octave and played each note to see if the board could detect them correctly.
-                            It was able to detect each note with no major issues.
-                          </div>
-                          <div class="bg-light rounded-4 p-3 mt-3">
-                            <video controls class="img-fluid rounded-4">
-                              <source src="../assets/prelab1/prelab6.mp4" type="video/mp4">
-                            </video>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-              <!-- Prelab 1B: Board Bring-Up Checklist -->
-              <div class="mt-4">
-                <h4 class="fw-bolder mb-2">Prelab 1B: Preparing my Computer</h4>
-                
-                <p class="text-muted mb-3">
-                   Lab 1B focuses on establishing Bluetooth communication between your computer and the Artemis board. 
-                   Using Python commands sent from a Jupyter notebook, the computer will communicate with an Artemis board programmed and displayed in Arduino. 
-                   This lab also sets up a reusable framework for transmitting data from the Artemis back to the computer over Bluetooth, which will used in later labs.
-                </p>
-
-                <div class="card border-0 shadow-sm rounded-4 mb-3">
-                  <div class="card-body p-4">
-                    <h5 class="fw-bolder mb-2">1) Jupiter Notebook</h5>
-                    <p class="text-muted mb-3">
-                      Down below is my command prompt showing my FastRobots folder being activated and then opening
-                      Jupyter Notebook, to then complete the Lab tasks in the latter sections.
-                    </p>
-                    <div class="bg-light rounded-4 p-3">
-                      <img class="img-fluid rounded-4 mt-3" src="../assets/prelab1/prelab7.png" alt="Description">
-                    </div>
-                  </div>
-                </div>
-
-
-
-              <!-- Lab Tasks -->
-              <section id="labtasks" class="mb-5">
-                <h2 class="fw-bolder mb-3">Lab Tasks</h2>
-                <p class="text-muted">
-                  For each task below, I included evidence (serial output, Jupyter logs, plots, photos, or videos) to show the system works.
-                </p>
-
-                <!-- Task Card Template: copy/paste for more -->
-                <div class="card border-0 shadow-sm rounded-4 mb-4">
-                  <div class="card-body p-4">
-                    <div class="d-flex justify-content-between align-items-start">
-                      <h3 class="h5 fw-bolder mb-1">Task 1 — ECHO command (string in → augmented string out)</h3>
-                      <span class="badge bg-light text-dark border">BLE</span>
-                    </div>
-                    <p class="text-muted mb-3">
-                      <!-- EDIT ME -->
-                      [Explain what you sent, what the Artemis returned, and how you verified it.]
-                    </p>
-                    <div class="bg-light rounded-4 p-4 mb-4">
-                  
-                    <div class="row g-3">
-                      <div class="col-md-6">
-                        <div class="border rounded-4 p-3 h-100">
-                          <div class="small text-muted">Jupyter / Python output</div>
-                        <div class="small text-muted mb-2">Task 1: ECHO Command</div>
-                    <pre class="mb-0"><code>
-                  case ECHO:
-
-                    char char_arr[MAX_MSG_SIZE];
-
-                    // Extract the next value from the command string as a character array
-                    success = robot_cmd.get_next_value(char_arr);
-                    if (!success)
-                        return;
-                        Serial.print("Board: ");
-                        Serial.print(char_arr);
-                        Serial.println(".");
-
-                    break;
-                  </code></pre>
-                  </div>                        
-
-                      </div>
-                      <div class="col-md-6">
-                        <div class="border rounded-4 p-3 h-100">
-                          <div class="small text-muted">Evidence: Artemis side</div>
-                        <div class="bg-light rounded-4 p-3 mt-3">
-                            <img class="img-fluid rounded-4" src="../assets/prelab1/q1.png" alt="Screenshot of output / short video of you speaking + changing readings">
-                          </div>                        
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="card border-0 shadow-sm rounded-4 mb-4">
-                  <div class="card-body p-4">
-                    <div class="d-flex justify-content-between align-items-start">
-                      <h3 class="h5 fw-bolder mb-1">Task 2: SEND_THREE_FLOATS</h3>
-                      <span class="badge bg-light text-dark border">BLE</span>
-                      <p class="text-muted mb-3">
-                      <!-- EDIT ME -->
-                      [Explain what you sent, what the Artemis returned, and how you verified it.]
-                    </p>
-                    <div class="bg-light rounded-4 p-4 mb-4">
-                      <div class="row g-3">
-                        <div class="col-md-6">
-                          <div class="border rounded-4 p-3 h-100">
-                            <div class="small text
-                    </div>
-                    <pre class="mb-0">
-                      case SEND_THREE_FLOATS:
-                        float flo_a, flo_b, flo_c;
-
-                        success = robot_cmd.get_next_value(flo_a);
-                        if (!success)
-                            return;
-
-                        // Extract the next value from the command string as an integer
-                        success = robot_cmd.get_next_value(flo_b);
-                        if (!success)
-                            return;
-
-                        success = robot_cmd.get_next_value(flo_c);
-                        if (!success)
-                            return;
-
-                        Serial.print("Don't play with me! I'm not the '");
-                        Serial.print(flo_a);
-                        Serial.print("', or the '");
-                        Serial.print(flo_b);
-                        Serial.print("', or the '");
-                        Serial.print(flo_c);
-                        Serial.println(". Today is not that day!");
-                    
-                    break;
-                      <code>
-
-                        <div class="bg-light rounded-4 p-3 mt-3">
-                            <img class="img-fluid rounded-4" src="../assets/prelab1/q11.png" alt="Screenshot of output / short video of you speaking + changing readings">
-                          </div>
-                        <div class="bg-light rounded-4 p-3 mt-3">
-                            <img class="img-fluid rounded-4" src="../assets/prelab1/q12.png" alt="Screenshot of output / short video of you speaking + changing readings">
-                          </div>
-
-                        </div>
-                      <div class="col-md-6">
-                        <div class="border rounded-4 p-3 h-100">
-                          <div class="small text-muted">Board</div>
-                          <div class="fw-semibold">[Serial print / debug logs]</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="card border-0 shadow-sm rounded-4 mb-4">
-                  <div class="card-body p-4">
-                    <div class="d-flex justify-content-between align-items-start">
-                      <h3 class="h5 fw-bolder mb-1">Task 3 — GET_TIME_MILLIS (reply like “T:123456”)</h3>
-                      <span class="badge bg-light text-dark border">Timing</span>
-                    </div>
-                    <p class="text-muted mb-3">[Explain command + output format + sample replies.]</p>
-                    <div class="border rounded-4 p-3">
-                      <div class="small text-muted">Evidence</div>
-                      <div class="fw-semibold">[Screenshot of messages showing T:xxxxx]</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="card border-0 shadow-sm rounded-4 mb-4">
-                  <div class="card-body p-4">
-                    <div class="d-flex justify-content-between align-items-start">
-                      <h3 class="h5 fw-bolder mb-1">Task 4 — Python notification handler (extract time from string)</h3>
-                      <span class="badge bg-light text-dark border">Python</span>
-                    </div>
-                    <p class="text-muted mb-3">[Describe callback function + parsing logic.]</p>
-                    <div class="bg-light rounded-4 p-3">
-                      <div class="small text-muted">Evidence</div>
-                      <div class="fw-semibold">[Snippet of handler output or screenshot]</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="card border-0 shadow-sm rounded-4 mb-4">
-                  <div class="card-body p-4">
-                    <div class="d-flex justify-content-between align-items-start">
-                      <h3 class="h5 fw-bolder mb-1">Task 5 — Stream timestamps for a few seconds (data rate)</h3>
-                      <span class="badge bg-light text-dark border">Plot</span>
-                    </div>
-                    <p class="text-muted mb-3">
-                      [Explain how you collected timestamps and computed effective rate (msgs/sec or bytes/sec).]
-                    </p>
-
-                    <div class="border rounded-4 p-3">
-                      <div class="small text-muted">Plot / Figure</div>
-                      <div class="fw-semibold">[Insert plot image or screenshot]</div>
-                      <!-- <img class="img-fluid rounded-4 mt-3" src="../assets/labs/lab01/rate_plot.png" alt="Data rate plot"> -->
-                    </div>
-                  </div>
-                </div>
-
-                <div class="card border-0 shadow-sm rounded-4 mb-4">
-                  <div class="card-body p-4">
-                    <div class="d-flex justify-content-between align-items-start">
-                      <h3 class="h5 fw-bolder mb-1">Task 6 — Store timestamps in an array; SEND_TIME_DATA dumps later</h3>
-                      <span class="badge bg-light text-dark border">Buffering</span>
-                    </div>
-                    <p class="text-muted mb-3">
-                      [Explain array size, how you avoid overflow, and how SEND_TIME_DATA transmits it.]
-                    </p>
-                    <div class="bg-light rounded-4 p-3">
-                      <div class="small text-muted">Evidence</div>
-                      <div class="fw-semibold">[Python list shows all values received / count matches]</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="card border-0 shadow-sm rounded-4 mb-4">
-                  <div class="card-body p-4">
-                    <div class="d-flex justify-content-between align-items-start">
-                      <h3 class="h5 fw-bolder mb-1">Task 7 — Add temperature array; GET_TEMP_READINGS sends paired data</h3>
-                      <span class="badge bg-light text-dark border">Sensors</span>
-                    </div>
-                    <p class="text-muted mb-3">
-                      [Explain: timestamp[i] matches temp[i], parsing format, and how you verified it.]
-                    </p>
-                    <div class="border rounded-4 p-3">
-                      <div class="small text-muted">Evidence</div>
-                      <div class="fw-semibold">[Plot temp vs time or screenshot of parsed lists]</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="card border-0 shadow-sm rounded-4 mb-4">
-                  <div class="card-body p-4">
-                    <div class="d-flex justify-content-between align-items-start">
-                      <h3 class="h5 fw-bolder mb-1">Task 8 — Discussion of the two data methods (pros/cons + memory estimate)</h3>
-                      <span class="badge bg-light text-dark border">Analysis</span>
-                    </div>
-                    <p class="text-muted mb-0">
-                      [Discuss streaming vs buffering: overhead, reliability, timing resolution, and how much RAM is usable.
-                      Include: how “quickly” method 2 records data + estimate max data before running out of memory.]
-                    </p>
-                  </div>
-                </div>
-              </section>
-
-              <hr class="my-5" />
-
-              <!-- 5000-level -->
-              <section id="grad5000" class="mb-5">
-                <h2 class="fw-bolder mb-3">5000-Level Analysis (if applicable)</h2>
-
-                <div class="card border-0 shadow-sm rounded-4 mb-4">
-                  <div class="card-body p-4">
-                    <h3 class="h5 fw-bolder mb-2">Effective Data Rate + Overhead</h3>
-                    <p class="text-muted">
-                      [Send a message from computer → receive reply. Record times. Calculate data rate for 5-byte replies and 120-byte replies.
-                      Include at least one plot. Discuss overhead vs packet size.]
-                    </p>
-                    <div class="border rounded-4 p-3">
-                      <div class="small text-muted">Plot placeholder</div>
-                      <div class="fw-semibold">[Data rate vs payload size]</div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="card border-0 shadow-sm rounded-4">
-                  <div class="card-body p-4">
-                    <h3 class="h5 fw-bolder mb-2">Reliability</h3>
-                    <p class="text-muted mb-0">
-                      [What happens at higher publish rates? Do you miss packets? How do you know? Include evidence.]
-                    </p>
-                  </div>
-                </div>
-              </section>
-
-              <hr class="my-5" />
-
-              <!-- Discussion -->
-              <section id="discussion" class="mb-5">
-                <h2 class="fw-bolder mb-3">Discussion</h2>
-                <p class="text-muted">
-                  [Keep this short: what you learned, biggest challenges, and how you fixed them.
-                  Mention any unique debugging steps or improvements you made.]
-                </p>
-
-                <!-- Optional: short video evidence -->
-                <div class="mt-4">
-                  <h3 class="h6 fw-bolder mb-2">Optional Video Evidence</h3>
-                  <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm">
-                    <iframe
-                      src="https://www.youtube.com/embed/VIDEO_ID_HERE"
-                      title="Lab 1 Demo"
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowfullscreen
-                    ></iframe>
-                  </div>
-                </div>
-              </section>
-
-              <hr class="my-5" />
-
-              <!-- Code Snippets -->
-              <section id="codesnips" class="mb-2">
-                <h2 class="fw-bolder mb-3">Code Snippets (Relevant Only)</h2>
-                <p class="text-muted">
-                  The goal here is to include only the key functions / handlers. Do <span class="fw-semibold">not</span> paste your entire codebase.
-                  Use GitHub Gists or link to your repo if needed.
-                </p>
-
-                <div class="bg-light rounded-4 p-4 mb-3">
-                  <div class="small text-muted mb-2">Arduino: command parsing / handlers</div>
-                  <pre class="mb-0"><code>// Paste ONLY the relevant functions:
-// - ECHO handler
-// - SEND_THREE_FLOATS handler
-// - GET_TIME_MILLIS handler
-// - buffer + SEND_TIME_DATA / GET_TEMP_READINGS handlers</code></pre>
-                </div>
-
-                <div class="bg-light rounded-4 p-4">
-                  <div class="small text-muted mb-2">Python: BLE notification handler</div>
-                  <pre class="mb-0"><code># Paste ONLY your notification callback + parsing logic
-# and the collection loop (timestamps / temp)</code></pre>
-                </div>
-
-                <div class="d-grid gap-2 d-sm-flex justify-content-sm-between mt-4">
-                  <a class="btn btn-outline-dark" href="../index.html#labs">
-                    <i class="bi bi-arrow-left"></i> Back to Labs
-                  </a>
-                  <a class="btn btn-primary" href="lab02.html">
-                    Next Lab <i class="bi bi-arrow-right"></i>
-                  </a>
-                </div>
-              </section>
-
             </div>
-          </div>
-          <!-- /card -->
-        </div>
+
+            <div class="card border-0 shadow-sm rounded-4 mb-3">
+              <div class="card-body p-4">
+                <h5 class="fw-bolder mb-2">2) Basic Examples</h5>
+
+                <div class="row g-3">
+                  <!-- Blink -->
+                  <div class="col-md-6">
+                    <div class="border rounded-4 p-3 h-100">
+                      <div class="fw-semibold">Blink</div>
+                      <div class="text-muted small">File → Examples → 01.Basics → Blink</div>
+                      <div class="text-muted small mt-2">
+                        The first check was running Blink. I was able to make the board LED blink on and off at set intervals.
+                      </div>
+                      <div class="bg-light rounded-4 p-3 mt-3">
+                        <!-- NOTE: GitHub Pages is case-sensitive. If your file is prelab2.MOV, keep it exactly. -->
+                        <video class="w-100 rounded-4 shadow-sm" controls>
+                          <source src="../assets/prelab1/prelab2.MOV" type="video/quicktime" />
+                          Your browser does not support the video tag.
+                        </video>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Serial -->
+                  <div class="col-md-6">
+                    <div class="border rounded-4 p-3 h-100">
+                      <div class="fw-semibold">Serial Example</div>
+                      <div class="text-muted small">File → Examples → Apollo3 → Example4_Serial</div>
+                      <div class="text-muted small mt-2">
+                        The Serial example printed to the Serial Monitor correctly. I also typed characters into the Serial Monitor and
+                        confirmed they were echoed back.
+                      </div>
+                      <div class="bg-light rounded-4 p-3 mt-3">
+                        <img class="img-fluid rounded-4" src="../assets/prelab1/prelab3.png" alt="Serial monitor input/output" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Temp -->
+                  <div class="col-md-6">
+                    <div class="border rounded-4 p-3 h-100">
+                      <div class="fw-semibold">Temperature Sensor</div>
+                      <div class="text-muted small">File → Examples → Apollo3 → Example2_analogRead</div>
+                      <div class="text-muted small mt-2">
+                        I tested the temperature sensor readings. Even though the sensor isn’t super sensitive, I used my finger as a heat source
+                        and saw a noticeable change in the readings over time.
+                      </div>
+                      <div class="bg-light rounded-4 p-3 mt-3">
+                        <img class="img-fluid rounded-4" src="../assets/prelab1/prelab4.png" alt="Temperature readings changing over time" />
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Mic -->
+                  <div class="col-md-6">
+                    <div class="border rounded-4 p-3 h-100">
+                      <div class="fw-semibold">Microphone (PDM)</div>
+                      <div class="text-muted small">File → Examples → PDM → Example1_MicrophoneOutput</div>
+                      <div class="text-muted small mt-2">
+                        I tested the onboard microphone by speaking near it and observing the measured frequency content change.
+                      </div>
+                      <div class="bg-light rounded-4 p-3 mt-3">
+                        <img class="img-fluid rounded-4" src="../assets/prelab1/prelab5.png" alt="Microphone output evidence" />
+                      </div>
+                    </div>
+                  </div>
+                </div><!-- /row -->
+              </div>
+            </div>
+
+            <!-- 5000-level inside proper layout -->
+            <div class="card border-0 shadow-sm rounded-4 mb-3">
+              <div class="card-body p-4">
+                <h5 class="fw-bolder mb-2">For 5000-Level Students: Musical Note Tuner</h5>
+                <div class="text-muted small mb-3">
+                  I combined the microphone output with Serial printing to detect musical notes. I looked up the frequencies for C, E, and G
+                  (6th octave) and played each note to see if the board detected them correctly. It detected each note without major issues.
+                </div>
+                <div class="bg-light rounded-4 p-3">
+                  <video class="w-100 rounded-4 shadow-sm" controls>
+                    <source src="../assets/prelab1/prelab6.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+              </div>
+            </div>
+          </div><!-- /Prelab 1A -->
+
+          <!-- ========================= -->
+          <!-- Prelab 1B -->
+          <!-- ========================= -->
+          <div class="mt-5">
+            <h4 class="fw-bolder mb-2">Prelab 1B: Preparing my Computer</h4>
+
+            <p class="text-muted mb-3">
+              Lab 1B focuses on establishing Bluetooth communication between my computer and the Artemis board.
+              Using Python commands sent from a Jupyter notebook, the computer communicates with an Artemis board programmed in Arduino.
+              This also sets up a reusable framework for transmitting data from the Artemis back to the computer over Bluetooth.
+            </p>
+
+            <div class="card border-0 shadow-sm rounded-4 mb-3">
+              <div class="card-body p-4">
+                <h5 class="fw-bolder mb-2">1) Jupyter Notebook</h5>
+                <p class="text-muted mb-3">
+                  Below is my command prompt showing my FastRobots folder being activated and then opening Jupyter Notebook to complete the lab tasks.
+                </p>
+                <div class="bg-light rounded-4 p-3">
+                  <img class="img-fluid rounded-4" src="../assets/prelab1/prelab7.png" alt="Command prompt and Jupyter launch" />
+                </div>
+              </div>
+            </div>
+          </div><!-- /Prelab 1B -->
+
+          <!-- ========================= -->
+          <!-- Lab Tasks -->
+          <!-- ========================= -->
+          <section id="labtasks" class="mt-5 mb-5">
+            <h2 class="fw-bolder mb-3">Lab Tasks</h2>
+            <p class="text-muted">
+              For each task below, I included evidence (serial output, Jupyter logs, plots, photos, or videos) to show the system works.
+            </p>
+
+            <!-- Task 1 -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-start">
+                  <h3 class="h5 fw-bolder mb-1">Task 1: ECHO command (string in → augmented string out)</h3>
+                  <span class="badge bg-light text-dark border">BLE</span>
+                </div>
+
+                <p class="text-muted mb-3">
+                  [Explain what you sent, what the Artemis returned, and how you verified it.]
+                </p>
+
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <div class="border rounded-4 p-3 h-100">
+                      <div class="small text-muted mb-2">Relevant Code Snippet</div>
+                      <pre class="mb-0"><code>case ECHO:
+  char char_arr[MAX_MSG_SIZE];
+
+  // Extract the next value from the command string as a character array
+  success = robot_cmd.get_next_value(char_arr);
+  if (!success) return;
+
+  Serial.print("Board: ");
+  Serial.print(char_arr);
+  Serial.println(".");
+  break;</code></pre>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="border rounded-4 p-3 h-100">
+                      <div class="small text-muted mb-2">Evidence</div>
+                      <img class="img-fluid rounded-4" src="../assets/prelab1/q1.png" alt="ECHO evidence" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Task 2 (REBUILT cleanly) -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <div class="d-flex justify-content-between align-items-start">
+                  <h3 class="h5 fw-bolder mb-1">Task 2: SEND_THREE_FLOATS</h3>
+                  <span class="badge bg-light text-dark border">BLE</span>
+                </div>
+
+                <p class="text-muted mb-3">
+                  [Explain what you sent, how you parsed it on the Artemis, and what was printed back.]
+                </p>
+
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <div class="border rounded-4 p-3 h-100">
+                      <div class="small text-muted mb-2">Relevant Code Snippet</div>
+                      <pre class="mb-0"><code>case SEND_THREE_FLOATS:
+  float flo_a, flo_b, flo_c;
+
+  success = robot_cmd.get_next_value(flo_a);
+  if (!success) return;
+
+  success = robot_cmd.get_next_value(flo_b);
+  if (!success) return;
+
+  success = robot_cmd.get_next_value(flo_c);
+  if (!success) return;
+
+  Serial.print("Don't play with me! I'm not the '");
+  Serial.print(flo_a);
+  Serial.print("', or the '");
+  Serial.print(flo_b);
+  Serial.print("', or the '");
+  Serial.print(flo_c);
+  Serial.println(". Today is not that day!");
+  break;</code></pre>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="border rounded-4 p-3 h-100">
+                      <div class="small text-muted mb-2">Evidence</div>
+                      <div class="bg-light rounded-4 p-3 mb-3">
+                        <img class="img-fluid rounded-4" src="../assets/prelab1/q11.png" alt="SEND_THREE_FLOATS evidence 1" />
+                      </div>
+                      <div class="bg-light rounded-4 p-3">
+                        <img class="img-fluid rounded-4" src="../assets/prelab1/q12.png" alt="SEND_THREE_FLOATS evidence 2" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Keep the rest of your tasks below (Task 3+) -->
+            <!-- (Your existing Task 3..8 sections can follow here unchanged) -->
+
+          </section>
+
+        </div><!-- /container -->
       </section>
     </main>
 

@@ -1,121 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>MAE 5190 Fast Robots | Jamison Taylor Jr.</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
-        <!-- Custom Google font-->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="../css/styles.css" rel="stylesheet" />
-    </head>
-<body class="d-flex flex-column h-100">
-<main class="flex-shrink-0">
-<nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
-  <div class="container px-5">
-    <a class="navbar-brand" href="../index.html"><span class="fw-bolder text-primary">MAE 5190 Fast Robots</span></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-        <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="../index.html#labs">Labs</a></li>
-        <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<section class="py-5">
-  <div class="container px-5">
-    <div class="row gx-5 justify-content-center">
-      <div class="col-lg-9 col-xl-8 col-xxl-7">
-        <div class="text-center mb-5">
-          <h1 class="fw-bolder">Lab 01: <span class="text-gradient">[Lab Title Placeholder]</span></h1>
-          <p class="lead fw-light text-muted mb-0">MAE 5190 (Fast Robots) &middot; Lab 401</p>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="MAE 5190 Fast Robots - Lab 01" />
+    <meta name="author" content="Jamison L. Taylor Jr." />
+    <title>Lab 01 | MAE 5190 Fast Robots</title>
+
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+
+    <!-- Bootstrap Icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="../css/styles.css" rel="stylesheet" />
+  </head>
+
+  <body class="d-flex flex-column h-100">
+    <main class="flex-shrink-0">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+        <div class="container px-5">
+          <a class="navbar-brand" href="../index.html">
+            <span class="fw-bolder text-primary">MAE 5190 Fast Robots</span>
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+              <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="../index.html#labs">Labs</a></li>
+              <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
+            </ul>
+          </div>
         </div>
-        <div class="card shadow border-0 rounded-4 mb-5">
-          <div class="card-body p-5">
-            <h2 class="fw-bolder mb-3">Overview</h2>
-            <p class="text-muted">[Write a 4–8 sentence overview of what this lab was about. What problem were you solving? What did you build?]</p>
-            <hr class="my-4" />
+      </nav>
 
-            <h2 class="fw-bolder mb-3">Objectives</h2>
-            <ul class="text-muted">
-              <li>[Objective 1]</li>
-              <li>[Objective 2]</li>
-              <li>[Objective 3]</li>
-            </ul>
-            <hr class="my-4" />
+      <!-- Page Header -->
+      <section class="py-5">
+        <div class="container px-5">
+          <div class="text-center mb-5">
+            <h1 class="fw-bolder">
+              Lab 01: <span class="text-gradient">[Put Your Lab Title Here]</span>
+            </h1>
+            <p class="lead fw-light text-muted mb-0">MAE 5190 (Fast Robots) · Lab 401</p>
+          </div>
 
-            <h2 class="fw-bolder mb-3">Hardware</h2>
-            <ul class="text-muted">
-              <li>[List sensors/actuators/boards used]</li>
-              <li>[Wiring notes / schematic link]</li>
-            </ul>
-            <hr class="my-4" />
-
-            <h2 class="fw-bolder mb-3">Software</h2>
-            <ul class="text-muted">
-              <li>[Language + toolchain (e.g., C++ / Arduino / ROS / Python)]</li>
-              <li>[Key libraries]</li>
-            </ul>
-            <div class="bg-light rounded-4 p-4">
-              <div class="small text-muted">Code Placeholder</div>
-              <div class="fw-semibold">Add a GitHub link or paste code snippets here later.</div>
-            </div>
-            <hr class="my-4" />
-
-            <h2 class="fw-bolder mb-3">Results</h2>
-            <p class="text-muted">[What worked? What didn’t? Add plots/photos/video links.]</p>
-            <div class="row g-3">
-              <div class="col-md-6">
-                <div class="border rounded-4 p-4 h-100">
-                  <div class="small text-muted">Photo / Screenshot</div>
-                  <div class="fw-semibold">[Drop image into assets/ and link it here]</div>
+          <!-- MAIN CARD -->
+          <div class="card shadow border-0 rounded-4 mb-5">
+            <div class="card-body p-5 p-md-6">
+              <!-- QUICK INFO ROW -->
+              <div class="row g-3 mb-4">
+                <div class="col-md-4">
+                  <div class="bg-light rounded-4 p-3 h-100">
+                    <div class="small text-muted">Date</div>
+                    <div class="fw-semibold">[MM/DD/YYYY]</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="bg-light rounded-4 p-3 h-100">
+                    <div class="small text-muted">Tools</div>
+                    <div class="fw-semibold">[Arduino / C++ / ROS / etc.]</div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="bg-light rounded-4 p-3 h-100">
+                    <div class="small text-muted">Hardware</div>
+                    <div class="fw-semibold">[Board / sensors / motors]</div>
+                  </div>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="border rounded-4 p-4 h-100">
-                  <div class="small text-muted">Video Demo</div>
-                  <div class="fw-semibold">[Embed YouTube link or GIF]</div>
+
+              <!-- OVERVIEW -->
+              <h2 class="fw-bolder mb-3">Overview</h2>
+              <p class="text-muted">
+                <!-- EDIT ME: quick 4–8 sentences -->
+                [Write what this lab was about, what you built, and what the goal was.]
+              </p>
+
+              <hr class="my-4" />
+
+              <!-- OBJECTIVES -->
+              <h2 class="fw-bolder mb-3">Objectives</h2>
+              <ul class="text-muted">
+                <!-- EDIT ME -->
+                <li>[Objective 1]</li>
+                <li>[Objective 2]</li>
+                <li>[Objective 3]</li>
+              </ul>
+
+              <hr class="my-4" />
+
+              <!-- BUILD / PROCESS -->
+              <h2 class="fw-bolder mb-3">Build / Process</h2>
+              <p class="text-muted">
+                <!-- EDIT ME -->
+                [Explain your setup, wiring, design choices, and steps.]
+              </p>
+
+              <!-- IMAGE EXAMPLE -->
+              <div class="mt-4">
+                <h3 class="h5 fw-bolder mb-3">Photos</h3>
+
+                <!-- ✅ Drop images into: assets/labs/lab01/ -->
+                <figure class="mb-4">
+                  <img
+                    class="img-fluid rounded-4 shadow-sm"
+                    src="../assets/labs/lab01/photo1.jpg"
+                    alt="Lab 1 photo"
+                  />
+                  <figcaption class="small text-muted mt-2">
+                    Fig 1. [Caption for your image]
+                  </figcaption>
+                </figure>
+
+                <!-- Duplicate this block for more images -->
+                <!--
+                <figure class="mb-4">
+                  <img class="img-fluid rounded-4 shadow-sm" src="../assets/labs/lab01/photo2.jpg" alt="Lab 1 photo" />
+                  <figcaption class="small text-muted mt-2">Fig 2. [Caption]</figcaption>
+                </figure>
+                -->
+              </div>
+
+              <hr class="my-4" />
+
+              <!-- CODE / SOFTWARE -->
+              <h2 class="fw-bolder mb-3">Software / Code</h2>
+              <p class="text-muted">
+                [Describe your code structure, key logic, and what you learned.]
+              </p>
+
+              <!-- OPTIONAL: Code snippet box (easy copy/paste) -->
+              <div class="bg-light rounded-4 p-4 mb-4">
+                <div class="small text-muted mb-2">Code Snippet</div>
+                <pre class="mb-0"><code>// Paste a short snippet here
+// Or link to GitHub instead</code></pre>
+              </div>
+
+              <hr class="my-4" />
+
+              <!-- RESULTS -->
+              <h2 class="fw-bolder mb-3">Results</h2>
+              <p class="text-muted">
+                [What worked, what didn’t, performance, bugs, data, etc.]
+              </p>
+
+              <!-- VIDEO SECTION -->
+              <div class="mt-4">
+                <h3 class="h5 fw-bolder mb-3">Videos</h3>
+
+                <!-- ✅ Option A: YouTube embed (best for websites) -->
+                <div class="ratio ratio-16x9 rounded-4 overflow-hidden shadow-sm mb-4">
+                  <!-- Replace the URL with your YouTube embed link -->
+                  <iframe
+                    src="https://www.youtube.com/embed/VIDEO_ID_HERE"
+                    title="Lab 1 Demo"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
                 </div>
+
+                <!-- ✅ Option B: Local video file -->
+                <!-- Put video into: assets/labs/lab01/demo.mp4 -->
+                <!--
+                <video class="w-100 rounded-4 shadow-sm mb-4" controls>
+                  <source src="../assets/labs/lab01/demo.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+                -->
+              </div>
+
+              <hr class="my-4" />
+
+              <!-- REFLECTION -->
+              <h2 class="fw-bolder mb-3">Reflection</h2>
+              <ul class="text-muted">
+                <li>[Biggest lesson learned]</li>
+                <li>[What you’d improve next time]</li>
+                <li>[Debugging tips / design tradeoffs]</li>
+              </ul>
+
+              <!-- NAV BUTTONS -->
+              <div class="d-grid gap-2 d-sm-flex justify-content-sm-between mt-4">
+                <a class="btn btn-outline-dark" href="../index.html#labs">
+                  <i class="bi bi-arrow-left"></i> Back to Labs
+                </a>
+                <a class="btn btn-primary" href="lab02.html">
+                  Next Lab <i class="bi bi-arrow-right"></i>
+                </a>
               </div>
             </div>
-            <hr class="my-4" />
+          </div>
+          <!-- /card -->
+        </div>
+      </section>
+    </main>
 
-            <h2 class="fw-bolder mb-3">Reflection</h2>
-            <p class="text-muted">[What would you improve next time? Any debugging lessons or design tradeoffs?]</p>
-
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-between mt-4">
-              <a class="btn btn-outline-dark" href="../index.html#labs"><i class="bi bi-arrow-left"></i> Back to Labs</a>
-              <a class="btn btn-primary" href="lab02.html">Next Lab <i class="bi bi-arrow-right"></i></a>
-            </div>
+    <!-- Footer -->
+    <footer class="bg-white py-4 mt-auto">
+      <div class="container px-5">
+        <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+          <div class="col-auto">
+            <div class="small m-0">Copyright &copy; Jamison L. Taylor Jr. 2026</div>
+          </div>
+          <div class="col-auto">
+            <a class="small" href="../index.html#about">Contact</a>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-</main>
-<footer class="bg-white py-4 mt-auto">
-            <div class="container px-5">
-                <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-                    <div class="col-auto"><div class="small m-0">Copyright &copy; Jamison L. Taylor Jr. 2026</div></div>
-                    <div class="col-auto"><a class="small" href="../index.html#about">Contact</a></div>
-                </div>
-            </div>
-        </footer>
+    </footer>
 
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="../js/scripts.js"></script>
-    </body>
+    <!-- Bootstrap core JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

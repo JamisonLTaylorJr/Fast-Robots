@@ -49,52 +49,6 @@
             <p class="lead fw-light text-muted mb-0">MAE 5190 (Fast Robots) · Lab 401</p>
           </div>
 
-          <!-- Quick Info -->
-          <div class="row g-3 mb-4">
-            <div class="col-md-4">
-              <div class="bg-light rounded-4 p-3 h-100">
-                <div class="small text-muted">Date</div>
-                <div class="fw-semibold">[MM/DD/YYYY]</div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="bg-light rounded-4 p-3 h-100">
-                <div class="small text-muted">Tools</div>
-                <div class="fw-semibold">Arduino IDE · Jupyter/Python · BLE</div>
-              </div>
-            </div>
-            <div class="col-md-4">
-              <div class="bg-light rounded-4 p-3 h-100">
-                <div class="small text-muted">Hardware</div>
-                <div class="fw-semibold">SparkFun RedBoard Artemis Nano</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- TOC -->
-          <div class="card shadow border-0 rounded-4 mb-4">
-            <div class="card-body p-4">
-              <div class="d-flex align-items-center mb-2">
-                <i class="bi bi-list-check me-2"></i>
-                <h2 class="h5 fw-bolder mb-0">Table of Contents</h2>
-              </div>
-              <div class="row g-2">
-                <div class="col-12 col-md-6">
-                  <a class="text-decoration-none" href="#objective">1) Objective</a><br />
-                  <a class="text-decoration-none" href="#prelab">2) Prelab</a><br />
-                  <a class="text-decoration-none" href="#labtasks">3) Lab Tasks</a><br />
-                  <a class="text-decoration-none" href="#discussion">4) Discussion</a><br />
-                </div>
-                <div class="col-12 col-md-6">
-                  <a class="text-decoration-none" href="#grad5000">5) 5000-Level Analysis (if applicable)</a><br />
-                  <a class="text-decoration-none" href="#codesnips">6) Code Snippets</a><br />
-                </div>
-              </div>
-              <div class="small text-muted mt-3">
-                Tip: Keep this under <span class="fw-semibold">1000 words</span> and show evidence (screenshots, plots, short clips).
-              </div>
-            </div>
-          </div>
 
           <!-- MAIN CONTENT -->
           <div class="card shadow border-0 rounded-4 mb-5">
@@ -117,47 +71,104 @@
 
               <hr class="my-5" />
 
-              <!-- Prelab -->
-              <section id="prelab" class="mb-5">
-                <h2 class="fw-bolder mb-3">Prelab</h2>
-
-                <h3 class="h5 fw-bolder mt-4">Setup</h3>
-                <p class="text-muted">
-                  <!-- EDIT ME -->
-                  [Briefly describe installing Arduino IDE + SparkFun Apollo3 board manager, selecting RedBoard Artemis Nano, and confirming COM port.]
+              <!-- Prelab: Board Bring-Up Checklist -->
+              <div class="mt-4">
+                <h4 class="fw-bolder mb-2">Artemis Bring-Up Checklist (Prelab)</h4>
+                <p class="text-muted mb-3">
+                  Before starting the BLE portion, I verified that my Artemis could reliably upload code, print to Serial,
+                  and read onboard sensors using the built-in example sketches.
                 </p>
 
-                <!-- Evidence blocks -->
-                <div class="row g-3 mt-2">
-                  <div class="col-md-6">
-                    <div class="border rounded-4 p-4 h-100">
-                      <div class="small text-muted">Screenshot / Photo</div>
-                      <div class="fw-semibold">[Arduino board + port selected]</div>
-                      <!-- Example image (drop into assets/labs/lab01/) -->
-                      <!-- <img class="img-fluid rounded-4 mt-3" src="../assets/labs/lab01/setup.png" alt="Setup screenshot" /> -->
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="border rounded-4 p-4 h-100">
-                      <div class="small text-muted">Result</div>
-                      <div class="fw-semibold">[MAC address / BLE service detected / first successful upload]</div>
+                <div class="card border-0 shadow-sm rounded-4 mb-3">
+                  <div class="card-body p-4">
+                    <h5 class="fw-bolder mb-2">1) Connect + Select Board/Port</h5>
+                    <ul class="text-muted mb-3">
+                      <li>Connected the Artemis to my computer via USB and confirmed a stable physical connection.</li>
+                      <li>In Arduino IDE, selected <span class="fw-semibold">Board: RedBoard Artemis Nano</span> and the correct <span class="fw-semibold">Port</span>.</li>
+                    </ul>
+
+                    <div class="bg-light rounded-4 p-3">
+                      <div class="small text-muted mb-1">Evidence</div>
+                      <div class="fw-semibold">[Screenshot of Arduino IDE showing board + port selected]</div>
                     </div>
                   </div>
                 </div>
 
-                <h3 class="h5 fw-bolder mt-5">Codebase + BLE Understanding</h3>
-                <p class="text-muted">
-                  <!-- EDIT ME -->
-                  [Explain at a high level how BLE works here: computer ↔ Artemis, commands, GATT characteristic reads/writes, notifications, etc.]
-                </p>
-
-                <div class="bg-light rounded-4 p-4">
-                  <div class="small text-muted mb-2">Quick diagram (optional)</div>
-                  <div class="fw-semibold">Computer → Command → Artemis → Notification back to computer</div>
+                <div class="card border-0 shadow-sm rounded-4 mb-3">
+                  <div class="card-body p-4">
+                    <h5 class="fw-bolder mb-2">2) Common Connection Issues I Watched For</h5>
+                    <ul class="text-muted mb-0">
+                      <li><span class="fw-semibold">Loose USB connection:</span> ensured the connector was fully seated in the board.</li>
+                      <li><span class="fw-semibold">Windows slow first compile:</span> if needed, added my Arduino install/project folder to antivirus exclusions.</li>
+                      <li><span class="fw-semibold">Bootloader/driver:</span> if the bootloader couldn’t connect, CH340 driver may need updating (teaching team first).</li>
+                    </ul>
+                  </div>
                 </div>
-              </section>
 
-              <hr class="my-5" />
+                <div class="card border-0 shadow-sm rounded-4 mb-3">
+                  <div class="card-body p-4">
+                    <h5 class="fw-bolder mb-2">3) Verified Basic Examples</h5>
+                    <p class="text-muted mb-3">
+                      I ran the following Arduino example sketches to confirm uploads, Serial I/O, and sensor functionality.
+                      I also double-checked baud rates if output looked wrong.
+                    </p>
+
+                    <div class="row g-3">
+                      <div class="col-md-6">
+                        <div class="border rounded-4 p-3 h-100">
+                          <div class="fw-semibold">Blink</div>
+                          <div class="text-muted small">File → Examples → 01.Basics → Blink</div>
+                          <div class="text-muted small mt-2">Notes: adjusted baud rate / timing if needed.</div>
+                          <div class="bg-light rounded-4 p-3 mt-3">
+                            <div class="small text-muted">Evidence</div>
+                            <div class="fw-semibold">[Short video or photo showing LED blinking]</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="border rounded-4 p-3 h-100">
+                          <div class="fw-semibold">Serial Example</div>
+                          <div class="text-muted small">File → Examples → Apollo3 → Example4_Serial</div>
+                          <div class="text-muted small mt-2">Notes: opened Serial Monitor + matched baud rate.</div>
+                          <div class="bg-light rounded-4 p-3 mt-3">
+                            <div class="small text-muted">Evidence</div>
+                            <div class="fw-semibold">[Screenshot of Serial Monitor input/output]</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="border rounded-4 p-3 h-100">
+                          <div class="fw-semibold">Temperature Sensor</div>
+                          <div class="text-muted small">File → Examples → Apollo3 → Example2_analogRead</div>
+                          <div class="text-muted small mt-2">
+                            Test: blowing on/touching the chip changed readings (with a short delay for heat transfer).
+                          </div>
+                          <div class="bg-light rounded-4 p-3 mt-3">
+                            <div class="small text-muted">Evidence</div>
+                            <div class="fw-semibold">[Screenshot/plot of temperature changing over time]</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-md-6">
+                        <div class="border rounded-4 p-3 h-100">
+                          <div class="fw-semibold">Microphone (PDM)</div>
+                          <div class="text-muted small">File → Examples → PDM → Example1_MicrophoneOutput</div>
+                          <div class="text-muted small mt-2">Test: speaking/whistling changed measured frequency content.</div>
+                          <div class="bg-light rounded-4 p-3 mt-3">
+                            <div class="small text-muted">Evidence</div>
+                            <div class="fw-semibold">[Screenshot of output / short video of you speaking + changing readings]</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
 
               <!-- Lab Tasks -->
               <section id="labtasks" class="mb-5">

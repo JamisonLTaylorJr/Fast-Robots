@@ -39,7 +39,7 @@
             </ul>
           </div>
         </div>
-      </nav> 
+      </nav>
 
       <!-- Header -->
       <section class="py-5">
@@ -70,15 +70,16 @@
                     In Arduino IDE, selected <span class="fw-semibold">Board: RedBoard Artemis Nano</span> and the correct
                     <span class="fw-semibold">Port</span>.
                   </li>
-                  <li>
-                    At “Basic Examples” I did multiple board checks to confirm the board works as expected.
-                  </li>
+                  <li>At “Basic Examples” I did multiple board checks to confirm the board works as expected.</li>
                 </ul>
 
-                 
-                  <img class="img-fluid rounded-4" src="../assets/prelab1/prelab1.png" alt="Arduino board and port selection" class="img-fluid rounded-4 d-block mx-auto"
-     style="max-width: 320px;"
-     alt="Serial screenshot"/>
+                <div class="bg-light rounded-4 p-3">
+                  <img
+                    src="../assets/prelab1/prelab1.png"
+                    alt="Arduino board and port selection"
+                    class="img-fluid rounded-4 d-block mx-auto"
+                    style="max-width: 420px;"
+                  />
                 </div>
               </div>
             </div>
@@ -97,7 +98,7 @@
                         The first check was running Blink. I made the board LED blink on and off at set intervals.
                       </div>
                       <div class="bg-light rounded-4 p-3 mt-3">
-                        <video class="w-50 rounded-4 shadow-sm" controls>
+                        <video class="w-100 rounded-4 shadow-sm" style="max-width: 420px;" controls>
                           <source src="../assets/prelab1/prelab2.MOV" type="video/quicktime" />
                           Your browser does not support the video tag.
                         </video>
@@ -115,9 +116,12 @@
                         confirmed they were echoed back.
                       </div>
                       <div class="bg-light rounded-4 p-3 mt-3">
-                        <img class="img-fluid rounded-4" src="../assets/prelab1/prelab3.png" alt="Serial monitor input/output" class="img-fluid rounded-4 d-block mx-auto"
-     style="max-width: 320px;"
-     alt="Serial screenshot" />
+                        <img
+                          src="../assets/prelab1/prelab3.png"
+                          alt="Serial monitor input/output"
+                          class="img-fluid rounded-4 d-block mx-auto"
+                          style="max-width: 420px;"
+                        />
                       </div>
                     </div>
                   </div>
@@ -132,9 +136,12 @@
                         and saw a noticeable change in the readings over time.
                       </div>
                       <div class="bg-light rounded-4 p-3 mt-3">
-                        <img class="img-fluid rounded-4" src="../assets/prelab1/prelab4.png" alt="Temperature readings changing over time" class="img-fluid rounded-4 d-block mx-auto"
-     style="max-width: 320px;"
-     alt="Serial screenshot" />
+                        <img
+                          src="../assets/prelab1/prelab4.png"
+                          alt="Temperature readings changing over time"
+                          class="img-fluid rounded-4 d-block mx-auto"
+                          style="max-width: 420px;"
+                        />
                       </div>
                     </div>
                   </div>
@@ -148,9 +155,12 @@
                         I tested the onboard microphone by speaking near it and observing the measured frequency content change.
                       </div>
                       <div class="bg-light rounded-4 p-3 mt-3">
-                        <img class="img-fluid rounded-4" src="../assets/prelab1/prelab5.png" alt="Microphone output evidence" class="img-fluid rounded-4 d-block mx-auto"
-     style="max-width: 320px;"
-     alt="Serial screenshot" />
+                        <img
+                          src="../assets/prelab1/prelab5.png"
+                          alt="Microphone output evidence"
+                          class="img-fluid rounded-4 d-block mx-auto"
+                          style="max-width: 420px;"
+                        />
                       </div>
                     </div>
                   </div>
@@ -167,7 +177,7 @@
                   (6th octave) and played each note to see if the board detected them correctly. It detected each note without major issues.
                 </div>
                 <div class="bg-light rounded-4 p-3">
-                  <video class="w-100 rounded-4 shadow-sm" controls>
+                  <video class="w-100 rounded-4 shadow-sm" style="max-width: 720px;" controls>
                     <source src="../assets/prelab1/prelab6.mp4" type="video/mp4" />
                     Your browser does not support the video tag.
                   </video>
@@ -196,9 +206,12 @@
                   Jupyter Notebook, to then complete the Lab tasks in the latter sections.
                 </p>
                 <div class="bg-light rounded-4 p-3">
-                  <img class="img-fluid rounded-4" src="../assets/prelab1/prelab7.png" alt="Command prompt and Jupyter launch" class="img-fluid rounded-4 d-block mx-auto"
-     style="max-width: 320px;"
-     alt="Serial screenshot" />
+                  <img
+                    src="../assets/prelab1/prelab7.png"
+                    alt="Command prompt and Jupyter launch"
+                    class="img-fluid rounded-4 d-block mx-auto"
+                    style="max-width: 520px;"
+                  />
                 </div>
               </div>
             </div>
@@ -235,7 +248,7 @@
   char char_arr[MAX_MSG_SIZE];
 
   success = robot_cmd.get_next_value(char_arr);
-   if (!success) return;
+  if (!success) return;
 
   Serial.print("Robot: ");
   Serial.print(char_arr);
@@ -247,9 +260,12 @@ break;</code></pre>
                   <div class="col-md-6">
                     <div class="border rounded-4 p-3 h-100">
                       <div class="small text-muted mb-2">Evidence</div>
-                      <img class="img-fluid rounded-4" src="../assets/prelab1/q1.png" alt="ECHO evidence" class="img-fluid rounded-4 d-block mx-auto"
-     style="max-width: 320px;"
-     alt="Serial screenshot" />
+                      <img
+                        src="../assets/prelab1/q1.png"
+                        alt="ECHO evidence"
+                        class="img-fluid rounded-4 d-block mx-auto"
+                        style="max-width: 520px;"
+                      />
                     </div>
                   </div>
                 </div>
@@ -265,7 +281,7 @@ break;</code></pre>
                 </div>
 
                 <p class="text-muted mb-3">
-                  For this task I added a updated a command (SEND_THREE_FLOATS) to the Arduino code that takes in three float values
+                  For this task I added/updated a command (SEND_THREE_FLOATS) to the Arduino code that takes in three float values
                   from the python code over BLE. In the python code I called SEND_THREE_FLOATS using send_command and sent it three float values (1.0,2.0,3.0).
                   The Arduino board then printed out a message using these three float values to the Serial Monitor.
                 </p>
@@ -278,13 +294,13 @@ break;</code></pre>
   float flo_a, flo_b, flo_c;
 
   success = robot_cmd.get_next_value(flo_a);
-    if (!success) return;
+  if (!success) return;
 
   success = robot_cmd.get_next_value(flo_b);
-    if (!success) return;
+  if (!success) return;
 
   success = robot_cmd.get_next_value(flo_c);
-    if (!success) return;
+  if (!success) return;
 
   Serial.print("Don't play with me! I'm not the '");
   Serial.print(flo_a);
@@ -293,23 +309,30 @@ break;</code></pre>
   Serial.print("', or the '");
   Serial.print(flo_c);
   Serial.println(". Today is not that day!");
-break;
-</code></pre>
+break;</code></pre>
                     </div>
                   </div>
 
                   <div class="col-md-6">
                     <div class="border rounded-4 p-3 h-100">
                       <div class="small text-muted mb-2">Evidence</div>
+
                       <div class="bg-light rounded-4 p-3 mb-3">
-                        <img class="img-fluid rounded-4" src="../assets/prelab1/q11.png" alt="SEND_THREE_FLOATS evidence 1" class="img-fluid rounded-4 d-block mx-auto"
-     style="max-width: 320px;"
-     alt="Serial screenshot" />
+                        <img
+                          src="../assets/prelab1/q11.png"
+                          alt="SEND_THREE_FLOATS evidence 1"
+                          class="img-fluid rounded-4 d-block mx-auto"
+                          style="max-width: 520px;"
+                        />
                       </div>
+
                       <div class="bg-light rounded-4 p-3">
-                        <img class="img-fluid rounded-4" src="../assets/prelab1/q12.png" alt="SEND_THREE_FLOATS evidence 2" class="img-fluid rounded-4 d-block mx-auto"
-     style="max-width: 320px;"
-     alt="Serial screenshot" />
+                        <img
+                          src="../assets/prelab1/q12.png"
+                          alt="SEND_THREE_FLOATS evidence 2"
+                          class="img-fluid rounded-4 d-block mx-auto"
+                          style="max-width: 520px;"
+                        />
                       </div>
                     </div>
                   </div>
@@ -321,16 +344,15 @@ break;
             <div class="card border-0 shadow-sm rounded-4 mb-4">
               <div class="card-body p-4">
                 <div class="d-flex justify-content-between align-items-start">
-                  <h3 class="h5 fw-bolder mb-1">Task 3: GET_TIME_MILLIS </h3>
+                  <h3 class="h5 fw-bolder mb-1">Task 3: GET_TIME_MILLIS</h3>
+                  <span class="badge bg-light text-dark border">BLE</span>
                 </div>
-                <p class="text-muted mb-3">
-                  For this task I added a new command (GET_TIME_MILLIS) to the 
-                  Arduino code that sends the current time in milliseconds over BLE. 
-                  In the python code I called GET_TIME_MILLIS and pulled it from the robot
-                  to print it out and get the time in milliseconds.
 
+                <p class="text-muted mb-3">
+                  For this task I added a new command (GET_TIME_MILLIS) to the Arduino code that sends the current time in milliseconds over BLE.
+                  In the python code I called GET_TIME_MILLIS and pulled it from the robot to print it out and get the time in milliseconds.
                 </p>
-                
+
                 <div class="row g-3">
                   <div class="col-md-6">
                     <div class="border rounded-4 p-3 h-100">
@@ -338,49 +360,53 @@ break;
                       <pre class="mb-0"><code>case GET_TIME_MILLIS:
   tx_estring_value.clear();
   tx_estring_value.append("T:");
-  tx_estring_value.append(int(millis()));
+  tx_estring_value.append((int)millis());
   tx_characteristic_string.writeValue(tx_estring_value.c_str());
 
   Serial.println(tx_estring_value.c_str());
+break;</code></pre>
+                    </div>
+                  </div>
 
-break;
-                </code></pre>    
+                  <div class="col-md-6">
+                    <div class="border rounded-4 p-3 h-100">
+                      <div class="small text-muted mb-2">Board return and Jupyter command</div>
+                      <img
+                        src="../assets/prelab1/q3.png"
+                        alt="GET_TIME_MILLIS evidence"
+                        class="img-fluid rounded-4 d-block mx-auto"
+                        style="max-width: 520px;"
+                      />
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="border rounded-4 p-3">
-                  <div class="small text-muted">Board return and Jupyter command</div>
-          <div class="bg-light rounded-4 p-3">
-                  <img class="img-fluid rounded-4" src="../assets/prelab1/q3.png" alt="Arduino board and port selection" class="img-fluid rounded-4 d-block mx-auto"
-     style="max-width: 320px;"
-     alt="Serial screenshot" />
-                
-                </div>
-                
-            
-            
-                  <!-- Task 4 -->
+
+            <!-- Task 4 -->
             <div class="card border-0 shadow-sm rounded-4 mb-4">
               <div class="card-body p-4">
                 <div class="d-flex justify-content-between align-items-start">
                   <h3 class="h5 fw-bolder mb-1">Task 4: Python notification handler</h3>
                 </div>
+
                 <p class="text-muted mb-3">
                   Here I set up a notification handler in Python to receive and process the time data sent from the Arduino board.
                   The callback function notif_handler is defined to handle incoming notifications. When the Arduino sends the current time in milliseconds,
                   this function is triggered. It decodes the incoming byte data to a string, and extracts the time.
-
                 </p>
 
-                 <div class="bg-light rounded-4 p-3">
-                  <div class="small text-muted">Python Code</div>
                 <div class="bg-light rounded-4 p-3">
-                  <img class="img-fluid rounded-4" src="../assets/prelab1/q4.png" alt="Arduino board and port selection" class="img-fluid rounded-4 d-block mx-auto"
-     style="max-width: 320px;"
-     alt="Serial screenshot" />
-                </div>                
+                  <div class="small text-muted mb-2">Python Code</div>
+                  <img
+                    src="../assets/prelab1/q4.png"
+                    alt="Python notification handler code screenshot"
+                    class="img-fluid rounded-4 d-block mx-auto"
+                    style="max-width: 720px;"
+                  />
+                </div>
               </div>
             </div>
-          </div>
 
             <!-- Task 5 -->
             <div class="card border-0 shadow-sm rounded-4 mb-4">
@@ -388,39 +414,40 @@ break;
                 <div class="d-flex justify-content-between align-items-start">
                   <h3 class="h5 fw-bolder mb-1">Task 5: Transfer Rate</h3>
                 </div>
+
                 <p class="text-muted mb-3">
                   Here I needed to add a new command (CURRENT_TIME) to the Arduino code that continuously sends the current time in milliseconds
-                  for 5 seconds without using recieve_string. In the new command I added a while loop, and used the millis() funciton to capture 
+                  for 5 seconds without using recieve_string. In the new command I added a while loop, and used the millis() funciton to capture
                   its start time, and make the while loop run for an extra 5000 milliseconds and added a countloop vairable to count
-                  how many times the while loop ran. 
-
-                  Now outside of the while loop, I printed the number of loops ran, the total seconds it ran for
-                  the amount of data send to each loop, and calculated the transfer rate in bytes/second by multiplying the number of loops
-                  by 10 bytes (the size of the string being sent) and dividing it by the total time in seconds (stoptime/1000). Trasfer Rate: 296 bytes/second.
-
-                  To display this on my comupter I called the def notif_handler function, which then called the CURRENT_TIME 
-                  command to print the changing time on my computer(Jupyter Notebook). 
+                  how many times the while loop ran.
+                  <br /><br />
+                  Now outside of the while loop, I printed the number of loops ran, the total seconds it ran for, the amount of data sent each loop,
+                  and calculated the transfer rate in bytes/second. Transfer Rate: 296 bytes/second.
+                  <br /><br />
+                  To display this on my comupter I called the notif_handler function, which then called the CURRENT_TIME
+                  command to print the changing time on my computer (Jupyter Notebook).
                 </p>
-                
+
                 <div class="row g-3">
                   <div class="col-md-6">
                     <div class="border rounded-4 p-3 h-100">
                       <div class="small text-muted mb-2">Arduino Code</div>
-                      <pre class="mb-0"><code>case CURRENT_TIME:{
+                      <pre class="mb-0"><code>case CURRENT_TIME: {
   unsigned long starttime = millis();
   unsigned long countloop = 0;
   const unsigned long stoptime = 5000;
-  
-  while (millis() - starttime < stoptime){
+
+  while (millis() - starttime < stoptime) {
     tx_estring_value.clear();
     tx_estring_value.append("T:");
-    tx_estring_value.append(int(millis()));
+    tx_estring_value.append((int)millis());
     tx_characteristic_string.writeValue(tx_estring_value.c_str());
 
     Serial.print("Board: ");
     Serial.println(tx_estring_value.c_str());
     countloop++;
-    }
+  }
+
   Serial.print("Function CURRENT_TIME ran ");
   Serial.print(countloop);
   Serial.print(" times for ");
@@ -428,24 +455,37 @@ break;
   Serial.println(" seconds with 10 bytes each.");
   Serial.print("Transfer Rate (bytes/sec) = ");
   Serial.println((countloop * 10.0) / (stoptime / 1000.0));
-break;
-}
-                 </code></pre>    
+  break;
+}</code></pre>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="border rounded-4 p-3 h-100">
+                      <div class="small text-muted mb-2">Evidence</div>
+
+                      <div class="bg-light rounded-4 p-3 mb-3">
+                        <img
+                          src="../assets/prelab1/q5.png"
+                          alt="Transfer rate evidence 1"
+                          class="img-fluid rounded-4 d-block mx-auto"
+                          style="max-width: 520px;"
+                        />
+                      </div>
+
+                      <div class="bg-light rounded-4 p-3">
+                        <img
+                          src="../assets/prelab1/q51.png"
+                          alt="Transfer rate evidence 2"
+                          class="img-fluid rounded-4 d-block mx-auto"
+                          style="max-width: 520px;"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-                
-
-            <div class="bg-light rounded-4 p-3">
-                  <img class="img-fluid rounded-4" src="../assets/prelab1/q5.png" alt="Arduino board and port selection" class="img-fluid rounded-4 d-block mx-auto"
-     style="max-width: 320px;"
-     alt="Serial screenshot" />
-                </div> 
-            
-            <div class="bg-light rounded-4 p-3">
-                  <img class="img-fluid rounded-4" src="../assets/prelab1/q51.png" alt="Arduino board and port selection"class="img-fluid rounded-4 d-block mx-auto"
-     style="max-width: 320px;"
-     alt="Serial screenshot" />
-                </div> 
 
             <!-- Task 6 -->
             <div class="card border-0 shadow-sm rounded-4 mb-4">
@@ -454,22 +494,25 @@ break;
                   <h3 class="h5 fw-bolder mb-1">Task 6: Timestamp array + SEND_TIME_DATA</h3>
                   <span class="badge bg-light text-dark border">Buffering</span>
                 </div>
-                <p class="text-muted mb-3">[Explain array size, overflow protection, and how SEND_TIME_DATA transmits stored points.]</p>
-                
+
+                <p class="text-muted mb-3">
+                  [Explain array size, overflow protection, and how SEND_TIME_DATA transmits stored points.]
+                </p>
+
                 <div class="row g-3">
                   <div class="col-md-6">
                     <div class="border rounded-4 p-3 h-100">
                       <div class="small text-muted mb-2">Arduino Code</div>
-                      <pre class="mb-0"><code>
-                
-                ////////code snippet////////
-                 </code></pre>    
-              </div>
-            </div>
-                
-                <div class="bg-light rounded-4 p-3">
-                  <div class="small text-muted">Evidence</div>
-                  <div class="fw-semibold">[Python list shows all values received / count matches]</div>
+                      <pre class="mb-0"><code>// ////////code snippet////////</code></pre>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="border rounded-4 p-3 h-100">
+                      <div class="small text-muted mb-2">Evidence</div>
+                      <div class="fw-semibold">[Python list shows all values received / count matches]</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -481,22 +524,25 @@ break;
                   <h3 class="h5 fw-bolder mb-1">Task 7: Temp array + GET_TEMP_READINGS</h3>
                   <span class="badge bg-light text-dark border">Sensors</span>
                 </div>
-                <p class="text-muted mb-3">[Explain paired timestamp/temp format and parsing into two Python lists.]</p>
-                
+
+                <p class="text-muted mb-3">
+                  [Explain paired timestamp/temp format and parsing into two Python lists.]
+                </p>
+
                 <div class="row g-3">
                   <div class="col-md-6">
                     <div class="border rounded-4 p-3 h-100">
                       <div class="small text-muted mb-2">Arduino Code</div>
-                      <pre class="mb-0"><code>
-                
-                ////////code snippet////////
-                 </code></pre>    
-              </div>
-            </div>
-                
-                <div class="border rounded-4 p-3">
-                  <div class="small text-muted">Evidence</div>
-                  <div class="fw-semibold">[Plot temp vs time or screenshot of parsed lists]</div>
+                      <pre class="mb-0"><code>// ////////code snippet////////</code></pre>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="border rounded-4 p-3 h-100">
+                      <div class="small text-muted mb-2">Evidence</div>
+                      <div class="fw-semibold">[Plot temp vs time or screenshot of parsed lists]</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -508,22 +554,11 @@ break;
                   <h3 class="h5 fw-bolder mb-1">Task 8: Method Comparison + Memory Estimate</h3>
                   <span class="badge bg-light text-dark border">Analysis</span>
                 </div>
+
                 <p class="text-muted mb-0">
                   [Discuss streaming vs buffering: overhead, reliability, timing resolution, scenarios to use each, how quickly method 2 records,
                   and estimate max stored data given 384 kB RAM.]
                 </p>
-
-                <div class="row g-3">
-                  <div class="col-md-6">
-                    <div class="border rounded-4 p-3 h-100">
-                      <div class="small text-muted mb-2">Arduino Code</div>
-                      <pre class="mb-0"><code>
-                
-                ////////code snippet////////
-                 </code></pre>    
-              </div>
-            </div>
-
               </div>
             </div>
           </section>
@@ -601,7 +636,6 @@ break;
               </a>
             </div>
           </section>
-
         </div><!-- /container -->
       </section>
     </main>
@@ -619,6 +653,7 @@ break;
       </div>
     </footer>
 
+    <!-- Bootstrap core JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

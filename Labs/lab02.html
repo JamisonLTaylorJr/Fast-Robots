@@ -89,7 +89,17 @@
                   </video>
                 </div>
 
-                <!-- Example working evidence -->
+                <!-- Example working evidence Accelerometer-->
+                <div class="bg-light rounded-4 p-3">
+                  <img
+                    src="../assets/lab2/imu_example_gyro.png"
+                    alt="IMU example output working"
+                    class="img-fluid rounded-4 d-block mx-auto"
+                    style="max-width: 320px;"
+                  />
+                </div>
+
+                <!-- Example working evidence Gyroscope-->
                 <div class="bg-light rounded-4 p-3">
                   <img
                     src="../assets/lab2/imu_example.png"
@@ -125,17 +135,23 @@
                   Below are the equations I used and screenshots of the output.
                 </div>
 
-                <!-- Equations -->
-                <div class="bg-light rounded-4 p-3 mb-3">
-                  <div class="text-muted small">
-                    <div class="fw-semibold mb-2">Equations</div>
-                    <!-- Replace with your exact equations (or screenshots). -->
-                    <div>
-                      Pitch ≈ atan2(-ax, sqrt(ay² + az²)) <br />
-                      Roll  ≈ atan2(ay, az)
+                <!-- Code -->
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <div class="border rounded-4 p-3 h-100">
+                      <div class="small text-muted mb-2">Relevant Code Snippet</div>
+                      <pre class="mb-0"><code>
+float pitch_full_range = 180/(86+88.4);
+float roll_full_range = 180/(89+87.4);
+float accelerometer_pitch = (atan2(myICM.accY(), myICM.accZ())*180.0/M_PI * pitch_full_range);
+float accelerometer_roll  = (atan2(myICM.accX(), myICM.accZ())*180.0/M_PI * roll_full_range);
+
+SERIAL_PORT.print(accelerometer_pitch);
+SERIAL_PORT.print(" ");
+SERIAL_PORT.println(accelerometer_roll);
+break;</code></pre>
                     </div>
                   </div>
-                </div>
 
                 <!-- Images of output -->
                 <div class="row g-3">
@@ -143,7 +159,8 @@
                     <div class="bg-light rounded-4 p-3 h-100">
                       <div class="fw-semibold small mb-2">-90°</div>
                       <img
-                        src="../assets/lab2/accel_-90.png"
+                        src="../assets/lab2/acc_pitch_-90.png"
+                        src="../assets/lab2/acc_roll_-90.png" 
                         alt="Accelerometer output at -90 degrees"
                         class="img-fluid rounded-4 d-block mx-auto"
                         style="max-width: 320px;"

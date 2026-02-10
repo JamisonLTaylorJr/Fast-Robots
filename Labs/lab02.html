@@ -141,14 +141,12 @@
                     <div class="border rounded-4 p-3 h-100">
                       <div class="small text-muted mb-2">Relevant Code Snippet</div>
                       <pre class="mb-0"><code>
+float pitch_off = -.2;
+float roll_off  = -.2;
 float pitch_full_range = 180/(86+88.4);
 float roll_full_range = 180/(89+87.4);
-float accelerometer_pitch = (atan2(myICM.accY(), myICM.accZ())*180.0/M_PI * pitch_full_range);
-float accelerometer_roll  = (atan2(myICM.accX(), myICM.accZ())*180.0/M_PI * roll_full_range);
-
-SERIAL_PORT.print(accelerometer_pitch);
-SERIAL_PORT.print(" ");
-SERIAL_PORT.println(accelerometer_roll);
+float accelerometer_pitch = (atan2(myICM.accY(), myICM.accZ())*180.0/M_PI * pitch_full_range)+pitch_off;
+float accelerometer_roll  = (atan2(myICM.accX(), myICM.accZ())*180.0/M_PI * roll_full_range)+roll_off;
 break;</code></pre>
                     </div>
                   </div>
@@ -235,8 +233,11 @@ break;</code></pre>
                 <h5 class="fw-bolder mb-2">Accelerometer accuracy discussion</h5>
                 <p class="text-muted mb-3">
                   <!-- Replace with your discussion -->
-                  I compared the measured angles to the expected angles and looked at error sources like sensor noise,
-                  slight misalignment when holding the board, and drift due to vibration.
+                  My accelerometer readings were not so precise. I saw two main problems: 1) the total angle range from
+                  -90 to 90 degrees waw actually less than 180 degrees, and the 0 degree reading was slightly offset. So to combat this 
+                  I took the desired range of 180 and divided it by the accelerometer readings at the real -90 and +90 degrees. This gave me 
+                  a scaling factor where I could obtain the proper range by multiplying this by the raw accelerometer angle. Then to get it to the right
+                  offset, looked at the 0 readings and subtracted the error.
                 </p>
 
                 <h5 class="fw-bolder mb-2">Noise in the frequency spectrum analysis</h5>

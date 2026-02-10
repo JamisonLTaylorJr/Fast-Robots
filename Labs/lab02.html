@@ -99,16 +99,7 @@
                   />
                 </div>
 
-                <!-- Example working evidence Gyroscope-->
-                <div class="bg-light rounded-4 p-3">
-                  <img
-                    src="../assets/lab2/imu_example.png"
-                    alt="IMU example output working"
-                    class="img-fluid rounded-4 d-block mx-auto"
-                    style="max-width: 320px;"
-                  />
-                </div>
-
+                
                 <div class="mt-3 text-muted small">
                   <span class="fw-semibold">AD0_VAL:</span>
                   <!-- Replace this with your explanation -->
@@ -139,7 +130,7 @@
                 <div class="row g-3">
                   <div class="col-md-6">
                     <div class="border rounded-4 p-3 h-100">
-                      <div class="small text-muted mb-2">Relevant Code Snippet</div>
+                      <div class="small text-muted mb-2">Code + Equation</div>
                       <pre class="mb-0"><code>
 float pitch_off = -.2;
 float roll_off  = -.2;
@@ -147,7 +138,7 @@ float pitch_full_range = 180/(86+88.4);
 float roll_full_range = 180/(89+87.4);
 float accelerometer_pitch = (atan2(myICM.accY(), myICM.accZ())*180.0/M_PI * pitch_full_range)+pitch_off;
 float accelerometer_roll  = (atan2(myICM.accX(), myICM.accZ())*180.0/M_PI * roll_full_range)+roll_off;
-break;</code></pre>
+</code></pre>
                     </div>
                   </div>
 

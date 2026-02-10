@@ -278,24 +278,53 @@ break;</code></pre>
                   I tested multiple IMU positions and documented how pitch/roll/yaw changed based on the board orientation.
                 </div>
 
+                <!-- Code -->
                 <div class="row g-3">
                   <div class="col-md-6">
-                    <div class="bg-light rounded-4 p-3 h-100">
-                      <div class="fw-semibold small mb-2">IMU Position Test #1</div>
-                      <img
-                        src="../assets/lab2/gyro_pos1.png"
-                        alt="Gyro output for position test 1"
-                        class="img-fluid rounded-4 d-block mx-auto"
-                        style="max-width: 320px;"
-                      />
+                    <div class="border rounded-4 p-3 h-100">
+                      <div class="small text-muted mb-2">Gyroscope Code</div>
+                      <pre class="mb-0"><code>
+static float gyro_pitch = 0.0;
+static float gyro_roll  = 0.0;
+static float gyro_yaw   = 0.0;
+
+static unsigned long lastTime = millis();
+
+unsigned long currentTime = millis();
+float dt = (currentTime - lastTime) / 1000.0;
+lastTime = currentTime;
+
+// Read gyro rates (deg/s)
+float gx = myICM.gyrX();
+float gy = myICM.gyrY();
+float gz = myICM.gyrZ();
+
+// Integrate rates → angles
+gyro_pitch += gx * dt;
+gyro_roll  += gy * dt;
+gyro_yaw   += gz * dt;
+</code></pre>
                     </div>
                   </div>
 
                   <div class="col-md-6">
                     <div class="bg-light rounded-4 p-3 h-100">
-                      <div class="fw-semibold small mb-2">IMU Position Test #2</div>
+                      <div class="fw-semibold small mb-2">Gyroscope Output: Position 1</div>
                       <img
-                        src="../assets/lab2/gyro_pos2.png"
+                        src="../assets/lab2/gyro_output.png"
+                        alt="Gyro output for position test 2"
+                        class="img-fluid rounded-4 d-block mx-auto"
+                        style="max-width: 320px;"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                  <div class="col-md-6">
+                    <div class="bg-light rounded-4 p-3 h-100">
+                      <div class="fw-semibold small mb-2">Gyroscope Output: Postition 2</div>
+                      <img
+                        src="../assets/lab2/gyro_output2.png"
                         alt="Gyro output for position test 2"
                         class="img-fluid rounded-4 d-block mx-auto"
                         style="max-width: 320px;"

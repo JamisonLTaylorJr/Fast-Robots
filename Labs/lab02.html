@@ -1,121 +1,350 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>MAE 5190 Fast Robots | Jamison Taylor Jr.</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
-        <!-- Custom Google font-->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="../css/styles.css" rel="stylesheet" />
-    </head>
-<body class="d-flex flex-column h-100">
-<main class="flex-shrink-0">
-<nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
-  <div class="container px-5">
-    <a class="navbar-brand" href="../index.html"><span class="fw-bolder text-primary">MAE 5190 Fast Robots</span></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-        <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="../index.html#labs">Labs</a></li>
-        <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<section class="py-5">
-  <div class="container px-5">
-    <div class="row gx-5 justify-content-center">
-      <div class="col-lg-9 col-xl-8 col-xxl-7">
-        <div class="text-center mb-5">
-          <h1 class="fw-bolder">Lab 02: <span class="text-gradient">[Lab Title Placeholder]</span></h1>
-          <p class="lead fw-light text-muted mb-0">MAE 5190 (Fast Robots) &middot; Lab 401</p>
-        </div>
-        <div class="card shadow border-0 rounded-4 mb-5">
-          <div class="card-body p-5">
-            <h2 class="fw-bolder mb-3">Overview</h2>
-            <p class="text-muted">[Write a 4–8 sentence overview of what this lab was about. What problem were you solving? What did you build?]</p>
-            <hr class="my-4" />
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="MAE 5190 Fast Robots - Lab 2" />
+    <meta name="author" content="Jamison L. Taylor Jr." />
+    <title>Lab 2 | MAE 5190 Fast Robots</title>
 
-            <h2 class="fw-bolder mb-3">Objectives</h2>
-            <ul class="text-muted">
-              <li>[Objective 1]</li>
-              <li>[Objective 2]</li>
-              <li>[Objective 3]</li>
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="../css/styles.css" rel="stylesheet" />
+  </head>
+
+  <body class="d-flex flex-column h-100">
+    <main class="flex-shrink-0">
+      <!-- Navbar -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+        <div class="container px-5">
+          <a class="navbar-brand" href="../index.html">
+            <span class="fw-bolder text-primary">MAE 5190 Fast Robots</span>
+          </a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+              <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="../index.html#labs">Labs</a></li>
+              <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
             </ul>
-            <hr class="my-4" />
-
-            <h2 class="fw-bolder mb-3">Hardware</h2>
-            <ul class="text-muted">
-              <li>[List sensors/actuators/boards used]</li>
-              <li>[Wiring notes / schematic link]</li>
-            </ul>
-            <hr class="my-4" />
-
-            <h2 class="fw-bolder mb-3">Software</h2>
-            <ul class="text-muted">
-              <li>[Language + toolchain (e.g., C++ / Arduino / ROS / Python)]</li>
-              <li>[Key libraries]</li>
-            </ul>
-            <div class="bg-light rounded-4 p-4">
-              <div class="small text-muted">Code Placeholder</div>
-              <div class="fw-semibold">Add a GitHub link or paste code snippets here later.</div>
-            </div>
-            <hr class="my-4" />
-
-            <h2 class="fw-bolder mb-3">Results</h2>
-            <p class="text-muted">[What worked? What didn’t? Add plots/photos/video links.]</p>
-            <div class="row g-3">
-              <div class="col-md-6">
-                <div class="border rounded-4 p-4 h-100">
-                  <div class="small text-muted">Photo / Screenshot</div>
-                  <div class="fw-semibold">[Drop image into assets/ and link it here]</div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="border rounded-4 p-4 h-100">
-                  <div class="small text-muted">Video Demo</div>
-                  <div class="fw-semibold">[Embed YouTube link or GIF]</div>
-                </div>
-              </div>
-            </div>
-            <hr class="my-4" />
-
-            <h2 class="fw-bolder mb-3">Reflection</h2>
-            <p class="text-muted">[What would you improve next time? Any debugging lessons or design tradeoffs?]</p>
-
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-between mt-4">
-              <a class="btn btn-outline-dark" href="../index.html#labs"><i class="bi bi-arrow-left"></i> Back to Labs</a>
-              <a class="btn btn-primary" href="lab03.html">Next Lab <i class="bi bi-arrow-right"></i></a>
-            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-</main>
-<footer class="bg-white py-4 mt-auto">
-            <div class="container px-5">
-                <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-                    <div class="col-auto"><div class="small m-0">Copyright &copy; Jamison L. Taylor Jr. 2026</div></div>
-                    <div class="col-auto"><a class="small" href="../index.html#about">Contact</a></div>
-                </div>
-            </div>
-        </footer>
+      </nav>
 
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="../js/scripts.js"></script>
-    </body>
+      <!-- Header -->
+      <section class="py-5">
+        <div class="container px-5">
+          <div class="text-center mb-4">
+            <h1 class="fw-bolder">
+              Lab 2: <span class="text-gradient">IMU Setup + Motion Data</span>
+            </h1>
+            <p class="text-muted mb-0">
+              This lab focuses on setting up the IMU, validating accelerometer + gyroscope readings, and collecting/sending sample data.
+            </p>
+          </div>
+
+          <!-- ========================= -->
+          <!-- 1. Lab Tasks -->
+          <!-- ========================= -->
+          <div class="mt-4">
+            <h4 class="fw-bolder mb-2">1. Lab Tasks</h4>
+
+            <div class="card border-0 shadow-sm rounded-4 mb-3">
+              <div class="card-body p-4">
+                <h5 class="fw-bolder mb-2">Set up the IMU</h5>
+                <ul class="text-muted mb-3">
+                  <li>Picture of my Artemis IMU connections</li>
+                  <li>Show that the IMU example code works</li>
+                  <li><span class="fw-semibold">AD0_VAL</span> definition discussion</li>
+                  <li>Acceleration and gyroscope data discussion (pictures recommended)</li>
+                </ul>
+
+                <!-- Connection image -->
+                <div class="bg-light rounded-4 p-3 mb-3">
+                  <img
+                    src="../assets/lab2/imu_connections.jpg"
+                    alt="Artemis IMU connections"
+                    class="img-fluid rounded-4 d-block mx-auto"
+                    style="max-width: 320px;"
+                  />
+                </div>
+
+                <!-- Example working evidence -->
+                <div class="bg-light rounded-4 p-3">
+                  <img
+                    src="../assets/lab2/imu_example_output.png"
+                    alt="IMU example output working"
+                    class="img-fluid rounded-4 d-block mx-auto"
+                    style="max-width: 320px;"
+                  />
+                </div>
+
+                <div class="mt-3 text-muted small">
+                  <span class="fw-semibold">AD0_VAL:</span>
+                  <!-- Replace this with your explanation -->
+                  I used AD0_VAL to select the correct I2C address for the IMU (depending on how the AD0 pin is wired).
+                  This ensures the Artemis talks to the correct device address on the bus.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ========================= -->
+          <!-- 2. Accelerometer -->
+          <!-- ========================= -->
+          <div class="mt-5">
+            <h4 class="fw-bolder mb-2">2. Accelerometer</h4>
+
+            <div class="card border-0 shadow-sm rounded-4 mb-3">
+              <div class="card-body p-4">
+                <h5 class="fw-bolder mb-2">Output at {-90, 0, 90} degrees (Pitch + Roll)</h5>
+                <div class="text-muted mb-3">
+                  I recorded accelerometer data at three known orientations and compared the results to the expected pitch/roll values.
+                  Below are the equations I used and screenshots of the output.
+                </div>
+
+                <!-- Equations -->
+                <div class="bg-light rounded-4 p-3 mb-3">
+                  <div class="text-muted small">
+                    <div class="fw-semibold mb-2">Equations</div>
+                    <!-- Replace with your exact equations (or screenshots). -->
+                    <div>
+                      Pitch ≈ atan2(-ax, sqrt(ay² + az²)) <br />
+                      Roll  ≈ atan2(ay, az)
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Images of output -->
+                <div class="row g-3">
+                  <div class="col-md-4">
+                    <div class="bg-light rounded-4 p-3 h-100">
+                      <div class="fw-semibold small mb-2">-90°</div>
+                      <img
+                        src="../assets/lab2/accel_-90.png"
+                        alt="Accelerometer output at -90 degrees"
+                        class="img-fluid rounded-4 d-block mx-auto"
+                        style="max-width: 320px;"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="bg-light rounded-4 p-3 h-100">
+                      <div class="fw-semibold small mb-2">0°</div>
+                      <img
+                        src="../assets/lab2/accel_0.png"
+                        alt="Accelerometer output at 0 degrees"
+                        class="img-fluid rounded-4 d-block mx-auto"
+                        style="max-width: 320px;"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="bg-light rounded-4 p-3 h-100">
+                      <div class="fw-semibold small mb-2">90°</div>
+                      <img
+                        src="../assets/lab2/accel_90.png"
+                        alt="Accelerometer output at 90 degrees"
+                        class="img-fluid rounded-4 d-block mx-auto"
+                        style="max-width: 320px;"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <hr class="my-4" />
+
+                <h5 class="fw-bolder mb-2">Accelerometer accuracy discussion</h5>
+                <p class="text-muted mb-3">
+                  <!-- Replace with your discussion -->
+                  I compared the measured angles to the expected angles and looked at error sources like sensor noise,
+                  slight misalignment when holding the board, and drift due to vibration.
+                </p>
+
+                <h5 class="fw-bolder mb-2">Noise in the frequency spectrum analysis</h5>
+                <ul class="text-muted mb-3">
+                  <li>Include graphs for the Fourier transform</li>
+                  <li>Discuss the results</li>
+                </ul>
+
+                <!-- FFT Graph Placeholder -->
+                <div class="bg-light rounded-4 p-3 mb-3">
+                  <img
+                    src="../assets/lab2/fft_graph.png"
+                    alt="FFT graph of accelerometer noise"
+                    class="img-fluid rounded-4 d-block mx-auto"
+                    style="max-width: 320px;"
+                  />
+                </div>
+
+                <div class="text-muted small">
+                  <!-- Replace with your FFT discussion -->
+                  The frequency plot shows the dominant components and noise floor. I used this to pick reasonable filter settings
+                  and understand what vibration frequencies were present during data collection.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ========================= -->
+          <!-- 3. Gyroscope -->
+          <!-- ========================= -->
+          <div class="mt-5">
+            <h4 class="fw-bolder mb-2">3. Gyroscope</h4>
+
+            <div class="card border-0 shadow-sm rounded-4 mb-3">
+              <div class="card-body p-4">
+                <h5 class="fw-bolder mb-2">Pitch, Roll, and Yaw documentation</h5>
+                <div class="text-muted mb-3">
+                  I tested multiple IMU positions and documented how pitch/roll/yaw changed based on the board orientation.
+                </div>
+
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <div class="bg-light rounded-4 p-3 h-100">
+                      <div class="fw-semibold small mb-2">IMU Position Test #1</div>
+                      <img
+                        src="../assets/lab2/gyro_pos1.png"
+                        alt="Gyro output for position test 1"
+                        class="img-fluid rounded-4 d-block mx-auto"
+                        style="max-width: 320px;"
+                      />
+                    </div>
+                  </div>
+
+                  <div class="col-md-6">
+                    <div class="bg-light rounded-4 p-3 h-100">
+                      <div class="fw-semibold small mb-2">IMU Position Test #2</div>
+                      <img
+                        src="../assets/lab2/gyro_pos2.png"
+                        alt="Gyro output for position test 2"
+                        class="img-fluid rounded-4 d-block mx-auto"
+                        style="max-width: 320px;"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <hr class="my-4" />
+
+                <h5 class="fw-bolder mb-2">Complementary filter accuracy + range</h5>
+                <div class="text-muted mb-3">
+                  <!-- Replace with your discussion -->
+                  I used a complementary filter to combine gyro (fast response) with accel (stable long-term reference).
+                  I tuned the blending factor to reduce drift while keeping motion responsive.
+                </div>
+
+                <!-- Optional: show plot -->
+                <div class="bg-light rounded-4 p-3">
+                  <img
+                    src="../assets/lab2/complementary_filter_plot.png"
+                    alt="Complementary filter plot"
+                    class="img-fluid rounded-4 d-block mx-auto"
+                    style="max-width: 320px;"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ========================= -->
+          <!-- 4. Sample Data -->
+          <!-- ========================= -->
+          <div class="mt-5">
+            <h4 class="fw-bolder mb-2">4. Sample Data</h4>
+
+            <div class="card border-0 shadow-sm rounded-4 mb-3">
+              <div class="card-body p-4">
+                <h5 class="fw-bolder mb-2">Speed of sampling discussion</h5>
+                <p class="text-muted mb-3">
+                  <!-- Replace with your discussion -->
+                  I measured how fast I could sample and transmit IMU data, and noted where bottlenecks happened (printing, BLE packet size, etc.).
+                </p>
+
+                <h5 class="fw-bolder mb-2">Time-stamped IMU data stored in arrays</h5>
+                <div class="text-muted mb-3">
+                  I collected time-stamped readings (t, ax, ay, az, gx, gy, gz) and stored them in arrays for later processing.
+                </div>
+
+                <!-- Screenshot placeholder -->
+                <div class="bg-light rounded-4 p-3 mb-3">
+                  <img
+                    src="../assets/lab2/timestamp_arrays.png"
+                    alt="Time-stamped IMU data stored in arrays"
+                    class="img-fluid rounded-4 d-block mx-auto"
+                    style="max-width: 320px;"
+                  />
+                </div>
+
+                <h5 class="fw-bolder mb-2">5 seconds of IMU data sent over Bluetooth</h5>
+                <div class="bg-light rounded-4 p-3">
+                  <img
+                    src="../assets/lab2/ble_5s_data.png"
+                    alt="5 seconds of IMU data sent over Bluetooth"
+                    class="img-fluid rounded-4 d-block mx-auto"
+                    style="max-width: 320px;"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ========================= -->
+          <!-- 5. Record a Stunt -->
+          <!-- ========================= -->
+          <div class="mt-5">
+            <h4 class="fw-bolder mb-2">5. Record a Stunt</h4>
+
+            <div class="card border-0 shadow-sm rounded-4 mb-5">
+              <div class="card-body p-4">
+                <h5 class="fw-bolder mb-2">Video evidence + observations</h5>
+                <div class="text-muted mb-3">
+                  I recorded a short stunt run to show the system working and documented what I observed from the IMU data.
+                </div>
+
+                <div class="bg-light rounded-4 p-3 mb-3">
+                  <video class="w-100 rounded-4 shadow-sm d-block mx-auto" style="max-width: 320px;" controls>
+                    <source src="../assets/lab2/stunt_video.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+
+                <div class="text-muted small">
+                  <!-- Replace with your observations -->
+                  Observations: The IMU readings spiked during quick turns and bumps. The complementary filter helped reduce drift,
+                  but fast acceleration still caused some temporary error in the angle estimate.
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white py-4 mt-auto">
+      <div class="container px-5">
+        <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+          <div class="col-auto"><div class="small m-0">© Jamison L. Taylor Jr.</div></div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

@@ -74,17 +74,25 @@
                 <!-- Connection image -->
                 <div class="bg-light rounded-4 p-3 mb-3">
                   <img
-                    src="../assets/lab2/imu_connections.jpg"
+                    src="../assets/lab2/imu_connections.jpeg"
                     alt="Artemis IMU connections"
                     class="img-fluid rounded-4 d-block mx-auto"
                     style="max-width: 320px;"
                   />
                 </div>
 
+                <!-- Blinking LED -->
+                <div class="bg-light rounded-4 p-3 mb-3">
+                  <video class="w-100 rounded-4 shadow-sm d-block mx-auto" style="max-width: 320px;" controls>
+                    <source src="../assets/lab2/blinking_led.mp4" type="video/mp4" />
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+
                 <!-- Example working evidence -->
                 <div class="bg-light rounded-4 p-3">
                   <img
-                    src="../assets/lab2/imu_example_output.png"
+                    src="../assets/lab2/imu_example.png"
                     alt="IMU example output working"
                     class="img-fluid rounded-4 d-block mx-auto"
                     style="max-width: 320px;"
@@ -94,8 +102,10 @@
                 <div class="mt-3 text-muted small">
                   <span class="fw-semibold">AD0_VAL:</span>
                   <!-- Replace this with your explanation -->
-                  I used AD0_VAL to select the correct I2C address for the IMU (depending on how the AD0 pin is wired).
-                  This ensures the Artemis talks to the correct device address on the bus.
+                  AD0_1 = 1 referes to the jumper on the back of the IMU. AD0_VAL is a pin that sets the I2C address of the IMU. 
+                  By connecting it to GND or VCC, you can select between two addresses (0x68 or 0x69).
+                  This allows you to use two IMUs on the same I2C bus if needed. 
+                  The value should be 1 because the jumper is connected to VCC, giving an address of 0x69.
                 </div>
               </div>
             </div>

@@ -298,25 +298,61 @@ alphs = ts/(tx + RC) = .214/(.214 + .0318) = .871</div>
                     <div class="border rounded-4 p-3 h-100">
                       <div class="small text-muted mb-2">Gyroscope Code</div>
                       <pre class="mb-0"><code>
-static float gyro_pitch = 0.0;
-static float gyro_roll  = 0.0;
-static float gyro_yaw   = 0.0;
-
-static unsigned long lastTime = millis();
-
-unsigned long currentTime = millis();
-float dt = (currentTime - lastTime) / 1000.0;
-lastTime = currentTime;
-
-// Read gyro rates (deg/s)
-float gx = myICM.gyrX();
-float gy = myICM.gyrY();
-float gz = myICM.gyrZ();
-
-// Integrate rates → angles
-gyro_pitch += gx * dt;
-gyro_roll  += gy * dt;
-gyro_yaw   += gz * dt;
+case GET_GYRO: {
+  const unsigned long starttime = millis();
+  Serial.print("Gyroscope Start Collecting Data");
+          
+  for (int i = 0; i < arraylength;) {
+    if (myICM.dataReady()) {
+          myICM.getAGMT();
+    }
+//------------------ accelerometer ---------------------------//
+  const float pitch_full_range = 180.0 / (86.0 + 88.4);
+  const float roll_full_range  = 180.0 / (89.0 + 87.4);
+         
+  float accelerometer_pitch = atan2(myICM.accY(), myICM.accZ()) * 180.0 / M_PI * pitch_full_range;
+  accelerometer_roll  = atan2(myICM.accX(), myICM.accZ()) * 180.0 / M_PI * roll_full_range;
+//------------------ gyroscope --------------------------------//
+  float dt = (float(millis()) - starttime) / 1000.0;
+  float gx = myICM.gyrX();
+  float gy = myICM.gyrY();
+  float gz = myICM.gyrZ();
+//----------------------- append lists--------------------------//
+  time_list[i] = (float)(millis() - starttime);
+  Acc_pitch_list[i] = accelerometer_pitch;
+  Acc_roll_list[i] = accelerometer_roll;
+  if (i == 0){
+  Gyro_pitch_list[i] = 0;
+  Gyro_roll_list[i] = 0;
+  Gyro_yaw_list[i] = 0;
+  } else{
+  Gyro_pitch_list[i] += gx * dt;
+  Gyro_roll_list[i] += gy * dt;
+  Gyro_yaw_list[i] =+ gz * dt;
+  }
+  comp_gyro_pitch[i] = (comp_gyro_pitch[i] * (1 - alpha)) + (accelerometer_pitch  * alpha);
+  comp_gyro_roll[i] = (comp_gyro_roll[i] * (1 - alpha)) + (accelerometer_roll  * alpha);
+  i++;
+  }
+  for (int i = 0; i < arraylength;) {
+    tx_estring_value.clear();
+    tx_estring_value.append(time_list[i]);
+    tx_estring_value.append("|");
+    tx_estring_value.append(Acc_pitch_list[i]);
+    tx_estring_value.append("|");
+    tx_estring_value.append(Acc_roll_list[i]);
+    tx_estring_value.append("|");
+    tx_estring_value.append(Gyro_pitch_list[i]);
+    tx_estring_value.append("|");
+    tx_estring_value.append(Gyro_roll_list[i]);
+    tx_estring_value.append("|");
+    tx_estring_value.append(Gyro_yaw_list[i]);
+    tx_characteristic_string.writeValue(tx_estring_value.c_str());
+      
+    i++;
+    }
+   break;
+        }  
 </code></pre>
                     </div>
                   </div>

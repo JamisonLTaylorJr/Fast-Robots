@@ -132,12 +132,38 @@
                     <div class="border rounded-4 p-3 h-100">
                       <div class="small text-muted mb-2">Code + Equation</div>
                       <pre class="mb-0"><code>
-float pitch_off = -.2;
-float roll_off  = -.2;
-float pitch_full_range = 180/(86+88.4);
-float roll_full_range = 180/(89+87.4);
-float accelerometer_pitch = (atan2(myICM.accY(), myICM.accZ())*180.0/M_PI * pitch_full_range)+pitch_off;
-float accelerometer_roll  = (atan2(myICM.accX(), myICM.accZ())*180.0/M_PI * roll_full_range)+roll_off;
+case GET_ACC: {
+  unsigned long starttime = millis();
+  
+  for (int i = 0; i < arraylength;) {
+    if (myICM.dataReady()) {
+          myICM.getAGMT();
+    }
+    const float pitch_full_range = 180.0 / (86.0 + 88.4);
+    const float roll_full_range  = 180.0 / (89.0 + 87.4);
+          
+    float accelerometer_pitch = atan2(myICM.accY(), myICM.accZ()) * 180.0 / M_PI * pitch_full_range;
+    float accelerometer_roll  = atan2(myICM.accX(), myICM.accZ()) * 180.0 / M_PI * roll_full_range;
+
+    time_list[i] = (float)(millis() - starttime);
+    Acc_pitch_list[i] = accelerometer_pitch;
+    Acc_roll_list[i] = accelerometer_roll;
+
+    i++;
+  }
+          
+  for (int i = 0; i < arraylength;) {
+    tx_estring_value.clear();
+    tx_estring_value.append(time_list[i]);
+    tx_estring_value.append("|");
+    tx_estring_value.append(Acc_pitch_list[i]);
+    tx_estring_value.append("|");
+    tx_estring_value.append(Acc_roll_list[i]);
+    tx_characteristic_string.writeValue(tx_estring_value.c_str());
+    i++;
+  }
+  break;
+}
 </code></pre>
                     </div>
                   </div>
@@ -146,9 +172,9 @@ float accelerometer_roll  = (atan2(myICM.accX(), myICM.accZ())*180.0/M_PI * roll
                 <div class="row g-3">
                   <div class="col-md-4">
                     <div class="bg-light rounded-4 p-3 h-100">
-                      <div class="fw-semibold small mb-2">-90°</div>
+                      <div class="fw-semibold small mb-2">Accelerometer Pitch Plot: Two Point Calibration</div>
                       <img
-                        src="../assets/lab2/acc_pitch_-90.png"
+                        src="../assets/lab2/pitchvstime.png"
                         alt="Accelerometer output at -90 degrees"
                         class="img-fluid rounded-4 d-block mx-auto"
                         style="max-width: 320px;"
@@ -158,9 +184,9 @@ float accelerometer_roll  = (atan2(myICM.accX(), myICM.accZ())*180.0/M_PI * roll
 
                   <div class="col-md-4">
                     <div class="bg-light rounded-4 p-3 h-100">
-                      <div class="fw-semibold small mb-2">0°</div>
+                      <div class="fw-semibold small mb-2">Accelerometer Roll Plot: Two Point Calibration </div>
                       <img
-                        src="../assets/lab2/acc_pitch_zero.png"
+                        src="../assets/lab2/rollvstime.png"
                         alt="Accelerometer output at 0 degrees"
                         class="img-fluid rounded-4 d-block mx-auto"
                         style="max-width: 320px;"
@@ -168,56 +194,7 @@ float accelerometer_roll  = (atan2(myICM.accX(), myICM.accZ())*180.0/M_PI * roll
                     </div>
                   </div>
 
-                  <div class="col-md-4">
-                    <div class="bg-light rounded-4 p-3 h-100">
-                      <div class="fw-semibold small mb-2">90°</div>
-                      <img
-                        src="../assets/lab2/acc_pitch_90.png"
-                        alt="Accelerometer output at 90 degrees"
-                        class="img-fluid rounded-4 d-block mx-auto"
-                        style="max-width: 320px;"
-                      />
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row g-3">
-                  <div class="col-md-4">
-                    <div class="bg-light rounded-4 p-3 h-100">
-                      <div class="fw-semibold small mb-2">-90°</div>
-                      <img
-                        src="../assets/lab2/acc_roll_-90.png"
-                        alt="Accelerometer output at -90 degrees"
-                        class="img-fluid rounded-4 d-block mx-auto"
-                        style="max-width: 320px;"
-                      />
-                    </div>
-                  </div>
-
-                  <div class="col-md-4">
-                    <div class="bg-light rounded-4 p-3 h-100">
-                      <div class="fw-semibold small mb-2">0°</div>
-                      <img
-                        src="../assets/lab2/acc_roll_zero.png"
-                        alt="Accelerometer output at 0 degrees"
-                        class="img-fluid rounded-4 d-block mx-auto"
-                        style="max-width: 320px;"
-                      />
-                    </div>
-                  </div>
-
-                  <div class="col-md-4">
-                    <div class="bg-light rounded-4 p-3 h-100">
-                      <div class="fw-semibold small mb-2">90°</div>
-                      <img
-                        src="../assets/lab2/acc_roll_90.png"
-                        alt="Accelerometer output at 90 degrees"
-                        class="img-fluid rounded-4 d-block mx-auto"
-                        style="max-width: 320px;"
-                      />
-                    </div>
-                  </div>
-                </div>
+                  
 
                 <hr class="my-4" />
 
@@ -231,27 +208,75 @@ float accelerometer_roll  = (atan2(myICM.accX(), myICM.accZ())*180.0/M_PI * roll
                   offset, looked at the 0 readings and subtracted the error.
                 </p>
 
-                <h5 class="fw-bolder mb-2">Noise in the frequency spectrum analysis</h5>
-                <ul class="text-muted mb-3">
-                  <li>Include graphs for the Fourier transform</li>
-                  <li>Discuss the results</li>
-                </ul>
+                <h5 class="fw-bolder mb-2">Fourier Transform Analysis</h5>
 
                 <!-- FFT Graph Placeholder -->
                 <div class="bg-light rounded-4 p-3 mb-3">
-                  <img
-                    src="../assets/lab2/fft_graph.png"
-                    alt="FFT graph of accelerometer noise"
-                    class="img-fluid rounded-4 d-block mx-auto"
-                    style="max-width: 320px;"
-                  />
-                </div>
+                  <div class="fw-semibold small mb-2">Raw Pitch and Roll Plot: Induced Noise</div>
+                    <img
+                      src="../assets/lab2/timedomain.png"
+                      alt="FFT graph of accelerometer noise"
+                      class="img-fluid rounded-4 d-block mx-auto"
+                      style="max-width: 320px;"
+                    />
+                  </div>
+
+                <div class="bg-light rounded-4 p-3 mb-3">
+                  <div class="fw-semibold small mb-2">Pitch and Roll Plot: Fourier Transform</div>
+                    <img
+                      src="../assets/lab2/fft.png"
+                      alt="FFT graph of accelerometer noise"
+                      class="img-fluid rounded-4 d-block mx-auto"
+                      style="max-width: 320px;"
+                    />
+                  </div>
 
                 <div class="text-muted small">
                   <!-- Replace with your FFT discussion -->
-                  The frequency plot shows the dominant components and noise floor. I used this to pick reasonable filter settings
-                  and understand what vibration frequencies were present during data collection.
+                  Here we have the raw pitch and roll plots for the 
+                  with induced noise and fourier transform plots of the sampled
+                  data from 0 to .214 seconds. Looking at the raw data points in the Pitch and Roll vs. Time plots we 
+                  can see noisy behavior
                 </div>
+
+                <h5 class="fw-bolder mb-2">Low Pass Filter Analysis</h5>
+                <p class="text-muted mb-3">
+
+                  <div class="bg-light rounded-4 p-3 mb-3">
+                  <div class="fw-semibold small mb-2">Pitch and Roll Plot: Low Pass Filter</div>
+                    <img
+                      src="../assets/lab2/lpf.png"
+                      alt="FFT graph of accelerometer noise"
+                      class="img-fluid rounded-4 d-block mx-auto"
+                      style="max-width: 320px;"
+                    />
+                  </div>
+                  <!-- Replace with your discussion -->
+                  To use the Low Pass Filter for the accelerometer I first calculated the sampling rate 
+                  of my code. By finding the difference in two points in seconds and finding the mean 
+                  and doing 1 over that value, I found the sample rate: 1163 Hz.
+                  </p>
+                  <img
+                      src="../assets/lab2/sf.png"
+                      alt="FFT graph of accelerometer noise"
+                      class="img-fluid rounded-4 d-block mx-auto"
+                      style="max-width: 320px;"
+                    />
+                  <div class="row g-3">
+                  <div class="col-md-6">
+                    <div class="border rounded-4 p-3 h-100">
+                      <div class="small text-muted mb-2">Code + Equation</div>
+                      <pre class="mb-0"><code>
+                        RC = 1/(2pi * fc) = 1/(2pi * 5) = .0318
+                        alphs = ts/(tx + RC) = .214/(.214 + .0318) = <div class="871"></div>
+                    </code>
+                    </pre></div>
+                  </div>
+                  </div>
+                  The plots above show the raw accelerometer data and the filtered low pass filter
+                  pitch and roll data at an time interval of around 0 to 1.7 seconds. The LPF foes a 
+                  great job at smoothing out the data and ommiting random spikes in data.
+                  </div>
               </div>
             </div>
           </div>

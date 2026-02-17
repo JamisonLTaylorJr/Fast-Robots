@@ -1,522 +1,512 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="MAE 5190 Fast Robots - Lab 2" />
-    <meta name="author" content="Jamison L. Taylor Jr." />
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="MAE 5190 Fast Robots - Lab 2">
+    <meta name="author" content="Jamison L. Taylor Jr.">
     <title>Lab 2 | MAE 5190 Fast Robots</title>
 
-    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
-    <link href="../css/styles.css" rel="stylesheet" />
-  </head>
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../css/styles.css" rel="stylesheet">
+</head>
 
-  <body class="d-flex flex-column h-100">
+<body class="d-flex flex-column h-100">
     <main class="flex-shrink-0">
-      <!-- Navbar -->
-      <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
-        <div class="container px-5">
-          <a class="navbar-brand" href="../index.html">
-            <span class="fw-bolder text-primary">MAE 5190 Fast Robots</span>
-          </a>
+        <!-- Navigation -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+            <div class="container px-5">
+                <a class="navbar-brand" href="../index.html">
+                    <span class="fw-bolder text-primary">MAE 5190 Fast Robots</span>
+                </a>
 
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
+                <button class="navbar-toggler" 
+                        type="button" 
+                        data-bs-toggle="collapse" 
+                        data-bs-target="#navbarSupportedContent"
+                        aria-controls="navbarSupportedContent" 
+                        aria-expanded="false" 
+                        aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
 
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-              <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
-              <li class="nav-item"><a class="nav-link" href="../index.html#labs">Labs</a></li>
-              <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-
-      <!-- Header -->
-      <section class="py-5">
-        <div class="container px-5">
-          <div class="text-center mb-4">
-            <h1 class="fw-bolder">
-              Lab 2: <span class="text-gradient">IMU Setup + Motion Data</span>
-            </h1>
-            <p class="text-muted mb-0">
-              This lab focuses on setting up the IMU, validating accelerometer + gyroscope readings, and collecting/sending sample data.
-            </p>
-          </div>
-
-          <!-- ========================= -->
-          <!-- 1. Lab Tasks -->
-          <!-- ========================= -->
-          <div class="mt-4">
-            <h4 class="fw-bolder mb-2">1. Lab Tasks</h4>
-
-            <div class="card border-0 shadow-sm rounded-4 mb-3">
-              <div class="card-body p-4">
-                <h5 class="fw-bolder mb-2">Set up the IMU</h5>
-                
-
-                <!-- Connection image -->
-                <div class="bg-light rounded-4 p-3 mb-3">
-                  <img
-                    src="../assets/lab2/imu_connections.jpeg"
-                    alt="Artemis IMU connections"
-                    class="img-fluid rounded-4 d-block mx-auto"
-                    style="max-width: 320px;"
-                  />
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html#labs">Labs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="../index.html#about">About</a>
+                        </li>
+                    </ul>
                 </div>
-
-                <!-- Blinking LED -->
-                <div class="bg-light rounded-4 p-3 mb-3">
-                  <video class="w-100 rounded-4 shadow-sm d-block mx-auto" style="max-width: 320px;" controls>
-                    <source src="../assets/lab2/blinking_led.mp4" type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
-
-                <!-- Example working evidence Accelerometer-->
-                <div class="bg-light rounded-4 p-3">
-                  <img
-                    src="../assets/lab2/imu_example_gyro.png"
-                    alt="IMU example output working"
-                    class="img-fluid rounded-4 d-block mx-auto"
-                    style="max-width: 320px;"
-                  />
-                </div>
-
-                
-                <div class="mt-3 text-muted small">
-                  <span class="fw-semibold">AD0_VAL:</span>
-                  <!-- Replace this with your explanation -->
-                  AD0_1 = 1 referes to the jumper on the back of the IMU. AD0_VAL is a pin that sets the I2C address of the IMU. 
-                  By connecting it to GND or VCC, you can select between two addresses (0x68 or 0x69).
-                  This allows you to use two IMUs on the same I2C bus if needed. 
-                  The value should be 1 because the jumper is connected to VCC, giving an address of 0x69.
-                </div>
-              </div>
             </div>
-          </div>
+        </nav>
 
-          <!-- ========================= -->
-          <!-- 2. Accelerometer -->
-          <!-- ========================= -->
-          <div class="mt-5">
-            <h4 class="fw-bolder mb-2">2. Accelerometer</h4>
-
-            <div class="card border-0 shadow-sm rounded-4 mb-3">
-              <div class="card-body p-4">
-                <h5 class="fw-bolder mb-2">Output at {-90, 0, 90} degrees (Pitch + Roll)</h5>
-                <div class="text-muted mb-3">
-                  I recorded accelerometer data at three known orientations at -90, 0, and 90 degrees for the pitch and roll.
-                  Then I compared the results to the expected pitch/roll values by finding the conversion factor. I then took
-                  that value and multiplied it to the recorded accelerometer data and optained proper values for pitch and roll.
-
-                  Below contains the code for getting the pitch and roll and the conversion factor equation.
+        <!-- Header Section -->
+        <section class="py-5">
+            <div class="container px-5">
+                <div class="text-center mb-5">
+                    <h1 class="fw-bolder">
+                        Lab 2: <span class="text-gradient">IMU Setup + Motion Data</span>
+                    </h1>
+                    <p class="text-muted mb-0">
+                        This lab focuses on setting up the IMU, validating accelerometer and gyroscope readings, 
+                        and collecting/sending sample data.
+                    </p>
                 </div>
 
-                <!-- Code -->
-                <div class="row g-3">
-                  <div class="col-md-6">
-                    <div class="border rounded-4 p-3 h-100">
-                      <div class="small text-muted mb-2">Accelerometer Code</div>
-                      <pre class="mb-0"><code>
-case GET_ACC: {
-  unsigned long starttime = millis();
-  
-  for (int i = 0; i < arraylength;) {
-    if (myICM.dataReady()) {
-          myICM.getAGMT();
+                <!-- Lab Tasks Section -->
+                <section class="mb-5">
+                    <h2 class="fw-bolder mb-4">1. Lab Tasks</h2>
+                    
+                    <div class="card border-0 shadow-sm rounded-4">
+                        <div class="card-body p-4">
+                            <h3 class="fw-bolder mb-3">Set up the IMU</h3>
+
+                            <div class="row g-4 mb-4">
+                                <div class="col-md-4">
+                                    <div class="bg-light rounded-4 p-3">
+                                        <img src="../assets/lab2/imu_connections.jpeg"
+                                             alt="Artemis IMU connections"
+                                             class="img-fluid rounded-4">
+                                        <p class="small mt-2 mb-0">IMU Connection Wiring</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="bg-light rounded-4 p-3">
+                                        <video class="w-100 rounded-4" controls>
+                                            <source src="../assets/lab2/blinking_led.mp4" type="video/mp4">
+                                            Your browser does not support the video tag.
+                                        </video>
+                                        <p class="small mt-2 mb-0">Blinking LED Test</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="bg-light rounded-4 p-3">
+                                        <img src="../assets/lab2/imu_example_gyro.png"
+                                             alt="IMU example output working"
+                                             class="img-fluid rounded-4">
+                                        <p class="small mt-2 mb-0">IMU Working Output</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="alert alert-info">
+                                <h5 class="fw-semibold">AD0_VAL Explanation</h5>
+                                <p class="mb-0">
+                                    AD0_VAL = 1 refers to the jumper on the back of the IMU. This pin sets the I2C address 
+                                    of the IMU. By connecting it to GND or VCC, you can select between two addresses 
+                                    (0x68 or 0x69). This allows you to use two IMUs on the same I2C bus if needed. 
+                                    The value should be 1 because the jumper is connected to VCC, giving an address of 0x69.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Accelerometer Section -->
+                <section class="mb-5">
+                    <h2 class="fw-bolder mb-4">2. Accelerometer</h2>
+                    
+                    <div class="card border-0 shadow-sm rounded-4">
+                        <div class="card-body p-4">
+                            <h3 class="fw-bolder mb-3">Output at {-90, 0, 90} degrees (Pitch + Roll)</h3>
+                            
+                            <p class="text-muted mb-4">
+                                I recorded accelerometer data at three known orientations at -90, 0, and 90 degrees 
+                                for both pitch and roll. Then I compared the results to the expected pitch/roll values 
+                                by finding the conversion factor. I took that value and multiplied it to the recorded 
+                                accelerometer data to obtain proper values for pitch and roll.
+                            </p>
+
+                            <div class="row g-4 mb-4">
+                                <div class="col-lg-8">
+                                    <div class="bg-light rounded-4 p-3">
+                                        <h5 class="small fw-semibold mb-2">Accelerometer Code</h5>
+                                        <pre class="mb-0 small"><code>case GET_ACC: {
+    unsigned long starttime = millis();
+    
+    for (int i = 0; i < arraylength;) {
+        if (myICM.dataReady()) {
+            myICM.getAGMT();
+        }
+        
+        // Conversion factors
+        const float pitch_full_range = 180.0 / (86.0 + 88.4);
+        const float roll_full_range  = 180.0 / (89.0 + 87.4);
+        
+        float accelerometer_pitch = atan2(myICM.accY(), myICM.accZ()) * 180.0 / M_PI * pitch_full_range;
+        float accelerometer_roll  = atan2(myICM.accX(), myICM.accZ()) * 180.0 / M_PI * roll_full_range;
+
+        time_list[i] = (float)(millis() - starttime);
+        Acc_pitch_list[i] = accelerometer_pitch;
+        Acc_roll_list[i] = accelerometer_roll;
+
+        i++;
     }
-    const float pitch_full_range = 180.0 / (86.0 + 88.4); // Conversion factor
-    const float roll_full_range  = 180.0 / (89.0 + 87.4); // Conversion factor
-          
-    float accelerometer_pitch = atan2(myICM.accY(), myICM.accZ()) * 180.0 / M_PI * pitch_full_range;
-    float accelerometer_roll  = atan2(myICM.accX(), myICM.accZ()) * 180.0 / M_PI * roll_full_range;
-
-    time_list[i] = (float)(millis() - starttime);
-    Acc_pitch_list[i] = accelerometer_pitch;
-    Acc_roll_list[i] = accelerometer_roll;
-
-    i++;
-  }
-          
-  for (int i = 0; i < arraylength;) {
-    tx_estring_value.clear();
-    tx_estring_value.append(time_list[i]);
-    tx_estring_value.append("|");
-    tx_estring_value.append(Acc_pitch_list[i]);
-    tx_estring_value.append("|");
-    tx_estring_value.append(Acc_roll_list[i]);
-    tx_characteristic_string.writeValue(tx_estring_value.c_str());
-    i++;
-  }
-  break;
-}
-</code></pre>
-                    </div>
-                  </div>
-
-                <!-- Images of output -->
-                <div class="row g-3">
-                  <div class="col-md-4">
-                    <div class="bg-light rounded-4 p-3 h-100">
-                      <div class="fw-semibold small mb-2">Accelerometer Pitch Plot: Two Point Calibration</div>
-                      <img
-                        src="../assets/lab2/pitchvstime.png"
-                        alt="Accelerometer output at -90 degrees"
-                        class="img-fluid rounded-4 d-block mx-auto"
-                        style="max-width: 320px;"
-                      />
-                    </div>
-                  </div>
-
-                  <div class="col-md-4">
-                    <div class="bg-light rounded-4 p-3 h-100">
-                      <div class="fw-semibold small mb-2">Accelerometer Roll Plot: Two Point Calibration </div>
-                      <img
-                        src="../assets/lab2/rollvstime.png"
-                        alt="Accelerometer output at 0 degrees"
-                        class="img-fluid rounded-4 d-block mx-auto"
-                        style="max-width: 320px;"
-                      />
-                    </div>
-                  </div>
-
-                  
-
-                <hr class="my-4" />
-
-                <h5 class="fw-bolder mb-2">Accelerometer accuracy discussion</h5>
-                <p class="text-muted mb-3">
-                  <!-- Replace with your discussion -->
-                  My accelerometer readings were initially not so precise. The main problem was that the total angle ranged from
-                  -90 to 90 degrees were actually less than 180 degrees. To to combat this 
-                  I took the desired range of 180 and divided it by the accelerometer readings at the real -90 and +90 degrees. This gave me 
-                  a scaling factor where I could obtain the proper range by multiplying this by the raw accelerometer angle. 
-                  offset, looked at the 0 readings and subtracted the error.
-                </p>
-
-                <h5 class="fw-bolder mb-2">Fourier Transform Analysis</h5>
-
-                <!-- FFT Graph Placeholder -->
-                <div class="bg-light rounded-4 p-3 mb-3">
-                  <div class="fw-semibold small mb-2">Raw Pitch and Roll Plot: Induced Noise</div>
-                    <img
-                      src="../assets/lab2/timedomain.png"
-                      alt="FFT graph of accelerometer noise"
-                      class="img-fluid rounded-4 d-block mx-auto"
-                      style="max-width: 320px;"
-                    />
-                  </div>
-
-                <div class="bg-light rounded-4 p-3 mb-3">
-                  <div class="fw-semibold small mb-2">Pitch and Roll Plot: Fourier Transform</div>
-                    <img
-                      src="../assets/lab2/fft.png"
-                      alt="FFT graph of accelerometer noise"
-                      class="img-fluid rounded-4 d-block mx-auto"
-                      style="max-width: 320px;"
-                    />
-                  </div>
-
-                <div class="text-muted small">
-                  <!-- Replace with your FFT discussion -->
-                  Here we have the raw pitch and roll plots for the 
-                  with induced noise and fourier transform plots of the sampled
-                  data from 0 to .214 seconds. Looking at the raw data points in the Pitch and Roll vs. Time plots we 
-                  can see noisy behavior
-                </div>
-
-                <h5 class="fw-bolder mb-2">Low Pass Filter Analysis</h5>
-                <p class="text-muted mb-3">
-
-                  <div class="bg-light rounded-4 p-3 mb-3">
-                  <div class="fw-semibold small mb-2">Pitch and Roll Plot: Low Pass Filter</div>
-                    <img
-                      src="../assets/lab2/lpf.png"
-                      alt="FFT graph of accelerometer noise"
-                      class="img-fluid rounded-4 d-block mx-auto"
-                      style="max-width: 320px;"
-                    />
-                  </div>
-                  <!-- Replace with your discussion -->
-                  To use the Low Pass Filter for the accelerometer I first calculated the sampling rate 
-                  of my code. By finding the difference in two points in seconds and finding the mean 
-                  and doing 1 over that value, I found the sample rate: 1163 Hz.
-                  </p>
-                  <img
-                      src="../assets/lab2/sf.png"
-                      alt="FFT graph of accelerometer noise"
-                      class="img-fluid rounded-4 d-block mx-auto"
-                      style="max-width: 320px;"
-                    />
-                  <div class="row g-3">
-                  <div class="col-md-6">
-                    <div class="border rounded-4 p-3 h-100">
-                      <div class="small text-muted mb-2">Alpha Equation</div>
-                      <pre class="mb-0"><code>
-RC = 1/(2pi * fc) = 1/(2pi * 5) = .0318
-alphs = ts/(tx + RC) = .214/(.214 + .0318) = .871</div>
-                    </code>
-                    </pre></div>
-                  </div>
-                  </div>
-                  The plots above show the raw accelerometer data and the filtered low pass filter
-                  pitch and roll data at an time interval of around 0 to 1.7 seconds. The LPF foes a 
-                  great job at smoothing out the data and ommiting random spikes in data.
-                  </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- ========================= -->
-          <!-- 3. Gyroscope -->
-          <!-- ========================= -->
-          <div class="mt-5">
-            <h4 class="fw-bolder mb-2">3. Gyroscope</h4>
-
-            <div class="card border-0 shadow-sm rounded-4 mb-3">
-              <div class="card-body p-4">
-                <h5 class="fw-bolder mb-2">Pitch, Roll, and Yaw documentation</h5>
-                <div class="text-muted mb-3">
-                  I tested multiple IMU positions and documented how pitch/roll/yaw changed based on the board orientation.
-                </div>
-
-                <!-- Code -->
-                <div class="row g-3">
-                  <div class="col-md-6">
-                    <div class="border rounded-4 p-3 h-100">
-                      <div class="small text-muted mb-2">Gyroscope Code</div>
-                      <pre class="mb-0"><code>
-case GET_GYRO: {
-  const unsigned long starttime = millis();
-  Serial.print("Gyroscope Start Collecting Data");
-          
-  for (int i = 0; i < arraylength;) {
-    if (myICM.dataReady()) {
-          myICM.getAGMT();
+    
+    // Send data over Bluetooth
+    for (int i = 0; i < arraylength;) {
+        tx_estring_value.clear();
+        tx_estring_value.append(time_list[i]);
+        tx_estring_value.append("|");
+        tx_estring_value.append(Acc_pitch_list[i]);
+        tx_estring_value.append("|");
+        tx_estring_value.append(Acc_roll_list[i]);
+        tx_characteristic_string.writeValue(tx_estring_value.c_str());
+        i++;
     }
-//------------------ accelerometer ---------------------------//
-  const float pitch_full_range = 180.0 / (86.0 + 88.4);
-  const float roll_full_range  = 180.0 / (89.0 + 87.4);
-         
-  float accelerometer_pitch = atan2(myICM.accY(), myICM.accZ()) * 180.0 / M_PI * pitch_full_range;
-  accelerometer_roll  = atan2(myICM.accX(), myICM.accZ()) * 180.0 / M_PI * roll_full_range;
-//------------------ gyroscope --------------------------------//
-  float dt = (float(millis()) - starttime) / 1000.0;
-  float gx = myICM.gyrX();
-  float gy = myICM.gyrY();
-  float gz = myICM.gyrZ();
-//----------------------- append lists--------------------------//
-  time_list[i] = (float)(millis() - starttime);
-  Acc_pitch_list[i] = accelerometer_pitch;
-  Acc_roll_list[i] = accelerometer_roll;
-  if (i == 0){
-  Gyro_pitch_list[i] = 0;
-  Gyro_roll_list[i] = 0;
-  Gyro_yaw_list[i] = 0;
-  } else{
-  Gyro_pitch_list[i] += gx * dt;
-  Gyro_roll_list[i] += gy * dt;
-  Gyro_yaw_list[i] =+ gz * dt;
-  }
-  comp_gyro_pitch[i] = (comp_gyro_pitch[i] * (1 - alpha)) + (accelerometer_pitch  * alpha);
-  comp_gyro_roll[i] = (comp_gyro_roll[i] * (1 - alpha)) + (accelerometer_roll  * alpha);
-  i++;
-  }
-  for (int i = 0; i < arraylength;) {
-    tx_estring_value.clear();
-    tx_estring_value.append(time_list[i]);
-    tx_estring_value.append("|");
-    tx_estring_value.append(Acc_pitch_list[i]);
-    tx_estring_value.append("|");
-    tx_estring_value.append(Acc_roll_list[i]);
-    tx_estring_value.append("|");
-    tx_estring_value.append(Gyro_pitch_list[i]);
-    tx_estring_value.append("|");
-    tx_estring_value.append(Gyro_roll_list[i]);
-    tx_estring_value.append("|");
-    tx_estring_value.append(Gyro_yaw_list[i]);
-    tx_characteristic_string.writeValue(tx_estring_value.c_str());
-      
-    i++;
+    break;
+}</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-lg-4">
+                                    <div class="row g-3">
+                                        <div class="col-12">
+                                            <div class="bg-light rounded-4 p-3">
+                                                <h6 class="fw-semibold mb-2">Pitch vs Time</h6>
+                                                <img src="../assets/lab2/pitchvstime.png"
+                                                     alt="Accelerometer pitch plot"
+                                                     class="img-fluid rounded-4">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-12">
+                                            <div class="bg-light rounded-4 p-3">
+                                                <h6 class="fw-semibold mb-2">Roll vs Time</h6>
+                                                <img src="../assets/lab2/rollvstime.png"
+                                                     alt="Accelerometer roll plot"
+                                                     class="img-fluid rounded-4">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h4 class="fw-bolder mb-3">Accelerometer Accuracy Discussion</h4>
+                            <p class="text-muted mb-4">
+                                My accelerometer readings were initially imprecise. The main problem was that the total 
+                                angle range from -90 to 90 degrees was actually less than 180 degrees. To combat this, 
+                                I took the desired range of 180 and divided it by the accelerometer readings at the real 
+                                -90 and +90 degrees. This gave me a scaling factor where I could obtain the proper range 
+                                by multiplying this by the raw accelerometer angle.
+                            </p>
+
+                            <h4 class="fw-bolder mb-3">Fourier Transform Analysis</h4>
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-6">
+                                    <div class="bg-light rounded-4 p-3">
+                                        <h6 class="fw-semibold mb-2">Raw Pitch and Roll: Induced Noise</h6>
+                                        <img src="../assets/lab2/timedomain.png"
+                                             alt="Time domain plot with noise"
+                                             class="img-fluid rounded-4">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="bg-light rounded-4 p-3">
+                                        <h6 class="fw-semibold mb-2">Fourier Transform Analysis</h6>
+                                        <img src="../assets/lab2/fft.png"
+                                             alt="FFT analysis"
+                                             class="img-fluid rounded-4">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <p class="text-muted mb-4">
+                                The raw pitch and roll plots show noisy behavior with induced noise. The Fourier transform 
+                                plots of the sampled data from 0 to 0.214 seconds reveal the frequency components of this noise.
+                            </p>
+
+                            <h4 class="fw-bolder mb-3">Low Pass Filter Analysis</h4>
+                            <div class="row g-3 mb-3">
+                                <div class="col-md-6">
+                                    <div class="bg-light rounded-4 p-3">
+                                        <h6 class="fw-semibold mb-2">Filtered Data</h6>
+                                        <img src="../assets/lab2/lpf.png"
+                                             alt="Low pass filter results"
+                                             class="img-fluid rounded-4">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="bg-light rounded-4 p-3">
+                                        <h6 class="fw-semibold mb-2">Sampling Frequency Calculation</h6>
+                                        <img src="../assets/lab2/sf.png"
+                                             alt="Sampling frequency"
+                                             class="img-fluid rounded-4">
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="alert alert-light">
+                                <h6 class="fw-semibold">Alpha Calculation</h6>
+                                <pre class="mb-0">RC = 1/(2π × fc) = 1/(2π × 5) = 0.0318
+α = ts/(ts + RC) = 0.214/(0.214 + 0.0318) = 0.871</pre>
+                            </div>
+                            
+                            <p class="text-muted">
+                                To implement the Low Pass Filter for the accelerometer, I first calculated the sampling rate 
+                                by finding the mean difference between time points, resulting in 1163 Hz. The LPF does an 
+                                excellent job at smoothing the data and eliminating random spikes.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Gyroscope Section -->
+                <section class="mb-5">
+                    <h2 class="fw-bolder mb-4">3. Gyroscope</h2>
+                    
+                    <div class="card border-0 shadow-sm rounded-4">
+                        <div class="card-body p-4">
+                            <h3 class="fw-bolder mb-3">Pitch, Roll, and Yaw Documentation</h3>
+                            
+                            <p class="text-muted mb-4">
+                                I tested multiple IMU positions and documented how pitch, roll, and yaw changed based 
+                                on the board orientation.
+                            </p>
+
+                            <div class="row g-4 mb-4">
+                                <div class="col-lg-8">
+                                    <div class="bg-light rounded-4 p-3">
+                                        <h5 class="small fw-semibold mb-2">Gyroscope Code</h5>
+                                        <pre class="mb-0 small"><code>case GET_GYRO: {
+    const unsigned long starttime = millis();
+    
+    for (int i = 0; i < arraylength;) {
+        if (myICM.dataReady()) {
+            myICM.getAGMT();
+        }
+        
+        // Accelerometer calculations
+        const float pitch_full_range = 180.0 / (86.0 + 88.4);
+        const float roll_full_range  = 180.0 / (89.0 + 87.4);
+        
+        float accelerometer_pitch = atan2(myICM.accY(), myICM.accZ()) * 180.0 / M_PI * pitch_full_range;
+        accelerometer_roll = atan2(myICM.accX(), myICM.accZ()) * 180.0 / M_PI * roll_full_range;
+        
+        // Gyroscope calculations
+        float dt = (float(millis()) - starttime) / 1000.0;
+        float gx = myICM.gyrX();
+        float gy = myICM.gyrY();
+        float gz = myICM.gyrZ();
+        
+        // Store data
+        time_list[i] = (float)(millis() - starttime);
+        Acc_pitch_list[i] = accelerometer_pitch;
+        Acc_roll_list[i] = accelerometer_roll;
+        
+        if (i == 0) {
+            Gyro_pitch_list[i] = 0;
+            Gyro_roll_list[i] = 0;
+            Gyro_yaw_list[i] = 0;
+        } else {
+            Gyro_pitch_list[i] += gx * dt;
+            Gyro_roll_list[i] += gy * dt;
+            Gyro_yaw_list[i] += gz * dt;
+        }
+        
+        // Complementary filter
+        comp_gyro_pitch[i] = (comp_gyro_pitch[i] * (1 - alpha)) + (accelerometer_pitch * alpha);
+        comp_gyro_roll[i] = (comp_gyro_roll[i] * (1 - alpha)) + (accelerometer_roll * alpha);
+        
+        i++;
     }
-   break;
-        }  
-</code></pre>
+    
+    // Send data via Bluetooth
+    for (int i = 0; i < arraylength; i++) {
+        tx_estring_value.clear();
+        tx_estring_value.append(time_list[i]);
+        tx_estring_value.append("|");
+        tx_estring_value.append(Acc_pitch_list[i]);
+        tx_estring_value.append("|");
+        tx_estring_value.append(Acc_roll_list[i]);
+        tx_estring_value.append("|");
+        tx_estring_value.append(Gyro_pitch_list[i]);
+        tx_estring_value.append("|");
+        tx_estring_value.append(Gyro_roll_list[i]);
+        tx_estring_value.append("|");
+        tx_estring_value.append(Gyro_yaw_list[i]);
+        tx_characteristic_string.writeValue(tx_estring_value.c_str());
+    }
+    break;
+}</code></pre>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-lg-4">
+                                    <div class="row g-3">
+                                        <div class="col-12">
+                                            <div class="bg-light rounded-4 p-3">
+                                                <h6 class="fw-semibold mb-2">Position 1 Output</h6>
+                                                <img src="../assets/lab2/gyro_output.png"
+                                                     alt="Gyroscope output position 1"
+                                                     class="img-fluid rounded-4">
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-12">
+                                            <div class="bg-light rounded-4 p-3">
+                                                <h6 class="fw-semibold mb-2">Position 2 Output</h6>
+                                                <img src="../assets/lab2/gyro_output2.png"
+                                                     alt="Gyroscope output position 2"
+                                                     class="img-fluid rounded-4">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h4 class="fw-bolder mb-3">Complementary Filter Accuracy & Range</h4>
+                            <p class="text-muted mb-3">
+                                I used a complementary filter to combine gyroscope data (fast response) with accelerometer 
+                                data (stable long-term reference). I tuned the blending factor to reduce drift while 
+                                keeping motion response quick and accurate.
+                            </p>
+                            
+                            <div class="bg-light rounded-4 p-3">
+                                <img src="../assets/lab2/complementary_filter_plot.png"
+                                     alt="Complementary filter results"
+                                     class="img-fluid rounded-4">
+                            </div>
+                        </div>
                     </div>
-                  </div>
+                </section>
 
-                  <div class="col-md-6">
-                    <div class="bg-light rounded-4 p-3 h-100">
-                      <div class="fw-semibold small mb-2">Gyroscope Output: Position 1</div>
-                      <img
-                        src="../assets/lab2/gyro_output.png"
-                        alt="Gyro output for position test 2"
-                        class="img-fluid rounded-4 d-block mx-auto"
-                        style="max-width: 320px;"
-                      />
+                <!-- Sample Data Section -->
+                <section class="mb-5">
+                    <h2 class="fw-bolder mb-4">4. Sample Data</h2>
+                    
+                    <div class="card border-0 shadow-sm rounded-4">
+                        <div class="card-body p-4">
+                            <h3 class="fw-bolder mb-3">Sampling Speed Analysis</h3>
+                            <p class="text-muted mb-4">
+                                I measured how fast I could sample and transmit IMU data, and noted where bottlenecks 
+                                occurred (printing, BLE packet size, processing time, etc.).
+                            </p>
+
+                            <h3 class="fw-bolder mb-3">Time-stamped IMU Data Storage</h3>
+                            <p class="text-muted mb-3">
+                                I collected time-stamped readings (t, ax, ay, az, gx, gy, gz) and stored them in arrays 
+                                for later processing and transmission.
+                            </p>
+                            
+                            <div class="row g-3 mb-4">
+                                <div class="col-md-6">
+                                    <div class="bg-light rounded-4 p-3">
+                                        <h6 class="fw-semibold mb-2">Array Storage Implementation</h6>
+                                        <img src="../assets/lab2/timestamp_arrays.png"
+                                             alt="Time-stamped IMU data arrays"
+                                             class="img-fluid rounded-4">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <div class="bg-light rounded-4 p-3">
+                                        <h6 class="fw-semibold mb-2">5 Seconds of Bluetooth Data</h6>
+                                        <img src="../assets/lab2/ble_5s_data.png"
+                                             alt="5 seconds of IMU data via Bluetooth"
+                                             class="img-fluid rounded-4">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                </div>
+                </section>
 
-                  <div class="col-md-6">
-                    <div class="bg-light rounded-4 p-3 h-100">
-                      <div class="fw-semibold small mb-2">Gyroscope Output: Postition 2</div>
-                      <img
-                        src="../assets/lab2/gyro_output2.png"
-                        alt="Gyro output for position test 2"
-                        class="img-fluid rounded-4 d-block mx-auto"
-                        style="max-width: 320px;"
-                      />
+                <!-- Stunt Recording Section -->
+                <section class="mb-5">
+                    <h2 class="fw-bolder mb-4">5. Record a Stunt</h2>
+                    
+                    <div class="card border-0 shadow-sm rounded-4">
+                        <div class="card-body p-4">
+                            <h3 class="fw-bolder mb-3">Video Evidence & Observations</h3>
+                            <p class="text-muted mb-3">
+                                I recorded a short stunt run to demonstrate the system working and documented 
+                                observations from the IMU data during the maneuver.
+                            </p>
+
+                            <div class="bg-light rounded-4 p-3 mb-3">
+                                <video class="w-100 rounded-4 shadow-sm" style="max-width: 500px;" controls>
+                                    <source src="../assets/lab2/stunt.mp4" type="video/mp4">
+                                    Your browser does not support the video tag.
+                                </video>
+                            </div>
+
+                            <div class="alert alert-info">
+                                <h5 class="fw-semibold">Observations</h5>
+                                <p class="mb-0">
+                                    The IMU readings spiked during quick turns and bumps. The complementary filter helped 
+                                    reduce drift, but fast acceleration still caused some temporary error in the angle 
+                                    estimates. Overall, the system successfully captured the motion dynamics of the stunt.
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                </div>
+                </section>
 
-                <hr class="my-4" />
-
-                <h5 class="fw-bolder mb-2">Complementary filter accuracy + range</h5>
-                <div class="text-muted mb-3">
-                  <!-- Replace with your discussion -->
-                  I used a complementary filter to combine gyro (fast response) with accel (stable long-term reference).
-                  I tuned the blending factor to reduce drift while keeping motion responsive.
-                </div>
-
-                <!-- Optional: show plot -->
-                <div class="bg-light rounded-4 p-3">
-                  <img
-                    src="../assets/lab2/complementary_filter_plot.png"
-                    alt="Complementary filter plot"
-                    class="img-fluid rounded-4 d-block mx-auto"
-                    style="max-width: 320px;"
-                  />
-                </div>
-              </div>
+                <!-- Resources Section -->
+                <section class="mb-5">
+                    <h2 class="fw-bolder mb-4">6. Resources</h2>
+                    
+                    <div class="card border-0 shadow-sm rounded-4">
+                        <div class="card-body p-4">
+                            <div class="row g-4">
+                                <div class="col-md-4">
+                                    <div class="h-100">
+                                        <h5 class="fw-bolder mb-2">ChatGPT</h5>
+                                        <p class="text-muted mb-0">
+                                            Helped structure the report and provided suggestions for content organization. 
+                                            Assisted with code cleanup in both Python and C++.
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <div class="h-100">
+                                        <h5 class="fw-bolder mb-2">Tony Kariuki's Page</h5>
+                                        <p class="text-muted mb-0">
+                                            Referenced for help with equations, graph comparisons, and data analysis techniques.
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div class="col-md-4">
+                                    <div class="h-100">
+                                        <h5 class="fw-bolder mb-2">Aidan McNay's Page</h5>
+                                        <p class="text-muted mb-0">
+                                            Referenced for equation derivations, graph formatting, and data comparison methods.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
-          </div>
-
-          <!-- ========================= -->
-          <!-- 4. Sample Data -->
-          <!-- ========================= -->
-          <div class="mt-5">
-            <h4 class="fw-bolder mb-2">4. Sample Data</h4>
-
-            <div class="card border-0 shadow-sm rounded-4 mb-3">
-              <div class="card-body p-4">
-                <h5 class="fw-bolder mb-2">Speed of sampling discussion</h5>
-                <p class="text-muted mb-3">
-                  <!-- Replace with your discussion -->
-                  I measured how fast I could sample and transmit IMU data, and noted where bottlenecks happened (printing, BLE packet size, etc.).
-                </p>
-
-                <h5 class="fw-bolder mb-2">Time-stamped IMU data stored in arrays</h5>
-                <div class="text-muted mb-3">
-                  I collected time-stamped readings (t, ax, ay, az, gx, gy, gz) and stored them in arrays for later processing.
-                </div>
-
-                <!-- Screenshot placeholder -->
-                <div class="bg-light rounded-4 p-3 mb-3">
-                  <img
-                    src="../assets/lab2/timestamp_arrays.png"
-                    alt="Time-stamped IMU data stored in arrays"
-                    class="img-fluid rounded-4 d-block mx-auto"
-                    style="max-width: 320px;"
-                  />
-                </div>
-
-                <h5 class="fw-bolder mb-2">5 seconds of IMU data sent over Bluetooth</h5>
-                <div class="bg-light rounded-4 p-3">
-                  <img
-                    src="../assets/lab2/ble_5s_data.png"
-                    alt="5 seconds of IMU data sent over Bluetooth"
-                    class="img-fluid rounded-4 d-block mx-auto"
-                    style="max-width: 320px;"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- ========================= -->
-          <!-- 5. Record a Stunt -->
-          <!-- ========================= -->
-          <div class="mt-5">
-            <h4 class="fw-bolder mb-2">5. Record a Stunt</h4>
-
-            <div class="card border-0 shadow-sm rounded-4 mb-5">
-              <div class="card-body p-4">
-                <h5 class="fw-bolder mb-2">Video evidence + observations</h5>
-                <div class="text-muted mb-3">
-                  I recorded a short stunt run to show the system working and documented what I observed from the IMU data.
-                </div>
-
-                <div class="bg-light rounded-4 p-3 mb-3">
-                  <video class="w-100 rounded-4 shadow-sm d-block mx-auto" style="max-width: 320px;" controls>
-                    <source src="../assets/lab2/stunt.mp4" type="video/mp4" />
-                    Your browser does not support the video tag.
-                  </video>
-                </div>
-
-                <div class="text-muted small">
-                  <!-- Replace with your observations -->
-                  Observations: The IMU readings spiked during quick turns and bumps. The complementary filter helped reduce drift,
-                  but fast acceleration still caused some temporary error in the angle estimate.
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- ========================= -->
-          <!-- 6. Contributions -->
-          <!-- ========================= -->
-          <div class="mt-5">
-            <h4 class="fw-bolder mb-2">6. Resources</h4>
-
-            <div class="card border-0 shadow-sm rounded-4 mb-5">
-              <div class="card-body p-4">
-                <h5 class="fw-bolder mb-2">ChatGpt</h5>
-                  <div class="text-muted mb-3">
-                    Helped me structure the report and provided suggestions for what to include in each section. Helped clean
-                    up code in python and in c++.
-                  </div>
-
-                <h5 class="fw-bolder mb-2">Page: Tony Kariuki</h5>
-                  <div class="text-muted mb-3">
-                    Referenced page for help on finding equations and comparing graphs and data.
-                  </div>
-
-                <h5 class="fw-bolder mb-2">Page: Aidan McNay</h5>
-                  <div class="text-muted mb-3">
-                    Referenced page for help on finding equations and comparing graphs and data.
-                  </div>        
-                
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </section>
+        </section>
     </main>
 
     <!-- Footer -->
     <footer class="bg-white py-4 mt-auto">
-      <div class="container px-5">
-        <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-          <div class="col-auto"><div class="small m-0">© Jamison L. Taylor Jr.</div></div>
+        <div class="container px-5">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-auto">
+                    <div class="small text-muted">© 2024 Jamison L. Taylor Jr.</div>
+                </div>
+            </div>
         </div>
-      </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
+</body>
 </html>

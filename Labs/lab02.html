@@ -64,12 +64,7 @@
             <div class="card border-0 shadow-sm rounded-4 mb-3">
               <div class="card-body p-4">
                 <h5 class="fw-bolder mb-2">Set up the IMU</h5>
-                <ul class="text-muted mb-3">
-                  <li>Picture of my Artemis IMU connections</li>
-                  <li>Show that the IMU example code works</li>
-                  <li><span class="fw-semibold">AD0_VAL</span> definition discussion</li>
-                  <li>Acceleration and gyroscope data discussion (pictures recommended)</li>
-                </ul>
+                
 
                 <!-- Connection image -->
                 <div class="bg-light rounded-4 p-3 mb-3">
@@ -122,15 +117,18 @@
               <div class="card-body p-4">
                 <h5 class="fw-bolder mb-2">Output at {-90, 0, 90} degrees (Pitch + Roll)</h5>
                 <div class="text-muted mb-3">
-                  I recorded accelerometer data at three known orientations and compared the results to the expected pitch/roll values.
-                  Below are the equations I used and screenshots of the output.
+                  I recorded accelerometer data at three known orientations at -90, 0, and 90 degrees for the pitch and roll.
+                  Then I compared the results to the expected pitch/roll values by finding the conversion factor. I then took
+                  that value and multiplied it to the recorded accelerometer data and optained proper values for pitch and roll.
+
+                  Below contains the code for getting the pitch and roll and the conversion factor equation.
                 </div>
 
                 <!-- Code -->
                 <div class="row g-3">
                   <div class="col-md-6">
                     <div class="border rounded-4 p-3 h-100">
-                      <div class="small text-muted mb-2">Code + Equation</div>
+                      <div class="small text-muted mb-2">Accelerometer Code</div>
                       <pre class="mb-0"><code>
 case GET_ACC: {
   unsigned long starttime = millis();
@@ -139,8 +137,8 @@ case GET_ACC: {
     if (myICM.dataReady()) {
           myICM.getAGMT();
     }
-    const float pitch_full_range = 180.0 / (86.0 + 88.4);
-    const float roll_full_range  = 180.0 / (89.0 + 87.4);
+    const float pitch_full_range = 180.0 / (86.0 + 88.4); // Conversion factor
+    const float roll_full_range  = 180.0 / (89.0 + 87.4); // Conversion factor
           
     float accelerometer_pitch = atan2(myICM.accY(), myICM.accZ()) * 180.0 / M_PI * pitch_full_range;
     float accelerometer_roll  = atan2(myICM.accX(), myICM.accZ()) * 180.0 / M_PI * roll_full_range;
@@ -201,10 +199,10 @@ case GET_ACC: {
                 <h5 class="fw-bolder mb-2">Accelerometer accuracy discussion</h5>
                 <p class="text-muted mb-3">
                   <!-- Replace with your discussion -->
-                  My accelerometer readings were not so precise. I saw two main problems: 1) the total angle range from
-                  -90 to 90 degrees waw actually less than 180 degrees, and the 0 degree reading was slightly offset. So to combat this 
+                  My accelerometer readings were initially not so precise. The main problem was that the total angle ranged from
+                  -90 to 90 degrees were actually less than 180 degrees. To to combat this 
                   I took the desired range of 180 and divided it by the accelerometer readings at the real -90 and +90 degrees. This gave me 
-                  a scaling factor where I could obtain the proper range by multiplying this by the raw accelerometer angle. Then to get it to the right
+                  a scaling factor where I could obtain the proper range by multiplying this by the raw accelerometer angle. 
                   offset, looked at the 0 readings and subtracted the error.
                 </p>
 
@@ -265,10 +263,10 @@ case GET_ACC: {
                   <div class="row g-3">
                   <div class="col-md-6">
                     <div class="border rounded-4 p-3 h-100">
-                      <div class="small text-muted mb-2">Code + Equation</div>
+                      <div class="small text-muted mb-2">Alpha Equation</div>
                       <pre class="mb-0"><code>
-                        RC = 1/(2pi * fc) = 1/(2pi * 5) = .0318
-                        alphs = ts/(tx + RC) = .214/(.214 + .0318) = <div class="871"></div>
+RC = 1/(2pi * fc) = 1/(2pi * 5) = .0318
+alphs = ts/(tx + RC) = .214/(.214 + .0318) = .871</div>
                     </code>
                     </pre></div>
                   </div>

@@ -67,13 +67,13 @@
 
                     <div class="card border-0 shadow-sm rounded-4">
                         <div class="card-body p-4">
-                            <h3 class="fw-bolder mb-3">Two ToF Sensors on One I2C Bus</h3>
+                            <h3 class="fw-bolder mb-3">I2C Addresses</h3>
 
-                            <p class="text-muted mb-4">
-                                To use two VL53L1X sensors at once, at least one sensor needs be addressable to a unique I2C address.
-                                Both sensors start with the same default address, so I used the SHUT (XSHUT) pin on the addressable sensor
-                                to temporarily disable the other sensor and then reassigned the addressable one.
-                            </p>
+                            <ul>
+                              <li>Time of Flight (ToF) Sensor 1: 0x14</li>
+                              <li>Time of Flight Sensor (ToF) 2: 0x29</li>
+                              <li>Inertial Measuerment Unit (IMU) Sensor: 0x69</li>
+                            </ul>
 
                             <div class="bg-light rounded-4 p-3 mb-4">
                                 <h5 class="small fw-semibold mb-2">Addressing Workflow</h5>
@@ -120,6 +120,12 @@
                         <div class="card-body p-4">
                             <h3 class="fw-bolder mb-3">Hardware Setup + I2C Scan</h3>
 
+                            <p class="text-muted mb-4">
+                                To use two VL53L1X sensors at once, at least one sensor needs be addressable to a unique I2C address.
+                                Both sensors start with the same default address, so I used the SHUT (XSHUT) pin on the addressable sensor
+                                to temporarily disable the other sensor and then reassigned the addressable one.
+                            </p>
+
                             <div class="row g-4 mb-4">
                                 <div class="col-md-4">
                                     <div class="bg-light rounded-4 p-3">
@@ -148,17 +154,7 @@
                                     the address <strong>0x14</strong>.
                                 </p>
                             </div>
-
-                                <div class="col-md-4">
-                                    <div class="bg-light rounded-4 p-3">
-                                        <video class="w-100 rounded-4" controls>
-                                            <source src="../assets/lab3/tof_parallel_demo.mp4" type="video/mp4">
-                                            Your browser does not support the video tag.
-                                        </video>
-                                        <p class="small mt-2 mb-0">2× ToF + IMU Working in Parallel</p>
-                                    </div>
-                                </div>
-                            </div>
+                          </div>
                       
                             <div class="col-md-4">
                                     <div class="bg-light rounded-4 p-3">

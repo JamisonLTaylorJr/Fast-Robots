@@ -130,7 +130,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row g-4 mb-4">
+                            <div class="row g-4 mb-4">
                                 <div class="col-md-4">
                                     <div class="bg-light rounded-4 p-3">
                                         <img src="../assets/lab3/2detect.png"
@@ -139,18 +139,9 @@
                                         <p class="small mt-2 mb-0">Detection of Two Addresses</p>
                                     </div>
                                 </div>
-
-                                <div class="col-md-4">
-                                    <div class="bg-light rounded-4 p-3">
-                                        <img src="../assets/lab3/3detect.png"
-                                             alt="Artemis I2C scan output (placeholder)"
-                                             class="img-fluid rounded-4">
-                                        <p class="small mt-2 mb-0">Detection of Three Addresses</p>
-                                    </div>
-                                </div>
-
+                                
                             <div class="alert alert-info mb-4">
-                                <h5 class="fw-semibold">Address Summary</h5>
+                                <h5 class="fw-semibold">I2CAddress Summary</h5>
                                 <p class="mb-0">
                                     Addresses detected at <strong>0x29</strong> for both ToF sensors and <strong>0x69</strong> for the connected 
                                     IMU. Then I was able to assign the address <strong>0x29</strong> to one of the sensors, and the non addressible sensor took another
@@ -168,59 +159,20 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="alert alert-info mb-0">
-                                <h5 class="fw-semibold">I2C Address Discussion</h5>
-                                <p class="mb-0">
-                                    After scanning the I2C bus, the detected addresses matched what I expected.
-                                    I saw the IMU addresses (<strong>0x19</strong> and <strong>0x69</strong>) and a ToF address.
-                                    I then assigned a unique address to the second ToF sensor so both could run on the same I2C bus.
-                                </p>
-                            </div>
+                      
+                            <div class="col-md-4">
+                                    <div class="bg-light rounded-4 p-3">
+                                        <img src="../assets/lab3/3detect.png"
+                                             alt="Artemis I2C scan output (placeholder)"
+                                             class="img-fluid rounded-4">
+                                        <p class="small mt-2 mb-0">Detection of Three Addresses</p>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 </section>
-
-                <!-- 2. I2C Scan -->
-                <section class="mb-5">
-                    <h2 class="fw-bolder mb-4">2. Scan the I2C Channel (ToF Discovery)</h2>
-
-                    <div class="card border-0 shadow-sm rounded-4">
-                        <div class="card-body p-4">
-                            <h3 class="fw-bolder mb-3">Results</h3>
-
-                            <p class="text-muted mb-4">
-                                I ran an I2C scanning program to confirm device communication and identify the sensor addresses.
-                                The scan returned the correct addresses, confirming proper wiring and setup.
-                            </p>
-
-                            <div class="row g-4">
-                                <div class="col-lg-6">
-                                    <div class="bg-light rounded-4 p-3 h-100">
-                                        <h6 class="fw-semibold mb-2">Detected Devices</h6>
-                                        <ul class="mb-0">
-                                            <li><strong>0x19</strong> and <strong>0x69</strong> detected (IMU / gyroscope)</li>
-                                            <li><strong>0x29</strong> used for one ToF sensor after reassignment</li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <div class="bg-light rounded-4 p-3 h-100">
-                                        <h6 class="fw-semibold mb-2">If the Address Didn’t Match…</h6>
-                                        <p class="small text-muted mb-0">
-                                            If the scan had not matched, the first things to check would be QWIIC connections,
-                                            power, SDA/SCL continuity, and whether multiple devices were conflicting on the
-                                            same default I2C address.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 3. ToF Modes -->
+                
+                <!-- 2. ToF Modes -->
                 <section class="mb-5">
                     <h2 class="fw-bolder mb-4">3. ToF Modes (Short, Medium, Long)</h2>
 
@@ -312,7 +264,7 @@
                             <div class="row g-4 mb-4">
                                 <div class="col-lg-6">
                                     <div class="bg-light rounded-4 p-3">
-                                        <img src="../assets/lab3/tof_test_setup.jpeg"
+                                        <img src="../assets/lab3/test-setup1.png"
                                              alt="ToF test setup facing wall (placeholder)"
                                              class="img-fluid rounded-4">
                                         <p class="small mt-2 mb-0">ToF Test Setup (Sensors Facing Wall)</p>
@@ -321,15 +273,24 @@
 
                                 <div class="col-lg-6">
                                     <div class="bg-light rounded-4 p-3">
-                                        <img src="../assets/lab3/tof_output_terminal.png"
+                                        <img src="../assets/lab3/arduino_output.png"
                                              alt="Bluetooth streamed ToF output (placeholder)"
                                              class="img-fluid rounded-4">
-                                        <p class="small mt-2 mb-0">Bluetooth Streamed Sensor Output</p>
+                                        <p class="small mt-2 mb-0">Arduino Print Sensor Output</p>
                                     </div>
                                 </div>
                             </div>
 
                             <h4 class="fw-bolder mb-3">Results</h4>
+
+                            <div class="col-lg-6">
+                                    <div class="bg-light rounded-4 p-3">
+                                        <img src="../assets/lab3/actual_vs_measured.png"
+                                             alt="Actual vs Measured Distance (placeholder)"
+                                             class="img-fluid rounded-4">
+                                        <p class="small mt-2 mb-0">Actual vs Measured Distance</p>
+                                    </div>
+                                </div>
 
                             <div class="row g-4 mb-4">
                                 <div class="col-lg-6">
@@ -385,17 +346,8 @@
                                 <div class="col-lg-6">
                                     <div class="bg-light rounded-4 p-3">
                                         <h6 class="fw-semibold mb-2">Time vs Distance (2 Sensors)</h6>
-                                        <img src="../assets/lab3/time_vs_distance.png"
+                                        <img src="../assets/lab3/tof_angle_vs_time.png"
                                              alt="Time vs Distance plot (placeholder)"
-                                             class="img-fluid rounded-4">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <div class="bg-light rounded-4 p-3">
-                                        <h6 class="fw-semibold mb-2">Time vs Angle (IMU)</h6>
-                                        <img src="../assets/lab3/time_vs_angle.png"
-                                             alt="Time vs Angle plot (placeholder)"
                                              class="img-fluid rounded-4">
                                     </div>
                                 </div>
@@ -403,9 +355,7 @@
                         </div>
                     </div>
                 </section>
-
-                <!-- 5. Prelab -->
-                
+                                
                 <!-- 6. Infrared / Materials Discussion -->
                 <section class="mb-5">
                     <h2 class="fw-bolder mb-4">6. (5000) Infrared Sensor Discussion</h2>

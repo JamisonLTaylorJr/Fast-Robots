@@ -75,34 +75,6 @@
                                 to temporarily disable the other sensor and then reassigned the addressable one.
                             </p>
 
-                            <div class="row g-4 mb-4">
-                                <div class="col-md-4">
-                                    <div class="bg-light rounded-4 p-3">
-                                        <img src="../assets/lab3/2detect.png"
-                                             alt="ToF sensor connected to QWIIC breakout (placeholder)"
-                                             class="img-fluid rounded-4">
-                                        <p class="small mt-2 mb-0">Detection of Two Addresses</p>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="bg-light rounded-4 p-3">
-                                        <img src="../assets/lab3/3detect.png"
-                                             alt="Artemis I2C scan output (placeholder)"
-                                             class="img-fluid rounded-4">
-                                        <p class="small mt-2 mb-0">Detection of Three Addresses</p>
-                                    </div>
-                                </div>
-
-                            <div class="alert alert-info mb-4">
-                                <h5 class="fw-semibold">Address Summary</h5>
-                                <p class="mb-0">
-                                    Addresses detected at <strong>0x29</strong> for both ToF sensors and <strong>0x69</strong> for the connected 
-                                    IMU. Then I was able to assign the address <strong>0x29</strong> to one of the sensors, and the non addressible sensor took another
-                                    the address <strong>0x14</strong>.
-                                </p>
-                            </div>
-
                             <div class="bg-light rounded-4 p-3 mb-4">
                                 <h5 class="small fw-semibold mb-2">Addressing Workflow</h5>
                                 <ol class="small mb-0">
@@ -151,21 +123,40 @@
                             <div class="row g-4 mb-4">
                                 <div class="col-md-4">
                                     <div class="bg-light rounded-4 p-3">
-                                        <img src="../assets/lab3/tof_qwiic_setup.jpeg"
+                                        <img src="../assets/lab3/connected_board.png"
                                              alt="ToF sensor connected to QWIIC breakout (placeholder)"
                                              class="img-fluid rounded-4">
                                         <p class="small mt-2 mb-0">ToF Sensor + QWIIC Breakout Wiring</p>
                                     </div>
                                 </div>
 
+                                <div class="row g-4 mb-4">
                                 <div class="col-md-4">
                                     <div class="bg-light rounded-4 p-3">
-                                        <img src="../assets/lab3/i2c_scan_output.png"
-                                             alt="Artemis I2C scan output (placeholder)"
+                                        <img src="../assets/lab3/2detect.png"
+                                             alt="ToF sensor connected to QWIIC breakout (placeholder)"
                                              class="img-fluid rounded-4">
-                                        <p class="small mt-2 mb-0">Artemis I2C Scan Output</p>
+                                        <p class="small mt-2 mb-0">Detection of Two Addresses</p>
                                     </div>
                                 </div>
+
+                                <div class="col-md-4">
+                                    <div class="bg-light rounded-4 p-3">
+                                        <img src="../assets/lab3/3detect.png"
+                                             alt="Artemis I2C scan output (placeholder)"
+                                             class="img-fluid rounded-4">
+                                        <p class="small mt-2 mb-0">Detection of Three Addresses</p>
+                                    </div>
+                                </div>
+
+                            <div class="alert alert-info mb-4">
+                                <h5 class="fw-semibold">Address Summary</h5>
+                                <p class="mb-0">
+                                    Addresses detected at <strong>0x29</strong> for both ToF sensors and <strong>0x69</strong> for the connected 
+                                    IMU. Then I was able to assign the address <strong>0x29</strong> to one of the sensors, and the non addressible sensor took another
+                                    the address <strong>0x14</strong>.
+                                </p>
+                            </div>
 
                                 <div class="col-md-4">
                                     <div class="bg-light rounded-4 p-3">

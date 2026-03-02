@@ -147,7 +147,7 @@
                                 </div>
                                 
                             <div class="alert alert-info mb-4">
-                                <h5 class="fw-semibold">I2CAddress Summary</h5>
+                                <h5 class="fw-semibold">I2C Address Summary</h5>
                                 <p class="mb-0">
                                     Addresses detected at <strong>0x29</strong> for both ToF sensors and <strong>0x69</strong> for the connected 
                                     IMU. Then I was able to assign the address <strong>0x29</strong> to one of the sensors, and the non addressible sensor took another
@@ -164,6 +164,46 @@
                                         <p class="small mt-2 mb-0">Detection of Three Addresses</p>
                                     </div>
                                 </div>
+                                <div class="bg-light rounded-4 p-3">
+                                <h5 class="small fw-semibold mb-2">Setup/Addressing Sensors Code</h5>
+                                <pre class="mb-0 small"><code>
+SFEVL53L1X distanceSensor1;
+SFEVL53L1X distanceSensor2(Wire, XSHUT_PIN, INTERRUPT_PIN); //Contains Interrupt and Shutoff
+
+void setup(void)
+{Wire.begin();
+
+  Serial.begin(115200);
+
+  //Set GPIO
+  pinMode(XSHUT_PIN, OUTPUT);  // Set XSHUT pin as output
+
+  //Turn off one of the Sensors
+  digitalWrite(XSHUT_PIN,LOW); 
+  delay(10);
+
+  //Change I2C Address
+  distanceSensor2.setI2CAddress(0x29); //Setting it to a 7-bit 0x35 bit address
+
+  //Turn Back on the Sensor
+  digitalWrite(XSHUT_PIN,HIGH); 
+  delay(10);
+
+  if (distanceSensor1.begin() != 0 ) //Begin returns 0 on a good init
+    {Serial.println("Sensor failed to begin. Please check wiring. Freezing...");
+    while (1);}
+
+  if (distanceSensor2.begin() != 0) //Begin returns 0 on a good init
+  {Serial.println("Sensor 2 failed to begin. Please check wiring. Freezing...");
+    while (1);}
+
+  Serial.println("All Sensors Are Online!");
+
+  else if (DistSensorMode == 0)
+  {distanceSensor1.setDistanceModeShort();
+   distanceSensor2.setDistanceModeShort();}
+}</code></pre>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -239,6 +279,13 @@
                                     long-range detection for this use case.
                                 </p>
                             </div>
+                            <div class="bg-light rounded-4 p-3">
+                                <h5 class="small fw-semibold mb-2">Short Mode Code</h5>
+                                <pre class="mb-0 small"><code>
+ToF_Sensor_1.setDistanceModeShort();
+ToF_Sensor_2.setDistanceModeShort();
+</code></pre>
+                            </div>
                         </div>
                     </div>
                 </section>
@@ -257,6 +304,47 @@
                                 range, accuracy, repeatability, and ranging time.
                             </p>
 
+                            <div class="bg-light rounded-4 p-3">
+                                <h5 class="small fw-semibold mb-2">Short Mode Code</h5>
+                                <pre class="mb-0 small"><code>
+void loop(void)
+  {distanceSensor1.startRanging(); //Write configuration bytes to initiate measurement
+  distanceSensor2.startRanging(); //Write configuration bytes to initiate measurement
+
+  while (!distanceSensor1.checkForDataReady())
+    {delay(1);}
+  while (!distanceSensor2.checkForDataReady())
+    {delay(1);}
+  
+  int distance1 = distanceSensor1.getDistance(); //Get the result of the measurement from the sensor
+  int distance2 = distanceSensor2.getDistance(); //Get the result of the measurement from the sensor
+
+  distanceSensor1.clearInterrupt();
+  distanceSensor2.clearInterrupt();
+
+  distanceSensor1.stopRanging();
+  distanceSensor2.stopRanging();
+
+  Serial.print("Distance1(mm): ");
+  Serial.print(distance1);
+  Serial.print("Distance2(mm): ");
+  Serial.print(distance2);
+
+  float distanceInches1 = distance1 * 0.0393701;
+  float distanceFeet1 = distanceInches1 / 12.0;
+  float distanceInches2 = distance2 * 0.0393701;
+  float distanceFeet2 = distanceInches2 / 12.0;
+
+  Serial.print("\tDistance1(ft): ");
+  Serial.print(distanceFeet1, 2);
+  Serial.print("\tDistance2(ft): ");
+  Serial.print(distanceFeet2, 2);
+
+  Serial.println();
+}
+
+</code></pre>
+                            </div>
                             <div class="row g-4 mb-4">
                                 <div class="col-lg-6">
                                     <div class="bg-light rounded-4 p-3">

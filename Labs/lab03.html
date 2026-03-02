@@ -98,13 +98,13 @@
                                 <h5 class="fw-semibold">Address Summary</h5>
                                 <p class="mb-0">
                                     Addresses detected at <strong>0x29</strong> for both ToF sensors and <strong>0x69</strong> for the connected 
-                                    gyroscope. Then I was able to assign the address <strong>0x29</strong> to one of the sensors, and the non addressible sensor took another
+                                    IMU. Then I was able to assign the address <strong>0x29</strong> to one of the sensors, and the non addressible sensor took another
                                     the address <strong>0x14</strong>.
                                 </p>
                             </div>
 
                             <div class="bg-light rounded-4 p-3 mb-4">
-                                <h5 class="small fw-semibold mb-2">Addressing Workflow (High Level)</h5>
+                                <h5 class="small fw-semibold mb-2">Addressing Workflow</h5>
                                 <ol class="small mb-0">
                                     <li>Connect both ToF sensors to the I2C bus.</li>
                                     <li>Use SHUT/XSHUT to turn <em>one</em> ToF sensor off.</li>
@@ -120,6 +120,22 @@
                                 The robot mainly moves forward/backward and turns, so forward/back obstacle detection is critical.
                                 The robot may still miss obstacles above/below it, and certain side-angle obstacles depending on placement.
                             </p>
+
+                            <h3 class="fw-bolder mb-3">Circuit Diagram</h3>
+                            <p class="text-muted mb-0">
+                                Here is my circuit diagram showing the Artemis, two VL53L1X ToF sensors, and the IMU. Both ToF sensors are connected 
+                                to the same I2C bus, with one sensor's SHUT pin used for address reassignment.
+                            </p>
+
+                            <div class="row g-4 mb-4">
+                                <div class="col-md-4">
+                                    <div class="bg-light rounded-4 p-3">
+                                        <img src="../assets/lab3/circuit_diagram.png"
+                                             alt="ToF sensor connected to QWIIC breakout (placeholder)"
+                                             class="img-fluid rounded-4">
+                                        <p class="small mt-2 mb-0">Circuit Diagram</p>
+                                    </div>
+                                </div>
                         </div>
                     </div>
                 </section>

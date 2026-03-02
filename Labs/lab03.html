@@ -1,323 +1,341 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="MAE 5190 Fast Robots - Lab 3">
-    <meta name="author" content="Jamison L. Taylor Jr.">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="MAE 5190 Fast Robots - Lab 3" />
+    <meta name="author" content="Jamison L. Taylor Jr." />
     <title>Lab 3 | MAE 5190 Fast Robots</title>
 
-    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="../css/styles.css" rel="stylesheet">
-</head>
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="../css/styles.css" rel="stylesheet" />
+  </head>
 
-<body class="d-flex flex-column h-100">
+  <body class="d-flex flex-column h-100">
     <main class="flex-shrink-0">
-        <!-- Navigation -->
-        <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
-            <div class="container px-5">
-                <a class="navbar-brand" href="../index.html">
-                    <span class="fw-bolder text-primary">MAE 5190 Fast Robots</span>
-                </a>
+      <!-- Navigation -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+        <div class="container px-5">
+          <a class="navbar-brand" href="../index.html">
+            <span class="fw-bolder text-primary">MAE 5190 Fast Robots</span>
+          </a>
 
-                <button class="navbar-toggler"
-                        type="button"
-                        data-bs-toggle="collapse"
-                        data-bs-target="#navbarSupportedContent"
-                        aria-controls="navbarSupportedContent"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-                        <li class="nav-item">
-                            <a class="nav-link" href="../index.html">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../index.html#labs">Labs</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="../index.html#about">About</a>
-                        </li>
-                    </ul>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+              <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="../index.html#labs">Labs</a></li>
+              <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Header Section -->
+      <section class="py-5">
+        <div class="container px-5">
+          <div class="text-center mb-5">
+            <h1 class="fw-bolder">Lab 3: <span class="text-gradient">ToF Sensors + I2C Addressing</span></h1>
+            <p class="text-muted mb-0">
+              This lab focuses on scanning the I2C bus, configuring two VL53L1X Time of Flight sensors with unique
+              addresses, selecting a ranging mode, and evaluating range, accuracy, repeatability, and ranging time. Data
+              is streamed over Bluetooth while running ToF + IMU in parallel.
+            </p>
+          </div>
+
+          <!-- Prelab -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">Prelab</h2>
+
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <h3 class="fw-bolder mb-3">I2C Addresses</h3>
+
+                <ul class="mb-4">
+                  <li>Time of Flight (ToF) Sensor 1: <code>0x14</code></li>
+                  <li>Time of Flight (ToF) Sensor 2: <code>0x29</code></li>
+                  <li>Inertial Measurement Unit (IMU): <code>0x69</code></li>
+                </ul>
+
+                <div class="bg-light rounded-4 p-3 mb-4">
+                  <h5 class="small fw-semibold mb-2">Addressing Workflow</h5>
+                  <ol class="small mb-0">
+                    <li>Connect both ToF sensors to the I2C bus.</li>
+                    <li>Use SHUT/XSHUT to turn <em>one</em> ToF sensor off.</li>
+                    <li>Initialize the active ToF sensor and assign it a new address (e.g., <code>0x29</code>).</li>
+                    <li>Turn the second ToF sensor back on.</li>
+                    <li>Initialize the second sensor at its address and read both sensors in the loop.</li>
+                  </ol>
                 </div>
-            </div>
-        </nav>
 
-        <!-- Header Section -->
-        <section class="py-5">
-            <div class="container px-5">
-                <div class="text-center mb-5">
-                    <h1 class="fw-bolder">
-                        Lab 3: <span class="text-gradient">ToF Sensors + I2C Addressing</span>
-                    </h1>
-                    <p class="text-muted mb-0">
-                        This lab focuses on scanning the I2C bus, configuring two VL53L1X Time of Flight sensors with
-                        unique addresses, selecting a ranging mode, and evaluating range, accuracy, repeatability,
-                        and ranging time. Data is streamed over Bluetooth while running ToF + IMU in parallel.
-                    </p>
-                </div>
+                <h3 class="fw-bolder mb-3">Sensor Placement on the Robot</h3>
+                <p class="text-muted mb-4">
+                  The most important placements for ToF sensors are the <strong>front</strong> and <strong>back</strong>
+                  of the robot. The robot mainly moves forward/backward and turns, so forward/back obstacle detection is
+                  critical. The robot may still miss obstacles above/below it, and certain side-angle obstacles depending
+                  on placement.
+                </p>
 
-                <!-- Prelab -->
-                <section class="mb-5">
-                    <h2 class="fw-bolder mb-4">Prelab</h2>
+                <h3 class="fw-bolder mb-3">Circuit Diagram</h3>
+                <p class="text-muted mb-3">
+                  Here is my circuit diagram showing the Artemis, two VL53L1X ToF sensors, and the IMU. Both ToF sensors
+                  are connected to the same I2C bus, with one sensor’s SHUT pin used for address reassignment.
+                </p>
 
-                    <div class="card border-0 shadow-sm rounded-4">
-                        <div class="card-body p-4">
-                            <h3 class="fw-bolder mb-3">I2C Addresses</h3>
-
-                            <ul>
-                              <li>Time of Flight (ToF) Sensor 1: 0x14</li>
-                              <li>Time of Flight Sensor (ToF) 2: 0x29</li>
-                              <li>Inertial Measuerment Unit (IMU) Sensor: 0x69</li>
-                            </ul>
-
-                            <div class="bg-light rounded-4 p-3 mb-4">
-                                <h5 class="small fw-semibold mb-2">Addressing Workflow</h5>
-                                <ol class="small mb-0">
-                                    <li>Connect both ToF sensors to the I2C bus.</li>
-                                    <li>Use SHUT/XSHUT to turn <em>one</em> ToF sensor off.</li>
-                                    <li>Initialize the active ToF sensor and assign it a new address (ex: 0x29).</li>
-                                    <li>Turn the second ToF sensor back on.</li>
-                                    <li>Initialize the second sensor at its address and read both sensors in the loop.</li>
-                                </ol>
-                            </div>
-
-                            <h3 class="fw-bolder mb-3">Sensor Placement on the Robot</h3>
-                            <p class="text-muted mb-0">
-                                The most important placements for ToF sensors are the <strong>front</strong> and <strong>back</strong> of the robot.
-                                The robot mainly moves forward/backward and turns, so forward/back obstacle detection is critical.
-                                The robot may still miss obstacles above/below it, and certain side-angle obstacles depending on placement.
-                            </p>
-
-                            <h3 class="fw-bolder mb-3">Circuit Diagram</h3>
-                            <p class="text-muted mb-0">
-                                Here is my circuit diagram showing the Artemis, two VL53L1X ToF sensors, and the IMU. Both ToF sensors are connected 
-                                to the same I2C bus, with one sensor's SHUT pin used for address reassignment.
-                            </p>
-
-                            <div class="row g-4 mb-4">
-                                <div class="col-md-4">
-                                    <div class="bg-light rounded-4 p-3">
-                                        <img src="../assets/lab3/circuit_diagram.png"
-                                             alt="ToF sensor connected to QWIIC breakout (placeholder)"
-                                             class="img-fluid rounded-4">
-                                        <p class="small mt-2 mb-0">Circuit Diagram</p>
-                                    </div>
-                                </div>
-                        </div>
+                <div class="row g-4">
+                  <div class="col-md-6 col-lg-4">
+                    <div class="bg-light rounded-4 p-3">
+                      <img
+                        src="../assets/lab3/circuit_diagram.png"
+                        alt="Circuit diagram showing Artemis, two VL53L1X sensors, and IMU"
+                        class="img-fluid rounded-4"
+                      />
+                      <p class="small mt-2 mb-0">Circuit Diagram</p>
                     </div>
-                </section>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
 
-                <!-- 1. Lab Tasks -->
-                <section class="mb-5">
-                    <h2 class="fw-bolder mb-4">1. Lab Tasks</h2>
+          <!-- 1. Lab Tasks -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">1. Lab Tasks</h2>
 
-                    <div class="card border-0 shadow-sm rounded-4">
-                        <div class="card-body p-4">
-                            <h3 class="fw-bolder mb-3">Hardware Setup + I2C Scan</h3>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <h3 class="fw-bolder mb-3">Hardware Setup + I2C Scan</h3>
 
-                            <p class="text-muted mb-4">
-                                To use two VL53L1X sensors at once, at least one sensor needs be addressable to a unique I2C address.
-                                Both sensors start with the same default address, so I used the SHUT (XSHUT) pin on the addressable sensor
-                                to temporarily disable the other sensor and then reassigned the addressable one.
-                            </p>
+                <p class="text-muted mb-4">
+                  To use two VL53L1X sensors at once, at least one sensor needs a unique I2C address. Both sensors start
+                  with the same default address, so I used the SHUT (XSHUT) pin to temporarily disable one sensor and
+                  then reassigned the other.
+                </p>
 
-                            <div class="row g-4 mb-4">
-                                <div class="col-md-4">
-                                    <div class="bg-light rounded-4 p-3">
-                                        <img src="../assets/lab3/connected_board.png"
-                                             alt="ToF sensor connected to QWIIC breakout (placeholder)"
-                                             class="img-fluid rounded-4">
-                                        <p class="small mt-2 mb-0">ToF Sensor + QWIIC Breakout Wiring</p>
-                                    </div>
-                                </div>
+                <div class="row g-4 mb-4">
+                  <div class="col-md-6 col-lg-4">
+                    <div class="bg-light rounded-4 p-3">
+                      <img
+                        src="../assets/lab3/connected_board.png"
+                        alt="ToF sensors wired through QWIIC breakout to Artemis"
+                        class="img-fluid rounded-4"
+                      />
+                      <p class="small mt-2 mb-0">ToF Sensor + QWIIC Breakout Wiring</p>
+                    </div>
+                  </div>
 
-                            <div class="row g-4 mb-4">
-                                <div class="col-md-4">
-                                    <div class="bg-light rounded-4 p-3">
-                                        <img src="../assets/lab3/2detect.png"
-                                             alt="ToF sensor connected to QWIIC breakout (placeholder)"
-                                             class="img-fluid rounded-4">
-                                        <p class="small mt-2 mb-0">Detection of Two Addresses</p>
-                                    </div>
-                                </div>
-                                
-                            <div class="alert alert-info mb-4">
-                                <h5 class="fw-semibold">I2C Address Summary</h5>
-                                <p class="mb-0">
-                                    Addresses detected at <strong>0x29</strong> for both ToF sensors and <strong>0x69</strong> for the connected 
-                                    IMU. Then I was able to assign the address <strong>0x29</strong> to one of the sensors, and the non addressible sensor took another
-                                    the address <strong>0x14</strong>.
-                                </p>
-                            </div>
-                          </div>
-                      
-                            <div class="col-md-4">
-                                    <div class="bg-light rounded-4 p-3">
-                                        <img src="../assets/lab3/3detect.png"
-                                             alt="Artemis I2C scan output (placeholder)"
-                                             class="img-fluid rounded-4">
-                                        <p class="small mt-2 mb-0">Detection of Three Addresses</p>
-                                    </div>
-                                </div>
-                                <div class="bg-light rounded-4 p-3">
-                                <h5 class="small fw-semibold mb-2">Setup/Addressing Sensors Code</h5>
-                                <pre class="mb-0 small"><code>
-SFEVL53L1X distanceSensor1;
-SFEVL53L1X distanceSensor2(Wire, XSHUT_PIN, INTERRUPT_PIN); //Contains Interrupt and Shutoff
+                  <div class="col-md-6 col-lg-4">
+                    <div class="bg-light rounded-4 p-3">
+                      <img
+                        src="../assets/lab3/2detect.png"
+                        alt="I2C scan showing two detected addresses"
+                        class="img-fluid rounded-4"
+                      />
+                      <p class="small mt-2 mb-0">Detection of Two Addresses</p>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 col-lg-4">
+                    <div class="bg-light rounded-4 p-3">
+                      <img
+                        src="../assets/lab3/3detect.png"
+                        alt="I2C scan showing three detected addresses"
+                        class="img-fluid rounded-4"
+                      />
+                      <p class="small mt-2 mb-0">Detection of Three Addresses</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="alert alert-info mb-4">
+                  <h5 class="fw-semibold">I2C Address Summary</h5>
+                  <p class="mb-0">
+                    I initially detected <strong>0x29</strong> (default ToF address) and <strong>0x69</strong> (IMU).
+                    After re-addressing, I assigned <strong>0x29</strong> to one ToF sensor and the other ToF sensor
+                    appeared at <strong>0x14</strong>.
+                  </p>
+                </div>
+
+                <div class="bg-light rounded-4 p-3">
+                  <h5 class="small fw-semibold mb-2">Setup / Addressing Sensors Code</h5>
+                  <pre class="mb-0 small"><code>SFEVL53L1X distanceSensor1;
+SFEVL53L1X distanceSensor2(Wire, XSHUT_PIN, INTERRUPT_PIN); // Contains interrupt and shutoff
 
 void setup(void)
-{Wire.begin();
-
+{
+  Wire.begin();
   Serial.begin(115200);
 
-  //Set GPIO
-  pinMode(XSHUT_PIN, OUTPUT);  // Set XSHUT pin as output
+  // Set GPIO
+  pinMode(XSHUT_PIN, OUTPUT);
 
-  //Turn off one of the Sensors
-  digitalWrite(XSHUT_PIN,LOW); 
+  // Turn off one of the sensors
+  digitalWrite(XSHUT_PIN, LOW);
   delay(10);
 
-  //Change I2C Address
-  distanceSensor2.setI2CAddress(0x29); //Setting it to a 7-bit 0x35 bit address
+  // Change I2C address
+  distanceSensor2.setI2CAddress(0x29);
 
-  //Turn Back on the Sensor
-  digitalWrite(XSHUT_PIN,HIGH); 
+  // Turn the sensor back on
+  digitalWrite(XSHUT_PIN, HIGH);
   delay(10);
 
-  if (distanceSensor1.begin() != 0 ) //Begin returns 0 on a good init
-    {Serial.println("Sensor failed to begin. Please check wiring. Freezing...");
-    while (1);}
+  if (distanceSensor1.begin() != 0) {
+    Serial.println("Sensor 1 failed to begin. Please check wiring. Freezing...");
+    while (1) {}
+  }
 
-  if (distanceSensor2.begin() != 0) //Begin returns 0 on a good init
-  {Serial.println("Sensor 2 failed to begin. Please check wiring. Freezing...");
-    while (1);}
+  if (distanceSensor2.begin() != 0) {
+    Serial.println("Sensor 2 failed to begin. Please check wiring. Freezing...");
+    while (1) {}
+  }
 
   Serial.println("All Sensors Are Online!");
-
-  else if (DistSensorMode == 0)
-  {distanceSensor1.setDistanceModeShort();
-   distanceSensor2.setDistanceModeShort();}
 }</code></pre>
-                            </div>
-                        </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 3. ToF Modes -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">3. ToF Modes (Short, Medium, Long)</h2>
+
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <h3 class="fw-bolder mb-3">Pros / Cons and Mode Selection</h3>
+
+                <p class="text-muted mb-4">
+                  The VL53L1X supports multiple ranging modes that trade off speed, range, and robustness under different
+                  lighting conditions.
+                </p>
+
+                <div class="row g-4 mb-4">
+                  <div class="col-lg-4">
+                    <div class="bg-light rounded-4 p-3 h-100">
+                      <h6 class="fw-semibold mb-2">Short Mode</h6>
+                      <ul class="small mb-0">
+                        <li>Best for close range detection (~1–1.3 m typical)</li>
+                        <li>Fast updates (good for high-speed feedback)</li>
+                        <li>Low power</li>
+                        <li>Better performance in high ambient light</li>
+                        <li>Reduced motion blur</li>
+                      </ul>
+                      <p class="small text-muted mt-2 mb-0">Tradeoff: lower max range than medium/long mode.</p>
                     </div>
-                </section>
-                
-                <!-- 2. ToF Modes -->
-                <section class="mb-5">
-                    <h2 class="fw-bolder mb-4">3. ToF Modes (Short, Medium, Long)</h2>
+                  </div>
 
-                    <div class="card border-0 shadow-sm rounded-4">
-                        <div class="card-body p-4">
-                            <h3 class="fw-bolder mb-3">Pros / Cons and Mode Selection</h3>
-
-                            <p class="text-muted mb-4">
-                                The VL53L1X supports multiple ranging modes that trade off speed, range, and robustness under
-                                lighting conditions.
-                            </p>
-
-                            <div class="row g-4 mb-4">
-                                <div class="col-lg-4">
-                                    <div class="bg-light rounded-4 p-3 h-100">
-                                        <h6 class="fw-semibold mb-2">Short Mode</h6>
-                                        <ul class="small mb-0">
-                                            <li>Best for close range detection (~1–1.3 m typical)</li>
-                                            <li>Fast updates (good for high-speed feedback)</li>
-                                            <li>Low power</li>
-                                            <li>Better performance in high ambient light</li>
-                                            <li>Reduced motion blur</li>
-                                        </ul>
-                                        <p class="small text-muted mt-2 mb-0">
-                                            Tradeoff: lower max range than medium/long mode.
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4">
-                                    <div class="bg-light rounded-4 p-3 h-100">
-                                        <h6 class="fw-semibold mb-2">Medium Mode</h6>
-                                        <p class="small text-muted mb-2">
-                                            (Only available with the Pololu VL53L1X library)
-                                        </p>
-                                        <ul class="small mb-0">
-                                            <li>Balanced range and speed</li>
-                                            <li>Moderate accuracy</li>
-                                            <li>Acceptable noise rejection</li>
-                                        </ul>
-                                        <p class="small text-muted mt-2 mb-0">
-                                            Tradeoff: slower than short mode and less range than long mode.
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4">
-                                    <div class="bg-light rounded-4 p-3 h-100">
-                                        <h6 class="fw-semibold mb-2">Long Mode</h6>
-                                        <ul class="small mb-0">
-                                            <li>Longest range</li>
-                                            <li>Better sensitivity for weak returns</li>
-                                            <li>Good for detecting far obstacles</li>
-                                        </ul>
-                                        <p class="small text-muted mt-2 mb-0">
-                                            Tradeoffs: slower updates, higher power, more sensitive to ambient IR noise,
-                                            and more motion blur on fast robots.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="alert alert-info mb-0">
-                                <h5 class="fw-semibold">Chosen Mode for This Robot</h5>
-                                <p class="mb-0">
-                                    I chose <strong>Short Mode</strong> because the robot needs fast feedback for high-speed motion.
-                                    In class, we focus on moving the robot quickly, and faster updates are more important than
-                                    long-range detection for this use case.
-                                </p>
-                            </div>
-                            <div class="bg-light rounded-4 p-3">
-                                <h5 class="small fw-semibold mb-2">Short Mode Code</h5>
-                                <pre class="mb-0 small"><code>
-ToF_Sensor_1.setDistanceModeShort();
-ToF_Sensor_2.setDistanceModeShort();
-</code></pre>
-                            </div>
-                        </div>
+                  <div class="col-lg-4">
+                    <div class="bg-light rounded-4 p-3 h-100">
+                      <h6 class="fw-semibold mb-2">Medium Mode</h6>
+                      <p class="small text-muted mb-2">(Only available with the Pololu VL53L1X library)</p>
+                      <ul class="small mb-0">
+                        <li>Balanced range and speed</li>
+                        <li>Moderate accuracy</li>
+                        <li>Acceptable noise rejection</li>
+                      </ul>
+                      <p class="small text-muted mt-2 mb-0">
+                        Tradeoff: slower than short mode and less range than long mode.
+                      </p>
                     </div>
-                </section>
+                  </div>
 
-                <!-- 4. Test Chosen Mode -->
-                <section class="mb-5">
-                    <h2 class="fw-bolder mb-4">4. Test the Chosen Mode (Short Mode)</h2>
+                  <div class="col-lg-4">
+                    <div class="bg-light rounded-4 p-3 h-100">
+                      <h6 class="fw-semibold mb-2">Long Mode</h6>
+                      <ul class="small mb-0">
+                        <li>Longest range</li>
+                        <li>Better sensitivity for weak returns</li>
+                        <li>Good for detecting far obstacles</li>
+                      </ul>
+                      <p class="small text-muted mt-2 mb-0">
+                        Tradeoffs: slower updates, higher power, more sensitive to ambient IR noise, and more motion blur
+                        on fast robots.
+                      </p>
+                    </div>
+                  </div>
+                </div>
 
-                    <div class="card border-0 shadow-sm rounded-4">
-                        <div class="card-body p-4">
-                            <h3 class="fw-bolder mb-3">Experiment Setup</h3>
+                <div class="alert alert-info mb-4">
+                  <h5 class="fw-semibold">Chosen Mode for This Robot</h5>
+                  <p class="mb-0">
+                    I chose <strong>Short Mode</strong> because the robot needs fast feedback for high-speed motion. In
+                    class, we focus on moving the robot quickly, and faster updates are more important than long-range
+                    detection for this use case.
+                  </p>
+                </div>
 
-                            <p class="text-muted mb-4">
-                                I taped both ToF sensors to a box and faced them toward a wall. Over Bluetooth,
-                                I streamed ToF distance readings while collecting IMU data in parallel. This helped me evaluate
-                                range, accuracy, repeatability, and ranging time.
-                            </p>
+                <div class="bg-light rounded-4 p-3">
+                  <h5 class="small fw-semibold mb-2">Short Mode Code</h5>
+                  <pre class="mb-0 small"><code>ToF_Sensor_1.setDistanceModeShort();
+ToF_Sensor_2.setDistanceModeShort();</code></pre>
+                </div>
+              </div>
+            </div>
+          </section>
 
-                            <div class="bg-light rounded-4 p-3">
-                                <h5 class="small fw-semibold mb-2">Short Mode Code</h5>
-                                <pre class="mb-0 small"><code>
-void loop(void)
-  {distanceSensor1.startRanging(); //Write configuration bytes to initiate measurement
-  distanceSensor2.startRanging(); //Write configuration bytes to initiate measurement
+          <!-- 4. Test Chosen Mode -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">4. Test the Chosen Mode (Short Mode)</h2>
 
-  while (!distanceSensor1.checkForDataReady())
-    {delay(1);}
-  while (!distanceSensor2.checkForDataReady())
-    {delay(1);}
-  
-  int distance1 = distanceSensor1.getDistance(); //Get the result of the measurement from the sensor
-  int distance2 = distanceSensor2.getDistance(); //Get the result of the measurement from the sensor
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <h3 class="fw-bolder mb-3">Experiment Setup</h3>
+
+                <p class="text-muted mb-4">
+                  I taped both ToF sensors to a box and faced them toward a wall. Over Bluetooth, I streamed ToF distance
+                  readings while collecting IMU data in parallel. This helped me evaluate range, accuracy,
+                  repeatability, and ranging time.
+                </p>
+
+                <div class="row g-4 mb-4">
+                  <div class="col-lg-6">
+                    <div class="bg-light rounded-4 p-3">
+                      <img
+                        src="../assets/lab3/test-setup1.png"
+                        alt="ToF test setup facing a wall"
+                        class="img-fluid rounded-4"
+                      />
+                      <p class="small mt-2 mb-0">ToF Test Setup (Sensors Facing Wall)</p>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="bg-light rounded-4 p-3">
+                      <img
+                        src="../assets/lab3/arduino_output.png"
+                        alt="Arduino serial output of ToF readings"
+                        class="img-fluid rounded-4"
+                      />
+                      <p class="small mt-2 mb-0">Arduino Print Sensor Output</p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bg-light rounded-4 p-3 mb-4">
+                  <h5 class="small fw-semibold mb-2">Loop / Distance Collection Code</h5>
+                  <pre class="mb-0 small"><code>void loop(void)
+{
+  distanceSensor1.startRanging();
+  distanceSensor2.startRanging();
+
+  while (!distanceSensor1.checkForDataReady()) { delay(1); }
+  while (!distanceSensor2.checkForDataReady()) { delay(1); }
+
+  int distance1 = distanceSensor1.getDistance();
+  int distance2 = distanceSensor2.getDistance();
 
   distanceSensor1.clearInterrupt();
   distanceSensor2.clearInterrupt();
@@ -327,13 +345,14 @@ void loop(void)
 
   Serial.print("Distance1(mm): ");
   Serial.print(distance1);
-  Serial.print("Distance2(mm): ");
+  Serial.print("  Distance2(mm): ");
   Serial.print(distance2);
 
   float distanceInches1 = distance1 * 0.0393701;
-  float distanceFeet1 = distanceInches1 / 12.0;
+  float distanceFeet1   = distanceInches1 / 12.0;
+
   float distanceInches2 = distance2 * 0.0393701;
-  float distanceFeet2 = distanceInches2 / 12.0;
+  float distanceFeet2   = distanceInches2 / 12.0;
 
   Serial.print("\tDistance1(ft): ");
   Serial.print(distanceFeet1, 2);
@@ -341,231 +360,214 @@ void loop(void)
   Serial.print(distanceFeet2, 2);
 
   Serial.println();
-}
+}</code></pre>
+                </div>
 
-</code></pre>
-                            </div>
-                            <div class="row g-4 mb-4">
-                                <div class="col-lg-6">
-                                    <div class="bg-light rounded-4 p-3">
-                                        <img src="../assets/lab3/test-setup1.png"
-                                             alt="ToF test setup facing wall (placeholder)"
-                                             class="img-fluid rounded-4">
-                                        <p class="small mt-2 mb-0">ToF Test Setup (Sensors Facing Wall)</p>
-                                    </div>
-                                </div>
+                <h4 class="fw-bolder mb-3">Results</h4>
 
-                                <div class="col-lg-6">
-                                    <div class="bg-light rounded-4 p-3">
-                                        <img src="../assets/lab3/arduino_output.png"
-                                             alt="Bluetooth streamed ToF output (placeholder)"
-                                             class="img-fluid rounded-4">
-                                        <p class="small mt-2 mb-0">Arduino Print Sensor Output</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <h4 class="fw-bolder mb-3">Results</h4>
-
-                            <div class="col-lg-6">
-                                    <div class="bg-light rounded-4 p-3">
-                                        <img src="../assets/lab3/actual_vs_measured.png"
-                                             alt="Actual vs Measured Distance (placeholder)"
-                                             class="img-fluid rounded-4">
-                                        <p class="small mt-2 mb-0">Actual vs Measured Distance</p>
-                                    </div>
-                                </div>
-
-                            <div class="row g-4 mb-4">
-                                <div class="col-lg-6">
-                                    <div class="bg-light rounded-4 p-3 h-100">
-                                        <h6 class="fw-semibold mb-2">Range</h6>
-                                        <p class="small text-muted mb-0">
-                                            In short mode, the sensors were most reliable within about <strong>0–12 inches (1 foot)</strong>.
-                                            Past 1 foot, the data became much less consistent. I also tested with extra lighting
-                                            aimed into the sensor path and saw similar results.
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <div class="bg-light rounded-4 p-3 h-100">
-                                        <h6 class="fw-semibold mb-2">Accuracy</h6>
-                                        <p class="small text-muted mb-0">
-                                            Within 0–12 inches, the readings were reasonably accurate. Any small differences between
-                                            measured and true distance were most likely due to human measurement error. Beyond 1 foot,
-                                            accuracy decreased significantly.
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <div class="bg-light rounded-4 p-3 h-100">
-                                        <h6 class="fw-semibold mb-2">Repeatability</h6>
-                                        <p class="small text-muted mb-0">
-                                            Within the effective range, repeated measurements at the same distance produced consistent
-                                            readings (good repeatability).
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <div class="bg-light rounded-4 p-3 h-100">
-                                        <h6 class="fw-semibold mb-2">Ranging Time / Speed</h6>
-                                        <p class="small text-muted mb-2">
-                                            I ran the program <strong>500 times</strong> and it took <strong>30.24 seconds</strong> total.
-                                        </p>
-                                        <div class="alert alert-light mb-0">
-                                            <pre class="mb-0 small">Ranging time = 30.24 s / 500 = 0.06048 s = 60.48 ms</pre>
-                                        </div>
-                                        <p class="small text-muted mt-2 mb-0">
-                                            This timing is slower because both ToF sensors + accelerometer + gyroscope were running at the
-                                            same time, and data was being sent over Bluetooth.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row g-4">
-                                <div class="col-lg-6">
-                                    <div class="bg-light rounded-4 p-3">
-                                        <h6 class="fw-semibold mb-2">Time vs Distance (2 Sensors)</h6>
-                                        <img src="../assets/lab3/tof_angle_vs_time.png"
-                                             alt="Time vs Distance plot (placeholder)"
-                                             class="img-fluid rounded-4">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="row g-4 mb-4">
+                  <div class="col-lg-6">
+                    <div class="bg-light rounded-4 p-3">
+                      <img
+                        src="../assets/lab3/actual_vs_measured.png"
+                        alt="Plot of actual distance vs measured ToF distance"
+                        class="img-fluid rounded-4"
+                      />
+                      <p class="small mt-2 mb-0">Actual vs Measured Distance</p>
                     </div>
-                </section>
-                                
-                <!-- 6. Infrared / Materials Discussion -->
-                <section class="mb-5">
-                    <h2 class="fw-bolder mb-4">6. (5000) Infrared Sensor Discussion</h2>
+                  </div>
+                </div>
 
-                    <div class="card border-0 shadow-sm rounded-4">
-                        <div class="card-body p-4">
-                            <h3 class="fw-bolder mb-3">Infrared Transmission + Surface Sensitivity</h3>
-
-                            <p class="text-muted mb-4">
-                                The VL53L1X uses infrared light reflection to measure distance, so performance depends on the surface
-                                and the environment.
-                            </p>
-
-                            <div class="row g-4">
-                                <div class="col-lg-6">
-                                    <div class="bg-light rounded-4 p-3 h-100">
-                                        <h6 class="fw-semibold mb-2">(5000) IR-Based Sensor Behavior</h6>
-                                        <ul class="small mb-0">
-                                            <li>Measures time-of-flight of reflected IR light</li>
-                                            <li>Strong reflections improve signal quality</li>
-                                            <li>Ambient IR (sunlight/bright lighting) can add noise</li>
-                                            <li>Range + accuracy depend on return signal strength</li>
-                                        </ul>
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-6">
-                                    <div class="bg-light rounded-4 p-3 h-100">
-                                        <h6 class="fw-semibold mb-2">(5000) Sensitivity to Colors + Textures</h6>
-                                        <ul class="small mb-0">
-                                            <li>Bright/light surfaces usually reflect more IR (better readings)</li>
-                                            <li>Dark surfaces can absorb IR (weaker return, noisier readings)</li>
-                                            <li>Smooth surfaces reflect more consistently</li>
-                                            <li>Rough/angled surfaces scatter IR (can reduce accuracy)</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <div class="row g-4 mb-4">
+                  <div class="col-lg-6">
+                    <div class="bg-light rounded-4 p-3 h-100">
+                      <h6 class="fw-semibold mb-2">Range</h6>
+                      <p class="small text-muted mb-0">
+                        In short mode, the sensors were most reliable within about <strong>0–12 inches (1 foot)</strong>.
+                        Past 1 foot, the data became much less consistent. I also tested with extra lighting aimed into
+                        the sensor path and saw similar results.
+                      </p>
                     </div>
-                </section>
+                  </div>
 
-                <!-- 7. Code Snippet Placeholder -->
-                <section class="mb-5">
-                    <h2 class="fw-bolder mb-4">7. ToF Sensor Speed (Code Snippet)</h2>
+                  <div class="col-lg-6">
+                    <div class="bg-light rounded-4 p-3 h-100">
+                      <h6 class="fw-semibold mb-2">Accuracy</h6>
+                      <p class="small text-muted mb-0">
+                        Within 0–12 inches, the readings were reasonably accurate. Any small differences between measured
+                        and true distance were most likely due to human measurement error. Beyond 1 foot, accuracy
+                        decreased significantly.
+                      </p>
+                    </div>
+                  </div>
 
-                    <div class="card border-0 shadow-sm rounded-4">
-                        <div class="card-body p-4">
-                            <h3 class="fw-bolder mb-3">How I Measured Timing</h3>
+                  <div class="col-lg-6">
+                    <div class="bg-light rounded-4 p-3 h-100">
+                      <h6 class="fw-semibold mb-2">Repeatability</h6>
+                      <p class="small text-muted mb-0">
+                        Within the effective range, repeated measurements at the same distance produced consistent
+                        readings (good repeatability).
+                      </p>
+                    </div>
+                  </div>
 
-                            <p class="text-muted mb-4">
-                                Below is a placeholder for the exact code section where you measure timing (500 iterations, total time,
-                                and average ranging time). Paste your real snippet here so it matches your submission.
-                            </p>
+                  <div class="col-lg-6">
+                    <div class="bg-light rounded-4 p-3 h-100">
+                      <h6 class="fw-semibold mb-2">Ranging Time / Speed</h6>
+                      <p class="small text-muted mb-2">
+                        I ran the program <strong>500 times</strong> and it took <strong>30.24 seconds</strong> total.
+                      </p>
+                      <div class="alert alert-light mb-0">
+                        <pre class="mb-0 small">Ranging time = 30.24 s / 500 = 0.06048 s = 60.48 ms</pre>
+                      </div>
+                      <p class="small text-muted mt-2 mb-0">
+                        This timing is slower because both ToF sensors + accelerometer + gyroscope were running at the
+                        same time, and data was being sent over Bluetooth.
+                      </p>
+                    </div>
+                  </div>
+                </div>
 
-                            <div class="bg-light rounded-4 p-3">
-                                <h5 class="small fw-semibold mb-2">Timing Code (Paste Yours)</h5>
-                                <pre class="mb-0 small"><code>// TODO: paste your actual timing snippet here
+                <div class="row g-4">
+                  <div class="col-lg-6">
+                    <div class="bg-light rounded-4 p-3">
+                      <h6 class="fw-semibold mb-2">Time vs Distance (2 Sensors)</h6>
+                      <img
+                        src="../assets/lab3/tof_angle_vs_time.png"
+                        alt="Time vs distance plot for two ToF sensors"
+                        class="img-fluid rounded-4"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 6. Infrared / Materials Discussion -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">6. (5000) Infrared Sensor Discussion</h2>
+
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <h3 class="fw-bolder mb-3">Infrared Transmission + Surface Sensitivity</h3>
+
+                <p class="text-muted mb-4">
+                  The VL53L1X uses infrared light reflection to measure distance, so performance depends on the surface
+                  and the environment.
+                </p>
+
+                <div class="row g-4">
+                  <div class="col-lg-6">
+                    <div class="bg-light rounded-4 p-3 h-100">
+                      <h6 class="fw-semibold mb-2">(5000) IR-Based Sensor Behavior</h6>
+                      <ul class="small mb-0">
+                        <li>Measures time-of-flight of reflected IR light</li>
+                        <li>Stronger reflections improve signal quality</li>
+                        <li>Ambient IR (sunlight/bright lighting) can add noise</li>
+                        <li>Range and accuracy depend on return signal strength</li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="bg-light rounded-4 p-3 h-100">
+                      <h6 class="fw-semibold mb-2">(5000) Sensitivity to Colors + Textures</h6>
+                      <ul class="small mb-0">
+                        <li>Bright/light surfaces usually reflect more IR (better readings)</li>
+                        <li>Dark surfaces can absorb IR (weaker return, noisier readings)</li>
+                        <li>Smooth surfaces reflect more consistently</li>
+                        <li>Rough/angled surfaces scatter IR (can reduce accuracy)</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 7. Code Snippet Placeholder -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">7. ToF Sensor Speed (Code Snippet)</h2>
+
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <h3 class="fw-bolder mb-3">How I Measured Timing</h3>
+
+                <p class="text-muted mb-4">
+                  Below is a placeholder for the exact code section where you measure timing (500 iterations, total
+                  time, and average ranging time). Paste your real snippet here so it matches your submission.
+                </p>
+
+                <div class="bg-light rounded-4 p-3">
+                  <h5 class="small fw-semibold mb-2">Timing Code (Paste Yours)</h5>
+                  <pre class="mb-0 small"><code>// TODO: paste your actual timing snippet here
 // Example structure:
 // unsigned long start = millis();
 // for (int i = 0; i &lt; 500; i++) {
-//     // read ToF1 + ToF2 + IMU
-//     // send BLE packet
+//   // read ToF1 + ToF2 + IMU
+//   // send BLE packet
 // }
 // unsigned long end = millis();
 // float total_s = (end - start) / 1000.0;
-// float avg_ms  = (total_s / 500.0) * 1000.0;
-</code></pre>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- 8. Resources -->
-                <section class="mb-5">
-                    <h2 class="fw-bolder mb-4">8. Resources</h2>
-
-                    <div class="card border-0 shadow-sm rounded-4">
-                        <div class="card-body p-4">
-                            <div class="row g-4">
-                                <div class="col-md-4">
-                                    <div class="h-100">
-                                        <h5 class="fw-bolder mb-2">SparkFun VL53L1X Library</h5>
-                                        <p class="text-muted mb-0">
-                                            Used for sensor initialization, ranging mode configuration, and reading distance values.
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="h-100">
-                                        <h5 class="fw-bolder mb-2">Course Materials</h5>
-                                        <p class="text-muted mb-0">
-                                            Used for understanding I2C scanning, addressing, and performance tradeoffs for ToF modes.
-                                        </p>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-4">
-                                    <div class="h-100">
-                                        <h5 class="fw-bolder mb-2">ChatGPT</h5>
-                                        <p class="text-muted mb-0">
-                                            Helped clean up and format the lab write-up into a consistent webpage structure.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
+// float avg_ms  = (total_s / 500.0) * 1000.0;</code></pre>
+                </div>
+              </div>
             </div>
-        </section>
+          </section>
+
+          <!-- 8. Resources -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">8. Resources</h2>
+
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <div class="row g-4">
+                  <div class="col-md-4">
+                    <div class="h-100">
+                      <h5 class="fw-bolder mb-2">SparkFun VL53L1X Library</h5>
+                      <p class="text-muted mb-0">
+                        Used for sensor initialization, ranging mode configuration, and reading distance values.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="h-100">
+                      <h5 class="fw-bolder mb-2">Course Materials</h5>
+                      <p class="text-muted mb-0">
+                        Used for understanding I2C scanning, addressing, and performance tradeoffs for ToF modes.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="h-100">
+                      <h5 class="fw-bolder mb-2">ChatGPT</h5>
+                      <p class="text-muted mb-0">
+                        Helped clean up and format the lab write-up into a consistent webpage structure.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
     </main>
 
     <!-- Footer -->
     <footer class="bg-white py-4 mt-auto">
-        <div class="container px-5">
-            <div class="row align-items-center justify-content-between">
-                <div class="col-auto">
-                    <div class="small text-muted">© 2026 Jamison L. Taylor Jr.</div>
-                </div>
-            </div>
+      <div class="container px-5">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-auto">
+            <div class="small text-muted">© 2026 Jamison L. Taylor Jr.</div>
+          </div>
         </div>
+      </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+  </body>
 </html>

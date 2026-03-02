@@ -61,6 +61,69 @@
                     </p>
                 </div>
 
+                <!-- Prelab -->
+                <section class="mb-5">
+                    <h2 class="fw-bolder mb-4">Prelab</h2>
+
+                    <div class="card border-0 shadow-sm rounded-4">
+                        <div class="card-body p-4">
+                            <h3 class="fw-bolder mb-3">Two ToF Sensors on One I2C Bus</h3>
+
+                            <p class="text-muted mb-4">
+                                To use two VL53L1X sensors at once, at least one sensor needs be addressable to a unique I2C address.
+                                Both sensors start with the same default address, so I used the SHUT (XSHUT) pin on the addressable sensor
+                                to temporarily disable the other sensor and then reassigned the addressable one.
+                            </p>
+
+                            <div class="row g-4 mb-4">
+                                <div class="col-md-4">
+                                    <div class="bg-light rounded-4 p-3">
+                                        <img src="../assets/lab3/2detect.png"
+                                             alt="ToF sensor connected to QWIIC breakout (placeholder)"
+                                             class="img-fluid rounded-4">
+                                        <p class="small mt-2 mb-0">Detection of Two Addresses</p>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <div class="bg-light rounded-4 p-3">
+                                        <img src="../assets/lab3/3detect.png"
+                                             alt="Artemis I2C scan output (placeholder)"
+                                             class="img-fluid rounded-4">
+                                        <p class="small mt-2 mb-0">Detection of Three Addresses</p>
+                                    </div>
+                                </div>
+
+                            <div class="alert alert-info mb-4">
+                                <h5 class="fw-semibold">Address Summary</h5>
+                                <p class="mb-0">
+                                    Addresses detected at <strong>0x29</strong> for both ToF sensors and <strong>0x69</strong> for the connected 
+                                    gyroscope. Then I was able to assign the address <strong>0x29</strong> to one of the sensors, and the non addressible sensor took another
+                                    the address <strong>0x14</strong>.
+                                </p>
+                            </div>
+
+                            <div class="bg-light rounded-4 p-3 mb-4">
+                                <h5 class="small fw-semibold mb-2">Addressing Workflow (High Level)</h5>
+                                <ol class="small mb-0">
+                                    <li>Connect both ToF sensors to the I2C bus.</li>
+                                    <li>Use SHUT/XSHUT to turn <em>one</em> ToF sensor off.</li>
+                                    <li>Initialize the active ToF sensor and assign it a new address (ex: 0x29).</li>
+                                    <li>Turn the second ToF sensor back on.</li>
+                                    <li>Initialize the second sensor at its address and read both sensors in the loop.</li>
+                                </ol>
+                            </div>
+
+                            <h3 class="fw-bolder mb-3">Sensor Placement on the Robot</h3>
+                            <p class="text-muted mb-0">
+                                The most important placements for ToF sensors are the <strong>front</strong> and <strong>back</strong> of the robot.
+                                The robot mainly moves forward/backward and turns, so forward/back obstacle detection is critical.
+                                The robot may still miss obstacles above/below it, and certain side-angle obstacles depending on placement.
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
                 <!-- 1. Lab Tasks -->
                 <section class="mb-5">
                     <h2 class="fw-bolder mb-4">1. Lab Tasks</h2>
@@ -335,48 +398,7 @@
                 </section>
 
                 <!-- 5. Prelab -->
-                <section class="mb-5">
-                    <h2 class="fw-bolder mb-4">5. Prelab Notes</h2>
-
-                    <div class="card border-0 shadow-sm rounded-4">
-                        <div class="card-body p-4">
-                            <h3 class="fw-bolder mb-3">Two ToF Sensors on One I2C Bus</h3>
-
-                            <p class="text-muted mb-4">
-                                To use two VL53L1X sensors at once, at least one sensor needs a unique I2C address.
-                                Both sensors start with the same default address, so I used the SHUT (XSHUT) pin
-                                to temporarily disable one sensor and then reassigned the other.
-                            </p>
-
-                            <div class="alert alert-info mb-4">
-                                <h5 class="fw-semibold">Address Summary</h5>
-                                <p class="mb-0">
-                                    IMU detected at <strong>0x19</strong> and <strong>0x69</strong>. One ToF sensor was assigned to
-                                    <strong>0x29</strong> so both ToF sensors could run simultaneously without conflicts.
-                                </p>
-                            </div>
-
-                            <div class="bg-light rounded-4 p-3 mb-4">
-                                <h5 class="small fw-semibold mb-2">Addressing Workflow (High Level)</h5>
-                                <ol class="small mb-0">
-                                    <li>Connect both ToF sensors to the I2C bus.</li>
-                                    <li>Use SHUT/XSHUT to turn <em>one</em> ToF sensor off.</li>
-                                    <li>Initialize the active ToF sensor and assign it a new address (ex: 0x29).</li>
-                                    <li>Turn the second ToF sensor back on.</li>
-                                    <li>Initialize the second sensor at its address and read both sensors in the loop.</li>
-                                </ol>
-                            </div>
-
-                            <h3 class="fw-bolder mb-3">Sensor Placement on the Robot</h3>
-                            <p class="text-muted mb-0">
-                                The most important placements for ToF sensors are the <strong>front</strong> and <strong>back</strong> of the robot.
-                                The robot mainly moves forward/backward and turns, so forward/back obstacle detection is critical.
-                                The robot may still miss obstacles above/below it, and certain side-angle obstacles depending on placement.
-                            </p>
-                        </div>
-                    </div>
-                </section>
-
+                
                 <!-- 6. Infrared / Materials Discussion -->
                 <section class="mb-5">
                     <h2 class="fw-bolder mb-4">6. (5000) Infrared Sensor Discussion</h2>

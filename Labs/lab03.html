@@ -47,7 +47,9 @@
       <section class="py-5">
         <div class="container px-5">
           <div class="text-center mb-5">
-            <h1 class="fw-bolder">Lab 3: <span class="text-gradient">ToF Sensors + I2C Addressing</span></h1>
+            <h1 class="fw-bolder">
+              Lab 3: <span class="text-gradient">ToF Sensors + I2C Addressing</span>
+            </h1>
             <p class="text-muted mb-0">
               This lab focuses on scanning the I2C bus, configuring two VL53L1X Time of Flight sensors with unique
               addresses, selecting a ranging mode, and evaluating range, accuracy, repeatability, and ranging time. Data
@@ -55,7 +57,7 @@
             </p>
           </div>
 
-          <!-- Prelab -->
+          <!-- 1. Prelab -->
           <section class="mb-5">
             <h2 class="fw-bolder mb-4">1. Prelab</h2>
 
@@ -76,7 +78,7 @@
                     <li>Use SHUT/XSHUT to turn <em>one</em> ToF sensor off.</li>
                     <li>Initialize the active ToF sensor and assign it a new address (e.g., <code>0x29</code>).</li>
                     <li>Turn the second ToF sensor back on.</li>
-                    <li>Initialize the second sensor at its address and read both sensors in the loop.</li>
+                    <li>Initialize the second sensor at its new address and read both sensors in the loop.</li>
                   </ol>
                 </div>
 
@@ -96,21 +98,21 @@
 
                 <div class="row g-4">
                   <div class="col-md-6 col-lg-4">
-                    <div class="bg-light rounded-4 p-3">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
                       <img
                         src="../assets/lab3/circuit_diagram.png"
-                        alt="Circuit diagram showing Artemis, two VL53L1X sensors, and IMU"
+                        alt="Circuit diagram: Artemis connected to two VL53L1X ToF sensors and an IMU"
                         class="img-fluid rounded-4"
                       />
-                      <p class="small mt-2 mb-0">Circuit Diagram</p>
-                    </div>
+                      <figcaption class="small mt-2 mb-0">Circuit Diagram</figcaption>
+                    </figure>
                   </div>
                 </div>
               </div>
             </div>
           </section>
 
-          <!-- 1. Lab Tasks -->
+          <!-- 2. Lab Tasks -->
           <section class="mb-5">
             <h2 class="fw-bolder mb-4">2. Lab Tasks</h2>
 
@@ -126,36 +128,36 @@
 
                 <div class="row g-4 mb-4">
                   <div class="col-md-6 col-lg-4">
-                    <div class="bg-light rounded-4 p-3">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
                       <img
                         src="../assets/lab3/connected_board.png"
                         alt="ToF sensors wired through QWIIC breakout to Artemis"
                         class="img-fluid rounded-4"
                       />
-                      <p class="small mt-2 mb-0">ToF Sensor + QWIIC Breakout Wiring</p>
-                    </div>
+                      <figcaption class="small mt-2 mb-0">ToF Sensor + QWIIC Breakout Wiring</figcaption>
+                    </figure>
                   </div>
 
                   <div class="col-md-6 col-lg-4">
-                    <div class="bg-light rounded-4 p-3">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
                       <img
                         src="../assets/lab3/2detect.png"
-                        alt="I2C scan showing two detected addresses"
+                        alt="I2C scan showing two detected device addresses"
                         class="img-fluid rounded-4"
                       />
-                      <p class="small mt-2 mb-0">Detection of Two Addresses</p>
-                    </div>
+                      <figcaption class="small mt-2 mb-0">Detection of Two Addresses</figcaption>
+                    </figure>
                   </div>
 
                   <div class="col-md-6 col-lg-4">
-                    <div class="bg-light rounded-4 p-3">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
                       <img
                         src="../assets/lab3/3detect.png"
-                        alt="I2C scan showing three detected addresses"
+                        alt="I2C scan showing three detected device addresses"
                         class="img-fluid rounded-4"
                       />
-                      <p class="small mt-2 mb-0">Detection of Three Addresses</p>
-                    </div>
+                      <figcaption class="small mt-2 mb-0">Detection of Three Addresses</figcaption>
+                    </figure>
                   </div>
                 </div>
 
@@ -302,25 +304,25 @@ distanceSensor2.setDistanceModeShort();</code></pre>
 
                 <div class="row g-4 mb-4">
                   <div class="col-lg-6">
-                    <div class="bg-light rounded-4 p-3">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
                       <img
                         src="../assets/lab3/test-setup1.png"
                         alt="ToF test setup facing a wall"
                         class="img-fluid rounded-4"
                       />
-                      <p class="small mt-2 mb-0">ToF Test Setup (Sensors Facing Wall)</p>
-                    </div>
+                      <figcaption class="small mt-2 mb-0">ToF Test Setup (Sensors Facing Wall)</figcaption>
+                    </figure>
                   </div>
 
                   <div class="col-lg-6">
-                    <div class="bg-light rounded-4 p-3">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
                       <img
                         src="../assets/lab3/arduino_output.png"
                         alt="Arduino serial output of ToF readings"
                         class="img-fluid rounded-4"
                       />
-                      <p class="small mt-2 mb-0">Arduino Print Sensor Output</p>
-                    </div>
+                      <figcaption class="small mt-2 mb-0">Arduino Print Sensor Output</figcaption>
+                    </figure>
                   </div>
                 </div>
 
@@ -367,14 +369,14 @@ distanceSensor2.setDistanceModeShort();</code></pre>
 
                 <div class="row g-4 mb-4">
                   <div class="col-lg-6">
-                    <div class="bg-light rounded-4 p-3">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
                       <img
                         src="../assets/lab3/actual_vs_measured.png"
                         alt="Plot of actual distance vs measured ToF distance"
                         class="img-fluid rounded-4"
                       />
-                      <p class="small mt-2 mb-0">Actual vs Measured Distance</p>
-                    </div>
+                      <figcaption class="small mt-2 mb-0">Actual vs Measured Distance</figcaption>
+                    </figure>
                   </div>
                 </div>
 
@@ -430,33 +432,33 @@ distanceSensor2.setDistanceModeShort();</code></pre>
 
                 <div class="row g-4">
                   <div class="col-lg-6">
-                    <div class="bg-light rounded-4 p-3">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
                       <h6 class="fw-semibold mb-2">Time vs Distance (2 Sensors)</h6>
                       <img
                         src="../assets/lab3/tof_angle_vs_time.png"
                         alt="Time vs distance plot for two ToF sensors"
                         class="img-fluid rounded-4"
                       />
-                    </div>
+                    </figure>
                   </div>
                 </div>
               </div>
             </div>
           </section>
 
-          <!-- Infrared Transmission + Surface Sensitivity -->
+          <!-- 5. Infrared Transmission + Surface Sensitivity -->
           <section class="mb-5">
-            <h2 class="fw-bolder mb-4">Infrared Transmission + Surface Sensitivity</h2>
+            <h2 class="fw-bolder mb-4">5. Infrared Transmission + Surface Sensitivity</h2>
 
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
                 <p class="text-muted mb-4">
-                  Many distance sensors use infrared (IR) light. They send out IR and measure how much (or how fast) the light
-                  comes back after reflecting off a surface. Because of that, the material and lighting in the room can change
-                  the sensor’s performance.
+                  Many distance sensors use infrared (IR) light. They send out IR and measure how much (or how fast) the
+                  light comes back after reflecting off a surface. Because of that, the material and lighting in the
+                  room can change the sensor’s performance.
                 </p>
 
-                <div class="row g-4">
+                <div class="row g-4 mb-4">
                   <div class="col-lg-6">
                     <div class="bg-light rounded-4 p-3 h-100">
                       <h6 class="fw-semibold mb-2">How IR Distance Sensing Works</h6>
@@ -482,18 +484,39 @@ distanceSensor2.setDistanceModeShort();</code></pre>
                   </div>
                 </div>
 
+                <p class="text-muted mb-4">
+                  In my ToF testing, I was also able to see what environment works best for the sensors. I ran a small
+                  experiment to compare readings at <strong>4.5 inches</strong> in different conditions: good lighting
+                  on a white wall, a black plastic plate (dark surface), a blue bag (colored surface), and a darker
+                  setup where I used the blue bag to cast a shadow on the sensors and wall. The graph below shows the
+                  results.
+                </p>
+
+                <div class="row g-4">
+                  <div class="col-lg-6">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">ToF Environment Testing</h6>
+                      <img
+                        src="../assets/lab3/wall_test.png"
+                        alt="ToF environment testing results plot"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+                </div>
+
                 <div class="alert alert-info mt-4 mb-0">
                   <h6 class="fw-semibold mb-2">What This Means for My Robot</h6>
                   <p class="small mb-0">
-                    The ToF sensors worked best when the target was flat and light-colored. Readings became less consistent on
-                    darker or angled surfaces, and performance can drop in bright lighting.
+                    The ToF sensors worked best when the target was flat and light-colored. Readings became less
+                    consistent on darker or angled surfaces, and performance can drop in bright lighting.
                   </p>
                 </div>
               </div>
             </div>
           </section>
 
-          <!-- 6. Code Snippet Placeholder -->
+          <!-- 6. ToF Sensor Speed -->
           <section class="mb-5">
             <h2 class="fw-bolder mb-4">6. ToF Sensor Speed (Code Snippet)</h2>
 
@@ -502,49 +525,38 @@ distanceSensor2.setDistanceModeShort();</code></pre>
                 <h3 class="fw-bolder mb-3">How I Measured Timing</h3>
 
                 <p class="text-muted mb-4">
-                  To ensure the code executes as quickly as possible—and to prevent the 
-                  sensors from forcing the program to hang while waiting for new measurements—I 
-                  implemented the following changes:
+                  To make sure the code could execute as fast as possible—and to prevent the sensors from forcing the
+                  program to hang while waiting for new measurements—I made a few changes:
                 </p>
 
                 <ul class="text-muted mb-4">
                   <li>
-                    <strong>Removed blocking while loops:</strong> I eliminated the 
-                    <code>while (!distanceSensor1.checkForDataReady())</code> statements so the 
-                    program no longer stalls while waiting for new sensor data.
+                    <strong>Removed blocking while loops:</strong> I eliminated
+                    <code>while (!distanceSensor.checkForDataReady())</code> statements so the program no longer stalls
+                    waiting for new sensor data.
                   </li>
-
                   <li>
-                    <strong>Started ranging once instead of every iteration:</strong> I moved 
-                    <code>startRanging()</code> to the beginning of the loop (initialization) 
-                    and <code>stopRanging()</code> to the end. Continuously stopping and 
-                    restarting the sensors increases measurement latency and reduces loop speed.
+                    <strong>Started/stopped ranging less often:</strong> Continuously stopping and restarting the sensors
+                    increases measurement latency and reduces loop speed.
                   </li>
-
                   <li>
-                    <strong>Added a high-resolution timestamp:</strong> I created a constant 
-                    32-bit unsigned integer variable <code>t_us</code> and set it equal to 
-                    <code>micros()</code>. Printing this value allowed me to observe how quickly 
-                    the main loop executes.
+                    <strong>Added a high-resolution timestamp:</strong> I created a constant 32-bit unsigned integer
+                    <code>t_us</code> set equal to <code>micros()</code>. Printing it let me see how quickly the loop ran.
                   </li>
-
                   <li>
-                    <strong>Implemented non-blocking sensor checks:</strong> I wrapped the 
-                    <code>getDistance()</code> and <code>clearInterrupt()</code> calls inside 
-                    an <code>if (distanceSensor1.checkForDataReady())</code> statement. This 
-                    ensures new distance values are only read when available, allowing the loop 
-                    to continue running at maximum speed otherwise.
+                    <strong>Implemented non-blocking sensor checks:</strong> I wrapped <code>getDistance()</code> and
+                    <code>clearInterrupt()</code> calls inside an <code>if (checkForDataReady())</code> statement. That
+                    way, new distance values are only read when available, and the loop continues running otherwise.
                   </li>
                 </ul>
 
                 <p class="text-muted mb-4">
-                  These changes converted the sensor logic to a fully non-blocking architecture, 
-                  allowing the control loop to run continuously without being limited by 
-                  sensor measurement timing.
+                  These changes converted the sensor logic to a non-blocking architecture, so the control loop isn’t
+                  limited by sensor measurement timing.
                 </p>
 
-                <div class="bg-light rounded-4 p-3">
-                  <h5 class="small fw-semibold mb-2">Timing Code (Paste Yours)</h5>
+                <div class="bg-light rounded-4 p-3 mb-4">
+                  <h5 class="small fw-semibold mb-2">Timing Code</h5>
                   <pre class="mb-0 small"><code>float distance1_in = NAN;
 float distance2_in = NAN;
 
@@ -553,52 +565,52 @@ ToF_Sensor_2.startRanging();
 
 int count = 0;
 
-for (int i = 0; i < Acc_length; i++){//change Acc_length late
-
+for (int i = 0; i < Acc_length; i++) { // change Acc_length later
   const uint32_t t_us = micros();
   Serial.println(t_us);
-  count++ ;
+  count++;
 
-  if (ToF_Sensor_1.checkForDataReady()){
+  if (ToF_Sensor_1.checkForDataReady()) {
     int distance1 = ToF_Sensor_1.getDistance();
     ToF_Sensor_1.clearInterrupt();
-    //ToF_Sensor_1.stopRanging();
     distance1_in = distance1 * 0.0393701f;
     Serial.print("\tD1(in): ");
-    Serial.print(distance1_in, 2);}
-  
-  if (ToF_Sensor_2.checkForDataReady()){
+    Serial.print(distance1_in, 2);
+  }
+
+  if (ToF_Sensor_2.checkForDataReady()) {
     int distance2 = ToF_Sensor_2.getDistance();
     ToF_Sensor_2.clearInterrupt();
-    //ToF_Sensor_2.stopRanging();
     distance2_in = distance2 * 0.0393701f;
     Serial.print("\tD2(in): ");
-    Serial.println(distance2_in, 2);}
-    
-    Tof1_in[i]        = distance1_in;
-    Tof2_in[i]        = distance2_in;
+    Serial.println(distance2_in, 2);
+  }
+
+  Tof1_in[i] = distance1_in;
+  Tof2_in[i] = distance2_in;
 }
+
 ToF_Sensor_1.stopRanging();
-ToF_Sensor_2.stopRanging();
-                  </code></pre>
-                  <div class="row g-4">
+ToF_Sensor_2.stopRanging();</code></pre>
+                </div>
+
+                <div class="row g-4">
                   <div class="col-lg-6">
-                    <div class="bg-light rounded-4 p-3">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
                       <h6 class="fw-semibold mb-2">Arduino Output</h6>
                       <img
                         src="../assets/lab3/time.png"
-                        alt="Time vs distance plot for two ToF sensors"
+                        alt="Arduino output showing micros() timestamps and ToF readings"
                         class="img-fluid rounded-4"
                       />
-                    </div>
+                    </figure>
                   </div>
-                </div>
                 </div>
               </div>
             </div>
           </section>
 
-          <!-- 8. Resources -->
+          <!-- 7. Resources -->
           <section class="mb-5">
             <h2 class="fw-bolder mb-4">7. Resources</h2>
 
@@ -616,9 +628,9 @@ ToF_Sensor_2.stopRanging();
 
                   <div class="col-md-4">
                     <div class="h-100">
-                      <h5 class="fw-bolder mb-2">Course Materials</h5>
+                      <h5 class="fw-bolder mb-2">Student Page</h5>
                       <p class="text-muted mb-0">
-                        Used for understanding I2C scanning, addressing, and performance tradeoffs for ToF modes.
+                        I used Ethan Sarpong’s Spring 2025 website to understand I2C scanning, addressing, and code execution.
                       </p>
                     </div>
                   </div>

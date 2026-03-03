@@ -444,43 +444,50 @@ distanceSensor2.setDistanceModeShort();</code></pre>
             </div>
           </section>
 
-          <!-- 5. Infrared / Materials Discussion -->
+          <!-- Infrared Transmission + Surface Sensitivity -->
           <section class="mb-5">
-            <h2 class="fw-bolder mb-4">5. (5000) Infrared Sensor Discussion</h2>
+            <h2 class="fw-bolder mb-4">Infrared Transmission + Surface Sensitivity</h2>
 
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
-                <h3 class="fw-bolder mb-3">Infrared Transmission + Surface Sensitivity</h3>
-
                 <p class="text-muted mb-4">
-                  The VL53L1X uses infrared light reflection to measure distance, so performance depends on the surface
-                  and the environment.
+                  Many distance sensors use infrared (IR) light. They send out IR and measure how much (or how fast) the light
+                  comes back after reflecting off a surface. Because of that, the material and lighting in the room can change
+                  the sensor’s performance.
                 </p>
 
                 <div class="row g-4">
                   <div class="col-lg-6">
                     <div class="bg-light rounded-4 p-3 h-100">
-                      <h6 class="fw-semibold mb-2">(5000) IR-Based Sensor Behavior</h6>
+                      <h6 class="fw-semibold mb-2">How IR Distance Sensing Works</h6>
                       <ul class="small mb-0">
-                        <li>Measures time-of-flight of reflected IR light</li>
-                        <li>Stronger reflections improve signal quality</li>
-                        <li>Ambient IR (sunlight/bright lighting) can add noise</li>
-                        <li>Range and accuracy depend on return signal strength</li>
+                        <li>The sensor emits IR light toward an object.</li>
+                        <li>The object reflects some IR back to the sensor.</li>
+                        <li>Stronger reflections usually give more stable readings.</li>
+                        <li>Bright light (especially sunlight) can add IR noise.</li>
                       </ul>
                     </div>
                   </div>
 
                   <div class="col-lg-6">
                     <div class="bg-light rounded-4 p-3 h-100">
-                      <h6 class="fw-semibold mb-2">(5000) Sensitivity to Colors + Textures</h6>
+                      <h6 class="fw-semibold mb-2">Surface Sensitivity (Color + Texture)</h6>
                       <ul class="small mb-0">
-                        <li>Bright/light surfaces usually reflect more IR (better readings)</li>
-                        <li>Dark surfaces can absorb IR (weaker return, noisier readings)</li>
-                        <li>Smooth surfaces reflect more consistently</li>
-                        <li>Rough/angled surfaces scatter IR (can reduce accuracy)</li>
+                        <li><strong>Light / bright surfaces</strong> reflect more IR → better readings.</li>
+                        <li><strong>Dark surfaces</strong> absorb more IR → noisier / shorter range.</li>
+                        <li><strong>Smooth surfaces</strong> reflect more consistently.</li>
+                        <li><strong>Rough or angled surfaces</strong> scatter IR → less reliable distance.</li>
                       </ul>
                     </div>
                   </div>
+                </div>
+
+                <div class="alert alert-info mt-4 mb-0">
+                  <h6 class="fw-semibold mb-2">What This Means for My Robot</h6>
+                  <p class="small mb-0">
+                    The ToF sensors worked best when the target was flat and light-colored. Readings became less consistent on
+                    darker or angled surfaces, and performance can drop in bright lighting.
+                  </p>
                 </div>
               </div>
             </div>

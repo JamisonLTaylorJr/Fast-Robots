@@ -57,7 +57,7 @@
 
           <!-- Prelab -->
           <section class="mb-5">
-            <h2 class="fw-bolder mb-4">Prelab</h2>
+            <h2 class="fw-bolder mb-4">1. Prelab</h2>
 
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
@@ -112,7 +112,7 @@
 
           <!-- 1. Lab Tasks -->
           <section class="mb-5">
-            <h2 class="fw-bolder mb-4">1. Lab Tasks</h2>
+            <h2 class="fw-bolder mb-4">2. Lab Tasks</h2>
 
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
@@ -279,8 +279,8 @@ void setup(void)
 
                 <div class="bg-light rounded-4 p-3">
                   <h5 class="small fw-semibold mb-2">Short Mode Code</h5>
-                  <pre class="mb-0 small"><code>ToF_Sensor_1.setDistanceModeShort();
-ToF_Sensor_2.setDistanceModeShort();</code></pre>
+                  <pre class="mb-0 small"><code>distanceSensor1.setDistanceModeShort();
+distanceSensor2.setDistanceModeShort();</code></pre>
                 </div>
               </div>
             </div>
@@ -444,9 +444,9 @@ ToF_Sensor_2.setDistanceModeShort();</code></pre>
             </div>
           </section>
 
-          <!-- 6. Infrared / Materials Discussion -->
+          <!-- 5. Infrared / Materials Discussion -->
           <section class="mb-5">
-            <h2 class="fw-bolder mb-4">6. (5000) Infrared Sensor Discussion</h2>
+            <h2 class="fw-bolder mb-4">5. (5000) Infrared Sensor Discussion</h2>
 
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
@@ -486,31 +486,106 @@ ToF_Sensor_2.setDistanceModeShort();</code></pre>
             </div>
           </section>
 
-          <!-- 7. Code Snippet Placeholder -->
+          <!-- 6. Code Snippet Placeholder -->
           <section class="mb-5">
-            <h2 class="fw-bolder mb-4">7. ToF Sensor Speed (Code Snippet)</h2>
+            <h2 class="fw-bolder mb-4">6. ToF Sensor Speed (Code Snippet)</h2>
 
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
                 <h3 class="fw-bolder mb-3">How I Measured Timing</h3>
 
                 <p class="text-muted mb-4">
-                  Below is a placeholder for the exact code section where you measure timing (500 iterations, total
-                  time, and average ranging time). Paste your real snippet here so it matches your submission.
+                  To ensure the code executes as quickly as possible—and to prevent the 
+                  sensors from forcing the program to hang while waiting for new measurements—I 
+                  implemented the following changes:
+                </p>
+
+                <ul class="text-muted mb-4">
+                  <li>
+                    <strong>Removed blocking while loops:</strong> I eliminated the 
+                    <code>while (!distanceSensor1.checkForDataReady())</code> statements so the 
+                    program no longer stalls while waiting for new sensor data.
+                  </li>
+
+                  <li>
+                    <strong>Started ranging once instead of every iteration:</strong> I moved 
+                    <code>startRanging()</code> to the beginning of the loop (initialization) 
+                    and <code>stopRanging()</code> to the end. Continuously stopping and 
+                    restarting the sensors increases measurement latency and reduces loop speed.
+                  </li>
+
+                  <li>
+                    <strong>Added a high-resolution timestamp:</strong> I created a constant 
+                    32-bit unsigned integer variable <code>t_us</code> and set it equal to 
+                    <code>micros()</code>. Printing this value allowed me to observe how quickly 
+                    the main loop executes.
+                  </li>
+
+                  <li>
+                    <strong>Implemented non-blocking sensor checks:</strong> I wrapped the 
+                    <code>getDistance()</code> and <code>clearInterrupt()</code> calls inside 
+                    an <code>if (distanceSensor1.checkForDataReady())</code> statement. This 
+                    ensures new distance values are only read when available, allowing the loop 
+                    to continue running at maximum speed otherwise.
+                  </li>
+                </ul>
+
+                <p class="text-muted mb-4">
+                  These changes converted the sensor logic to a fully non-blocking architecture, 
+                  allowing the control loop to run continuously without being limited by 
+                  sensor measurement timing.
                 </p>
 
                 <div class="bg-light rounded-4 p-3">
                   <h5 class="small fw-semibold mb-2">Timing Code (Paste Yours)</h5>
-                  <pre class="mb-0 small"><code>// TODO: paste your actual timing snippet here
-// Example structure:
-// unsigned long start = millis();
-// for (int i = 0; i &lt; 500; i++) {
-//   // read ToF1 + ToF2 + IMU
-//   // send BLE packet
-// }
-// unsigned long end = millis();
-// float total_s = (end - start) / 1000.0;
-// float avg_ms  = (total_s / 500.0) * 1000.0;</code></pre>
+                  <pre class="mb-0 small"><code>float distance1_in = NAN;
+float distance2_in = NAN;
+
+ToF_Sensor_1.startRanging();
+ToF_Sensor_2.startRanging();
+
+int count = 0;
+
+for (int i = 0; i < Acc_length; i++){//change Acc_length late
+
+  const uint32_t t_us = micros();
+  Serial.println(t_us);
+  count++ ;
+
+  if (ToF_Sensor_1.checkForDataReady()){
+    int distance1 = ToF_Sensor_1.getDistance();
+    ToF_Sensor_1.clearInterrupt();
+    //ToF_Sensor_1.stopRanging();
+    distance1_in = distance1 * 0.0393701f;
+    Serial.print("\tD1(in): ");
+    Serial.print(distance1_in, 2);}
+  
+  if (ToF_Sensor_2.checkForDataReady()){
+    int distance2 = ToF_Sensor_2.getDistance();
+    ToF_Sensor_2.clearInterrupt();
+    //ToF_Sensor_2.stopRanging();
+    distance2_in = distance2 * 0.0393701f;
+    Serial.print("\tD2(in): ");
+    Serial.println(distance2_in, 2);}
+    
+    Tof1_in[i]        = distance1_in;
+    Tof2_in[i]        = distance2_in;
+}
+ToF_Sensor_1.stopRanging();
+ToF_Sensor_2.stopRanging();
+                  </code></pre>
+                  <div class="row g-4">
+                  <div class="col-lg-6">
+                    <div class="bg-light rounded-4 p-3">
+                      <h6 class="fw-semibold mb-2">Arduino Output</h6>
+                      <img
+                        src="../assets/lab3/time.png"
+                        alt="Time vs distance plot for two ToF sensors"
+                        class="img-fluid rounded-4"
+                      />
+                    </div>
+                  </div>
+                </div>
                 </div>
               </div>
             </div>
@@ -518,7 +593,7 @@ ToF_Sensor_2.setDistanceModeShort();</code></pre>
 
           <!-- 8. Resources -->
           <section class="mb-5">
-            <h2 class="fw-bolder mb-4">8. Resources</h2>
+            <h2 class="fw-bolder mb-4">7. Resources</h2>
 
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">

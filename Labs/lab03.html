@@ -551,8 +551,9 @@ distanceSensor2.setDistanceModeShort();</code></pre>
                 </ul>
 
                 <p class="text-muted mb-4">
-                  These changes converted the sensor logic to a non-blocking architecture, so the control loop isn’t
-                  limited by sensor measurement timing.
+                  With these changes, I was able to run the loop 500 times in about 3.747 seconds. So now my code
+                  runs at <strong>7.5 ms per loop</strong>, which is much faster than the previous <strong>60 ms per loop</strong> I had before.
+
                 </p>
 
                 <div class="bg-light rounded-4 p-3 mb-4">

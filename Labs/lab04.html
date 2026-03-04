@@ -206,8 +206,6 @@ void setup() {
 void loop() {
   drive_forward(65, 3000); stop_motors(1000);
   drive_backward(65, 3000); stop_motors(3000);
-  turn_right(65, 3000); stop_motors(3000);
-  turn_left(65, 3000); stop_motors(3000);
 }
 
 void drive_forward(int duty1, int sec) {
@@ -221,20 +219,6 @@ void drive_backward(int duty1, int sec) {
   float cali = 1.23; int duty2 = (int)(duty1 * cali);
   analogWrite(PWM_0, duty1); analogWrite(PWM_1, 0); // Drive left motor counter clockwise:
   analogWrite(PWM_2, 0); analogWrite(PWM_5, duty2); // Drive right motor counter clockwise:
-  delay(sec);
-}
-
-void turn_right(int duty1, int sec) {
-  float cali = 1.23; int duty2 = (int)(duty1 * cali);
-  analogWrite(PWM_0, duty1); analogWrite(PWM_1, 0); // Left motor backward
-  analogWrite(PWM_2, duty2); analogWrite(PWM_5, 0); //right motor forward
-  delay(sec);
-}
-
-void turn_left(int duty1, int sec) {
-  float cali = 1.23; int duty2 = (int)(duty1 * cali);
-  analogWrite(PWM_0, 0); analogWrite(PWM_1, duty1); // Left motor forward
-  analogWrite(PWM_2, 0); analogWrite(PWM_5, duty2); //right motor backward
   delay(sec);
 }
 
@@ -314,7 +298,7 @@ void stop_motors(int sec) {
                       Using a calibration constant of <strong>1.23</strong>, the right motor PWM was ≈ <strong>80</strong>.
                     </li>
                     <li>
-                      <strong>Turning (minimum to start):</strong> Turn left ≈ <strong>150</strong>, turn right ≈ <strong>160</strong>.
+                      <strong>Turning (minimum to start):</strong> Turn left ≈ <strong>150</strong>, turn right ≈ <strong>150</strong>.
                     </li>
                   </ul>
                 </div>
@@ -335,7 +319,8 @@ void stop_motors(int sec) {
                   <p class="small text-muted mb-0">
                     One difficulty was that one wheel had a larger initial torque to overcome than the other. This made it hard
                     to keep the robot moving straight at low PWM because one wheel could lag or briefly stop while the other kept moving.
-                    My solution was to increase the PWM signal so the weaker motor could more consistently overcome static friction and run smoothly.
+                    My solution was to increase the PWM signal and to recharge the batteryso the weaker motor could more consistently 
+                    overcome static friction and have the extra power to back it up.
                   </p>
                 </div>
 
@@ -344,7 +329,31 @@ void stop_motors(int sec) {
                     <div class="bg-light rounded-4 p-3">
                       <h5 class="small fw-semibold mb-2">Robot moving in straight-line after calibration.</h5>
                       <video class="w-100 rounded-4" controls>
-                        <source src="../assets/lab4/calibration_straight.mp4" type="video/mp4" />
+                        <source src="../assets/lab4/calibration_straight.mov" type="video/quickplay" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-4">
+                  <div class="col-lg-6">
+                    <div class="bg-light rounded-4 p-3">
+                      <h5 class="small fw-semibold mb-2">Robot making on-axis turn after calibration.</h5>
+                      <video class="w-100 rounded-4" controls>
+                        <source src="../assets/lab4/spin.mov" type="video/quickplay" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-4">
+                  <div class="col-lg-6">
+                    <div class="bg-light rounded-4 p-3">
+                      <h5 class="small fw-semibold mb-2">Robot making on-axis turn after calibration.</h5>
+                      <video class="w-100 rounded-4" controls>
+                        <source src="../assets/lab4/calibration_turn.mov" type="video/quickplay" />
                         Your browser does not support the video tag.
                       </video>
                     </div>
@@ -457,12 +466,61 @@ void stop_motors(int sec) {
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
                 <p class="text-muted mb-4">
-                  Below is my open-loop driving code and a video demonstrating forward motion and turning without feedback control.
+                  Below is my open-loop driving code and a video demonstrating.
                 </p>
 
                 <div class="bg-light rounded-4 p-3 mb-4">
                   <h5 class="small fw-semibold mb-2">Open Loop Code (Placeholder)</h5>
-                  <pre class="mb-0 small"><code>// Paste your open-loop driving code here</code></pre>
+                  <pre class="mb-0 small"><code>#define PWM_0 A0  // backward motor 1
+#define PWM_1 A1  // forward motor 1
+#define PWM_2 A2  // forward motor 2
+#define PWM_5 A5  // backward motor 2
+
+void setup() {
+  pinMode(PWM_0, OUTPUT); pinMode(PWM_1, OUTPUT);
+  pinMode(PWM_2, OUTPUT); pinMode(PWM_5, OUTPUT);
+}
+
+void loop() {
+  drive_forward(65, 3000); stop_motors(1000);
+  drive_backward(65, 3000); stop_motors(3000);
+  turn_right(65, 3000); stop_motors(3000);
+  turn_left(65, 3000); stop_motors(3000);
+}
+
+void drive_forward(int duty1, int sec) {
+  float cali = 1.23; int duty2 = (int)(duty1 * cali);
+  analogWrite(PWM_0, 0); analogWrite(PWM_1, duty1); // Drive left motor clockwise:
+  analogWrite(PWM_2, duty2); analogWrite(PWM_5, 0); // Drive right motor clockwise:
+  delay(sec);
+  }
+
+void drive_backward(int duty1, int sec) {
+  float cali = 1.23; int duty2 = (int)(duty1 * cali);
+  analogWrite(PWM_0, duty1); analogWrite(PWM_1, 0); // Drive left motor counter clockwise:
+  analogWrite(PWM_2, 0); analogWrite(PWM_5, duty2); // Drive right motor counter clockwise:
+  delay(sec);
+}
+
+void turn_right(int duty1, int sec) {
+  float cali = 1.23; int duty2 = (int)(duty1 * cali);
+  analogWrite(PWM_0, duty1); analogWrite(PWM_1, 0); // Left motor backward
+  analogWrite(PWM_2, duty2); analogWrite(PWM_5, 0); //right motor forward
+  delay(sec);
+}
+
+void turn_left(int duty1, int sec) {
+  float cali = 1.23; int duty2 = (int)(duty1 * cali);
+  analogWrite(PWM_0, 0); analogWrite(PWM_1, duty1); // Left motor forward
+  analogWrite(PWM_2, 0); analogWrite(PWM_5, duty2); //right motor backward
+  delay(sec);
+}
+
+void stop_motors(int sec) {
+  analogWrite(PWM_0, 0); analogWrite(PWM_1, 0);
+  analogWrite(PWM_2, 0); analogWrite(PWM_5, 0);
+  delay(sec);
+}</code></pre>
                 </div>
 
                 <div class="row g-4">
@@ -470,7 +528,7 @@ void stop_motors(int sec) {
                     <div class="bg-light rounded-4 p-3">
                       <h5 class="small fw-semibold mb-2">Open Loop Video (Placeholder)</h5>
                       <video class="w-100 rounded-4" controls>
-                        <source src="../assets/lab4/open_loop_demo.mp4" type="video/mp4" />
+                        <source src="../assets/lab4/open_loop.mov" type="video/quicktime" />
                         Your browser does not support the video tag.
                       </video>
                     </div>

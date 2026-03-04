@@ -1,121 +1,307 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>MAE 5190 Fast Robots | Jamison Taylor Jr.</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
-        <!-- Custom Google font-->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="../css/styles.css" rel="stylesheet" />
-    </head>
-<body class="d-flex flex-column h-100">
-<main class="flex-shrink-0">
-<nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
-  <div class="container px-5">
-    <a class="navbar-brand" href="../index.html"><span class="fw-bolder text-primary">MAE 5190 Fast Robots</span></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-        <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="../index.html#labs">Labs</a></li>
-        <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<section class="py-5">
+<!-- ==========================================================
+     LAB 4 HTML SECTION (Full write-up from your notes)
+     Paste into your Lab 4 page inside: <main> ... </main>
+     (Assumes you’re using Bootstrap like your Lab 3 page)
+=========================================================== -->
+
+<section class="py-5" id="lab4">
   <div class="container px-5">
     <div class="row gx-5 justify-content-center">
-      <div class="col-lg-9 col-xl-8 col-xxl-7">
-        <div class="text-center mb-5">
-          <h1 class="fw-bolder">Lab 04: <span class="text-gradient">[Lab Title Placeholder]</span></h1>
-          <p class="lead fw-light text-muted mb-0">MAE 5190 (Fast Robots) &middot; Lab 401</p>
+      <div class="col-lg-10">
+
+        <h1 class="fw-bolder mb-3">Lab 4</h1>
+        <p class="text-muted mb-4">
+          This page documents my Lab 4 setup, testing, and results. It includes my prelab planning (wiring and battery reasoning),
+          photos/videos of the setup and motor tests, and experimental measurements of PWM limits and calibration behavior.
+        </p>
+
+        <!-- ===================== PRELAB ===================== -->
+        <div class="mb-5">
+          <h2 class="fw-bolder mb-3">Prelab</h2>
+
+          <h5 class="fw-semibold">Wiring Diagram (Artemis ↔ Motor Drivers ↔ Battery)</h5>
+          <p class="text-muted">
+            I have the hand-drawn wiring diagrams completed and will upload the updated versions with the final pin labels and connections
+            between the motor drivers, Artemis, and battery.
+          </p>
+
+          <h5 class="fw-semibold mt-4">Artemis Control Pins</h5>
+          <p class="text-muted mb-2">
+            I will use the following pins on the Artemis for motor control:
+          </p>
+          <ul class="text-muted">
+            <li><strong>Left motor:</strong> A0 and A1</li>
+            <li><strong>Right motor:</strong> A2 and A5</li>
+          </ul>
+          <p class="text-muted">
+            I chose these pins because they support <strong>PWM (pulse width modulation)</strong>, which allows me to change the
+            <strong>duty cycle</strong> and control motor speed.
+          </p>
+
+          <h5 class="fw-semibold mt-4">Battery Discussion</h5>
+          <p class="text-muted mb-2">
+            We were instructed to power the <strong>Artemis</strong> and the <strong>motor drivers/motors</strong> using separate batteries.
+            The reasons are:
+          </p>
+          <ul class="text-muted">
+            <li>
+              <strong>Voltage / power limitations:</strong> the motor battery is <strong>3.7&nbsp;V</strong>, which is not ideal for powering
+              all electronic components together (especially when motors draw current and cause voltage droop).
+            </li>
+            <li>
+              <strong>Noise isolation:</strong> motors and motor drivers introduce electrical noise (switching + current spikes).
+              If everything shares power, measurement electronics can show extra noise and errors.
+              Using separate batteries improves stability and measurement reliability.
+            </li>
+          </ul>
         </div>
-        <div class="card shadow border-0 rounded-4 mb-5">
-          <div class="card-body p-5">
-            <h2 class="fw-bolder mb-3">Overview</h2>
-            <p class="text-muted">[Write a 4–8 sentence overview of what this lab was about. What problem were you solving? What did you build?]</p>
-            <hr class="my-4" />
 
-            <h2 class="fw-bolder mb-3">Objectives</h2>
-            <ul class="text-muted">
-              <li>[Objective 1]</li>
-              <li>[Objective 2]</li>
-              <li>[Objective 3]</li>
-            </ul>
-            <hr class="my-4" />
+        <hr class="my-5">
 
-            <h2 class="fw-bolder mb-3">Hardware</h2>
-            <ul class="text-muted">
-              <li>[List sensors/actuators/boards used]</li>
-              <li>[Wiring notes / schematic link]</li>
-            </ul>
-            <hr class="my-4" />
+        <!-- ===================== LAB TASKS ===================== -->
+        <div class="mb-5">
+          <h2 class="fw-bolder mb-3">Lab Tasks</h2>
 
-            <h2 class="fw-bolder mb-3">Software</h2>
-            <ul class="text-muted">
-              <li>[Language + toolchain (e.g., C++ / Arduino / ROS / Python)]</li>
-              <li>[Key libraries]</li>
-            </ul>
-            <div class="bg-light rounded-4 p-4">
-              <div class="small text-muted">Code Placeholder</div>
-              <div class="fw-semibold">Add a GitHub link or paste code snippets here later.</div>
+          <h5 class="fw-semibold">Setup Photos (Power Supply + Oscilloscope)</h5>
+          <p class="text-muted">
+            I have pictures of my setup with the power supply and oscilloscope hookup and will include them here.
+          </p>
+
+          <h5 class="fw-semibold mt-4">Code Used for Motor Driver Testing</h5>
+          <p class="text-muted mb-3">
+            I have the code used to test the motor drivers with <code>analogWrite()</code>. I will include it below.
+          </p>
+
+          <!-- Code Snippet Placeholder -->
+          <div class="card shadow-sm mb-4">
+            <div class="card-body">
+              <h6 class="fw-semibold mb-2">Code Snippet (analogWrite Motor Test)</h6>
+              <pre class="mb-0"><code>// Paste your motor driver test code here
+// Example:
+// analogWrite(PWM_PIN, dutyCycle);
+// delay(ms);</code></pre>
             </div>
-            <hr class="my-4" />
+          </div>
 
-            <h2 class="fw-bolder mb-3">Results</h2>
-            <p class="text-muted">[What worked? What didn’t? Add plots/photos/video links.]</p>
-            <div class="row g-3">
-              <div class="col-md-6">
-                <div class="border rounded-4 p-4 h-100">
-                  <div class="small text-muted">Photo / Screenshot</div>
-                  <div class="fw-semibold">[Drop image into assets/ and link it here]</div>
-                </div>
+          <h5 class="fw-semibold">Oscilloscope Capture</h5>
+          <p class="text-muted">
+            I have an image of the PWM waveform from the oscilloscope and will include it here.
+          </p>
+
+          <h5 class="fw-semibold mt-4">Videos</h5>
+          <ul class="text-muted">
+            <li><strong>Wheels spinning as expected</strong> (includes the code snippet it’s running)</li>
+            <li><strong>Both wheels spinning</strong> with the battery powering the motor drivers</li>
+          </ul>
+          <p class="text-muted">
+            I have short videos of both tests and will embed them on this page.
+          </p>
+
+          <h5 class="fw-semibold mt-4">Robot Assembly Photo</h5>
+          <p class="text-muted">
+            I have a picture of all components secured in the car. If components are hard to see, I will label the image.
+          </p>
+        </div>
+
+        <hr class="my-5">
+
+        <!-- ===================== POWER SUPPLY DISCUSSION ===================== -->
+        <div class="mb-5">
+          <h2 class="fw-bolder mb-3">Power Supply Settings Discussion</h2>
+          <p class="text-muted">
+            Reasonable settings for the power supply are to run it at <strong>3.7&nbsp;V</strong>, because this matches the battery voltage
+            we were given to use for the motors.
+          </p>
+          <p class="text-muted mb-0">
+            Also, based on the datasheet for the dual H-bridge motor driver, the valid motor supply voltage range is
+            <strong>2.7&nbsp;V to 10.8&nbsp;V</strong>. This means I could choose a voltage anywhere in that range (while staying within safe limits)
+            and the driver would still operate correctly.
+          </p>
+        </div>
+
+        <hr class="my-5">
+
+        <!-- ===================== PWM LIMITS ===================== -->
+        <div class="mb-5">
+          <h2 class="fw-bolder mb-3">Lower Limit PWM Values</h2>
+
+          <p class="text-muted">
+            I experimentally determined the minimum PWM values required for the robot to begin moving (overcoming static friction)
+            for forward motion and on-axis turning. I also used a calibration constant to better match the two motors.
+          </p>
+
+          <div class="table-responsive">
+            <table class="table table-bordered align-middle">
+              <thead class="table-light">
+                <tr>
+                  <th>Motion Type</th>
+                  <th>Minimum PWM</th>
+                  <th>Notes</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Forward (Left Motor)</td>
+                  <td><strong>60</strong></td>
+                  <td>Lowest value where the left wheel consistently started moving forward.</td>
+                </tr>
+                <tr>
+                  <td>Forward (Right Motor)</td>
+                  <td><strong>80</strong></td>
+                  <td>Using a calibration constant of <strong>1.23</strong> to match the motors.</td>
+                </tr>
+                <tr>
+                  <td>Turn Left</td>
+                  <td><strong>150</strong></td>
+                  <td>Lowest PWM where the robot could turn left without stalling.</td>
+                </tr>
+                <tr>
+                  <td>Turn Right</td>
+                  <td><strong>160</strong></td>
+                  <td>Lowest PWM where the robot could turn right without stalling.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h5 class="fw-semibold mt-4">How I Found These Values</h5>
+          <p class="text-muted">
+            I started at a PWM where the wheels could spin under the robot’s own weight, and then decreased the PWM until the wheel
+            <em>barely moved</em>. I then reduced it one step further to find where the motor could not overcome its initial torque
+            (static friction) from rest.
+          </p>
+        </div>
+
+        <hr class="my-5">
+
+        <!-- ===================== CALIBRATION ===================== -->
+        <div class="mb-5">
+          <h2 class="fw-bolder mb-3">Calibration Demonstration</h2>
+
+          <h5 class="fw-semibold">Evidence</h5>
+          <ul class="text-muted">
+            <li>Video of the robot moving straight along a table</li>
+            <li>Code used for the calibration test</li>
+          </ul>
+
+          <h5 class="fw-semibold mt-4">Discussion</h5>
+          <p class="text-muted">
+            One difficulty with calibration was that one wheel had a larger initial torque to overcome than the other. This made it hard
+            to drive straight because the slower motor would sometimes stop spinning or take a moment to start, while the other wheel was
+            already moving.
+          </p>
+          <p class="text-muted mb-0">
+            My solution was to increase the PWM signal. Increasing the duty cycle helped the slower motor overcome its initial torque more
+            consistently and run more smoothly, which improved straight-line driving.
+          </p>
+        </div>
+
+        <hr class="my-5">
+
+        <!-- ===================== PWM FREQUENCY + KEEP-RUNNING PWM ===================== -->
+        <div class="mb-5">
+          <h2 class="fw-bolder mb-3">PWM Frequency + “Keep-Running” PWM</h2>
+
+          <h5 class="fw-semibold">analogWrite() PWM Frequency</h5>
+          <p class="text-muted">
+            The <code>analogWrite()</code> function generates PWM at a fixed frequency determined by the microcontroller timers.
+            For small DC motors driven by an H-bridge, this PWM frequency is generally fast enough because the motor’s inertia averages the pulses.
+            At lower PWM frequencies, the main downsides can be audible noise and slightly jerkier behavior at very low duty cycles.
+          </p>
+
+          <h5 class="fw-semibold mt-4">Would Faster PWM Help?</h5>
+          <p class="text-muted mb-2">
+            Manually configuring timers to generate faster PWM (often &gt; 20 kHz) could provide benefits such as:
+          </p>
+          <ul class="text-muted">
+            <li>Quieter motors (PWM above the audible range)</li>
+            <li>Smoother motion at low speeds (less torque ripple)</li>
+            <li>Potentially reduced low-frequency switching noise coupling into measurements</li>
+          </ul>
+          <p class="text-muted">
+            However, changing timer settings can cause conflicts with other timing-dependent functions and libraries, depending on the platform and pins used.
+          </p>
+
+          <h5 class="fw-semibold mt-4">Start PWM vs Keep-Running PWM (Experimental Plan)</h5>
+          <p class="text-muted mb-2">
+            In addition to the minimum PWM needed to <strong>start</strong> moving (static friction), I also tested the minimum PWM needed to
+            <strong>keep</strong> the robot moving once it was already in motion (kinetic friction). The procedure was:
+          </p>
+          <ol class="text-muted">
+            <li>Apply a short “kick” PWM that reliably starts motion.</li>
+            <li>After the robot begins moving, drop PWM to a lower value.</li>
+            <li>Reduce the keep-running PWM until the robot stalls, then record the minimum stable value.</li>
+          </ol>
+
+          <div class="card shadow-sm mt-4">
+            <div class="card-body">
+              <h6 class="fw-semibold mb-2">Results Placeholder (Fill In)</h6>
+              <p class="text-muted mb-3">
+                Fill in your measured values for <strong>PWM_start</strong>, <strong>kick duration</strong>, <strong>PWM_keep</strong>,
+                and how quickly the robot settles to its slowest stable speed.
+              </p>
+
+              <div class="table-responsive">
+                <table class="table table-bordered align-middle mb-0">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Motion</th>
+                      <th>PWM Start (Kick)</th>
+                      <th>Kick Duration (ms)</th>
+                      <th>Lowest PWM Keep-Running</th>
+                      <th>Settling Time (s)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Forward</td>
+                      <td>__</td>
+                      <td>__</td>
+                      <td>__</td>
+                      <td>__</td>
+                    </tr>
+                    <tr>
+                      <td>Turn Left</td>
+                      <td>__</td>
+                      <td>__</td>
+                      <td>__</td>
+                      <td>__</td>
+                    </tr>
+                    <tr>
+                      <td>Turn Right</td>
+                      <td>__</td>
+                      <td>__</td>
+                      <td>__</td>
+                      <td>__</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div class="col-md-6">
-                <div class="border rounded-4 p-4 h-100">
-                  <div class="small text-muted">Video Demo</div>
-                  <div class="fw-semibold">[Embed YouTube link or GIF]</div>
-                </div>
-              </div>
+
             </div>
-            <hr class="my-4" />
+          </div>
 
-            <h2 class="fw-bolder mb-3">Reflection</h2>
-            <p class="text-muted">[What would you improve next time? Any debugging lessons or design tradeoffs?]</p>
+        </div>
 
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-between mt-4">
-              <a class="btn btn-outline-dark" href="../index.html#labs"><i class="bi bi-arrow-left"></i> Back to Labs</a>
-              <a class="btn btn-primary" href="lab05.html">Next Lab <i class="bi bi-arrow-right"></i></a>
+        <hr class="my-5">
+
+        <!-- ===================== OPEN LOOP ===================== -->
+        <div class="mb-5">
+          <h2 class="fw-bolder mb-3">Open Loop Code and Video</h2>
+          <p class="text-muted">
+            I have the open-loop driving code and videos demonstrating the robot driving forward and turning without feedback control.
+            I will embed the videos and include the final code here.
+          </p>
+
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <h6 class="fw-semibold mb-2">Open Loop Code (Placeholder)</h6>
+              <pre class="mb-0"><code>// Paste your open-loop driving code here</code></pre>
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
 </section>
-</main>
-<footer class="bg-white py-4 mt-auto">
-            <div class="container px-5">
-                <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-                    <div class="col-auto"><div class="small m-0">Copyright &copy; Jamison L. Taylor Jr. 2026</div></div>
-                    <div class="col-auto"><a class="small" href="../index.html#about">Contact</a></div>
-                </div>
-            </div>
-        </footer>
-
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="../js/scripts.js"></script>
-    </body>
-</html>

@@ -63,21 +63,21 @@
 
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
-                <h3 class="fw-bolder mb-3">Wiring Diagram (Motor Driver + Artemis + Battery)</h3>
+                <h3 class="fw-bolder mb-3">Wiring Diagram: Motor Driver, Artemis & Battery)</h3>
                 <p class="text-muted mb-4">
-                  I have the drawings completed and will upload the updated versions with the final pin numbers and wiring
-                  between the motor drivers, Artemis, and battery.
+                  Down below is my completed wiring diagram showing how I connected the dual H-bridge 
+                  motor driver to the Artemis, the battery and the motors.
                 </p>
 
                 <div class="row g-4 mb-4">
                   <div class="col-md-6 col-lg-4">
                     <figure class="bg-light rounded-4 p-3 mb-0">
                       <img
-                        src="../assets/lab4/wiring_diagram_placeholder.png"
+                        src="../assets/lab4/circuit.png"
                         alt="Wiring diagram placeholder"
                         class="img-fluid rounded-4"
                       />
-                      <figcaption class="small mt-2 mb-0">Wiring Diagram (Placeholder)</figcaption>
+                      <figcaption class="small mt-2 mb-0">Wiring Diagram</figcaption>
                     </figure>
                   </div>
                 </div>
@@ -119,20 +119,21 @@
 
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
-                <h3 class="fw-bolder mb-3">Setup Photo (Power Supply + Oscilloscope)</h3>
+                <h3 class="fw-bolder mb-3">PWM Setup Photo: Power Supply & Oscilloscope</h3>
                 <p class="text-muted mb-4">
-                  I have photos of my setup showing the power supply settings and oscilloscope probing.
+                  Below is a photo of my set up showing the one soldered motor driver hooked up to
+                  a power supply of 3.7 V and a oscilloscope to identify the PWM signal.
                 </p>
 
                 <div class="row g-4 mb-4">
                   <div class="col-md-6 col-lg-4">
                     <figure class="bg-light rounded-4 p-3 mb-0">
                       <img
-                        src="../assets/lab4/setup_power_scope.png"
+                        src="../assets/lab4/setup.jpeg"
                         alt="Setup with power supply and oscilloscope (placeholder)"
                         class="img-fluid rounded-4"
                       />
-                      <figcaption class="small mt-2 mb-0">Power Supply + Oscilloscope Hookup (Placeholder)</figcaption>
+                      <figcaption class="small mt-2 mb-0">Power Supply and Oscilloscope Hookup</figcaption>
                     </figure>
                   </div>
                 </div>
@@ -143,30 +144,18 @@
                   The dual H-bridge motor driver supports a motor supply voltage range of <strong>2.7 V to 10.8 V</strong>,
                   so other values in that range can work as long as they stay within safe operating limits for the system.
                 </p>
-
-                <h3 class="fw-bolder mb-3">analogWrite() Motor Test Code</h3>
-                <p class="text-muted mb-3">
-                  Below is the code snippet used to test the motor drivers using PWM output from <code>analogWrite()</code>.
-                </p>
-
-                <div class="bg-light rounded-4 p-3 mb-4">
-                  <h5 class="small fw-semibold mb-2">Code Snippet (Motor Driver PWM Test)</h5>
-                  <pre class="mb-0 small"><code>// Paste your Lab 4 motor driver test code here
-// Example:
-// analogWrite(PWM_PIN, duty);
-// delay(ms);</code></pre>
-                </div>
+                
 
                 <h3 class="fw-bolder mb-3">Oscilloscope PWM Capture</h3>
                 <p class="text-muted mb-4">
-                  I captured the PWM waveform on the oscilloscope to verify duty cycle and frequency.
-                </p>
+                  Using this code I was able to capture the behavior of the PWM signal on the oscilloscope. 
+                 </p>
 
                 <div class="row g-4 mb-4">
                   <div class="col-md-6 col-lg-4">
                     <figure class="bg-light rounded-4 p-3 mb-0">
                       <img
-                        src="../assets/lab4/oscilloscope_pwm.png"
+                        src="../assets/lab4/oscillioscope.jpeg"
                         alt="Oscilloscope PWM capture (placeholder)"
                         class="img-fluid rounded-4"
                       />
@@ -174,19 +163,101 @@
                     </figure>
                   </div>
                 </div>
+                <p class="text-muted mb-3">
+                  Below is the code snippet used to test the motor drivers using PWM output from <code>analogWrite()</code>.
+                </p>
+
+                <div class="bg-light rounded-4 p-3 mb-4">
+                  <h5 class="small fw-semibold mb-2">Code Snippet (Motor Driver PWM Test)</h5>
+                  <pre class="mb-0 small"><code>#define PWM_0 A0
+#define PWM_1 A1
+
+void setup() {
+  pinMode(PWM_0, OUTPUT);
+  pinMode(PWM_1, OUTPUT);
+}
+
+void loop(){
+  for (int i = 0; i < 255; i++) {
+      analogWrite(0,255-i)
+      analogWrite(1,0);
+      delay(10);
+  }
+}</code></pre>
+                </div>
+
+                <h3 class="fw-bolder mb-3">analogWrite() Motor Test Code</h3>
+                <p class="text-muted mb-3">
+                  Below is the code snippet used to test the motors on the robotusing PWM output from <code>analogWrite()</code>.
+                </p>
+
+                <div class="bg-light rounded-4 p-3 mb-4">
+                  <h5 class="small fw-semibold mb-2">Code Snippet (Motor Driver PWM Test)</h5>
+                  <pre class="mb-0 small"><code>#define PWM_0 A0  // backward motor 1
+#define PWM_1 A1  // forward motor 1
+#define PWM_2 A2  // forward motor 2
+#define PWM_5 A5  // backward motor 2
+
+void setup() {
+  pinMode(PWM_0, OUTPUT); pinMode(PWM_1, OUTPUT);
+  pinMode(PWM_2, OUTPUT); pinMode(PWM_5, OUTPUT);
+}
+
+void loop() {
+  drive_forward(65, 3000); stop_motors(1000);
+  drive_backward(65, 3000); stop_motors(3000);
+  turn_right(65, 3000); stop_motors(3000);
+  turn_left(65, 3000); stop_motors(3000);
+}
+
+void drive_forward(int duty1, int sec) {
+  float cali = 1.23; int duty2 = (int)(duty1 * cali);
+  analogWrite(PWM_0, 0); analogWrite(PWM_1, duty1); // Drive left motor clockwise:
+  analogWrite(PWM_2, duty2); analogWrite(PWM_5, 0); // Drive right motor clockwise:
+  delay(sec);
+  }
+
+void drive_backward(int duty1, int sec) {
+  float cali = 1.23; int duty2 = (int)(duty1 * cali);
+  analogWrite(PWM_0, duty1); analogWrite(PWM_1, 0); // Drive left motor counter clockwise:
+  analogWrite(PWM_2, 0); analogWrite(PWM_5, duty2); // Drive right motor counter clockwise:
+  delay(sec);
+}
+
+void turn_right(int duty1, int sec) {
+  float cali = 1.23; int duty2 = (int)(duty1 * cali);
+  analogWrite(PWM_0, duty1); analogWrite(PWM_1, 0); // Left motor backward
+  analogWrite(PWM_2, duty2); analogWrite(PWM_5, 0); //right motor forward
+  delay(sec);
+}
+
+void turn_left(int duty1, int sec) {
+  float cali = 1.23; int duty2 = (int)(duty1 * cali);
+  analogWrite(PWM_0, 0); analogWrite(PWM_1, duty1); // Left motor forward
+  analogWrite(PWM_2, 0); analogWrite(PWM_5, duty2); //right motor backward
+  delay(sec);
+}
+
+void stop_motors(int sec) {
+  analogWrite(PWM_0, 0); analogWrite(PWM_1, 0);
+  analogWrite(PWM_2, 0); analogWrite(PWM_5, 0);
+  delay(sec);
+}
+</code></pre>
+                </div>
 
                 <h3 class="fw-bolder mb-3">Videos</h3>
                 <ul class="text-muted mb-4">
-                  <li>Short video of wheels spinning as expected (include the code snippet it’s running on).</li>
+                  <li>Short video of one wheel spinning.</li>
                   <li>Short video of both wheels spinning with the battery driving the motor drivers.</li>
                 </ul>
 
                 <div class="row g-4">
                   <div class="col-lg-6">
                     <div class="bg-light rounded-4 p-3">
-                      <h5 class="small fw-semibold mb-2">Video: Single Wheel / Basic Spin (Placeholder)</h5>
+                      <h5 class="small fw-semibold mb-2">Single Motor</h5>
                       <video class="w-100 rounded-4" controls>
-                        <source src="../assets/lab4/wheels_single_test.mp4" type="video/mp4" />
+                        <source src="../assets/lab4/one_motor_move.mov" type="video/quicktime" />
                         Your browser does not support the video tag.
                       </video>
                     </div>
@@ -194,9 +265,9 @@
 
                   <div class="col-lg-6">
                     <div class="bg-light rounded-4 p-3">
-                      <h5 class="small fw-semibold mb-2">Video: Both Wheels (Battery Powered) (Placeholder)</h5>
+                      <h5 class="small fw-semibold mb-2">Both Motors</h5>
                       <video class="w-100 rounded-4" controls>
-                        <source src="../assets/lab4/wheels_both_battery.mp4" type="video/mp4" />
+                        <source src="../assets/lab4/both_motor_move.mov" type="video/quicktime" />
                         Your browser does not support the video tag.
                       </video>
                     </div>
@@ -205,18 +276,17 @@
 
                 <h3 class="fw-bolder mt-5 mb-3">Robot Assembly Photo</h3>
                 <p class="text-muted mb-3">
-                  Picture of all components secured in the car. (If parts are hard to see, I will label the image.)
-                </p>
+                  Here is a picture of all the components assembled on to the inside of the robot.                </p>
 
                 <div class="row g-4">
                   <div class="col-md-6 col-lg-4">
                     <figure class="bg-light rounded-4 p-3 mb-0">
                       <img
-                        src="../assets/lab4/robot_assembled.png"
+                        src="../assets/lab4/car.jpeg"
                         alt="Robot assembled with components secured (placeholder)"
                         class="img-fluid rounded-4"
                       />
-                      <figcaption class="small mt-2 mb-0">Robot Assembly (Placeholder)</figcaption>
+                      <figcaption class="small mt-2 mb-0">Robot Assembly</figcaption>
                     </figure>
                   </div>
                 </div>
@@ -232,7 +302,7 @@
               <div class="card-body p-4">
                 <h3 class="fw-bolder mb-3">Lower Limit PWM Values (Start Moving)</h3>
                 <p class="text-muted mb-4">
-                  I experimentally determined the lowest PWM values where the robot could reliably start moving forward
+                  I determined the lowest PWM values where the robot could reliably start moving forward
                   and perform on-axis turns.
                 </p>
 
@@ -257,7 +327,7 @@
 
                 <h3 class="fw-bolder mb-3">Calibration Demonstration</h3>
                 <p class="text-muted mb-2">
-                  I have video of the robot moving straight along a table and the code used for calibration.
+                  I have video of the robot moving straight along a table. The calibration code is incorporated in the code snippet above.
                 </p>
 
                 <div class="bg-light rounded-4 p-3 mb-4">
@@ -272,7 +342,7 @@
                 <div class="row g-4">
                   <div class="col-lg-6">
                     <div class="bg-light rounded-4 p-3">
-                      <h5 class="small fw-semibold mb-2">Video: Straight-Line Calibration (Placeholder)</h5>
+                      <h5 class="small fw-semibold mb-2">Robot moving in straight-line after calibration.</h5>
                       <video class="w-100 rounded-4" controls>
                         <source src="../assets/lab4/calibration_straight.mp4" type="video/mp4" />
                         Your browser does not support the video tag.

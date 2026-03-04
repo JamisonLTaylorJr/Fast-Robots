@@ -241,7 +241,7 @@ void stop_motors(int sec) {
                     <div class="bg-light rounded-4 p-3">
                       <h5 class="small fw-semibold mb-2">Single Motor</h5>
                       <video class="w-100 rounded-4" controls>
-                        <source src="../assets/lab4/one_motor_move.mov" type="video/quicktime" />
+                        <source src="../assets/lab4/one_motor_move.mp4" type="video/quicktime" />
                         Your browser does not support the video tag.
                       </video>
                     </div>
@@ -251,7 +251,7 @@ void stop_motors(int sec) {
                     <div class="bg-light rounded-4 p-3">
                       <h5 class="small fw-semibold mb-2">Both Motors</h5>
                       <video class="w-100 rounded-4" controls>
-                        <source src="../assets/lab4/both_motor_move.mov" type="video/quicktime" />
+                        <source src="../assets/lab4/both_motor_move.mp4" type="video/quicktime" />
                         Your browser does not support the video tag.
                       </video>
                     </div>
@@ -329,7 +329,7 @@ void stop_motors(int sec) {
                     <div class="bg-light rounded-4 p-3">
                       <h5 class="small fw-semibold mb-2">Robot moving in straight-line after calibration.</h5>
                       <video class="w-100 rounded-4" controls>
-                        <source src="../assets/lab4/calibration_straight.mov" type="video/quickplay" />
+                        <source src="../assets/lab4/calibration_straight.mp4" type="video/mp4" />
                         Your browser does not support the video tag.
                       </video>
                     </div>
@@ -341,7 +341,7 @@ void stop_motors(int sec) {
                     <div class="bg-light rounded-4 p-3">
                       <h5 class="small fw-semibold mb-2">Robot making on-axis turn after calibration.</h5>
                       <video class="w-100 rounded-4" controls>
-                        <source src="../assets/lab4/spin.mov" type="video/quickplay" />
+                        <source src="../assets/lab4/spin.mp4" type="video/mp4" />
                         Your browser does not support the video tag.
                       </video>
                     </div>
@@ -353,7 +353,7 @@ void stop_motors(int sec) {
                     <div class="bg-light rounded-4 p-3">
                       <h5 class="small fw-semibold mb-2">Robot making on-axis turn after calibration.</h5>
                       <video class="w-100 rounded-4" controls>
-                        <source src="../assets/lab4/calibration_turn.mov" type="video/quickplay" />
+                        <source src="../assets/lab4/calibration_turn.mp4" type="video/mp4" />
                         Your browser does not support the video tag.
                       </video>
                     </div>
@@ -365,90 +365,73 @@ void stop_motors(int sec) {
 
           <!-- 4. PWM Frequency + Keep-Running PWM -->
           <section class="mb-5">
-            <h2 class="fw-bolder mb-4">4. PWM Frequency + Keep-Running PWM</h2>
+            <h2 class="fw-bolder mb-4">4. PWM Frequency</h2>
 
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
                 <h3 class="fw-bolder mb-3">analogWrite() PWM Frequency</h3>
                 <p class="text-muted mb-4">
-                  The PWM frequency produced by <code>analogWrite()</code> is set by the microcontroller timers and is typically in the
-                  hundreds of Hz to around ~1 kHz range (depending on the pin/timer). For small DC motors driven through an H-bridge,
-                  this is generally fast enough because the motor’s mechanical inertia averages the PWM pulses into a smooth speed response.
+                  The PWM frequency produced by <code>analogWrite()</code> is displayed in my oscillioscope readings and is 183.1 Hz.
+                  This is set by the microcontroller timers and is typically in the jundreds of Hz to 1 kHz range.
+                  For the small DC motors driven through an H-bridge, this is decently fast as most boards have a default frequency of 490 Hz.
                 </p>
 
                 <h3 class="fw-bolder mb-3">Would Faster PWM Help?</h3>
                 <p class="text-muted mb-2">
-                  Manually configuring timers to generate a faster PWM signal (often above ~20 kHz) could provide benefits such as:
+                  Manually configuring timers to generate a faster PWM signal could provide benefits such as:
                 </p>
                 <ul class="text-muted mb-4">
                   <li>Less audible whining (PWM above human hearing)</li>
                   <li>Smoother low-speed motion (reduced torque ripple)</li>
                   <li>Potentially cleaner sensor readings (less low-frequency switching noise coupling into measurements)</li>
                 </ul>
-                <p class="text-muted mb-4">
-                  A tradeoff is that changing timers can conflict with other libraries/timing features, depending on the platform and pin mapping.
-                </p>
-
-                <h3 class="fw-bolder mb-3">Start PWM vs Keep-Running PWM (Experimental Method)</h3>
-                <p class="text-muted mb-3">
-                  I tested both:
-                  <strong>(1)</strong> the minimum PWM needed to start motion (static friction), and
-                  <strong>(2)</strong> the minimum PWM needed to keep the robot moving after it is already rolling (kinetic friction).
-                </p>
-
+          
+                <h3 class="fw-bolder mb-3">Lowest PWM Value to Run Robot</h3>
+               
                 <div class="bg-light rounded-4 p-3 mb-4">
                   <h5 class="small fw-semibold mb-2">Procedure</h5>
                   <ol class="small mb-0">
-                    <li>Command a PWM value that reliably starts motion (a short “kick”).</li>
-                    <li>After motion begins, drop to a lower PWM value.</li>
+                    <li>In loop() function start the robot with a decently low PWM value that you know will get the robot out of static friction.</li>
+                    <li>After motion begins, drop to a lower PWM value and evaluate how it performs.</li>
                     <li>Decrease the keep-running PWM until the robot stalls, then record the lowest stable value.</li>
                     <li>Repeat for forward motion and on-axis turns.</li>
                   </ol>
                 </div>
 
-                <div class="alert alert-info mb-4">
-                  <h5 class="fw-semibold">Results Table (Fill In)</h5>
-                  <p class="mb-3">
-                    The table below separates the PWM needed to start motion vs the PWM needed to keep motion. This also captures
-                    how quickly the robot settles into its slowest stable speed.
-                  </p>
-
-                  <div class="table-responsive">
-                    <table class="table table-bordered align-middle mb-0">
-                      <thead class="table-light">
-                        <tr>
-                          <th>Motion</th>
-                          <th>PWM Start (Kick)</th>
-                          <th>Kick Duration (ms)</th>
-                          <th>Lowest PWM Keep-Running</th>
-                          <th>Settling Time to Slowest Speed (s)</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>Forward</td>
-                          <td>__</td>
-                          <td>__</td>
-                          <td>__</td>
-                          <td>__</td>
-                        </tr>
-                        <tr>
-                          <td>Turn Left</td>
-                          <td>__</td>
-                          <td>__</td>
-                          <td>__</td>
-                          <td>__</td>
-                        </tr>
-                        <tr>
-                          <td>Turn Right</td>
-                          <td>__</td>
-                          <td>__</td>
-                          <td>__</td>
-                          <td>__</td>
-                        </tr>
-                      </tbody>
-                    </table>
+                <div class="row g-4">
+                  <div class="col-lg-6">
+                    <div class="bg-light rounded-4 p-3">
+                      <h5 class="small fw-semibold mb-2">Lowest PWM for Forward Motion</h5>
+                      <video class="w-100 rounded-4" controls>
+                        <source src="../assets/lab4/low_forward.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
                   </div>
+                </div>
+
+                <div class="row g-4">
+                  <div class="col-lg-6">
+                    <div class="bg-light rounded-4 p-3">
+                      <h5 class="small fw-semibold mb-2">Lowest PWM for On-Axis Turn</h5>
+                      <video class="w-100 rounded-4" controls>
+                        <source src="../assets/lab4/low_on_axis.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="alert alert-info mb-4">
+                  <h5 class="fw-semibold">Results</h5>
+                  <ul class="mb-0">
+                    <li>
+                      <strong>Forward (minimum to start):</strong> Both Motors PWM ≈ <strong>40</strong>.
+                    </li>
+                    <li>
+                      <strong>Turning (minimum to start):</strong> Turn left ≈ <strong>140</strong>, turn right ≈ <strong>140</strong>.
+                    </li>
+                  </ul>
                 </div>
 
                 <p class="text-muted mb-0">
@@ -528,7 +511,7 @@ void stop_motors(int sec) {
                     <div class="bg-light rounded-4 p-3">
                       <h5 class="small fw-semibold mb-2">Open Loop Video (Placeholder)</h5>
                       <video class="w-100 rounded-4" controls>
-                        <source src="../assets/lab4/open_loop.mov" type="video/quicktime" />
+                        <source src="../assets/lab4/open_loop.mp4" type="video/quicktime" />
                         Your browser does not support the video tag.
                       </video>
                     </div>

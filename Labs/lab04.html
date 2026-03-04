@@ -48,7 +48,7 @@
         <div class="container px-5">
           <div class="text-center mb-5">
             <h1 class="fw-bolder">
-              Lab 4: <span class="text-gradient">Motor Drivers + PWM Calibration</span>
+              Lab 4: <span class="text-gradient">Motor Drivers & PWM Calibration</span>
             </h1>
             <p class="text-muted mb-0">
               This lab focuses on wiring and testing a dual H-bridge motor driver with the Artemis, verifying PWM output
@@ -130,7 +130,7 @@
                     <figure class="bg-light rounded-4 p-3 mb-0">
                       <img
                         src="../assets/lab4/setup.jpeg"
-                        alt="Setup with power supply and oscilloscope (placeholder)"
+                        alt="Setup with power supply and oscilloscope"
                         class="img-fluid rounded-4"
                       />
                       <figcaption class="small mt-2 mb-0">Power Supply and Oscilloscope Hookup</figcaption>
@@ -156,10 +156,10 @@
                     <figure class="bg-light rounded-4 p-3 mb-0">
                       <img
                         src="../assets/lab4/oscillioscope.jpeg"
-                        alt="Oscilloscope PWM capture (placeholder)"
+                        alt="Oscilloscope PWM capture"
                         class="img-fluid rounded-4"
                       />
-                      <figcaption class="small mt-2 mb-0">Oscilloscope PWM Capture (Placeholder)</figcaption>
+                      <figcaption class="small mt-2 mb-0">Oscilloscope PWM Capture</figcaption>
                     </figure>
                   </div>
                 </div>
@@ -209,14 +209,14 @@ void loop() {
 }
 
 void drive_forward(int duty1, int sec) {
-  float cali = 1.23; int duty2 = (int)(duty1 * cali);
+  float cali = 1.3; int duty2 = (int)(duty1 * cali);
   analogWrite(PWM_0, 0); analogWrite(PWM_1, duty1); // Drive left motor clockwise:
   analogWrite(PWM_2, duty2); analogWrite(PWM_5, 0); // Drive right motor clockwise:
   delay(sec);
   }
 
 void drive_backward(int duty1, int sec) {
-  float cali = 1.23; int duty2 = (int)(duty1 * cali);
+  float cali = 1.3; int duty2 = (int)(duty1 * cali);
   analogWrite(PWM_0, duty1); analogWrite(PWM_1, 0); // Drive left motor counter clockwise:
   analogWrite(PWM_2, 0); analogWrite(PWM_5, duty2); // Drive right motor counter clockwise:
   delay(sec);
@@ -267,7 +267,7 @@ void stop_motors(int sec) {
                     <figure class="bg-light rounded-4 p-3 mb-0">
                       <img
                         src="../assets/lab4/car.jpeg"
-                        alt="Robot assembled with components secured (placeholder)"
+                        alt="Robot assembled with components secured"
                         class="img-fluid rounded-4"
                       />
                       <figcaption class="small mt-2 mb-0">Robot Assembly</figcaption>
@@ -280,7 +280,7 @@ void stop_motors(int sec) {
 
           <!-- 3. Lower Limit PWM + Calibration -->
           <section class="mb-5">
-            <h2 class="fw-bolder mb-4">3. Lower Limit PWM Values + Calibration</h2>
+            <h2 class="fw-bolder mb-4">3. Lower Limit PWM Values & Calibration</h2>
 
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
@@ -295,7 +295,7 @@ void stop_motors(int sec) {
                   <ul class="mb-0">
                     <li>
                       <strong>Forward (minimum to start):</strong> Left motor PWM ≈ <strong>60</strong>.
-                      Using a calibration constant of <strong>1.23</strong>, the right motor PWM was ≈ <strong>80</strong>.
+                      Using a calibration constant of <strong>1.3</strong>, the right motor PWM was ≈ <strong>80</strong>.
                     </li>
                     <li>
                       <strong>Turning (minimum to start):</strong> Turn left ≈ <strong>150</strong>, turn right ≈ <strong>150</strong>.
@@ -311,7 +311,7 @@ void stop_motors(int sec) {
 
                 <h3 class="fw-bolder mb-3">Calibration Demonstration</h3>
                 <p class="text-muted mb-2">
-                  I have video of the robot moving straight along a table. The calibration code is incorporated in the code snippet above.
+                  I have videos of the robot moving straight along a table and spining. The calibration constant identified was 1.3 is incorporated in the code snippet above.
                 </p>
 
                 <div class="bg-light rounded-4 p-3 mb-4">
@@ -319,7 +319,7 @@ void stop_motors(int sec) {
                   <p class="small text-muted mb-0">
                     One difficulty was that one wheel had a larger initial torque to overcome than the other. This made it hard
                     to keep the robot moving straight at low PWM because one wheel could lag or briefly stop while the other kept moving.
-                    My solution was to increase the PWM signal and to recharge the batteryso the weaker motor could more consistently 
+                    My solution was to increase the PWM signal and to recharge the battery so the weaker motor could more consistently 
                     overcome static friction and have the extra power to back it up.
                   </p>
                 </div>
@@ -372,7 +372,7 @@ void stop_motors(int sec) {
                 <h3 class="fw-bolder mb-3">analogWrite() PWM Frequency</h3>
                 <p class="text-muted mb-4">
                   The PWM frequency produced by <code>analogWrite()</code> is displayed in my oscillioscope readings and is 183.1 Hz.
-                  This is set by the microcontroller timers and is typically in the jundreds of Hz to 1 kHz range.
+                  This is set by the microcontroller timers and is typically in the hundreds of Hz to 1 kHz range.
                   For the small DC motors driven through an H-bridge, this is decently fast as most boards have a default frequency of 490 Hz.
                 </p>
 
@@ -435,8 +435,7 @@ void stop_motors(int sec) {
                 </div>
 
                 <p class="text-muted mb-0">
-                  In general, the keep-running PWM should be lower than the start PWM because once the wheels are moving,
-                  the motors mainly need to overcome kinetic friction instead of static friction.
+                  In both the forward moving and the on-axis turn cases, I identified a decrease in PWM of 10.
                 </p>
               </div>
             </div>
@@ -453,7 +452,7 @@ void stop_motors(int sec) {
                 </p>
 
                 <div class="bg-light rounded-4 p-3 mb-4">
-                  <h5 class="small fw-semibold mb-2">Open Loop Code (Placeholder)</h5>
+                  <h5 class="small fw-semibold mb-2">Open Loop Code</h5>
                   <pre class="mb-0 small"><code>#define PWM_0 A0  // backward motor 1
 #define PWM_1 A1  // forward motor 1
 #define PWM_2 A2  // forward motor 2
@@ -472,28 +471,28 @@ void loop() {
 }
 
 void drive_forward(int duty1, int sec) {
-  float cali = 1.23; int duty2 = (int)(duty1 * cali);
+  float cali = 1.3; int duty2 = (int)(duty1 * cali);
   analogWrite(PWM_0, 0); analogWrite(PWM_1, duty1); // Drive left motor clockwise:
   analogWrite(PWM_2, duty2); analogWrite(PWM_5, 0); // Drive right motor clockwise:
   delay(sec);
   }
 
 void drive_backward(int duty1, int sec) {
-  float cali = 1.23; int duty2 = (int)(duty1 * cali);
+  float cali = 1.3; int duty2 = (int)(duty1 * cali);
   analogWrite(PWM_0, duty1); analogWrite(PWM_1, 0); // Drive left motor counter clockwise:
   analogWrite(PWM_2, 0); analogWrite(PWM_5, duty2); // Drive right motor counter clockwise:
   delay(sec);
 }
 
 void turn_right(int duty1, int sec) {
-  float cali = 1.23; int duty2 = (int)(duty1 * cali);
+  float cali = 1.3; int duty2 = (int)(duty1 * cali);
   analogWrite(PWM_0, duty1); analogWrite(PWM_1, 0); // Left motor backward
   analogWrite(PWM_2, duty2); analogWrite(PWM_5, 0); //right motor forward
   delay(sec);
 }
 
 void turn_left(int duty1, int sec) {
-  float cali = 1.23; int duty2 = (int)(duty1 * cali);
+  float cali = 1.3; int duty2 = (int)(duty1 * cali);
   analogWrite(PWM_0, 0); analogWrite(PWM_1, duty1); // Left motor forward
   analogWrite(PWM_2, 0); analogWrite(PWM_5, duty2); //right motor backward
   delay(sec);
@@ -509,7 +508,7 @@ void stop_motors(int sec) {
                 <div class="row g-4">
                   <div class="col-lg-6">
                     <div class="bg-light rounded-4 p-3">
-                      <h5 class="small fw-semibold mb-2">Open Loop Video (Placeholder)</h5>
+                      <h5 class="small fw-semibold mb-2">Open Loop Video</h5>
                       <video class="w-100 rounded-4" controls>
                         <source src="../assets/lab4/open_loop.mp4" type="video/mp4" />
                         Your browser does not support the video tag.

@@ -1,121 +1,190 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>MAE 5190 Fast Robots | Jamison Taylor Jr.</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
-        <!-- Custom Google font-->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="../css/styles.css" rel="stylesheet" />
-    </head>
-<body class="d-flex flex-column h-100">
-<main class="flex-shrink-0">
-<nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
-  <div class="container px-5">
-    <a class="navbar-brand" href="../index.html"><span class="fw-bolder text-primary">MAE 5190 Fast Robots</span></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-        <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="../index.html#labs">Labs</a></li>
-        <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<section class="py-5">
-  <div class="container px-5">
-    <div class="row gx-5 justify-content-center">
-      <div class="col-lg-9 col-xl-8 col-xxl-7">
-        <div class="text-center mb-5">
-          <h1 class="fw-bolder">Lab 05: <span class="text-gradient">[Lab Title Placeholder]</span></h1>
-          <p class="lead fw-light text-muted mb-0">MAE 5190 (Fast Robots) &middot; Lab 401</p>
-        </div>
-        <div class="card shadow border-0 rounded-4 mb-5">
-          <div class="card-body p-5">
-            <h2 class="fw-bolder mb-3">Overview</h2>
-            <p class="text-muted">[Write a 4–8 sentence overview of what this lab was about. What problem were you solving? What did you build?]</p>
-            <hr class="my-4" />
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="MAE 5190 Fast Robots - Lab 5" />
+    <meta name="author" content="Jamison L. Taylor Jr." />
+    <title>Lab 5 | MAE 5190 Fast Robots</title>
 
-            <h2 class="fw-bolder mb-3">Objectives</h2>
-            <ul class="text-muted">
-              <li>[Objective 1]</li>
-              <li>[Objective 2]</li>
-              <li>[Objective 3]</li>
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="../css/styles.css" rel="stylesheet" />
+  </head>
+
+  <body class="d-flex flex-column h-100">
+    <main class="flex-shrink-0">
+      <!-- Navigation -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+        <div class="container px-5">
+          <a class="navbar-brand" href="../index.html">
+            <span class="fw-bolder text-primary">MAE 5190 Fast Robots</span>
+          </a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+              <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="../index.html#labs">Labs</a></li>
+              <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
             </ul>
-            <hr class="my-4" />
-
-            <h2 class="fw-bolder mb-3">Hardware</h2>
-            <ul class="text-muted">
-              <li>[List sensors/actuators/boards used]</li>
-              <li>[Wiring notes / schematic link]</li>
-            </ul>
-            <hr class="my-4" />
-
-            <h2 class="fw-bolder mb-3">Software</h2>
-            <ul class="text-muted">
-              <li>[Language + toolchain (e.g., C++ / Arduino / ROS / Python)]</li>
-              <li>[Key libraries]</li>
-            </ul>
-            <div class="bg-light rounded-4 p-4">
-              <div class="small text-muted">Code Placeholder</div>
-              <div class="fw-semibold">Add a GitHub link or paste code snippets here later.</div>
-            </div>
-            <hr class="my-4" />
-
-            <h2 class="fw-bolder mb-3">Results</h2>
-            <p class="text-muted">[What worked? What didn’t? Add plots/photos/video links.]</p>
-            <div class="row g-3">
-              <div class="col-md-6">
-                <div class="border rounded-4 p-4 h-100">
-                  <div class="small text-muted">Photo / Screenshot</div>
-                  <div class="fw-semibold">[Drop image into assets/ and link it here]</div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="border rounded-4 p-4 h-100">
-                  <div class="small text-muted">Video Demo</div>
-                  <div class="fw-semibold">[Embed YouTube link or GIF]</div>
-                </div>
-              </div>
-            </div>
-            <hr class="my-4" />
-
-            <h2 class="fw-bolder mb-3">Reflection</h2>
-            <p class="text-muted">[What would you improve next time? Any debugging lessons or design tradeoffs?]</p>
-
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-between mt-4">
-              <a class="btn btn-outline-dark" href="../index.html#labs"><i class="bi bi-arrow-left"></i> Back to Labs</a>
-              <a class="btn btn-primary" href="lab06.html">Next Lab <i class="bi bi-arrow-right"></i></a>
-            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-</main>
-<footer class="bg-white py-4 mt-auto">
-            <div class="container px-5">
-                <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-                    <div class="col-auto"><div class="small m-0">Copyright &copy; Jamison L. Taylor Jr. 2026</div></div>
-                    <div class="col-auto"><a class="small" href="../index.html#about">Contact</a></div>
-                </div>
-            </div>
-        </footer>
+      </nav>
 
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="../js/scripts.js"></script>
-    </body>
-</html>
+      <!-- Header Section -->
+      <section class="py-5">
+        <div class="container px-5">
+          <div class="text-center mb-5">
+            <h1 class="fw-bolder">
+              Lab 5: <span class="text-gradient">Linear PID Control + Linear Extrapolation</span>
+            </h1>
+            <p class="text-muted mb-0">
+              This lab focused on using Time of Flight feedback to drive the robot toward a wall and stop at a target
+              distance of 1 foot. I tuned proportional, integral, and derivative gains, added deadband logic,
+              logged debugging data over Bluetooth, and explored linear extrapolation so the control loop could run
+              faster than the ToF sensor update rate.
+            </p>
+          </div>
+
+          <!-- 1. Prelab -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">1. Prelab: Bluetooth Debugging Setup</h2>
+
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-4">
+                  For this lab it was important to build a debugging system that let me start the controller from my
+                  computer, run it for a fixed amount of time, and then send the collected data back over Bluetooth.
+                  Instead of placing all of the PID and ToF code directly inside <code>loop()</code>, I placed the main
+                  control behavior inside a Bluetooth command case named <code>GET_ALL</code>. This made it easy to send
+                  one command from Python and start the full data collection run.
+                </p>
+
+                <div class="row g-4 mb-4">
+                  <div class="col-lg-6">
+                    <div class="bg-light rounded-4 p-3 h-100">
+                      <h6 class="fw-semibold mb-2">How the Debugging Flow Works</h6>
+                      <ol class="small mb-0">
+                        <li>Send a Bluetooth command from the computer.</li>
+                        <li>Start the <code>GET_ALL</code> case on the Artemis.</li>
+                        <li>Run the PID controller for a fixed number of loop iterations.</li>
+                        <li>Store timestamps, ToF data, and motor outputs into arrays.</li>
+                        <li>Send the saved data back over Bluetooth after the run ends.</li>
+                      </ol>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="bg-light rounded-4 p-3 h-100">
+                      <h6 class="fw-semibold mb-2">Why I Did It This Way</h6>
+                      <p class="small text-muted mb-0">
+                        This setup made testing much easier because I could run the robot, stop the behavior, and then
+                        plot the saved data in Python. It also helped me identify controller bugs without constantly
+                        reprogramming the board.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bg-light rounded-4 p-3 mb-4">
+                  <h5 class="small fw-semibold mb-2">Bluetooth Start Command Structure</h5>
+                  <pre class="mb-0 small"><code>switch (cmd_type)
+{
+  case GET_ALL:
+  {
+    // Start ToF + PID collection here
+    break;
+  }
+
+  case END_PID:
+  {
+    // Force run to stop early if needed
+    break;
+  }
+}</code></pre>
+                </div>
+
+                <p class="text-muted mb-4">
+                  Inside <code>GET_ALL</code>, I used a main <code>for</code> loop to limit the total number of iterations.
+                  In my testing, I used a maximum loop count of <strong>1000</strong>, which gave about
+                  <strong>6-7 seconds</strong> of runtime. During this time I saved debugging data into arrays so I could
+                  inspect how the controller behaved.
+                </p>
+
+                <div class="bg-light rounded-4 p-3 mb-4">
+                  <h5 class="small fw-semibold mb-2">Fixed-Length Data Collection Idea</h5>
+                  <pre class="mb-0 small"><code>for (int i = 0; i &lt; 1000; i++) {
+  // Read ToF data
+  // Compute PID output
+  // Save time, distance, and motor input into arrays
+}</code></pre>
+                </div>
+
+                <p class="text-muted mb-0">
+                  I also made a command called <code>END_PID</code> that can force the run to stop early. After the main
+                  loop exits, another loop begins and sends back the collected data over Bluetooth. This was useful for
+                  debugging because even incomplete runs still gave me enough information to inspect what went wrong.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 2. Objective -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">2. Position Control Objective</h2>
+
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-4">
+                  The goal of this task was to have the robot drive toward a wall and stop at a distance of
+                  <strong>1 foot (12 inches)</strong> using the Time of Flight sensor for feedback. Since the robot can
+                  move quickly and the ToF sensor does not update infinitely fast, the controller needed to be tuned so
+                  that it was fast enough to approach the target but not so aggressive that it would crash into the wall.
+                </p>
+
+                <div class="alert alert-info mb-0">
+                  <h5 class="fw-semibold">Target Setpoint</h5>
+                  <p class="mb-0">Desired distance from the wall: <strong>12 in</strong></p>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 3. P Gain -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">3. Finding the Proportional Gain (Kp)</h2>
+
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-4">
+                  I first started tuning the controller using proportional control only. I tested several values of
+                  <code>Kp</code> to see how strongly the robot reacted to distance error.
+                </p>
+
+                <div class="row g-4 mb-4">
+                  <div class="col-lg-6">
+                    <div class="bg-light rounded-4 p-3 h-100">
+                      <h6 class="fw-semibold mb-2">Proportional Gain Values Tested</h6>
+                      <ul class="small mb-0">
+                        <li><code>Kp = 0.1</code></li>
+                        <li><code>Kp = 3</code></li>
+                        <li><code>Kp = 3.5</code></li>
+                        <li><code>Kp = 4</code></li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="bg-light rounded-4 p-3 h-100">

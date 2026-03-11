@@ -14,7 +14,6 @@
 
   <body class="d-flex flex-column h-100">
     <main class="flex-shrink-0">
-      <!-- Navigation -->
       <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
         <div class="container px-5">
           <a class="navbar-brand" href="../index.html">
@@ -26,7 +25,7 @@
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
+            aria-controls="#navbarSupportedContent"
             aria-expanded="false"
             aria-label="Toggle navigation"
           >
@@ -43,177 +42,88 @@
         </div>
       </nav>
 
-      <!-- Header Section -->
       <section class="py-5">
         <div class="container px-5">
           <div class="text-center mb-5">
-            <h1 class="fw-bolder">
-              Lab 5: <span class="text-gradient">Linear PID Control + Linear Extrapolation</span>
-            </h1>
+            <h1 class="fw-bolder">Lab 5: <span class="text-gradient">Linear PID Control + Linear Extrapolation</span></h1>
             <p class="text-muted mb-0">
-              This lab focused on using Time of Flight feedback to drive the robot toward a wall and stop at a target
-              distance of 1 foot. I tuned proportional, integral, and derivative gains, added deadband logic,
-              logged debugging data over Bluetooth, and explored linear extrapolation so the control loop could run
-              faster than the ToF sensor update rate.
+              In this lab I used Time of Flight feedback to drive the robot toward a wall and stop at 12 inches. I built
+              a Bluetooth debugging workflow, tuned PID gains, added a deadband near the setpoint, and used linear
+              extrapolation so the control loop could run faster than the ToF update rate.
             </p>
           </div>
 
-          <!-- 1. Prelab -->
           <section class="mb-5">
             <h2 class="fw-bolder mb-4">1. Prelab: Bluetooth Debugging Setup</h2>
-
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
-                <p class="text-muted mb-4">
-                  For this lab it was important to build a debugging system that let me start the controller from my
-                  computer, run it for a fixed amount of time, and then send the collected data back over Bluetooth.
-                  Instead of placing all of the PID and ToF code directly inside <code>loop()</code>, I placed the main
-                  control behavior inside a Bluetooth command case named <code>GET_ALL</code>. This made it easy to send
-                  one command from Python and start the full data collection run.
+                <p class="text-muted mb-3">
+                  I placed the main ToF and PID behavior inside a Bluetooth command case instead of running it directly in
+                  <code>loop()</code>. This let me start a test from Python, collect data for a fixed number of
+                  iterations, and send the saved arrays back over Bluetooth for plotting.
+                </p>
+                <p class="text-muted mb-3">
+                  In <code>GET_ALL</code>, I used a loop limit of 1000 iterations, which gave about 6-7 seconds of data.
+                  I stored values such as time, distance, and motor output. I also made an <code>END_PID</code> command
+                  to stop a run early and still return partial data for debugging.
                 </p>
 
-                <div class="row g-4 mb-4">
-                  <div class="col-lg-6">
-                    <div class="bg-light rounded-4 p-3 h-100">
-                      <h6 class="fw-semibold mb-2">How the Debugging Flow Works</h6>
-                      <ol class="small mb-0">
-                        <li>Send a Bluetooth command from the computer.</li>
-                        <li>Start the <code>GET_ALL</code> case on the Artemis.</li>
-                        <li>Run the PID controller for a fixed number of loop iterations.</li>
-                        <li>Store timestamps, ToF data, and motor outputs into arrays.</li>
-                        <li>Send the saved data back over Bluetooth after the run ends.</li>
-                      </ol>
-                    </div>
-                  </div>
+                <div class="bg-light rounded-4 p-3 mb-0">
+                  <h5 class="small fw-semibold mb-2">Bluetooth Command Structure</h5>
+                  <pre class="mb-0 small"><code>switch (cmd_type){
+case GET_ALL:{
+  BLEDevice central = BLE.central();
 
-                  <div class="col-lg-6">
-                    <div class="bg-light rounded-4 p-3 h-100">
-                      <h6 class="fw-semibold mb-2">Why I Did It This Way</h6>
-                      <p class="small text-muted mb-0">
-                        This setup made testing much easier because I could run the robot, stop the behavior, and then
-                        plot the saved data in Python. It also helped me identify controller bugs without constantly
-                        reprogramming the board.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="bg-light rounded-4 p-3 mb-4">
-                  <h5 class="small fw-semibold mb-2">Bluetooth Start Command Structure</h5>
-                  <pre class="mb-0 small"><code>switch (cmd_type)
-{
-  case GET_ALL:
-  {
-    // Start ToF + PID collection here
-    break;
+  if (central) {
+    if (central.connected()) {
+      write_data();
+      read_data();}
+     }
+   if (!PID_state) break;
   }
 
-  case END_PID:
-  {
-    // Force run to stop early if needed
-    break;
+case END_PID:{
+  PID_state = false;
+  ToF_Sensor_1.stopRanging();
+  ToF_Sensor_2.stopRanging();
+  stop_motors();
+break;
   }
 }</code></pre>
                 </div>
+              </div>
+            </div>
+          </section>
 
-                <p class="text-muted mb-4">
-                  Inside <code>GET_ALL</code>, I used a main <code>for</code> loop to limit the total number of iterations.
-                  In my testing, I used a maximum loop count of <strong>1000</strong>, which gave about
-                  <strong>6-7 seconds</strong> of runtime. During this time I saved debugging data into arrays so I could
-                  inspect how the controller behaved.
-                </p>
-
-                <div class="bg-light rounded-4 p-3 mb-4">
-                  <h5 class="small fw-semibold mb-2">Fixed-Length Data Collection Idea</h5>
-                  <pre class="mb-0 small"><code>for (int i = 0; i &lt; 1000; i++) {
-  // Read ToF data
-  // Compute PID output
-  // Save time, distance, and motor input into arrays
-}</code></pre>
-                </div>
-
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">2. Position Control Goal</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
                 <p class="text-muted mb-0">
-                  I also made a command called <code>END_PID</code> that can force the run to stop early. After the main
-                  loop exits, another loop begins and sends back the collected data over Bluetooth. This was useful for
-                  debugging because even incomplete runs still gave me enough information to inspect what went wrong.
+                  The goal was to have the robot drive toward a wall and stop at a setpoint of <strong>12 inches</strong>.
+                  The main challenge was balancing speed and stability so the robot moved quickly without overshooting into
+                  the wall.
                 </p>
               </div>
             </div>
           </section>
 
-          <!-- 2. Objective -->
           <section class="mb-5">
-            <h2 class="fw-bolder mb-4">2. Position Control Objective</h2>
-
+            <h2 class="fw-bolder mb-4">3. Proportional Gain Tuning</h2>
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
-                <p class="text-muted mb-4">
-                  The goal of this task was to have the robot drive toward a wall and stop at a distance of
-                  <strong>1 foot (12 inches)</strong> using the Time of Flight sensor for feedback. Since the robot can
-                  move quickly and the ToF sensor does not update infinitely fast, the controller needed to be tuned so
-                  that it was fast enough to approach the target but not so aggressive that it would crash into the wall.
+                <p class="text-muted mb-3">
+                  I started with proportional control only and tested <code>Kp = 0.1</code>, <code>3</code>,
+                  <code>3.5</code>, and <code>4</code>. At <code>Kp = 0.1</code> the response was too weak. At
+                  <code>Kp = 3</code> the robot moved toward the wall but felt slow. At <code>Kp = 4</code> it became too
+                  aggressive and touched the wall.
+                </p>
+                <p class="text-muted mb-3">
+                  I chose <strong><code>Kp = 3.5</code></strong> because it gave the best balance between speed and
+                  control. For my setup, a reasonable proportional gain range was about <strong>3 to 4</strong>.
                 </p>
 
-                <div class="alert alert-info mb-0">
-                  <h5 class="fw-semibold">Target Setpoint</h5>
-                  <p class="mb-0">Desired distance from the wall: <strong>12 in</strong></p>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <!-- 3. P Gain -->
-          <section class="mb-5">
-            <h2 class="fw-bolder mb-4">3. Finding the Proportional Gain (Kp)</h2>
-
-            <div class="card border-0 shadow-sm rounded-4">
-              <div class="card-body p-4">
-                <p class="text-muted mb-4">
-                  I first started tuning the controller using proportional control only. I tested several values of
-                  <code>Kp</code> to see how strongly the robot reacted to distance error.
-                </p>
-
-                <div class="row g-4 mb-4">
-                  <div class="col-lg-6">
-                    <div class="bg-light rounded-4 p-3 h-100">
-                      <h6 class="fw-semibold mb-2">Proportional Gain Values Tested</h6>
-                      <ul class="small mb-0">
-                        <li><code>Kp = 0.1</code></li>
-                        <li><code>Kp = 3</code></li>
-                        <li><code>Kp = 3.5</code></li>
-                        <li><code>Kp = 4</code></li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-6">
-                    <div class="bg-light rounded-4 p-3 h-100">
-                      <h6 class="fw-semibold mb-2">Chosen Value</h6>
-                      <p class="small text-muted mb-0">
-                        I chose <strong><code>Kp = 3.5</code></strong> because it gave a good balance between speed and
-                        stability for my robot.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <p class="text-muted mb-4">
-                  With very small proportional gain like <code>Kp = 0.1</code>, the response was too weak to be useful.
-                  At <code>Kp = 3</code>, the robot moved toward the wall, but it still seemed slower than I wanted.
-                  At <code>Kp = 3.5</code>, the robot behaved much better and the response looked more reasonable.
-                  When I tested <code>Kp = 4</code>, the robot became too aggressive and ended up touching the wall.
-                </p>
-
-                <div class="alert alert-info mb-4">
-                  <h5 class="fw-semibold">Reasonable Kp Range</h5>
-                  <p class="mb-0">
-                    Based on my tests, a reasonable proportional gain range for my robot was about
-                    <strong>3 to 4</strong>. Gains below that were too weak, while gains above that made the robot too
-                    aggressive near the wall.
-                  </p>
-                </div>
-
-                <div class="bg-light rounded-4 p-3">
+                <div class="bg-light rounded-4 p-3 mb-0">
                   <h5 class="small fw-semibold mb-2">Proportional Control Idea</h5>
                   <pre class="mb-0 small"><code>error = setpoint - distance;
 output = Kp * error;</code></pre>
@@ -222,28 +132,20 @@ output = Kp * error;</code></pre>
             </div>
           </section>
 
-          <!-- 4. Deadband -->
           <section class="mb-5">
             <h2 class="fw-bolder mb-4">4. Deadband Compensation</h2>
-
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
-                <p class="text-muted mb-4">
-                  After getting proportional control working, I added a deadband feature to stop the robot from
-                  oscillating back and forth near the setpoint. Since the motors have static friction, very small motor
-                  commands do not always create reliable motion. This can make the robot jitter when it is already close
-                  to the target.
+                <p class="text-muted mb-3">
+                  After tuning <code>Kp</code>, I added a deadband to reduce oscillation near the setpoint. Small motor
+                  commands were not always enough to overcome friction, so the robot could jitter close to the target.
+                </p>
+                <p class="text-muted mb-3">
+                  To fix this, I stopped both motors whenever the robot was within <strong>0.25 inches</strong> of the
+                  desired distance.
                 </p>
 
-                <div class="alert alert-info mb-4">
-                  <h5 class="fw-semibold">Deadband Rule</h5>
-                  <p class="mb-0">
-                    If the robot was within <strong>0.25 inches</strong> of the target distance, I stopped both motors.
-                    This made the stopping behavior cleaner and reduced oscillation near the setpoint.
-                  </p>
-                </div>
-
-                <div class="bg-light rounded-4 p-3">
+                <div class="bg-light rounded-4 p-3 mb-0">
                   <h5 class="small fw-semibold mb-2">Deadband Logic</h5>
                   <pre class="mb-0 small"><code>if (abs(error) &lt;= 0.25) {
   left_motor = 0;
@@ -254,147 +156,37 @@ output = Kp * error;</code></pre>
             </div>
           </section>
 
-          <!-- 5. I and D -->
           <section class="mb-5">
-            <h2 class="fw-bolder mb-4">5. Finding Integral and Derivative Gains</h2>
-
+            <h2 class="fw-bolder mb-4">5. Integral and Derivative Tuning</h2>
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
-                <p class="text-muted mb-4">
-                  After choosing a good proportional gain, I moved on to tuning the integral and derivative terms.
-                  These were harder to tune because even small changes caused noticeable differences in controller
-                  behavior.
+                <p class="text-muted mb-3">
+                  I then tested integral gain values of <code>0.02</code>, <code>0.01</code>, <code>0.005</code>, and
+                  <code>0.002</code>. These were harder to tune because small changes caused large differences in
+                  behavior. I also tested derivative control to reduce overshoot as the robot approached the wall.
                 </p>
-
-                <div class="row g-4 mb-4">
-                  <div class="col-lg-6">
-                    <div class="bg-light rounded-4 p-3 h-100">
-                      <h6 class="fw-semibold mb-2">Integral Gain Values Tested</h6>
-                      <ul class="small mb-0">
-                        <li><code>Ki = 0.02</code></li>
-                        <li><code>Ki = 0.01</code></li>
-                        <li><code>Ki = 0.005</code></li>
-                        <li><code>Ki = 0.002</code></li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-6">
-                    <div class="bg-light rounded-4 p-3 h-100">
-                      <h6 class="fw-semibold mb-2">Derivative Gain Tested</h6>
-                      <ul class="small mb-0">
-                        <li><code>Kd = 0.3</code> in one test setup</li>
-                        <li>Later tested together with <code>Kp = 3.5</code></li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-
-                <p class="text-muted mb-4">
-                  I had difficulty identifying a good starting point for the integral gain because there were massive
-                  differences in performance between values like <code>Ki = 0.02</code> and smaller values such as
-                  <code>Ki = 0.007</code>. A lot of the values in between also felt awkward in practice. Because of that,
-                  I decided to test the integral and derivative gains together rather than tuning each one completely on
-                  its own.
-                </p>
-
-                <div class="alert alert-info mb-4">
-                  <h5 class="fw-semibold">Combined PID Starting Point</h5>
-                  <p class="mb-0">
-                    One of the first combined gain sets I tested was:
-                    <strong><code>Kp = 3.5</code>, <code>Ki = 0.02</code>, and <code>Kd = 0.8</code></strong>.
-                  </p>
-                </div>
-
-                <div class="row g-4">
-                  <div class="col-lg-4">
-                    <div class="bg-light rounded-4 p-3 h-100">
-                      <h6 class="fw-semibold mb-2">Why Add I?</h6>
-                      <p class="small text-muted mb-0">
-                        The integral term helps push out steady-state error that may come from friction, motor mismatch,
-                        or small controller bias.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-4">
-                    <div class="bg-light rounded-4 p-3 h-100">
-                      <h6 class="fw-semibold mb-2">Why Add D?</h6>
-                      <p class="small text-muted mb-0">
-                        The derivative term helps react to how quickly the robot is approaching the wall, which can help
-                        reduce overshoot and make the stop more controlled.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-4">
-                    <div class="bg-light rounded-4 p-3 h-100">
-                      <h6 class="fw-semibold mb-2">Tuning Difficulty</h6>
-                      <p class="small text-muted mb-0">
-                        The biggest challenge was that small changes in <code>Ki</code> and <code>Kd</code> could create
-                        very different behavior, so testing had to be done carefully.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <!-- 6. Timing -->
-          <section class="mb-5">
-            <h2 class="fw-bolder mb-4">6. ToF Sampling Rate and Control Loop Timing</h2>
-
-            <div class="card border-0 shadow-sm rounded-4">
-              <div class="card-body p-4">
-                <p class="text-muted mb-4">
-                  The Time of Flight sensor does not update as fast as the main control loop can run. This is important
-                  because the PID controller may be capable of running much faster than new sensor measurements are being
-                  generated. If the loop waits every time for a new ToF measurement, the controller speed becomes limited
-                  by the sensor.
-                </p>
-
-                <div class="row g-4 mb-4">
-                  <div class="col-lg-6">
-                    <div class="bg-light rounded-4 p-3 h-100">
-                      <h6 class="fw-semibold mb-2">Why This Matters</h6>
-                      <p class="small text-muted mb-0">
-                        A faster control loop usually gives smoother and more responsive control. But if the ToF sensor
-                        is slower, then some iterations of the control loop have to work without a brand new measurement.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-6">
-                    <div class="bg-light rounded-4 p-3 h-100">
-                      <h6 class="fw-semibold mb-2">Lab Idea</h6>
-                      <p class="small text-muted mb-0">
-                        The main goal here was to separate the ToF sensor rate from the PID loop rate so the robot could
-                        still react between measurements.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <p class="text-muted mb-0">
-                  In this lab, the correct approach is to let the PID control run every loop, check whether a new ToF
-                  value is ready, and then either update the measurement or continue using the latest available estimate.
-                  This is what leads into linear extrapolation.
+                <p class="text-muted mb-3">
+                  A combined starting point I used was <strong><code>Kp = 3.5</code>, <code>Ki = 0.02</code>, and
+                  <code>Kd = 0.8</code></strong>. The integral term helped with steady-state error, while the derivative
+                  term helped make the stop more controlled.
                 </p>
               </div>
             </div>
           </section>
 
-          <!-- 7. Extrapolation -->
           <section class="mb-5">
-            <h2 class="fw-bolder mb-4">7. Linear Extrapolation</h2>
-
+            <h2 class="fw-bolder mb-4">6. ToF Sampling Rate and Extrapolation</h2>
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
-                <p class="text-muted mb-4">
-                  To improve control performance, I used the idea of extrapolating distance between ToF readings. Instead
-                  of reusing the same old data point whenever the sensor did not have a new reading ready, I estimated the
-                  robot’s current distance using the last two ToF measurements.
+                <p class="text-muted mb-3">
+                  The ToF sensor updates slower than the main control loop, so I did not want the controller to wait for a
+                  new reading every iteration. Instead, the PID loop can keep running while checking whether fresh sensor
+                  data is available.
+                </p>
+                <p class="text-muted mb-3">
+                  To improve this further, I used the last two ToF readings to estimate the current distance. This linear
+                  extrapolation lets the controller react between sensor updates and helps when the robot is moving
+                  quickly.
                 </p>
 
                 <div class="bg-light rounded-4 p-3 mb-4">
@@ -403,67 +195,32 @@ output = Kp * error;</code></pre>
 estimated_distance = d2 + slope * (t_now - t2);</code></pre>
                 </div>
 
-                <p class="text-muted mb-4">
-                  The idea is simple: every time a new ToF value arrives, I save the most recent two measurements and
-                  calculate the slope. Then, until another new reading arrives, I use that slope to estimate the current
-                  distance. This lets the PID controller run faster than the ToF sensor itself.
-                </p>
-
-                <div class="row g-4">
-                  <div class="col-lg-6">
-                    <figure class="bg-light rounded-4 p-3 mb-0">
-                      <h6 class="fw-semibold mb-2">Raw vs Estimated Distance (Placeholder)</h6>
-                      <img
-                        src="../assets/lab5/raw_vs_estimated.png"
-                        alt="Placeholder graph showing raw ToF distance and extrapolated distance"
-                        class="img-fluid rounded-4"
-                      />
-                      <figcaption class="small mt-2 mb-0">
-                        Replace with a plot comparing raw ToF data and the extrapolated estimate.
-                      </figcaption>
-                    </figure>
-                  </div>
-                </div>
+                <figure class="bg-light rounded-4 p-3 mb-0">
+                  <h6 class="fw-semibold mb-2">Raw vs Estimated Distance (Placeholder)</h6>
+                  <img
+                    src="../assets/lab5/raw_vs_estimated.png"
+                    alt="Placeholder graph showing raw ToF distance and extrapolated distance"
+                    class="img-fluid rounded-4"
+                  />
+                </figure>
               </div>
             </div>
           </section>
 
-          <!-- 8. Windup -->
           <section class="mb-5">
-            <h2 class="fw-bolder mb-4">8. Wind-Up Protection</h2>
-
+            <h2 class="fw-bolder mb-4">7. Wind-Up Protection</h2>
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
-                <p class="text-muted mb-4">
-                  Since I am completing the 5000-level version of the lab, I also need to include wind-up protection.
-                  Integrator wind-up happens when the integral term keeps accumulating error while the motors are already
-                  saturated or while the robot cannot respond properly. This can make the controller overshoot badly once
-                  the robot is finally able to move again.
+                <p class="text-muted mb-3">
+                  For the 5000-level version of the lab, I also considered integrator wind-up. This happens when the
+                  integral term keeps building while the motors are saturated or the robot cannot respond well, which can
+                  cause extra overshoot later.
+                </p>
+                <p class="text-muted mb-3">
+                  The fix is to clamp the integral term to a limited range so it cannot grow too large.
                 </p>
 
-                <div class="row g-4 mb-4">
-                  <div class="col-lg-6">
-                    <div class="bg-light rounded-4 p-3 h-100">
-                      <h6 class="fw-semibold mb-2">Without Wind-Up Protection</h6>
-                      <p class="small text-muted mb-0">
-                        The integral term can grow too large and keep pushing the robot too aggressively, even after the
-                        error starts shrinking.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-6">
-                    <div class="bg-light rounded-4 p-3 h-100">
-                      <h6 class="fw-semibold mb-2">With Wind-Up Protection</h6>
-                      <p class="small text-muted mb-0">
-                        Limiting the integral term keeps the controller more stable and prevents extreme buildup from the
-                        accumulated error.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="bg-light rounded-4 p-3">
+                <div class="bg-light rounded-4 p-3 mb-0">
                   <h5 class="small fw-semibold mb-2">Example Integrator Clamp</h5>
                   <pre class="mb-0 small"><code>integral += error * dt;
 
@@ -474,16 +231,14 @@ if (integral &lt; -integral_max) integral = -integral_max;</code></pre>
             </div>
           </section>
 
-          <!-- 9. Results -->
           <section class="mb-5">
-            <h2 class="fw-bolder mb-4">9. Experimental Results</h2>
-
+            <h2 class="fw-bolder mb-4">8. Experimental Results</h2>
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
                 <p class="text-muted mb-4">
-                  The main purpose of the experimental runs was to see how well the robot could approach the wall,
-                  stop near the 12 inch target, and avoid large oscillations or collisions. The plots below should be
-                  used to show how the controller behaved over time.
+                  The plots below should show how the robot approached the wall, how close it got to the 12 inch
+                  setpoint, and how the motor commands changed during the run. I also included placeholders for repeated
+                  test videos.
                 </p>
 
                 <div class="row g-4 mb-4">
@@ -507,36 +262,6 @@ if (integral &lt; -integral_max) integral = -integral_max;</code></pre>
                         class="img-fluid rounded-4"
                       />
                     </figure>
-                  </div>
-                </div>
-
-                <div class="row g-4 mb-4">
-                  <div class="col-lg-6">
-                    <div class="bg-light rounded-4 p-3 h-100">
-                      <h6 class="fw-semibold mb-2">What the Graphs Should Show</h6>
-                      <ul class="small mb-0">
-                        <li>Starting distance from the wall</li>
-                        <li>Approach toward the 12 inch setpoint</li>
-                        <li>Any overshoot or oscillation</li>
-                        <li>Motor command changes during the run</li>
-                        <li>Whether extrapolation improved responsiveness</li>
-                      </ul>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-6">
-                    <div class="bg-light rounded-4 p-3 h-100">
-                      <h6 class="fw-semibold mb-2">Videos to Add</h6>
-                      <p class="small text-muted mb-2">
-                        The lab asks for repeated successful experiments, so this section should also include videos of at
-                        least three runs.
-                      </p>
-                      <ul class="small mb-0">
-                        <li>Run 1</li>
-                        <li>Run 2</li>
-                        <li>Run 3</li>
-                      </ul>
-                    </div>
                   </div>
                 </div>
 
@@ -575,59 +300,16 @@ if (integral &lt; -integral_max) integral = -integral_max;</code></pre>
             </div>
           </section>
 
-          <!-- 10. Conclusion -->
           <section class="mb-5">
-            <h2 class="fw-bolder mb-4">10. Conclusion</h2>
-
+            <h2 class="fw-bolder mb-4">9. Conclusion</h2>
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
                 <p class="text-muted mb-0">
-                  In this lab I created a Bluetooth-based debugging setup for running a linear PID controller with Time of
-                  Flight feedback. I first tuned proportional control and found that <code>Kp = 3.5</code> worked well as
-                  a starting point for my system. I then added deadband logic to reduce oscillation near the 12 inch
-                  target and began testing integral and derivative gains to improve stopping behavior. Because the ToF
-                  sensor updates slower than the main control loop, I also explored linear extrapolation so the controller
-                  could continue updating between sensor readings. Finally, I considered wind-up protection for the
-                  integrator so the controller would remain more stable under real hardware limitations.
+                  Overall, this lab showed how controller tuning, sensor timing, and practical motor limits all affect
+                  real robot behavior. My best proportional starting point was <code>Kp = 3.5</code>, and deadband logic
+                  improved stability near the setpoint. Linear extrapolation was useful because it let the PID loop keep
+                  updating between ToF measurements, and wind-up protection helped make the integral term safer to use.
                 </p>
-              </div>
-            </div>
-          </section>
-
-          <!-- 11. Resources -->
-          <section class="mb-5">
-            <h2 class="fw-bolder mb-4">11. Resources</h2>
-
-            <div class="card border-0 shadow-sm rounded-4">
-              <div class="card-body p-4">
-                <div class="row g-4">
-                  <div class="col-md-4">
-                    <div class="h-100">
-                      <h5 class="fw-bolder mb-2">Class Notes + Lectures</h5>
-                      <p class="text-muted mb-0">
-                        Used to review PID control concepts, controller timing, and implementation constraints.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div class="col-md-4">
-                    <div class="h-100">
-                      <h5 class="fw-bolder mb-2">Previous Lab Setup</h5>
-                      <p class="text-muted mb-0">
-                        Built on the ToF and Bluetooth setup from earlier Fast Robots labs.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div class="col-md-4">
-                    <div class="h-100">
-                      <h5 class="fw-bolder mb-2">ChatGPT</h5>
-                      <p class="text-muted mb-0">
-                        Helped clean up and organize the webpage structure and draft explanations.
-                      </p>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </section>
@@ -635,7 +317,6 @@ if (integral &lt; -integral_max) integral = -integral_max;</code></pre>
       </section>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-white py-4 mt-auto">
       <div class="container px-5">
         <div class="row align-items-center justify-content-between">

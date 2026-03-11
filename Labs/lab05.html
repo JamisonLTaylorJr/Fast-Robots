@@ -125,8 +125,8 @@ break;
 
                 <div class="bg-light rounded-4 p-3 mb-0">
                   <h5 class="small fw-semibold mb-2">Proportional Control Idea</h5>
-                  <pre class="mb-0 small"><code>error = setpoint - distance;
-output = Kp * error;</code></pre>
+                  <pre class="mb-0 small"><code>error1P = distance1_in - targetDistance1;
+output = kp * error1P;</code></pre>
                 </div>
               </div>
             </div>
@@ -141,15 +141,25 @@ output = Kp * error;</code></pre>
                   commands were not always enough to overcome friction, so the robot could jitter close to the target.
                 </p>
                 <p class="text-muted mb-3">
-                  To fix this, I stopped both motors whenever the robot was within <strong>0.25 inches</strong> of the
+                  To fix this, I stopped both motors whenever the robot was within <strong>0.5 inches</strong> of the
                   desired distance.
                 </p>
 
                 <div class="bg-light rounded-4 p-3 mb-0">
                   <h5 class="small fw-semibold mb-2">Deadband Logic</h5>
-                  <pre class="mb-0 small"><code>if (abs(error) &lt;= 0.25) {
-  left_motor = 0;
-  right_motor = 0;
+                  <pre class="mb-0 small"><code>float deadband = 0.5;   // allowed error in inches
+
+if (fabs(error1P) < deadband) {
+    stop_motors();
+    dutystate = 0;
+}
+else if (error1P > 0) {
+    drive_forward(duty1);
+    dutystate = 1;
+}
+else {
+    drive_backward(duty1);
+    dutystate = -1;
 }</code></pre>
                 </div>
               </div>
@@ -169,6 +179,10 @@ output = Kp * error;</code></pre>
                   A combined starting point I used was <strong><code>Kp = 3.5</code>, <code>Ki = 0.02</code>, and
                   <code>Kd = 0.8</code></strong>. The integral term helped with steady-state error, while the derivative
                   term helped make the stop more controlled.
+                </p>
+                <p class="text-muted mb-3">
+                  After finner tuning, i ened up with <strong><code>Kp = 5</code>, <code>Ki = 0.01</code>, and <code>Kd = 1.0</code></strong>. The 
+                  higher proportional gain made the robot more responsive, while the lower integral gain reduced overshoot.
                 </p>
               </div>
             </div>
@@ -244,9 +258,9 @@ if (integral &lt; -integral_max) integral = -integral_max;</code></pre>
                 <div class="row g-4 mb-4">
                   <div class="col-lg-6">
                     <figure class="bg-light rounded-4 p-3 mb-0">
-                      <h6 class="fw-semibold mb-2">ToF Distance vs Time (Placeholder)</h6>
+                      <h6 class="fw-semibold mb-2">Kp = 5.0, Ki = 0.01, Kd = 1.0, </h6>
                       <img
-                        src="../assets/lab5/tof_vs_time.png"
+                        src="../assets/lab5/last_data.png"
                         alt="Placeholder graph showing ToF distance versus time"
                         class="img-fluid rounded-4"
                       />
@@ -268,7 +282,7 @@ if (integral &lt; -integral_max) integral = -integral_max;</code></pre>
                 <div class="row g-4">
                   <div class="col-lg-4">
                     <div class="bg-light rounded-4 p-3">
-                      <h6 class="fw-semibold mb-2">Video: Run 1 (Placeholder)</h6>
+                      <h6 class="fw-semibold mb-2">Kp = 3.5</h6>
                       <video class="w-100 rounded-4" controls>
                         <source src="../assets/lab5/run1.mov" type="video/mp4" />
                         Your browser does not support the video tag.
@@ -278,7 +292,7 @@ if (integral &lt; -integral_max) integral = -integral_max;</code></pre>
 
                   <div class="col-lg-4">
                     <div class="bg-light rounded-4 p-3">
-                      <h6 class="fw-semibold mb-2">Video: Run 2 (Placeholder)</h6>
+                      <h6 class="fw-semibold mb-2">Kp = 3.5 & Ki = 0.1</h6>
                       <video class="w-100 rounded-4" controls>
                         <source src="../assets/lab5/run2.mov" type="video/mp4" />
                         Your browser does not support the video tag.
@@ -288,7 +302,7 @@ if (integral &lt; -integral_max) integral = -integral_max;</code></pre>
 
                   <div class="col-lg-4">
                     <div class="bg-light rounded-4 p-3">
-                      <h6 class="fw-semibold mb-2">Video: Run 3 (Placeholder)</h6>
+                      <h6 class="fw-semibold mb-2">Kp = 5 & Ki = 0.01 & Kd = 1.0</h6>
                       <video class="w-100 rounded-4" controls>
                         <source src="../assets/lab5/run3.mov" type="video/mp4" />
                         Your browser does not support the video tag.

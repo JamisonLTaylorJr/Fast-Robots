@@ -231,22 +231,44 @@ if (error1I &lt; -4000) error1I = -4000;</code></pre>
                   updates the saved distance when a fresh measurement is available.
                 </p>
                 <p class="text-muted mb-3">
+                  My ToF Sensors take around <strong>50-60 ms</strong> to update, while my main PID control loop runs around 158.8
+                  loops per second (about 6.3 ms per loop). This means the controller can run multiple iterations between ToF updates, 
+                  which is why non-blocking logic is important.
+                </p>
+                <p class="text-muted mb-3">
                   I kept the extrapolation discussion here because that is the next step for improving performance between
                   sensor updates, but the current code below shows the non-blocking ToF update logic I actually used.
                 </p>
 
                 <div class="bg-light rounded-4 p-3 mb-4">
                   <h5 class="small fw-semibold mb-2">Current ToF Update Logic</h5>
-                  <pre class="mb-0 small"><code>if (ToF_Sensor_1.checkForDataReady()) {
+                  <pre class="mb-0 small"><code>// Linear extrapolation for ToF distance when no new sensor data is ready
+
+if (ToF_Sensor_1.checkForDataReady()) {
   float distance1 = ToF_Sensor_1.getDistance();
   ToF_Sensor_1.clearInterrupt();
-  distance1_in = distance1 * 0.0393701f;
-}
 
-if (ToF_Sensor_2.checkForDataReady()) {
-  int distance2 = ToF_Sensor_2.getDistance();
-  ToF_Sensor_2.clearInterrupt();
-  distance2_in = distance2 * 0.0393701f;
+  distance1_in = distance1 * 0.0393701f;   // mm -> inches
+  distance1_est = distance1_in;            // update latest estimate
+}
+else if (i > 1) {
+  // Use the last two saved distance points to estimate current distance
+  float x1 = Tof1_in[i - 2];
+  float x2 = Tof1_in[i - 1];
+
+  float t1 = time_list[i - 2] / 1000.0f;   // ms -> s
+  float t2 = time_list[i - 1] / 1000.0f;   // ms -> s
+  float t_now = (float)(millis() - starttime) / 1000.0f;
+
+  if ((t2 - t1) > 0.0001f) {
+      float slope = (x2 - x1) / (t2 - t1);
+      distance1_est = x2 + slope * (t_now - t2);
+  }
+  else {
+      distance1_est = x2;
+  }
+
+  distance1_in = distance1_est;
 }</code></pre>
                 </div>
 

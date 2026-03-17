@@ -56,15 +56,16 @@
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
                 <p class="text-muted mb-3">
-                  To send and recieve data over Bluetooth while the controller was running, I set up a command structure in the Arduino code
-                  named <strong>GET_PID_ORI_GAINS_AND_ORIENTATION</strong> to send my data to the arduino, and used added lines to my 
-                  <strong>tx_estring_value.append</strong> to recieve the data back to my computer for post processing. 
+                  To send and receive data over Bluetooth while the controller was running, I set up a command structure
+                  in the Arduino code named <strong>GET_PID_ORI_GAINS_AND_ORIENTATION</strong>. This let me send gain
+                  values and target orientation data to the Arduino. I also added lines to
+                  <strong>tx_estring_value.append</strong> so the robot could send logged values back to my computer for
+                  post-processing.
                 </p>
                 <p class="text-muted mb-3">
-                   This code below shows how I can send values to arduino, and then send values back
-                   to my computer.
+                  The code below shows how I sent values to the Arduino and then sent values back to my computer.
                 </p>
-                                
+
                 <div class="bg-light rounded-4 p-3 mb-4">
                   <h5 class="small fw-semibold mb-2">Bluetooth Gain / Setpoint Command</h5>
                   <pre class="mb-0 small"><code>case GET_PID_ORI_GAINS_AND_ORIENTATION:
@@ -89,10 +90,11 @@
   break;
 }</code></pre>
                 </div>
+
                 <p class="text-muted mb-3">
-                   This code below shows how I can send data from my computer to arduino, recieve oher values back,
-                   and then parse them for plotting and analysis.
+                  The next code block shows how I received values back on my computer and parsed them for plotting and analysis.
                 </p>
+
                 <div class="bg-light rounded-4 p-3 mb-0">
                   <h5 class="small fw-semibold mb-2">Python Call Example</h5>
                   <pre class="mb-0 small"><code>def notif_handler(uuid, byte):
@@ -118,8 +120,7 @@ Derror_ori_list   = []
 PWM_ori_list      = []
 
 ble.start_notify(ble.uuid['RX_STRING'], notif_handler)
-ble.send_command(CMD.GET_ALL, "")
-</code></pre>
+ble.send_command(CMD.GET_ALL, "")</code></pre>
                 </div>
               </div>
             </div>
@@ -143,18 +144,17 @@ ble.send_command(CMD.GET_ALL, "")
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
                 <p class="text-muted mb-3">
-                  To estimate the robot’s orientation, gyroscope data needs to be integrated over time. To do this we can 
-                  use the do digital integration on the gyroscope to sum the angular velocity measurements over discrete time steps
-                  to estimate the rotation angle. A problem with this is that even small errors in angular velocity can
-                  build up over time and cause drift.
+                  To estimate the robot’s orientation, gyroscope data needs to be integrated over time. Digital
+                  integration sums angular velocity measurements over discrete time steps to estimate the rotation angle.
+                  A problem with this is that even small errors in angular velocity can build up over time and cause drift.
                 </p>
                 <p class="text-muted mb-3">
                   In my implementation, I used the IMU’s onboard Digital Motion Processor (DMP) and converted the
                   quaternion output into yaw. This gave a cleaner heading estimate and helped reduce yaw drift compared
-                  to using a very simple raw gyro integration by itself.
+                  to using a simple raw gyro integration by itself.
                 </p>
 
-                <div class="bg-light rounded-4 p-3 mb-0">
+                <div class="bg-light rounded-4 p-3 mb-4">
                   <h5 class="small fw-semibold mb-2">Yaw Estimate From DMP Quaternion Data</h5>
                   <pre class="mb-0 small"><code>icm_20948_DMP_data_t data;
 myICM.readDMPdataFromFIFO(&amp;data);
@@ -181,37 +181,37 @@ if ((myICM.status == ICM_20948_Stat_Ok) ||
 }</code></pre>
                 </div>
 
-                
                 <p class="text-muted mb-3">
-                  We also needed to calibrate the yaw value to make sure it was displaying the accurate value.
-                  So I ran my DMP and made sure it did not more and watched the yaw value drift and reach steady state around
-                  -3.6 to -3.9 degrees. So I added a calibration offset of <strong>+3.8 degrees</strong>.
+                  I also needed to calibrate the yaw value so it displayed a more accurate heading. I let the DMP run
+                  while the robot stayed still and watched the yaw drift until it reached a steady-state value around
+                  -3.6 to -3.9 degrees. Based on that, I added a calibration offset of <strong>+3.8 degrees</strong>.
                 </p>
-                <div class="col-lg-4">
+
+                <div class="row g-4">
+                  <div class="col-lg-5">
                     <figure class="bg-light rounded-4 p-3 mb-0">
                       <h6 class="fw-semibold mb-2">Calibration at +3.8 Degrees</h6>
                       <img
                         src="../assets/lab6/calibration.png"
-                        alt="Plot showing test 3 orientation data"
+                        alt="Yaw calibration plot"
                         class="img-fluid rounded-4"
                       />
-                     
                     </figure>
-                  </div>                
+                  </div>
+                </div>
               </div>
             </div>
           </section>
 
           <section class="mb-5">
             <h2 class="fw-bolder mb-4">4. P and D Gain Tuning</h2>
-            <div class="card border-0 shadow-sm rounded-4">
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
               <div class="card-body p-4">
                 <p class="text-muted mb-3">
                   For this lab, I tested proportional and derivative control. Proportional control determined how
-                  strongly the robot reacted to error, while derivative control helped reduce overshoot and made
-                  the turning response more damped. I did not use integral control because PD already did a good enough job.
+                  strongly the robot reacted to error, while derivative control helped reduce overshoot and made the
+                  turning response more damped. I did not use integral control because PD already did a good enough job.
                 </p>
-                
 
                 <div class="bg-light rounded-4 p-3 mb-0">
                   <h5 class="small fw-semibold mb-2">PD Controller Logic From My Code</h5>
@@ -236,18 +236,17 @@ if (duty2 &lt; duty1Min_ori) duty2 = duty1Min_ori;
 if (duty2 &gt; duty1Max_ori) duty2 = duty1Max_ori;</code></pre>
                 </div>
               </div>
+            </div>
 
-              <div class="card border-0 shadow-sm rounded-4">
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
               <div class="card-body p-4">
                 <p class="text-muted mb-4">
-                  These plots show the first threes tests I ran with the differnt kp values: 
-                  <strong>Kp = 3.0, </strong>
-                  <strong>Kp = 3.75, </strong>
-                  <strong>Kp = 4.5 </strong>
+                  These plots show the first three tests I ran with different proportional gains:
+                  <strong>Kp = 3.0</strong>, <strong>Kp = 3.75</strong>, and <strong>Kp = 4.5</strong>.
                 </p>
                 <p class="text-muted mb-3">
-                  I ended using the 3.75 gain value because it had decent corrective angular velocity
-                  and decently low overshoot.
+                  I ended up using <strong>Kp = 3.75</strong> because it gave decent corrective angular velocity while
+                  keeping the overshoot relatively low.
                 </p>
 
                 <div class="row g-4 mb-4">
@@ -256,10 +255,9 @@ if (duty2 &gt; duty1Max_ori) duty2 = duty1Max_ori;</code></pre>
                       <h6 class="fw-semibold mb-2">Test 1: Kp = 3.0</h6>
                       <img
                         src="../assets/lab6/kp3.0.png"
-                        alt="Plot showing test 1 orientation data"
+                        alt="Plot showing Kp equals 3.0 orientation data"
                         class="img-fluid rounded-4"
                       />
-                      
                     </figure>
                   </div>
 
@@ -268,10 +266,9 @@ if (duty2 &gt; duty1Max_ori) duty2 = duty1Max_ori;</code></pre>
                       <h6 class="fw-semibold mb-2">Test 2: Kp = 3.75</h6>
                       <img
                         src="../assets/lab6/kp3.75.png"
-                        alt="Plot showing test 2 orientation data"
+                        alt="Plot showing Kp equals 3.75 orientation data"
                         class="img-fluid rounded-4"
                       />
-                     
                     </figure>
                   </div>
 
@@ -280,10 +277,9 @@ if (duty2 &gt; duty1Max_ori) duty2 = duty1Max_ori;</code></pre>
                       <h6 class="fw-semibold mb-2">Test 3: Kp = 4.5</h6>
                       <img
                         src="../assets/lab6/kp4.5.png"
-                        alt="Plot showing test 3 orientation data"
+                        alt="Plot showing Kp equals 4.5 orientation data"
                         class="img-fluid rounded-4"
                       />
-                      
                     </figure>
                   </div>
                 </div>
@@ -298,23 +294,20 @@ if (duty2 &gt; duty1Max_ori) duty2 = duty1Max_ori;</code></pre>
                       </video>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
 
-
-
-
-                  <div class="card border-0 shadow-sm rounded-4">
+            <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
                 <p class="text-muted mb-4">
-                  These next plots show the first threes tests I ran with the differnt kd values: 
-                  <strong>Kd = 20, </strong>
-                  <strong>Kd = 40, </strong>
-                  <strong>Kd = 60 </strong>
+                  These next plots show the first three tests I ran with different derivative gains:
+                  <strong>Kd = 20</strong>, <strong>Kd = 40</strong>, and <strong>Kd = 60</strong>.
                 </p>
                 <p class="text-muted mb-3">
-                  I ended using the 40 gain value because it dampened the agressive acceleration of the angular velocity
-                  and it decreased the overshoot compared to the 20 gain value, but it still had a good corrective angular 
-                  velocity compared to the 60 gain value which was a bit too damped.
-                  
+                  I ended up using <strong>Kd = 40</strong> because it damped the aggressive angular acceleration and
+                  reduced overshoot compared to <strong>Kd = 20</strong>, while still keeping better corrective angular
+                  velocity than <strong>Kd = 60</strong>, which was a bit too damped.
                 </p>
 
                 <div class="row g-4 mb-4">
@@ -323,10 +316,9 @@ if (duty2 &gt; duty1Max_ori) duty2 = duty1Max_ori;</code></pre>
                       <h6 class="fw-semibold mb-2">Test 1: Kd = 20</h6>
                       <img
                         src="../assets/lab6/kd20.png"
-                        alt="Plot showing test 1 orientation data"
+                        alt="Plot showing Kd equals 20 orientation data"
                         class="img-fluid rounded-4"
                       />
-                     
                     </figure>
                   </div>
 
@@ -335,10 +327,9 @@ if (duty2 &gt; duty1Max_ori) duty2 = duty1Max_ori;</code></pre>
                       <h6 class="fw-semibold mb-2">Test 2: Kd = 40</h6>
                       <img
                         src="../assets/lab6/kd40.png"
-                        alt="Plot showing test 2 orientation data"
+                        alt="Plot showing Kd equals 40 orientation data"
                         class="img-fluid rounded-4"
                       />
-                     
                     </figure>
                   </div>
 
@@ -347,10 +338,9 @@ if (duty2 &gt; duty1Max_ori) duty2 = duty1Max_ori;</code></pre>
                       <h6 class="fw-semibold mb-2">Test 3: Kd = 60</h6>
                       <img
                         src="../assets/lab6/kd60.png"
-                        alt="Plot showing test 3 orientation data"
+                        alt="Plot showing Kd equals 60 orientation data"
                         class="img-fluid rounded-4"
                       />
-                      
                     </figure>
                   </div>
                 </div>
@@ -365,18 +355,8 @@ if (duty2 &gt; duty1Max_ori) duty2 = duty1Max_ori;</code></pre>
                       </video>
                     </div>
                   </div>
-
-                  
-
-
-
-
-
-
-
                 </div>
               </div>
-            </div>
             </div>
           </section>
 
@@ -457,13 +437,13 @@ void turn_left(float duty1motor) {
                 </p>
                 <p class="text-muted mb-3">
                   Another thing that matters is the timestep. The derivative term depends on <code>dt</code>, so if the
-                  sampling time is inconsistent then the derivative estimate will also be inconsistent. That is why I
+                  sampling time is inconsistent, then the derivative estimate will also be inconsistent. That is why I
                   tracked time during the loop and used it directly in the controller calculations.
                 </p>
                 <p class="text-muted mb-3">
                   Changing the setpoint while the robot is running can also create derivative kick, since the derivative
-                  term reacts strongly to rapid changes in error. For future improvements, filtering or derivative-on-measurement
-                  would help make the controller even smoother.
+                  term reacts strongly to rapid changes in error. For future improvements, filtering or
+                  derivative-on-measurement would help make the controller even smoother.
                 </p>
 
                 <div class="bg-light rounded-4 p-3 mb-0">
@@ -487,7 +467,7 @@ for (int i = 0; i &lt; Acc_length; i++)
           </section>
 
           <section class="mb-5">
-            <h2 class="fw-bolder mb-4">8. Wind-Up Protection</h2>
+            <h2 class="fw-bolder mb-4">7. Wind-Up Protection</h2>
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
                 <p class="text-muted mb-3">
@@ -511,7 +491,8 @@ if (error1I_ori &lt; -4000) error1I_ori = -4000;</code></pre>
               </div>
             </div>
           </section>
-
+        </div>
+      </section>
     </main>
 
     <footer class="bg-white py-4 mt-auto">

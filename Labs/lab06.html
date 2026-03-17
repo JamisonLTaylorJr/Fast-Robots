@@ -1,121 +1,760 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>MAE 5190 Fast Robots | Jamison Taylor Jr.</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
-        <!-- Custom Google font-->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="../css/styles.css" rel="stylesheet" />
-    </head>
-<body class="d-flex flex-column h-100">
-<main class="flex-shrink-0">
-<nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
-  <div class="container px-5">
-    <a class="navbar-brand" href="../index.html"><span class="fw-bolder text-primary">MAE 5190 Fast Robots</span></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-        <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="../index.html#labs">Labs</a></li>
-        <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<section class="py-5">
-  <div class="container px-5">
-    <div class="row gx-5 justify-content-center">
-      <div class="col-lg-9 col-xl-8 col-xxl-7">
-        <div class="text-center mb-5">
-          <h1 class="fw-bolder">Lab 06: <span class="text-gradient">[Lab Title Placeholder]</span></h1>
-          <p class="lead fw-light text-muted mb-0">MAE 5190 (Fast Robots) &middot; Lab 401</p>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="MAE 5190 Fast Robots - Lab 6" />
+    <meta name="author" content="Jamison L. Taylor Jr." />
+    <title>Lab 6 | MAE 5190 Fast Robots</title>
+
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="../css/styles.css" rel="stylesheet" />
+  </head>
+
+  <body class="d-flex flex-column h-100">
+    <main class="flex-shrink-0">
+      <!-- Navigation -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+        <div class="container px-5">
+          <a class="navbar-brand" href="../index.html">
+            <span class="fw-bolder text-primary">MAE 5190 Fast Robots</span>
+          </a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+              <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="../index.html#labs">Labs</a></li>
+              <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
+            </ul>
+          </div>
         </div>
-        <div class="card shadow border-0 rounded-4 mb-5">
-          <div class="card-body p-5">
-            <h2 class="fw-bolder mb-3">Overview</h2>
-            <p class="text-muted">[Write a 4–8 sentence overview of what this lab was about. What problem were you solving? What did you build?]</p>
-            <hr class="my-4" />
+      </nav>
 
-            <h2 class="fw-bolder mb-3">Objectives</h2>
-            <ul class="text-muted">
-              <li>[Objective 1]</li>
-              <li>[Objective 2]</li>
-              <li>[Objective 3]</li>
-            </ul>
-            <hr class="my-4" />
+      <!-- Header -->
+      <section class="py-5">
+        <div class="container px-5">
+          <div class="text-center mb-5">
+            <h1 class="fw-bolder">
+              Lab 6: <span class="text-gradient">Orientation Control with IMU + PD</span>
+            </h1>
+            <p class="text-muted mb-0">
+              In this lab I used the IMU gyroscope to estimate the robot's orientation, then applied a PD controller
+              to turn the robot to a desired heading. I built the controller so that Bluetooth commands could still
+              be sent while it was running, tested multiple gain values, and evaluated performance using theta vs time
+              plots, videos, and controller debugging data.
+            </p>
+          </div>
 
-            <h2 class="fw-bolder mb-3">Hardware</h2>
-            <ul class="text-muted">
-              <li>[List sensors/actuators/boards used]</li>
-              <li>[Wiring notes / schematic link]</li>
-            </ul>
-            <hr class="my-4" />
+          <!-- 1. Prelab -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">1. Prelab</h2>
 
-            <h2 class="fw-bolder mb-3">Software</h2>
-            <ul class="text-muted">
-              <li>[Language + toolchain (e.g., C++ / Arduino / ROS / Python)]</li>
-              <li>[Key libraries]</li>
-            </ul>
-            <div class="bg-light rounded-4 p-4">
-              <div class="small text-muted">Code Placeholder</div>
-              <div class="fw-semibold">Add a GitHub link or paste code snippets here later.</div>
-            </div>
-            <hr class="my-4" />
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <h3 class="fw-bolder mb-3">Clearly describe how you handle sending and receiving data over Bluetooth</h3>
+                <p class="text-muted mb-4">
+                  Before running the controller, I set up Bluetooth communication so that I could start tests, stop
+                  tests, and send logged data back to Python for plotting. This made debugging much easier because I
+                  could quickly tune gains and compare the robot's response across multiple runs.
+                </p>
 
-            <h2 class="fw-bolder mb-3">Results</h2>
-            <p class="text-muted">[What worked? What didn’t? Add plots/photos/video links.]</p>
-            <div class="row g-3">
-              <div class="col-md-6">
-                <div class="border rounded-4 p-4 h-100">
-                  <div class="small text-muted">Photo / Screenshot</div>
-                  <div class="fw-semibold">[Drop image into assets/ and link it here]</div>
+                <p class="text-muted mb-4">
+                  On the Arduino side, I used Bluetooth commands to pass in controller gains and the target orientation.
+                  During operation, the robot could still process Bluetooth messages while the controller was running.
+                  After each run, the saved arrays were sent back over BLE so they could be parsed and plotted in Python.
+                </p>
+
+                <div class="bg-light rounded-4 p-3 mb-4">
+                  <h5 class="small fw-semibold mb-2">Arduino Command Handling</h5>
+                  <pre class="mb-0 small"><code>case GET_PID_ORI_GAINS_AND_ORIENTATION:
+{
+  bool Received_input = robot_cmd.get_next_value(kp_ori)
+                     && robot_cmd.get_next_value(ki_ori)
+                     && robot_cmd.get_next_value(kd_ori)
+                     && robot_cmd.get_next_value(targetOrientation1);
+  if (!Received_input) return;
+
+  Serial.print("PID Orientation Gains are Set, kp_ori = ");
+  Serial.print(kp_ori);
+  Serial.print(", ki_ori = ");
+  Serial.print(ki_ori);
+  Serial.print(", kd_ori = ");
+  Serial.print(kd_ori);
+  Serial.print(", Target Orientation = ");
+  Serial.println(targetOrientation1);
+
+  tx_estring_value.clear();
+  tx_estring_value.append("PID Ori Gains are Set, kp_ori = ");
+  tx_estring_value.append(kp_ori);
+  tx_estring_value.append(", ki_ori = ");
+  tx_estring_value.append(ki_ori);
+  tx_estring_value.append(", kd_ori = ");
+  tx_estring_value.append(kd_ori);
+  tx_estring_value.append(", Target Orientation = ");
+  tx_estring_value.append(targetOrientation1);
+
+  tx_characteristic_string.writeValue(tx_estring_value.c_str());
+  break;
+}</code></pre>
+                </div>
+
+                <div class="bg-light rounded-4 p-3 mb-4">
+                  <h5 class="small fw-semibold mb-2">BLE Read / Write While Running</h5>
+                  <pre class="mb-0 small"><code>void write_data()
+{
+  currentMillis = millis();
+  if (currentMillis - previousMillis &gt; interval) {
+    tx_float_value = tx_float_value + 0.5;
+    tx_characteristic_float.writeValue(tx_float_value);
+
+    if (tx_float_value &gt; 10000) {
+      tx_float_value = 0;
+    }
+
+    previousMillis = currentMillis;
+  }
+}
+
+void read_data()
+{
+  if (rx_characteristic_string.written()) {
+    handle_command();
+  }
+}</code></pre>
+                </div>
+
+                <div class="bg-light rounded-4 p-3 mb-4">
+                  <h5 class="small fw-semibold mb-2">BLE Connection Loop</h5>
+                  <pre class="mb-0 small"><code>BLEDevice central = BLE.central();
+
+if (central) {
+  Serial.print("Connected to: ");
+  Serial.println(central.address());
+
+  while (central.connected()) {
+    write_data();
+    read_data();
+  }
+
+  ToF_Sensor_1.stopRanging();
+  ToF_Sensor_2.stopRanging();
+  stop_motors();
+  Serial.println("Disconnected");
+}</code></pre>
+                </div>
+
+                <div class="bg-light rounded-4 p-3">
+                  <h5 class="small fw-semibold mb-2">Python Data Collection Example</h5>
+                  <pre class="mb-0 small"><code>ble.send_command("GET_PID_ORI_GAINS_AND_ORIENTATION|3.0|0.0|0.8|90")
+ble.send_command("GET_ALL")
+
+data = ble.receive_string_list()
+
+time_data = []
+theta_data = []
+p_term = []
+d_term = []
+pwm_data = []
+
+for line in data:
+    vals = line.split("|")
+    time_data.append(float(vals[0]))
+    theta_data.append(float(vals[5]))
+    p_term.append(float(vals[16]))
+    d_term.append(float(vals[18]))
+    pwm_data.append(float(vals[19]))</code></pre>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="border rounded-4 p-4 h-100">
-                  <div class="small text-muted">Video Demo</div>
-                  <div class="fw-semibold">[Embed YouTube link or GIF]</div>
+            </div>
+          </section>
+
+          <!-- 2. PID Input Signal -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">2. PID Input Signal</h2>
+
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <h3 class="fw-bolder mb-3">You should integrate your gyroscope to get an estimate for the orientation of the robot.</h3>
+                <p class="text-muted mb-4">
+                  To estimate the robot's orientation, gyroscope data must be turned into a heading estimate. In this
+                  lab I used the onboard DMP from the ICM-20948 to get quaternion data, then converted that into yaw.
+                  This gave a cleaner estimate of orientation than doing a very basic raw gyro integration by itself.
+                </p>
+
+                <div class="bg-light rounded-4 p-3 mb-4">
+                  <h5 class="small fw-semibold mb-2">Yaw Estimate from DMP Quaternion Data</h5>
+                  <pre class="mb-0 small"><code>icm_20948_DMP_data_t data;
+myICM.readDMPdataFromFIFO(&amp;data);
+
+if ((myICM.status == ICM_20948_Stat_Ok) || 
+    (myICM.status == ICM_20948_Stat_FIFOMoreDataAvail)) {
+
+  if ((data.header &amp; DMP_header_bitmap_Quat6) &gt; 0) {
+
+    double q1 = ((double)data.Quat6.Data.Q1) / 1073741824.0;
+    double q2 = ((double)data.Quat6.Data.Q2) / 1073741824.0;
+    double q3 = ((double)data.Quat6.Data.Q3) / 1073741824.0;
+    double q0 = sqrt(1.0 - ((q1 * q1) + (q2 * q2) + (q3 * q3)));
+
+    double qw = q0;
+    double qx = q2;
+    double qy = q1;
+    double qz = -q3;
+
+    double t3 = +2.0 * (qw * qz + qx * qy);
+    double t4 = +1.0 - 2.0 * (qy * qy + qz * qz);
+    Gyro_yaw = (float)atan2(t3, t4) * 180.0 / PI + 3.8;
+  }
+}</code></pre>
+                </div>
+
+                <h3 class="fw-bolder mb-3">Are there any problems that digital integration might lead to over time? Are there ways to minimize these problems?</h3>
+                <p class="text-muted mb-4">
+                  One major problem with digital integration is that small sensor errors accumulate over time. Even a
+                  small amount of noise or bias in the gyroscope can build up through repeated integration steps, which
+                  causes the estimated heading to drift away from the true heading.
+                </p>
+
+                <p class="text-muted mb-4">
+                  To minimize this issue, the first step is sensor calibration. While the robot is stationary, gyro
+                  readings can be averaged and that bias can be subtracted during operation. Another improvement is
+                  using a precise timestep calculation. Low-pass filtering can also help reduce noise before it affects
+                  the estimate.
+                </p>
+
+                <h3 class="fw-bolder mb-3">Does your sensor have any bias, and are there ways to fix this? How fast does your error grow as a result of bias? Consider using the onboard digital motion processor (DMP) built into your IMU to minimize yaw drift.</h3>
+                <p class="text-muted mb-4">
+                  Yes, the gyroscope does have bias. Bias appears as a constant offset in the angular velocity reading,
+                  which means the heading estimate can drift even when the robot is not rotating. The larger the bias,
+                  the faster that error grows over time.
+                </p>
+
+                <p class="text-muted mb-4">
+                  One way to reduce this drift is to combine gyroscope data with accelerometer data. The gyroscope is
+                  useful for smooth short-term motion tracking, while the accelerometer gives a longer-term reference.
+                  A complementary filter can combine these signals to improve stability. In this lab, the DMP was also
+                  useful because it performed sensor fusion internally and reduced yaw drift compared to a very simple
+                  raw integration approach.
+                </p>
+
+                <h3 class="fw-bolder mb-3">Are there limitations on the sensor itself to be aware of? What is the maximum rotational velocity that the gyroscope can read? Is this sufficient for our applications, and are there ways to configure this parameter?</h3>
+                <p class="text-muted mb-4">
+                  Gyroscopes have several limitations, including bias drift, measurement noise, temperature sensitivity,
+                  integration error, lack of an absolute orientation reference, and sensitivity to vibration. Since the
+                  gyroscope measures angular velocity rather than angle directly, any integration errors continue to grow
+                  with time.
+                </p>
+
+                <p class="text-muted mb-0">
+                  The gyroscope range can be configured to different full-scale values depending on the IMU settings.
+                  For this robot application, the available range is more than sufficient because the robot does not
+                  rotate anywhere near the maximum measurable angular velocity. This range can be adjusted to balance
+                  sensitivity and measurement range depending on the task.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- 3. P/I/D Discussion -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">3. P / I / D Discussion</h2>
+
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <h3 class="fw-bolder mb-3">Kp / Ki / Kd values chosen and why</h3>
+                <p class="text-muted mb-4">
+                  For this lab, I tested proportional and derivative control and chose to use a <strong>PD controller</strong>.
+                  I did not end up using an integral term because PD already did a good enough job for this orientation
+                  control task. The robot was able to turn toward the target heading with a reasonable response, and the
+                  derivative term helped reduce overshoot and oscillation.
+                </p>
+
+                <p class="text-muted mb-4">
+                  A purely proportional controller can turn the robot toward the target, but if the gain is too high it
+                  may overshoot or oscillate around the setpoint. Adding the derivative term improves damping by reacting
+                  to how quickly the error is changing. Since the robot did not appear to need strong steady-state error
+                  correction for this lab, I kept the controller as PD instead of full PID.
+                </p>
+
+                <div class="row g-4 mb-4">
+                  <div class="col-md-4">
+                    <div class="bg-light rounded-4 p-3 h-100">
+                      <h6 class="fw-semibold mb-2">Kp</h6>
+                      <p class="small text-muted mb-0">
+                        Main turning response. Increasing Kp made the robot react more strongly to heading error.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="bg-light rounded-4 p-3 h-100">
+                      <h6 class="fw-semibold mb-2">Kd</h6>
+                      <p class="small text-muted mb-0">
+                        Added damping. Increasing Kd reduced overshoot and helped the turn settle more cleanly.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="bg-light rounded-4 p-3 h-100">
+                      <h6 class="fw-semibold mb-2">Ki</h6>
+                      <p class="small text-muted mb-0">
+                        Not used in the final controller because PD performance was already acceptable for this lab.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="alert alert-info mb-4">
+                  <h5 class="fw-semibold">Final Controller Used</h5>
+                  <p class="mb-0">
+                    I used <strong>PD control</strong> for the final implementation. I tested proportional and derivative gains,
+                    and chose not to include an integral term because the robot already turned well enough without it.
+                  </p>
+                </div>
+
+                <div class="bg-light rounded-4 p-3 mb-4">
+                  <h5 class="small fw-semibold mb-2">Final PD Controller Logic</h5>
+                  <pre class="mb-0 small"><code>error1P_ori = Gyro_yaw - targetOrientation1;
+
+unsigned long now = millis();
+PID_dt_ori = (now - PID_time2_ori) / 1000.0;
+PID_time2_ori = now;
+
+if (PID_dt_ori &gt; 0) {
+  error1D_ori = (error1P_ori - error1Plast_ori) / PID_dt_ori;
+} else {
+  error1D_ori = 0;
+}
+
+error1Plast_ori = error1P_ori;
+
+control_ori = (kp_ori * error1P_ori) + (kd_ori * error1D_ori);
+duty2 = abs(control_ori);
+
+if (duty2 &lt; duty1Min_ori) duty2 = duty1Min_ori;
+if (duty2 &gt; duty1Max_ori) duty2 = duty1Max_ori;</code></pre>
+                </div>
+
+                <div class="bg-light rounded-4 p-3">
+                  <h5 class="small fw-semibold mb-2">Deadband / Stop Logic</h5>
+                  <pre class="mb-0 small"><code>float deadband_ori = 2.0;
+
+if (fabs(error1P_ori) &lt;= deadband_ori) {
+  stop_motors();
+  dutystate_ori = 0;
+  ori_finish = 1;
+}
+else {
+  ori_finish = 0;
+
+  if (error1P_ori &gt; 0) {
+    turn_right(duty2);
+    dutystate_ori = 1;
+  }
+  else {
+    turn_left(duty2);
+    dutystate_ori = -1;
+  }
+}</code></pre>
                 </div>
               </div>
             </div>
-            <hr class="my-4" />
+          </section>
 
-            <h2 class="fw-bolder mb-3">Reflection</h2>
-            <p class="text-muted">[What would you improve next time? Any debugging lessons or design tradeoffs?]</p>
+          <!-- 4. Derivative Term -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">4. Derivative Term Discussion</h2>
 
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-between mt-4">
-              <a class="btn btn-outline-dark" href="../index.html#labs"><i class="bi bi-arrow-left"></i> Back to Labs</a>
-              <a class="btn btn-primary" href="lab07.html">Next Lab <i class="bi bi-arrow-right"></i></a>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <h3 class="fw-bolder mb-3">Does it make sense to take the derivative of a signal that is the integral of another signal?</h3>
+                <p class="text-muted mb-4">
+                  In theory, taking the derivative of an integrated signal can recover rate information, but in practice
+                  it can amplify noise. Since the heading estimate already contains sensor noise and small drift, the
+                  derivative term can become noisy if it is not handled carefully.
+                </p>
+
+                <h3 class="fw-bolder mb-3">Think about derivative kick. Does changing your setpoint while the robot is running cause problems with your implementation of the PD controller?</h3>
+                <p class="text-muted mb-4">
+                  Yes, a sudden setpoint change can cause derivative kick because the derivative term reacts strongly to
+                  rapid changes in error. This can create a spike in motor command. One way to reduce this is to base
+                  the derivative term on the measured output instead of only the error.
+                </p>
+
+                <h3 class="fw-bolder mb-3">Is a low-pass filter needed before your derivative term?</h3>
+                <p class="text-muted mb-0">
+                  A low-pass filter is helpful because the derivative term is sensitive to noise. Filtering the signal
+                  before taking the derivative makes the controller more stable and prevents the motors from reacting to
+                  tiny noisy fluctuations.
+                </p>
+              </div>
             </div>
+          </section>
+
+          <!-- 5. Range / Sampling Time -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">5. Range / Sampling Time Discussion</h2>
+
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <h3 class="fw-bolder mb-3">Range / Sampling time discussion</h3>
+                <p class="text-muted mb-4">
+                  Sampling time matters because both the heading estimate and the derivative calculation depend on an
+                  accurate value of <code>dt</code>. If the timestep is inconsistent or measured poorly, the estimated
+                  orientation and controller response will both be less accurate.
+                </p>
+
+                <p class="text-muted mb-4">
+                  For this lab, I tracked time during the control loop and used it in the derivative calculation and
+                  data logging. A faster and more consistent sampling rate gives a smoother estimate of heading and
+                  makes the controller easier to tune.
+                </p>
+
+                <div class="bg-light rounded-4 p-3">
+                  <h5 class="small fw-semibold mb-2">Timing in the Control Loop</h5>
+                  <pre class="mb-0 small"><code>const unsigned long starttime = millis();
+
+for (int i = 0; i &lt; Acc_length; i++)
+{
+  const uint32_t t_us = micros();
+
+  // controller code
+  // IMU read
+  // BLE processing
+  // data logging
+
+  time_list[i] = (float)(millis() - starttime);
+}</code></pre>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 6. Testing -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">6. Testing, Graphs, and Video</h2>
+
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <h3 class="fw-bolder mb-3">Graphs, code, videos, images, and discussion of reaching task goal</h3>
+                <p class="text-muted mb-0">
+                  I ran multiple orientation control tests and compared the robot's response using theta vs time data.
+                  The main goal was to see how well the robot turned to the desired heading and how the gain values
+                  affected overshoot, settling time, and stability.
+                </p>
+              </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <h3 class="fw-bolder mb-3">Logged Data</h3>
+                <p class="text-muted mb-3">
+                  During each run I stored time, yaw angle, controller output, proportional term, derivative term, and
+                  PWM command. This made it easier to compare tests and understand why the robot behaved the way it did.
+                </p>
+
+                <div class="bg-light rounded-4 p-3 mb-0">
+                  <h5 class="small fw-semibold mb-2">Data Logging for Plotting</h5>
+                  <pre class="mb-0 small"><code>time_list[i]      = (float)(millis() - starttime);
+Gyro_yaw_list[i]  = Gyro_yaw;
+PID_ori[i]        = (kp_ori * error1P_ori) + (kd_ori * error1D_ori);
+Perror_ori[i]     = kp_ori * error1P_ori;
+Derror_ori[i]     = kd_ori * error1D_ori;
+PWM_ori[i]        = duty2 * dutystate_ori;</code></pre>
+                </div>
+              </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <h3 class="fw-bolder mb-3">Sending Data Back Over BLE</h3>
+                <p class="text-muted mb-3">
+                  After each run, the stored values were packed into strings and sent back to Python over Bluetooth so
+                  they could be parsed and plotted.
+                </p>
+
+                <div class="bg-light rounded-4 p-3 mb-0">
+                  <h5 class="small fw-semibold mb-2">BLE Data Packet Example</h5>
+                  <pre class="mb-0 small"><code>tx_estring_value.clear();
+tx_estring_value.append(time_list[i]);
+tx_estring_value.append("|");
+tx_estring_value.append(Gyro_yaw_list[i]);
+tx_estring_value.append("|");
+tx_estring_value.append(PID_ori[i]);
+tx_estring_value.append("|");
+tx_estring_value.append(Perror_ori[i]);
+tx_estring_value.append("|");
+tx_estring_value.append(Derror_ori[i]);
+tx_estring_value.append("|");
+tx_estring_value.append(PWM_ori[i]);
+
+tx_characteristic_string.writeValue(tx_estring_value.c_str());</code></pre>
+                </div>
+              </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <h3 class="fw-bolder mb-3">Test 1</h3>
+                <p class="text-muted mb-3">
+                  Replace this paragraph with your description of the first test. For example: lower Kp test, slower
+                  response, little overshoot, and not enough aggressiveness to reach the setpoint quickly.
+                </p>
+
+                <div class="row g-4">
+                  <div class="col-lg-8">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Graph 1: Theta vs Time</h6>
+                      <img
+                        src="../assets/lab6/test1.png"
+                        alt="Test 1 theta vs time graph"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="bg-light rounded-4 p-3 h-100">
+                      <h6 class="fw-semibold mb-2">Notes</h6>
+                      <p class="small text-muted mb-0">
+                        Add notes here about response speed, overshoot, and whether the robot reached the desired heading.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <h3 class="fw-bolder mb-3">Test 2</h3>
+                <p class="text-muted mb-3">
+                  Replace this paragraph with your description of the second test. For example: higher Kp made the turn
+                  faster, but overshoot increased, so Kd was adjusted to improve damping.
+                </p>
+
+                <div class="row g-4">
+                  <div class="col-lg-8">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Graph 2: Theta vs Time</h6>
+                      <img
+                        src="../assets/lab6/test2.png"
+                        alt="Test 2 theta vs time graph"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="bg-light rounded-4 p-3 h-100">
+                      <h6 class="fw-semibold mb-2">Notes</h6>
+                      <p class="small text-muted mb-0">
+                        Add notes here about the effect of changing Kp and Kd, and whether the response improved.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <h3 class="fw-bolder mb-3">Test 3</h3>
+                <p class="text-muted mb-3">
+                  Replace this paragraph with your description of the third test. This can be your final tuned PD result.
+                </p>
+
+                <div class="row g-4">
+                  <div class="col-lg-8">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Graph 3: Theta vs Time</h6>
+                      <img
+                        src="../assets/lab6/test3.png"
+                        alt="Test 3 theta vs time graph"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="bg-light rounded-4 p-3 h-100">
+                      <h6 class="fw-semibold mb-2">Notes</h6>
+                      <p class="small text-muted mb-0">
+                        Add notes here about final performance, settling, and why this was your best test.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <h3 class="fw-bolder mb-3">Video</h3>
+                <p class="text-muted mb-3">
+                  Add your demo video here showing the robot turning to the desired heading.
+                </p>
+
+                <div class="ratio ratio-16x9 rounded-4 overflow-hidden">
+                  <iframe
+                    src="PUT_YOUR_VIDEO_LINK_HERE"
+                    title="Lab 6 orientation control video"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 7. Programming Implementation -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">7. Programming Implementation</h2>
+
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <h3 class="fw-bolder mb-3">Have you implemented your code in such a way that you can continue sending and processing Bluetooth commands while your controller is running?</h3>
+                <p class="text-muted mb-4">
+                  Yes. The controller was structured so that Bluetooth communication could still be used while the robot
+                  was running tests. This was important because it made gain tuning much faster and also allowed the
+                  robot to send data back for plotting without needing to rewrite the workflow each time.
+                </p>
+
+                <h3 class="fw-bolder mb-3">Think about future applications of your PID controller with regard to navigation or stunts. Will you need to be able to update the setpoint in real time?</h3>
+                <p class="text-muted mb-4">
+                  Yes. In future applications such as navigation or more advanced motion, the robot will likely need to
+                  update its heading setpoint in real time. Building the control structure this way now makes it easier
+                  to reuse later.
+                </p>
+
+                <h3 class="fw-bolder mb-3">Can you control the orientation while the robot is driving forward or backward?</h3>
+                <p class="text-muted mb-4">
+                  This was not required for this lab, but it could be implemented in the future by combining heading
+                  control with forward or backward motor commands. That would allow the robot to maintain a desired
+                  orientation while translating at the same time.
+                </p>
+
+                <div class="bg-light rounded-4 p-3">
+                  <h5 class="small fw-semibold mb-2">Motor Turning Functions</h5>
+                  <pre class="mb-0 small"><code>void turn_right(float duty1motor) {
+  float cali = 1.1;
+  duty1motor = (int)abs(duty1motor);
+  int duty2motor = (int)fabs(duty1motor * cali);
+
+  analogWrite(PWM_0, duty1motor);
+  analogWrite(PWM_1, 0);
+  analogWrite(PWM_2, duty2motor);
+  analogWrite(PWM_5, 0);
+}
+
+void turn_left(float duty1motor) {
+  float cali = 1.1;
+  duty1motor = (int)abs(duty1motor);
+  int duty2motor = (int)fabs(duty1motor * cali);
+
+  analogWrite(PWM_0, 0);
+  analogWrite(PWM_1, duty1motor);
+  analogWrite(PWM_2, 0);
+  analogWrite(PWM_5, duty2motor);
+}</code></pre>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 8. 5000-Level -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">8. (5000) Wind-Up Implementation and Discussion</h2>
+
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <h3 class="fw-bolder mb-3">Implement wind-up protection for your integrator. Argue for why this is necessary.</h3>
+                <p class="text-muted mb-4">
+                  Even though I did not use integral control in the final version, wind-up protection is still important
+                  to understand. Integrator wind-up happens when the control output saturates but the integral term keeps
+                  accumulating error anyway. Once the robot finally starts responding, that built-up integral can cause
+                  large overshoot and slower settling.
+                </p>
+
+                <p class="text-muted mb-4">
+                  Wind-up protection is useful because it makes controller behavior more consistent across changing
+                  conditions such as floor friction, battery level, or motor differences. Common fixes include clamping
+                  the integral term or only allowing it to accumulate when the actuator is not saturated.
+                </p>
+
+                <div class="bg-light rounded-4 p-3">
+                  <h5 class="small fw-semibold mb-2">Example Anti-Windup Logic</h5>
+                  <pre class="mb-0 small"><code>error1I_ori += error1P_ori * PID_dt_ori;
+
+if (error1I_ori &gt; 4000) error1I_ori = 4000;
+if (error1I_ori &lt; -4000) error1I_ori = -4000;</code></pre>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- 9. Resources -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">9. Resources</h2>
+
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <div class="row g-4">
+                  <div class="col-md-4">
+                    <div class="h-100">
+                      <h5 class="fw-bolder mb-2">ICM-20948 Library / IMU Docs</h5>
+                      <p class="text-muted mb-0">
+                        Used for reading gyroscope data, DMP quaternion output, and understanding available settings.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="h-100">
+                      <h5 class="fw-bolder mb-2">Class Notes / Lab Docs</h5>
+                      <p class="text-muted mb-0">
+                        Used to guide the implementation of orientation control, Bluetooth data logging, and controller tuning.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="h-100">
+                      <h5 class="fw-bolder mb-2">ChatGPT</h5>
+                      <p class="text-muted mb-0">
+                        Helped clean up explanations, organize the write-up, and format the lab into webpage form.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white py-4 mt-auto">
+      <div class="container px-5">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-auto">
+            <div class="small text-muted">© 2026 Jamison L. Taylor Jr.</div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-</main>
-<footer class="bg-white py-4 mt-auto">
-            <div class="container px-5">
-                <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-                    <div class="col-auto"><div class="small m-0">Copyright &copy; Jamison L. Taylor Jr. 2026</div></div>
-                    <div class="col-auto"><a class="small" href="../index.html#about">Contact</a></div>
-                </div>
-            </div>
-        </footer>
+    </footer>
 
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="../js/scripts.js"></script>
-    </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

@@ -57,9 +57,9 @@
               <div class="card-body p-4">
                 <p class="text-muted mb-3">
                   To send and receive data over Bluetooth while the controller was running, I set up a command structure
-                  in the Arduino code named <strong>GET_PID_ORI_GAINS_AND_ORIENTATION</strong>. This let me send gain
+                  in the Arduino code named <code>GET_PID_ORI_GAINS_AND_ORIENTATION</code>. This let me send gain
                   values and target orientation data to the Arduino. I also added lines to
-                  <strong>tx_estring_value.append</strong> so the robot could send logged values back to my computer for
+                  <code>tx_estring_value.append</code> so the robot could send logged values back to my computer for
                   post-processing.
                 </p>
                 <p class="text-muted mb-3">
@@ -184,7 +184,7 @@ if ((myICM.status == ICM_20948_Stat_Ok) ||
                 <p class="text-muted mb-3">
                   I also needed to calibrate the yaw value so it displayed a more accurate heading. I let the DMP run
                   while the robot stayed still and watched the yaw drift until it reached a steady-state value around
-                  -3.6 to -3.9 degrees. Based on that, I added a calibration offset of <strong>+3.8 degrees</strong>.
+                  -3.6 to -3.9 degrees. Based on that, I added a calibration offset of <code>+3.8 degrees</code>.
                 </p>
 
                 <div class="row g-4">
@@ -242,10 +242,10 @@ if (duty2 &gt; duty1Max_ori) duty2 = duty1Max_ori;</code></pre>
               <div class="card-body p-4">
                 <p class="text-muted mb-4">
                   These plots show the first three tests I ran with different proportional gains:
-                  <strong>Kp = 3.0</strong>, <strong>Kp = 3.75</strong>, and <strong>Kp = 4.5</strong>.
+                  <code>Kp = 3.0</code>, <code>Kp = 3.75</code>, and <code>Kp = 4.5</code>.
                 </p>
                 <p class="text-muted mb-3">
-                  I ended up using <strong>Kp = 3.75</strong> because it gave decent corrective angular velocity while
+                  I ended up using <code>Kp = 3.75</code> because it gave decent corrective angular velocity while
                   keeping the overshoot relatively low.
                 </p>
 
@@ -302,12 +302,12 @@ if (duty2 &gt; duty1Max_ori) duty2 = duty1Max_ori;</code></pre>
               <div class="card-body p-4">
                 <p class="text-muted mb-4">
                   These next plots show the first three tests I ran with different derivative gains:
-                  <strong>Kd = 20</strong>, <strong>Kd = 40</strong>, and <strong>Kd = 60</strong>.
+                  <code>Kd = 20</code>, <code>Kd = 40</code>, and <code>Kd = 60</code>.
                 </p>
                 <p class="text-muted mb-3">
-                  I ended up using <strong>Kd = 40</strong> because it damped the aggressive angular acceleration and
-                  reduced overshoot compared to <strong>Kd = 20</strong>, while still keeping better corrective angular
-                  velocity than <strong>Kd = 60</strong>, which was a bit too damped.
+                  I ended up using <code>Kd = 40</code> because it damped the aggressive angular acceleration and
+                  reduced overshoot compared to <code>Kd = 20</code>, while still keeping better corrective angular
+                  velocity than <code>Kd = 60</code>, which was a bit too damped.
                 </p>
 
                 <div class="row g-4 mb-4">
@@ -370,7 +370,7 @@ if (duty2 &gt; duty1Max_ori) duty2 = duty1Max_ori;</code></pre>
                   the robot could keep twitching back and forth near the setpoint.
                 </p>
                 <p class="text-muted mb-3">
-                  In my code, the deadband for orientation was set to <strong>2 degrees</strong>. If the robot was
+                  In my code, the deadband for orientation was set to <code>2 degrees</code>. If the robot was
                   inside that range, the motors stopped. Otherwise, the robot turned left or right depending on the sign
                   of the error.
                 </p>

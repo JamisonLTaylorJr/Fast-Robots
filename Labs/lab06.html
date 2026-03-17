@@ -47,10 +47,7 @@
           <div class="text-center mb-5">
             <h1 class="fw-bolder">Lab 6: <span class="text-gradient">Orientation Control with IMU + PD</span></h1>
             <p class="text-muted mb-0">
-              In this lab I used the IMU gyroscope and DMP yaw estimate to control the robot’s orientation. I built a
-              Bluetooth debugging workflow so I could send gains and target headings from Python, log the robot response,
-              and compare multiple turning tests. I mainly tested proportional and derivative control, and I kept the
-              final controller as PD because it already performed well enough for this lab without needing integral action.
+              In this lab I used the IMU gyroscope and DMP yaw estimate to control the robot’s orientation.
             </p>
           </div>
 
@@ -59,16 +56,15 @@
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
                 <p class="text-muted mb-3">
-                  I placed the main orientation control behavior inside a Bluetooth command case instead of running it
-                  directly in <code>loop()</code>. This let me start a test from Python, collect data for a fixed number
-                  of iterations, and send the saved arrays back over Bluetooth for plotting.
+                  To send and recieve data over Bluetooth while the controller was running, I set up a command structure in the Arduino code
+                  named <strong>GET_PID_ORI_GAINS_AND_ORIENTATION</strong> to send my data to the arduino, and used added lines to my 
+                  <strong>tx_estring_value.append</strong> to recieve the data back to my computer for post processing. 
                 </p>
                 <p class="text-muted mb-3">
-                  I also made the code so Bluetooth could still send and receive data while the controller was running.
-                  That was important because it made tuning much faster and also made it possible to stop tests early
-                  without reflashing code.
+                   This code below shows how I can send values to arduino, and then send values back
+                   to my computer.
                 </p>
-
+                                
                 <div class="bg-light rounded-4 p-3 mb-4">
                   <h5 class="small fw-semibold mb-2">Bluetooth Gain / Setpoint Command</h5>
                   <pre class="mb-0 small"><code>case GET_PID_ORI_GAINS_AND_ORIENTATION:
@@ -78,15 +74,6 @@
                      && robot_cmd.get_next_value(kd_ori)
                      && robot_cmd.get_next_value(targetOrientation1);
   if (!Received_input) return;
-
-  Serial.print("PID Orientation Gains are Set, kp_ori = ");
-  Serial.print(kp_ori);
-  Serial.print(", ki_ori = ");
-  Serial.print(ki_ori);
-  Serial.print(", kd_ori = ");
-  Serial.print(kd_ori);
-  Serial.print(", Target Orientation = ");
-  Serial.println(targetOrientation1);
 
   tx_estring_value.clear();
   tx_estring_value.append("PID Ori Gains are Set, kp_ori = ");
@@ -102,87 +89,37 @@
   break;
 }</code></pre>
                 </div>
-
-                <div class="bg-light rounded-4 p-3 mb-4">
-                  <h5 class="small fw-semibold mb-2">Bluetooth Start / Stop Structure</h5>
-                  <pre class="mb-0 small"><code>case GET_ALL:
-{
-  const unsigned long starttime = millis();
-  Serial.println("Start Collecting Data");
-
-  for (int i = 0; i &lt; Acc_length; i++)
-  {
-    BLEDevice central = BLE.central();
-
-    if (central) {
-      if (central.connected()) {
-        write_data();
-        read_data();
-      }
-    }
-
-    if (!PID_state) break;
-
-    // IMU read + controller + array logging
-  }
-
-  PID_state = true;
-  stop_motors();
-  break;
-}
-
-case END_PID:
-{
-  PID_state = false;
-  stop_motors();
-  break;
-}</code></pre>
-                </div>
-
-                <div class="bg-light rounded-4 p-3 mb-4">
-                  <h5 class="small fw-semibold mb-2">BLE Read / Write Functions</h5>
-                  <pre class="mb-0 small"><code>void write_data()
-{
-  currentMillis = millis();
-  if (currentMillis - previousMillis &gt; interval) {
-    tx_float_value = tx_float_value + 0.5;
-    tx_characteristic_float.writeValue(tx_float_value);
-
-    if (tx_float_value &gt; 10000) {
-      tx_float_value = 0;
-    }
-    previousMillis = currentMillis;
-  }
-}
-
-void read_data()
-{
-  if (rx_characteristic_string.written()) {
-    handle_command();
-  }
-}</code></pre>
-                </div>
-
+                <p class="text-muted mb-3">
+                   This code below shows how I can send data from my computer to arduino, recieve oher values back,
+                   and then parse them for plotting and analysis.
+                </p>
                 <div class="bg-light rounded-4 p-3 mb-0">
-                  <h5 class="small fw-semibold mb-2">Python Side Example</h5>
-                  <pre class="mb-0 small"><code>ble.send_command("GET_PID_ORI_GAINS_AND_ORIENTATION|3.0|0.0|0.8|90")
-ble.send_command("GET_ALL")
+                  <h5 class="small fw-semibold mb-2">Python Call Example</h5>
+                  <pre class="mb-0 small"><code>def notif_handler(uuid, byte):
+  s = ble.bytearray_to_string(byte) 
+  parts = s.split("|")
 
-data = ble.receive_string_list()
+  PID_ori      = float(parts[14])
+  Perror_ori   = float(parts[15])
+  Ierror_ori   = float(parts[16])
+  Derror_ori   = float(parts[17])
+  PWM_ori      = float(parts[18])
 
-time_data = []
-theta_data = []
-p_term = []
-d_term = []
-pwm_data = []
+  PID_ori_list.append(PID_ori)
+  Perror_ori_list.append(Perror_ori)
+  Ierror_ori_list.append(Ierror_ori)
+  Derror_ori_list.append(Derror_ori)
+  PWM_ori_list.append(PWM_ori)
 
-for line in data:
-    vals = line.split("|")
-    time_data.append(float(vals[0]))
-    theta_data.append(float(vals[5]))
-    p_term.append(float(vals[16]))
-    d_term.append(float(vals[18]))
-    pwm_data.append(float(vals[19]))</code></pre>
+PID_ori_list      = []
+Perror_ori_list   = []
+Ierror_ori_list   = []
+Derror_ori_list   = []
+PWM_ori_list      = []
+
+ble.start_notify(ble.uuid['RX_STRING'], notif_handler)
+ble.send_command(CMD.GET_ALL, "")
+</code></pre>
                 </div>
               </div>
             </div>
@@ -206,8 +143,8 @@ for line in data:
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
                 <p class="text-muted mb-3">
-                  To estimate the robot’s orientation, gyroscope data needs to be integrated over time. In general,
-                  digital integration on a gyroscope means summing angular velocity measurements over discrete time steps
+                  To estimate the robot’s orientation, gyroscope data needs to be integrated over time. To do this we can 
+                  use the do digital integration on the gyroscope to sum the angular velocity measurements over discrete time steps
                   to estimate the rotation angle. A problem with this is that even small errors in angular velocity can
                   build up over time and cause drift.
                 </p>
@@ -215,11 +152,6 @@ for line in data:
                   In my implementation, I used the IMU’s onboard Digital Motion Processor (DMP) and converted the
                   quaternion output into yaw. This gave a cleaner heading estimate and helped reduce yaw drift compared
                   to using a very simple raw gyro integration by itself.
-                </p>
-                <p class="text-muted mb-3">
-                  Gyroscopes also have bias, noise, temperature sensitivity, and no absolute reference by themselves.
-                  That means the heading estimate can slowly drift over time. One way to reduce this is through sensor
-                  fusion, such as combining gyroscope data with accelerometer data or using the IMU’s DMP.
                 </p>
 
                 <div class="bg-light rounded-4 p-3 mb-0">
@@ -248,6 +180,26 @@ if ((myICM.status == ICM_20948_Stat_Ok) ||
   }
 }</code></pre>
                 </div>
+
+                
+                <p class="text-muted mb-3">
+                  We also needed to calibrate the yaw value to make sure it was displaying the accurate value.
+                  So I ran my DMP and made sure it did not more and watched the yaw value drift and reach steady state around
+                  -3.6 to -3.9 degrees. So I added a calibration offset of <strong>+3.8 degrees</strong>.
+                </p>
+                <div class="col-lg-4">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Calibration at +3.8 Degrees</h6>
+                      <img
+                        src="../assets/lab6/calibration.png"
+                        alt="Plot showing test 3 orientation data"
+                        class="img-fluid rounded-4"
+                      />
+                      <figcaption class="small text-muted mt-2">
+                        Replace this with your third test description and gains.
+                      </figcaption>
+                    </figure>
+                  </div>                
               </div>
             </div>
           </section>
@@ -257,20 +209,11 @@ if ((myICM.status == ICM_20948_Stat_Ok) ||
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
                 <p class="text-muted mb-3">
-                  For this lab, I mainly tested proportional and derivative control. Proportional control determined how
-                  strongly the robot reacted to heading error, while derivative control helped reduce overshoot and made
-                  the turning response more damped.
+                  For this lab, I tested proportional and derivative control. Proportional control determined how
+                  strongly the robot reacted to error, while derivative control helped reduce overshoot and made
+                  the turning response more damped. I did not use integral control because PD already did a good enough job.
                 </p>
-                <p class="text-muted mb-3">
-                  I did not end up using the integral term in the final controller. PD already did a good enough job for
-                  this lab, so I chose to keep the controller simpler rather than adding integral action that was not
-                  really needed for the final turning task.
-                </p>
-                <p class="text-muted mb-3">
-                  The proportional term made the robot turn toward the desired heading, and the derivative term improved
-                  the response by reacting to how fast the heading error was changing. This gave a better result than
-                  proportional control alone.
-                </p>
+                
 
                 <div class="bg-light rounded-4 p-3 mb-0">
                   <h5 class="small fw-semibold mb-2">PD Controller Logic From My Code</h5>

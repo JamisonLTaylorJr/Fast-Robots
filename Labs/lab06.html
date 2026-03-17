@@ -441,6 +441,10 @@ void turn_left(float duty1motor) {
                   tracked time during the loop and used it directly in the controller calculations.
                 </p>
                 <p class="text-muted mb-3">
+                  To find the sampling rate I took a loop of <code>1000</code> indexes and found the amount of time it took to run the loop.
+                  The timestamp value I recieved was <code>16.64s</code>. Meaning that this loop ran at around <code>60 loops per second</code>.
+                </p>
+                <p class="text-muted mb-3">
                   Changing the setpoint while the robot is running can also create derivative kick, since the derivative
                   term reacts strongly to rapid changes in error. For future improvements, filtering or
                   derivative-on-measurement would help make the controller even smoother.

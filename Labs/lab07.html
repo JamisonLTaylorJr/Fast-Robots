@@ -257,34 +257,30 @@ x = np.array([[-TOF[0]], [0]])</code></pre>
   <pre class="small mb-0"><code>
 Σ_z = [ σ₃² ]
 
-σ₃² = (20 mm)²
-  </code></pre>
+σ₃² = (20 mm)²</code></pre>
 </div>
 
 <div class="bg-light rounded-4 p-3 mb-4">
   <h5 class="small fw-semibold mb-2">Process Noise (Dependent on Sampling Time)</h5>
   <pre class="small mb-0"><code>
 Σ_u = [ σ₁²   0
-         0   σ₂² ]
-  </code></pre>
+         0   σ₂² ]</code></pre>
 </div>
 
 <div class="bg-light rounded-4 p-3 mb-4">
   <h5 class="small fw-semibold mb-2">Sampling Time</h5>
   <pre class="small mb-0"><code>
-Δt ≈ 0.0945 s
-  </code></pre>
+Δt ≈ 0.0945 s</code></pre>
 </div>
 
 <div class="bg-light rounded-4 p-3 mb-4">
-  <h5 class="small fw-semibold mb-2">Trust in Modeled Position & </h5>
+  <h5 class="small fw-semibold mb-2">Trust in Modeled Position & Velocity</h5>
   <pre class="small mb-0"><code>
 σ₁ = σ₂ = √(10² · (1 / Δt))
 
 σ₁ = σ₂ =√(100 / 0.0945)
 
-σ₁ ≈ σ₂ ≈ 32.5 mm
-  </code></pre>
+σ₁ ≈ σ₂ ≈ 32.5 mm</code></pre>
 </div>
 
                 <div class="bg-light rounded-4 p-3 mb-0">

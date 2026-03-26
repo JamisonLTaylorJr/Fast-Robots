@@ -213,16 +213,13 @@ for i, v in enumerate(Forward_Velocity_list[:1100]):
                 </p>
                 <div class="bg-light rounded-4 p-3 mb-4">
   <h5 class="small fw-semibold mb-2">System Model and Parameter Estimation</h5>
-  <pre class="mb-0 small"><code>
-m * dv/dt = -d*v + u
+  <pre class="mb-0 small"><code>m * dv/dt = -d*v + u
 
 Steady State:
 0 = -d*v_ss + u
 d = u / v_ss
-
 Time Constant:
 tau = t_90 / 2.3
-
 Momentum Term:
 m = d * tau
   </code></pre>
@@ -230,27 +227,15 @@ m = d * tau
 
 <div class="bg-light rounded-4 p-3 mb-4">
   <h5 class="small fw-semibold mb-2">State Space Representation</h5>
-  <pre class="mb-0 small"><code>
-State Vector:
+  <pre class="mb-0 small"><code>State Vector:
 x = [position, velocity]
-
 A = [ 0      1
       0   -d/m ]
-
 B = [ 0
       1/m ]
-
-C = [ -1   0 ]
-  </code></pre>
+C = [ -1   0 ]</code></pre>
 </div>
 
-<div class="bg-light rounded-4 p-3">
-  <h5 class="small fw-semibold mb-2">Discrete System</h5>
-  <pre class="mb-0 small"><code>
-Ad = I + dt*A
-Bd = dt*B
-  </code></pre>
-</div>
                 <p class="text-muted mb-3">
                   After estimating the model, I discretized the A and B matrices using the sample time. The C matrix was chosen so that the measured output corresponded to the ToF distance reading.
                 </p>

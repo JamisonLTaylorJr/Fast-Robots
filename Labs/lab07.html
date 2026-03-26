@@ -118,7 +118,7 @@
                     <figure class="bg-light rounded-4 p-3 mb-0">
                       <h6 class="fw-semibold mb-2">Step Response ToF Plot</h6>
                       <img
-                        src="../assets/lab7/your_tof_plot.png"
+                        src="../assets/lab7/tofvstime.png"
                         alt="ToF step response plot placeholder"
                         class="img-fluid rounded-4"
                       />
@@ -172,7 +172,7 @@ for i, v in enumerate(Forward_Velocity_list[:1100]):
                     <figure class="bg-light rounded-4 p-3 mb-0">
                       <h6 class="fw-semibold mb-2">Velocity Plot</h6>
                       <img
-                        src="../assets/lab7/your_velocity_plot.png"
+                        src="../assets/lab7/velocityvstime.png"
                         alt="Velocity plot placeholder"
                         class="img-fluid rounded-4"
                       />
@@ -181,10 +181,10 @@ for i, v in enumerate(Forward_Velocity_list[:1100]):
 
                   <div class="col-lg-6">
                     <figure class="bg-light rounded-4 p-3 mb-0">
-                      <h6 class="fw-semibold mb-2">90% Rise Time Plot</h6>
+                      <h6 class="fw-semibold mb-2">PWM Plot</h6>
                       <img
-                        src="../assets/lab7/your_risetime_plot.png"
-                        alt="Rise time plot placeholder"
+                        src="../assets/lab7/pwmvstime.png"
+                        alt="PWM plot placeholder"
                         class="img-fluid rounded-4"
                       />
                     </figure>
@@ -270,7 +270,7 @@ sig_z = np.array([[sigma_3**2]])</code></pre>
                     <figure class="bg-light rounded-4 p-3 mb-0">
                       <h6 class="fw-semibold mb-2">Kalman Filter Estimated vs Raw Data</h6>
                       <img
-                        src="../assets/lab7/your_kf_plot.png"
+                        src="../assets/lab7/kalman.png"
                         alt="Kalman filter plot placeholder"
                         class="img-fluid rounded-4"
                       />
@@ -324,6 +324,26 @@ Sigma_p = Ad * Sigma * ~Ad + Sigma_u;</code></pre>
                 <p class="text-muted mb-3">
                   This lab also showed why a model-based estimate can be more useful than simple extrapolation. The Kalman Filter gave a better estimate between sensor updates and set up the robot for faster control in the next lab.
                 </p>
+              </div>
+            </div>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-4">
+These are my plots from the Kalman Filter implementation:
+                </p>
+
+                <div class="row g-4">
+                  <div class="col-lg-6">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Kalman Filter Estimated vs Raw Data</h6>
+                      <img
+                        src="../assets/lab7/plots.png"
+                        alt="Kalman filter plot placeholder"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+                </div>
               </div>
             </div>
           </section>

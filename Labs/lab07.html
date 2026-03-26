@@ -14,26 +14,21 @@
 
   <body class="d-flex flex-column h-100">
     <main class="flex-shrink-0">
+
+      <!-- NAVBAR -->
       <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
         <div class="container px-5">
           <a class="navbar-brand" href="../index.html">
             <span class="fw-bolder text-primary">MAE 5190 Fast Robots</span>
           </a>
 
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent">
             <span class="navbar-toggler-icon"></span>
           </button>
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+            <ul class="navbar-nav ms-auto small fw-bolder">
               <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
               <li class="nav-item"><a class="nav-link" href="../index.html#labs">Labs</a></li>
               <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
@@ -42,328 +37,150 @@
         </div>
       </nav>
 
+      <!-- HEADER -->
       <section class="py-5">
         <div class="container px-5">
           <div class="text-center mb-5">
             <h1 class="fw-bolder">Lab 7: <span class="text-gradient">Kalman Filter</span></h1>
             <p class="text-muted mb-0">
-              In this lab I implemented a Kalman Filter to improve the robot’s position and velocity estimates so it could move faster and more smoothly toward the wall.
+              In this lab I implemented a Kalman Filter to improve the robot’s state estimation and allow faster and smoother motion.
             </p>
           </div>
 
+          <!-- OBJECTIVE -->
           <section class="mb-5">
             <h2 class="fw-bolder mb-4">1. Objective</h2>
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
                 <p class="text-muted mb-0">
-                  The goal of this lab was to use a Kalman Filter to supplement the slower Time of Flight sensor measurements with a model-based estimate of the robot’s state. 
-                  This allows the robot to better estimate both position and velocity between ToF updates and improves the behavior from Lab 5.
+                  The goal of this lab was to use a Kalman Filter to improve position and velocity estimation by combining a system model with noisy ToF measurements.
                 </p>
               </div>
             </div>
           </section>
 
+          <!-- DATA COLLECTION -->
           <section class="mb-5">
             <h2 class="fw-bolder mb-4">2. Step Response Data Collection</h2>
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
-                <p class="text-muted mb-3">
-                  To estimate the system dynamics, I drove the robot toward the wall at a constant motor input and logged the ToF output, motor input, and timing data. 
-                  I used my Bluetooth debugging structure again so I could run the robot, save the values in arrays, and then send those values back to Jupyter for analysis.
+                <p class="text-muted">
+                  I collected step response data by driving the robot toward a wall at constant PWM and logging ToF, PWM, and time values using Bluetooth.
                 </p>
-                <p class="text-muted mb-3">
-                  This step response data was used to estimate the rise time and overall system behavior, which I later used to build the A and B matrices for the Kalman Filter.
+
+                <figure class="bg-light rounded-4 p-3">
+                  <h6 class="fw-semibold">ToF Plot</h6>
+                  <img src="../assets/lab7/your_tof_plot.png" class="img-fluid rounded-4">
+                </figure>
+              </div>
+            </div>
+          </section>
+
+          <!-- VELOCITY -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">3. Velocity + Rise Time</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted">
+                  Velocity was computed from ToF data. The rise time was measured as <strong>0.868 s</strong>.
+                  I collected 13 datapoints over 1.229 s (~10.6 loops/sec).
+                </p>
+
+                <figure class="bg-light rounded-4 p-3">
+                  <h6 class="fw-semibold">Velocity Plot</h6>
+                  <img src="../assets/lab7/your_velocity_plot.png" class="img-fluid rounded-4">
+                </figure>
+              </div>
+            </div>
+          </section>
+
+          <!-- MODEL -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">4. System Modeling</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+
+                <p class="text-muted">
+                  I modeled the robot as a first-order system and estimated parameters using the step response.
                 </p>
 
                 <div class="bg-light rounded-4 p-3 mb-4">
-                  <h5 class="small fw-semibold mb-2">Bluetooth Data Logging Structure</h5>
-                  <pre class="mb-0 small"><code>case GET_ALL:
-{
-  const unsigned long starttime = millis();
-  Serial.println("Start Collecting Data");
+<pre class="small mb-0"><code>m * dv/dt = -d*v + u
 
-  for (int i = 0; i &lt; Acc_length; i++)
-  {
-    BLEDevice central = BLE.central();
+Steady State:
+d = u / v_ss
 
-    if (central) {
-      if (central.connected()) {
-        write_data();
-        read_data();
-      }
-    }
+Time Constant:
+tau = t_90 / 2.3
 
-    if (!PID_state) break;
-
-    if (ToF_Sensor_1.checkForDataReady()) {
-      int distance1 = ToF_Sensor_1.getDistance();
-      ToF_Sensor_1.clearInterrupt();
-      distance1_in = distance1 * 0.0393701f;
-
-      time_list[i] = (float)(millis() - starttime);
-      Tof_Sensor_1_list[i] = distance1_in;
-      PWM_list[i] = duty1;
-    }
-  }
-  break;
-}</code></pre>
+Momentum:
+m = d * tau</code></pre>
                 </div>
-
-                <p class="text-muted mb-3">
-                  The figure below is where I will place the ToF distance plot from the step response test.
-                </p>
-
-                <div class="row g-4">
-                  <div class="col-lg-6">
-                    <figure class="bg-light rounded-4 p-3 mb-0">
-                      <h6 class="fw-semibold mb-2">Step Response ToF Plot</h6>
-                      <img
-                        src="../assets/lab7/your_tof_plot.png"
-                        alt="ToF step response plot placeholder"
-                        class="img-fluid rounded-4"
-                      />
-                    </figure>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="mb-5">
-            <h2 class="fw-bolder mb-4">3. Velocity and Rise Time Estimation</h2>
-            <div class="card border-0 shadow-sm rounded-4 mb-4">
-              <div class="card-body p-4">
-                <p class="text-muted mb-3">
-                  After collecting the ToF distance data, I computed the robot’s forward velocity in Python by taking the derivative of position with respect to time. 
-                  This let me analyze the step response in terms of velocity instead of only position.
-                </p>
-                <p class="text-muted mb-3">
-                  From the velocity response, I estimated the rise time and used the 90% value of the maximum speed to identify the response speed of the system.
-                  My measured rise time was about <code>0.868 s</code>.
-                </p>
-                <p class="text-muted mb-3">
-                  I also looked at the loop timing. I had <code>13</code> definitive datapoints in <code>1.229 s</code>, which corresponds to about <code>10.6 loops per second</code>.
-                  That means each loop took about <code>0.0945 s</code> per iteration.
-                </p>
-
-                <div class="bg-light rounded-4 p-3 mb-0">
-                  <h5 class="small fw-semibold mb-2">Python Logic for 90% Rise Time</h5>
-                  <pre class="mb-0 small"><code>max_vel = max(Forward_Velocity_list[:1100])
-vel_90 = 0.9 * max_vel
-
-axs[1].axhline(y=vel_90, linestyle='--', label='90% of Max Velocity')
-
-for i, v in enumerate(Forward_Velocity_list[:1100]):
-    if v &gt;= vel_90:
-        Time_90 = time_list[i]
-        break</code></pre>
-                </div>
-              </div>
-            </div>
-
-            <div class="card border-0 shadow-sm rounded-4">
-              <div class="card-body p-4">
-                <p class="text-muted mb-4">
-                  The plots below are where I will place the velocity response graph and the 90% rise time figure.
-                </p>
-
-                <div class="row g-4">
-                  <div class="col-lg-6">
-                    <figure class="bg-light rounded-4 p-3 mb-0">
-                      <h6 class="fw-semibold mb-2">Velocity Plot</h6>
-                      <img
-                        src="../assets/lab7/your_velocity_plot.png"
-                        alt="Velocity plot placeholder"
-                        class="img-fluid rounded-4"
-                      />
-                    </figure>
-                  </div>
-
-                  <div class="col-lg-6">
-                    <figure class="bg-light rounded-4 p-3 mb-0">
-                      <h6 class="fw-semibold mb-2">90% Rise Time Plot</h6>
-                      <img
-                        src="../assets/lab7/your_risetime_plot.png"
-                        alt="Rise time plot placeholder"
-                        class="img-fluid rounded-4"
-                      />
-                    </figure>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="mb-5">
-            <h2 class="fw-bolder mb-4">4. State Space Model Setup</h2>
-            <div class="card border-0 shadow-sm rounded-4">
-              <div class="card-body p-4">
-                <p class="text-muted mb-3">
-                  Once I had the step response information, I used it to estimate the drag and momentum behavior of the robot and build the state space model. 
-                  The states I used were distance from the wall and velocity.
-                </p>
-                <p class="text-muted mb-3">
-                  After estimating the model, I discretized the A and B matrices using the sample time. The C matrix was chosen so that the measured output corresponded to the ToF distance reading.
-                </p>
 
                 <div class="bg-light rounded-4 p-3 mb-4">
-                  <h5 class="small fw-semibold mb-2">Discrete System Form</h5>
-                  <pre class="mb-0 small"><code>Ad = np.eye(n) + Delta_T * A
-Bd = Delta_T * B
-C = np.array([[-1, 0]])
-x = np.array([[-TOF[0]], [0]])</code></pre>
+<pre class="small mb-0"><code>A = [ 0    1
+      0  -d/m ]
+
+B = [ 0
+      1/m ]
+
+C = [ -1  0 ]</code></pre>
                 </div>
 
-                <p class="text-muted mb-3">
-                  I also had to choose covariance matrices for the process noise and sensor noise. These values control how much the filter trusts the model versus the measured sensor data.
-                </p>
-
-                <div class="bg-light rounded-4 p-3 mb-0">
-                  <h5 class="small fw-semibold mb-2">Covariance Matrix Setup</h5>
-                  <pre class="mb-0 small"><code>sig_u = np.array([[sigma_1**2, 0],
-                  [0, sigma_2**2]])
-
-sig_z = np.array([[sigma_3**2]])</code></pre>
+                <div class="bg-light rounded-4 p-3">
+<pre class="small mb-0"><code>Ad = I + dt*A
+Bd = dt*B</code></pre>
                 </div>
+
               </div>
             </div>
           </section>
 
+          <!-- KF -->
           <section class="mb-5">
-            <h2 class="fw-bolder mb-4">5. Kalman Filter in Python</h2>
-            <div class="card border-0 shadow-sm rounded-4 mb-4">
+            <h2 class="fw-bolder mb-4">5. Kalman Filter (Python)</h2>
+            <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
-                <p class="text-muted mb-3">
-                  Before putting the Kalman Filter on the robot, I first implemented it in Jupyter. This made it easier to check that the model and covariance values made sense before moving everything over to the Artemis.
-                </p>
-                <p class="text-muted mb-3">
-                  The Kalman Filter works in two main steps: prediction and correction. The model predicts the next state, and then the measured ToF value is used to correct that prediction.
-                </p>
 
-                <div class="bg-light rounded-4 p-3 mb-0">
-                  <h5 class="small fw-semibold mb-2">Kalman Filter Function</h5>
-                  <pre class="mb-0 small"><code>def kf(mu, sigma, u, y):
-
+                <div class="bg-light rounded-4 p-3">
+<pre class="small mb-0"><code>def kf(mu, sigma, u, y):
     mu_p = A.dot(mu) + B.dot(u)
-    sigma_p = A.dot(sigma.dot(A.transpose())) + Sigma_u
+    sigma_p = A.dot(sigma.dot(A.T)) + Sigma_u
 
-    sigma_m = C.dot(sigma_p.dot(C.transpose())) + Sigma_z
-    kkf_gain = sigma_p.dot(C.transpose().dot(np.linalg.inv(sigma_m)))
+    K = sigma_p.dot(C.T).dot(np.linalg.inv(
+        C.dot(sigma_p).dot(C.T) + Sigma_z))
 
-    y_m = y - C.dot(mu_p)
-    mu = mu_p + kkf_gain.dot(y_m)
-    sigma = (np.eye(2) - kkf_gain.dot(C)).dot(sigma_p)
+    mu = mu_p + K.dot(y - C.dot(mu_p))
+    sigma = (np.eye(2) - K.dot(C)).dot(sigma_p)
 
     return mu, sigma</code></pre>
                 </div>
-              </div>
-            </div>
 
-            <div class="card border-0 shadow-sm rounded-4">
-              <div class="card-body p-4">
-                <p class="text-muted mb-4">
-                  The figure below is where I will place the Kalman Filter comparison plot between the raw sensor signal and the estimated state.
-                </p>
+                <figure class="bg-light rounded-4 p-3 mt-4">
+                  <h6 class="fw-semibold">Kalman Filter Output</h6>
+                  <img src="../assets/lab7/your_kf_plot.png" class="img-fluid rounded-4">
+                </figure>
 
-                <div class="row g-4">
-                  <div class="col-lg-6">
-                    <figure class="bg-light rounded-4 p-3 mb-0">
-                      <h6 class="fw-semibold mb-2">Kalman Filter Estimated vs Raw Data</h6>
-                      <img
-                        src="../assets/lab7/your_kf_plot.png"
-                        alt="Kalman filter plot placeholder"
-                        class="img-fluid rounded-4"
-                      />
-                    </figure>
-                  </div>
-                </div>
               </div>
             </div>
           </section>
 
+          <!-- DISCUSSION -->
           <section class="mb-5">
-            <h2 class="fw-bolder mb-4">6. Kalman Filter on the Robot</h2>
+            <h2 class="fw-bolder mb-4">6. Discussion</h2>
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
-                <p class="text-muted mb-3">
-                  After testing the Kalman Filter in Python, I implemented it on the Artemis using matrix math. 
-                  This let the robot estimate distance and velocity during the control loop instead of waiting only on the next raw ToF update.
-                </p>
-                <p class="text-muted mb-3">
-                  This was useful because the ToF sensor updates more slowly than the controller can run. With the Kalman Filter, I could use an estimated state that updated continuously and gave smoother behavior.
-                </p>
-
-                <div class="bg-light rounded-4 p-3 mb-0">
-                  <h5 class="small fw-semibold mb-2">Matrix Operations on the Robot</h5>
-                  <pre class="mb-0 small"><code>#include &lt;BasicLinearAlgebra.h&gt;
-using namespace BLA;
-
-Matrix&lt;2,1&gt; state = {0,0};
-Matrix&lt;1&gt; u;
-Matrix&lt;2,2&gt; A = {1, 1,
-                 0, 1};
-
-Sigma_p = Ad * Sigma * ~Ad + Sigma_u;</code></pre>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="mb-5">
-            <h2 class="fw-bolder mb-4">7. Discussion</h2>
-            <div class="card border-0 shadow-sm rounded-4">
-              <div class="card-body p-4">
-                <p class="text-muted mb-3">
-                  Overall, the Kalman Filter improved the robot’s state estimate by combining model prediction with measured sensor data. 
-                  Compared to relying on only the raw ToF sensor, the Kalman Filter gave a cleaner estimate of both position and velocity.
-                </p>
-                <p class="text-muted mb-3">
-                  One of the most important parts of this lab was tuning the covariance matrices. If the process noise was too small, the filter responded too slowly. 
-                  If the measurement noise was too small, the filter trusted the sensor too much and became noisier.
-                </p>
-                <p class="text-muted mb-3">
-                  This lab also showed why a model-based estimate can be more useful than simple extrapolation. The Kalman Filter gave a better estimate between sensor updates and set up the robot for faster control in the next lab.
+                <p class="text-muted">
+                  The Kalman Filter improved estimation by combining model predictions with sensor data. 
+                  This resulted in smoother motion and better velocity estimates compared to raw ToF or extrapolation.
                 </p>
               </div>
             </div>
           </section>
 
-          <section class="mb-5">
-            <h2 class="fw-bolder mb-4">8. Video Demonstration</h2>
-            <div class="card border-0 shadow-sm rounded-4">
-              <div class="card-body p-4">
-                <p class="text-muted mb-4">
-                  This is where I will place the video showing the robot running with the Kalman Filter.
-                </p>
-
-                <div class="row g-4">
-                  <div class="col-lg-4">
-                    <div class="bg-light rounded-4 p-3">
-                      <h6 class="fw-semibold mb-2">Kalman Filter Test Video</h6>
-                      <video class="w-100 rounded-4" controls>
-                        <source src="../assets/lab7/your_kf_video.mp4" type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
         </div>
       </section>
+
     </main>
-
-    <footer class="bg-white py-4 mt-auto">
-      <div class="container px-5">
-        <div class="row align-items-center justify-content-between">
-          <div class="col-auto">
-            <div class="small text-muted">© 2026 Jamison L. Taylor Jr.</div>
-          </div>
-        </div>
-      </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

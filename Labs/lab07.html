@@ -68,7 +68,7 @@
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
                 <p class="text-muted mb-3">
-                  To estimate the system dynamics, I drove the robot toward the wall at a constant motor input of <strong>152 PWM</strong> and logged the ToF output, motor input, and timing data. 
+                  To estimate the system dynamics, I drove the robot toward the wall at a constant motor input of <code>152 PWM</code> and logged the ToF output, motor input, and timing data. 
                   I used my Bluetooth debugging structure again so I could run the robot, save the values in arrays, and then send those values back to Jupyter for analysis.
                 </p>
                 <p class="text-muted mb-3">
@@ -208,7 +208,7 @@ for i, v in enumerate(Forward_Velocity_list[:1100]):
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
                 <p class="text-muted mb-3">
-                  Once I had the step response information, I used it to estimate the <strong>drag: 0.0066719</strong> and <strong>momentum: 0.0022717</strong> behavior of the robot and build the state space model. 
+                  Once I had the step response information, I used it to estimate the <code>drag: 0.0066719</code> and <code>momentum: 0.0022717</code> behavior of the robot and build the state space model. 
                   The states I used were distance from the wall and velocity.
                 </p>
                 <div class="bg-light rounded-4 p-3 mb-4">
@@ -218,11 +218,12 @@ for i, v in enumerate(Forward_Velocity_list[:1100]):
 Steady State:
 0 = -d*v_ss + u
 d = u / v_ss
+
 Time Constant:
 tau = t_90 / 2.3
+
 Momentum Term:
-m = d * tau
-  </code></pre>
+m = d * tau</code></pre>
 </div>
 
 <div class="bg-light rounded-4 p-3 mb-4">
@@ -251,6 +252,40 @@ x = np.array([[-TOF[0]], [0]])</code></pre>
                 <p class="text-muted mb-3">
                   I also had to choose covariance matrices for the process noise and sensor noise. These values control how much the filter trusts the model versus the measured sensor data.
                 </p>
+                <div class="bg-light rounded-4 p-3 mb-4">
+  <h5 class="small fw-semibold mb-2">Measurement Noise</h5>
+  <pre class="small mb-0"><code>
+Σ_z = [ σ₃² ]
+
+σ₃² = (20 mm)²
+  </code></pre>
+</div>
+
+<div class="bg-light rounded-4 p-3 mb-4">
+  <h5 class="small fw-semibold mb-2">Process Noise (Dependent on Sampling Time)</h5>
+  <pre class="small mb-0"><code>
+Σ_u = [ σ₁²   0
+         0   σ₂² ]
+  </code></pre>
+</div>
+
+<div class="bg-light rounded-4 p-3 mb-4">
+  <h5 class="small fw-semibold mb-2">Sampling Time</h5>
+  <pre class="small mb-0"><code>
+Δt ≈ 0.0945 s
+  </code></pre>
+</div>
+
+<div class="bg-light rounded-4 p-3 mb-4">
+  <h5 class="small fw-semibold mb-2">Trust in Modeled Position & </h5>
+  <pre class="small mb-0"><code>
+σ₁ = σ₂ = √(10² · (1 / Δt))
+
+σ₁ = σ₂ =√(100 / 0.0945)
+
+σ₁ ≈ σ₂ ≈ 32.5 mm
+  </code></pre>
+</div>
 
                 <div class="bg-light rounded-4 p-3 mb-0">
                   <h5 class="small fw-semibold mb-2">Covariance Matrix Setup</h5>

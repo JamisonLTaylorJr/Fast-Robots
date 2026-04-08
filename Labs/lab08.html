@@ -15,7 +15,6 @@
   <body class="d-flex flex-column h-100">
     <main class="flex-shrink-0">
 
-      <!-- NAVBAR -->
       <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
         <div class="container px-5">
           <a class="navbar-brand" href="../index.html">
@@ -31,7 +30,7 @@
           <div class="text-center mb-5">
             <h1 class="fw-bolder">Lab 8: <span class="text-gradient">Stunts (Drift)</span></h1>
             <p class="text-muted mb-0">
-              In this lab I combined the Kalman Filter and IMU-based PID control to perform a high-speed drift maneuver.
+              In this lab I combined previous control strategies to perform a fast drift maneuver.
             </p>
           </div>
 
@@ -41,8 +40,8 @@
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
                 <p class="text-muted mb-0">
-                  The goal of this lab was to combine all previous control systems to perform a fast stunt. 
-                  I chose Task B (Drift), where the robot drives quickly toward a wall, detects when it is within approximately 3 ft, performs a 180° turn, and then drives away.
+                  The goal of this lab was to perform a fast stunt by combining previous lab concepts. 
+                  I chose Task B (Drift), where the robot drives toward a wall, performs a 180° turn at a set distance, and drives away.
                 </p>
               </div>
             </div>
@@ -54,10 +53,11 @@
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
                 <p class="text-muted mb-3">
-                  This lab felt like a combination of Lab 6 and Lab 7. I used the Kalman Filter to estimate distance to the wall and the IMU-based PID controller to control the robot’s orientation.
+                  I initially attempted to use the Kalman Filter from Lab 7, but I found that it was not reliable enough at high speeds for this stunt. 
+                  Because of this, I chose to rely primarily on tuned ToF distance thresholds and IMU-based orientation control.
                 </p>
                 <p class="text-muted mb-0">
-                  To organize the behavior, I implemented a simple state machine that switches between driving forward, drifting (turning), and driving away.
+                  I implemented a state machine to manage the transition between driving, drifting, and exiting the maneuver.
                 </p>
               </div>
             </div>
@@ -69,19 +69,14 @@
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
 
-                <p class="text-muted mb-3">
-                  I used a state variable <code>drift_state</code> to control the behavior of the robot:
-                </p>
-
 <pre class="bg-light p-3 rounded-4"><code>int drift_state = 0;
 // 0 = drive toward wall
-// 1 = drift (turn 180)
+// 1 = drift (turn)
 // 2 = drive away
-// 3 = stop
 </code></pre>
 
                 <p class="text-muted mb-0">
-                  This allowed me to clearly separate each phase of the stunt and switch control strategies at the correct time.
+                  This structure allowed me to clearly separate control strategies and transition cleanly between phases.
                 </p>
 
               </div>
@@ -95,21 +90,12 @@
               <div class="card-body p-4">
 
                 <p class="text-muted mb-3">
-                  In the first phase, the robot drives quickly toward the wall using the Kalman Filter estimate of distance instead of raw ToF data.
+                  The robot drives forward at a constant speed until it reaches a threshold distance from the wall.
                 </p>
 
-<pre class="bg-light p-3 rounded-4"><code>error1P_drive = distance1_est - targetDistance1;
-
-if (error1P_drive > 0 && drift_state == 0) {
-  drive_backward(70);
-}
-else if (error1P_drive < 0 && drift_state == 0){
-  drift_state = 1;
-}
-</code></pre>
-
-                <p class="text-muted mb-0">
-                  Once the estimated distance drops below the threshold (~3 ft), the system transitions into the drift phase.
+                <p class="text-muted mb-3">
+                  I initially set this threshold to <code>12 inches</code>, but I found that the robot continued drifting forward during the turn. 
+                  Because of this, I increased the trigger distance to <code>18 inches</code> to allow enough space for a full drift.
                 </p>
 
               </div>
@@ -123,26 +109,17 @@ else if (error1P_drive < 0 && drift_state == 0){
               <div class="card-body p-4">
 
                 <p class="text-muted mb-3">
-                  During the drift phase, the robot switches to orientation control using the IMU. The yaw angle is extracted from the DMP and compared to a 180° target.
+                  During the drift phase, I used IMU yaw measurements and a PID controller to rotate the robot by 180°.
                 </p>
-
-<pre class="bg-light p-3 rounded-4"><code>error1P_ori = Gyro_yaw - targetOrientation1;
-</code></pre>
 
                 <p class="text-muted mb-3">
-                  A PID controller determines the turning direction and magnitude. I used a deadband of about 2 degrees to stop the turn cleanly.
+                  One key observation was that large PWM values caused the robot to overshoot significantly. 
+                  Since the largest rotation (180°) creates the highest rotational velocity, I reduced the PWM values to prevent over-rotation and improve stability.
                 </p>
 
-<pre class="bg-light p-3 rounded-4"><code>if (fabs(error1P_ori) <= deadband_ori) {
-  drift_state = 2;
-}
-else {
-  drift_right(...) or drift_left(...)
-}
-</code></pre>
-
-                <p class="text-muted mb-0">
-                  I implemented custom drift functions to create a faster turning motion by driving the motors in opposite directions with asymmetric speeds.
+                <p class="text-muted mb-3">
+                  Additionally, I found that using equal PWM values on both motors did not produce a realistic drift. 
+                  Instead, I intentionally offset the motor speeds so that one side was stronger than the other, which created a smoother and more controlled turning motion.
                 </p>
 
               </div>
@@ -155,17 +132,8 @@ else {
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
 
-                <p class="text-muted mb-3">
-                  After completing the turn, the robot drives away from the wall at a constant speed to complete the stunt.
-                </p>
-
-<pre class="bg-light p-3 rounded-4"><code>else if (drift_state == 2){
-  drive_backward(70);
-}
-</code></pre>
-
                 <p class="text-muted mb-0">
-                  This final motion makes the stunt visually clear and demonstrates that the robot successfully reoriented itself.
+                  After completing the turn, the robot drives away from the wall to complete the stunt and clearly show successful reorientation.
                 </p>
 
               </div>
@@ -178,8 +146,9 @@ else {
 
             <div class="card border-0 shadow-sm rounded-4 mb-4">
               <div class="card-body p-4">
+
                 <p class="text-muted mb-3">
-                  Below are videos of successful drift runs. The robot consistently detected the wall, executed the turn, and drove away.
+                  Below are videos of successful drift runs.
                 </p>
 
                 <div class="row g-4">
@@ -199,13 +168,15 @@ else {
                     </video>
                   </div>
                 </div>
+
               </div>
             </div>
 
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
+
                 <p class="text-muted mb-4">
-                  The plots below show ToF data, yaw angle, and control signals during the stunt.
+                  These plots show ToF distance and yaw angle during the drift.
                 </p>
 
                 <div class="row g-4">
@@ -216,26 +187,53 @@ else {
                     <img src="../assets/lab8/yaw_plot.png" class="img-fluid rounded-4" />
                   </div>
                 </div>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- BLOOPERS -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">8. Blooper: The Peepee Dance</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+
+                <p class="text-muted mb-3">
+                  One of the more interesting failure modes I observed was what I call the “peepee dance,” where the robot would spin in place uncontrollably and then drive off unpredictably (in one case directly toward my bathroom).
+                </p>
+
+                <div class="row g-4">
+                  <div class="col-lg-6">
+                    <video class="w-100 rounded-4" controls>
+                      <source src="../assets/lab8/blooper.mp4" type="video/mp4" />
+                    </video>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <img src="../assets/lab8/blooper_plot.png" class="img-fluid rounded-4" />
+                  </div>
+                </div>
+
               </div>
             </div>
           </section>
 
           <!-- DISCUSSION -->
           <section class="mb-5">
-            <h2 class="fw-bolder mb-4">8. Discussion</h2>
+            <h2 class="fw-bolder mb-4">9. Discussion</h2>
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
 
                 <p class="text-muted mb-3">
-                  This lab demonstrated how multiple control systems can be combined into a single behavior. The Kalman Filter helped provide a smoother distance estimate, while the IMU-based PID controller enabled accurate turning.
+                  This lab highlighted how difficult it is to control fast dynamic motion. Small changes in distance thresholds or PWM values had a large effect on performance.
                 </p>
 
                 <p class="text-muted mb-3">
-                  One challenge was tuning the transition between driving and drifting. Small changes in the distance threshold or PID gains could significantly affect performance.
+                  While the Kalman Filter worked well in Lab 7, it was not reliable enough at high speeds for this stunt, so direct sensor tuning provided better results.
                 </p>
 
                 <p class="text-muted mb-0">
-                  Overall, this lab tied together everything from previous labs and showed how model-based estimation and control can be used for fast and dynamic motion.
+                  Overall, this lab brought together all previous concepts and demonstrated how estimation and control interact in real-world robotics systems.
                 </p>
 
               </div>
@@ -244,16 +242,17 @@ else {
 
           <!-- ACKNOWLEDGMENTS -->
           <section class="mb-5">
-            <h2 class="fw-bolder mb-4">9. Acknowledgments</h2>
+            <h2 class="fw-bolder mb-4">10. Acknowledgments</h2>
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
 
                 <p class="text-muted mb-3">
-                  I used ChatGPT to help structure parts of my code and assist with debugging and formatting this report.
+                  I used ChatGPT to help debug code and structure this report.
                 </p>
 
                 <p class="text-muted mb-0">
-                  I also worked with Ethan Sarpong and Andrew Donofrio for troubleshooting and testing the robot.
+                  I also used Akinfolami Akin-Alamu's Spring 2025 to help stucture my report as there
+                  was not much stucture in the Lab 8 handout.
                 </p>
 
               </div>
@@ -270,6 +269,5 @@ else {
       </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

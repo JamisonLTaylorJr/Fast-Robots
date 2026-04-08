@@ -25,6 +25,26 @@
           <a class="navbar-brand" href="../index.html">
             <span class="fw-bolder text-primary">MAE 5190 Fast Robots</span>
           </a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+              <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="../index.html#labs">Labs</a></li>
+              <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
+            </ul>
+          </div>
         </div>
       </nav>
 
@@ -83,15 +103,17 @@
             <h2 class="fw-bolder mb-4">3. Drift State Machine</h2>
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
-                <pre class="bg-light p-3 rounded-4"><code>int drift_state = 0;
+                <div class="bg-light rounded-4 p-3 mb-4">
+                  <h5 class="small fw-semibold mb-2">Drift State Variable</h5>
+                  <pre class="mb-0 small"><code>int drift_state = 0;
 // 0 = drive toward wall
 // 1 = drift (turn)
-// 2 = drive away
-</code></pre>
+// 2 = drive away</code></pre>
+                </div>
 
                 <p class="text-muted mb-0">
-                  This structure allowed me to clearly separate control
-                  strategies and transition cleanly between phases.
+                  This structure allowed me to separate the control strategies
+                  for each phase and transition between them more cleanly.
                 </p>
               </div>
             </div>
@@ -100,12 +122,34 @@
           <!-- FORWARD -->
           <section class="mb-5">
             <h2 class="fw-bolder mb-4">4. Driving Toward the Wall</h2>
+
             <div class="card border-0 shadow-sm rounded-4 mb-4">
               <div class="card-body p-4">
                 <p class="text-muted mb-3">
                   The robot drives forward at a constant speed until it reaches
                   a threshold distance from the wall.
                 </p>
+
+                <div class="bg-light rounded-4 p-3 mb-4">
+                  <h5 class="small fw-semibold mb-2">Drive to Threshold</h5>
+                  <pre class="mb-0 small"><code>if (drift_state == 0 || drift_state == 2) {
+  if (ToF_Sensor_1.checkForDataReady()) {
+    int distance1 = ToF_Sensor_1.getDistance();
+    ToF_Sensor_1.clearInterrupt();
+    distance1_in = distance1 * 0.0393701f;
+
+    error1P_drive = distance1_in - drive_threshold;
+
+    // State 0: keep driving until threshold is reached
+    if (error1P_drive > 0 && drift_state == 0) {
+      drive_forward(70);
+    }
+    else if (error1P_drive < 0 && drift_state == 0) {
+      drift_state = 1;
+    }
+  }
+}</code></pre>
+                </div>
 
                 <p class="text-muted mb-0">
                   I initially set this threshold to <code>12 inches</code>, but
@@ -117,11 +161,19 @@
               </div>
             </div>
 
-            <div class="row g-4">
-              <div class="col-lg-4">
-                <video class="w-100 rounded-4" controls>
-                  <source src="../assets/lab8/12in.mp4" type="video/mp4" />
-                </video>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <div class="row g-4">
+                  <div class="col-lg-4">
+                    <div class="bg-light rounded-4 p-3">
+                      <h6 class="fw-semibold mb-2">12 in Trigger Attempt</h6>
+                      <video class="w-100 rounded-4" controls>
+                        <source src="../assets/lab8/12in.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
@@ -136,6 +188,38 @@
                   controller to rotate the robot by 180°.
                 </p>
 
+                <div class="bg-light rounded-4 p-3 mb-4">
+                  <h5 class="small fw-semibold mb-2">Drift Control</h5>
+                  <pre class="mb-0 small"><code>if (drift_state == 1) {
+  icm_20948_DMP_data_t data;
+  myICM.readDMPdataFromFIFO(&data);
+
+  // DMP calculations
+  Gyro_yaw = (float)atan2(t3, t4) * 180.0 / PI + 3.8;
+
+  float deadband_ori = 2.0;
+
+  if (fabs(error1P_ori) <= deadband_ori) {
+    stop_motors();
+    dutystate_ori = 0;
+    ori_finish = 1;
+    drift_state = 2;
+  }
+  else {
+    ori_finish = 0;
+
+    if (error1P_ori > 0) {
+      drift_right(duty2);
+      dutystate_ori = 1;
+    }
+    else {
+      drift_left(duty2);
+      dutystate_ori = -1;
+    }
+  }
+}</code></pre>
+                </div>
+
                 <p class="text-muted mb-3">
                   One key observation was that large PWM values caused the robot
                   to overshoot significantly. Since the largest change in
@@ -146,9 +230,13 @@
 
                 <div class="row g-4 mb-4">
                   <div class="col-lg-4">
-                    <video class="w-100 rounded-4" controls>
-                      <source src="../assets/lab8/trial1.mp4" type="video/mp4" />
-                    </video>
+                    <div class="bg-light rounded-4 p-3">
+                      <h6 class="fw-semibold mb-2">Higher PWM Overshoot Trial</h6>
+                      <video class="w-100 rounded-4" controls>
+                        <source src="../assets/lab8/trial1.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
                   </div>
                 </div>
 
@@ -161,9 +249,13 @@
 
                 <div class="row g-4">
                   <div class="col-lg-4">
-                    <video class="w-100 rounded-4" controls>
-                      <source src="../assets/lab8/trial2.mp4" type="video/mp4" />
-                    </video>
+                    <div class="bg-light rounded-4 p-3">
+                      <h6 class="fw-semibold mb-2">Uneven Motor PWM Trial</h6>
+                      <video class="w-100 rounded-4" controls>
+                        <source src="../assets/lab8/trial2.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -175,11 +267,20 @@
             <h2 class="fw-bolder mb-4">6. Driving Away</h2>
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
-                <p class="text-muted mb-0">
+                <p class="text-muted mb-3">
                   After completing the turn, the robot drives away from the wall
                   to complete the stunt and clearly show successful
                   reorientation.
                 </p>
+
+                <div class="bg-light rounded-4 p-3 mb-0">
+                  <h5 class="small fw-semibold mb-2">Exit Motion</h5>
+                  <pre class="mb-0 small"><code>drift_state = 2;
+
+if (drift_state == 2) {
+  drive_backward(70);
+}</code></pre>
+                </div>
               </div>
             </div>
           </section>
@@ -196,9 +297,13 @@
 
                 <div class="row g-4">
                   <div class="col-lg-4">
-                    <video class="w-100 rounded-4" controls>
-                      <source src="../assets/lab8/best.mp4" type="video/mp4" />
-                    </video>
+                    <div class="bg-light rounded-4 p-3">
+                      <h6 class="fw-semibold mb-2">Successful Drift Run</h6>
+                      <video class="w-100 rounded-4" controls>
+                        <source src="../assets/lab8/best.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -207,16 +312,19 @@
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
                 <p class="text-muted mb-4">
-                  These plots show ToF distance and yaw angle during the drift.
+                  This plot shows the ToF distance and yaw angle during the drift.
                 </p>
 
                 <div class="row g-4">
                   <div class="col-lg-6">
-                    <img
-                      src="../assets/lab8/plot.png"
-                      class="img-fluid rounded-4"
-                      alt="ToF distance and yaw angle plot"
-                    />
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Drift Plot</h6>
+                      <img
+                        src="../assets/lab8/plot.png"
+                        class="img-fluid rounded-4"
+                        alt="ToF distance and yaw angle plot"
+                      />
+                    </figure>
                   </div>
                 </div>
               </div>
@@ -237,17 +345,24 @@
 
                 <div class="row g-4">
                   <div class="col-lg-6">
-                    <video class="w-100 rounded-4" controls>
-                      <source src="../assets/lab8/blooper.mp4" type="video/mp4" />
-                    </video>
+                    <div class="bg-light rounded-4 p-3">
+                      <h6 class="fw-semibold mb-2">Blooper Video</h6>
+                      <video class="w-100 rounded-4" controls>
+                        <source src="../assets/lab8/blooper.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
                   </div>
 
                   <div class="col-lg-6">
-                    <img
-                      src="../assets/lab8/bp.png"
-                      class="img-fluid rounded-4"
-                      alt="Blooper plot"
-                    />
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Blooper Plot</h6>
+                      <img
+                        src="../assets/lab8/bp.png"
+                        class="img-fluid rounded-4"
+                        alt="Blooper plot"
+                      />
+                    </figure>
                   </div>
                 </div>
               </div>
@@ -303,8 +418,14 @@
 
     <footer class="bg-white py-4 mt-auto">
       <div class="container px-5">
-        <div class="small text-muted">© 2026 Jamison L. Taylor Jr.</div>
+        <div class="row align-items-center justify-content-between">
+          <div class="col-auto">
+            <div class="small text-muted">© 2026 Jamison L. Taylor Jr.</div>
+          </div>
+        </div>
       </div>
     </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

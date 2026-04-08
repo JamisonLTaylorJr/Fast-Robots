@@ -2,19 +2,24 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
     <meta name="description" content="MAE 5190 Fast Robots - Lab 8" />
     <meta name="author" content="Jamison L. Taylor Jr." />
     <title>Lab 8 | MAE 5190 Fast Robots</title>
 
     <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+      rel="stylesheet"
+    />
     <link href="../css/styles.css" rel="stylesheet" />
   </head>
 
   <body class="d-flex flex-column h-100">
     <main class="flex-shrink-0">
-
       <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
         <div class="container px-5">
           <a class="navbar-brand" href="../index.html">
@@ -25,12 +30,14 @@
 
       <section class="py-5">
         <div class="container px-5">
-
           <!-- TITLE -->
           <div class="text-center mb-5">
-            <h1 class="fw-bolder">Lab 8: <span class="text-gradient">Stunts (Drift)</span></h1>
+            <h1 class="fw-bolder">
+              Lab 8: <span class="text-gradient">Stunts (Drift)</span>
+            </h1>
             <p class="text-muted mb-0">
-              In this lab I combined previous control strategies to perform a fast drift maneuver.
+              In this lab, I combined previous control strategies to perform a
+              fast drift maneuver.
             </p>
           </div>
 
@@ -40,8 +47,10 @@
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
                 <p class="text-muted mb-0">
-                  The goal of this lab was to perform a fast stunt by combining previous lab concepts. 
-                  I chose Task B (Drift), where the robot drives toward a wall, performs a 180° turn at a set distance, and drives away.
+                  The goal of this lab was to perform a fast stunt by combining
+                  concepts from previous labs. I chose Task B (Drift), where the
+                  robot drives toward a wall, performs a 180° turn at a set
+                  distance, and then drives away.
                 </p>
               </div>
             </div>
@@ -53,11 +62,17 @@
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
                 <p class="text-muted mb-3">
-                  I initially attempted to use the Kalman Filter from Lab 7, but I found that it was not reliable enough at high speeds for this stunt. 
-                  Because of this, I chose to rely primarily on tuned ToF distance thresholds and IMU-based orientation control.
+                  I initially attempted to use the Kalman Filter from Lab 7, but
+                  I found that it was not reliable enough at high speeds for
+                  this stunt.
+                </p>
+                <p class="text-muted mb-3">
+                  Because of this, I chose to rely primarily on tuned ToF
+                  distance thresholds and IMU-based orientation control.
                 </p>
                 <p class="text-muted mb-0">
-                  I implemented a state machine to manage the transition between driving, drifting, and exiting the maneuver.
+                  I implemented a state machine to manage the transitions
+                  between driving, drifting, and exiting the maneuver.
                 </p>
               </div>
             </div>
@@ -68,17 +83,16 @@
             <h2 class="fw-bolder mb-4">3. Drift State Machine</h2>
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
-
-<pre class="bg-light p-3 rounded-4"><code>int drift_state = 0;
+                <pre class="bg-light p-3 rounded-4"><code>int drift_state = 0;
 // 0 = drive toward wall
 // 1 = drift (turn)
 // 2 = drive away
 </code></pre>
 
                 <p class="text-muted mb-0">
-                  This structure allowed me to clearly separate control strategies and transition cleanly between phases.
+                  This structure allowed me to clearly separate control
+                  strategies and transition cleanly between phases.
                 </p>
-
               </div>
             </div>
           </section>
@@ -86,26 +100,30 @@
           <!-- FORWARD -->
           <section class="mb-5">
             <h2 class="fw-bolder mb-4">4. Driving Toward the Wall</h2>
-            <div class="card border-0 shadow-sm rounded-4">
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
               <div class="card-body p-4">
-
                 <p class="text-muted mb-3">
-                  The robot drives forward at a constant speed until it reaches a threshold distance from the wall.
+                  The robot drives forward at a constant speed until it reaches
+                  a threshold distance from the wall.
                 </p>
 
-                <p class="text-muted mb-3">
-                  I initially set this threshold to <code>12 inches</code>, but I found that the robot continued drifting forward during the turn. 
-                  Because of this, I increased the trigger distance to <code>18 inches</code> to allow enough space for a full drift.
+                <p class="text-muted mb-0">
+                  I initially set this threshold to <code>12 inches</code>, but
+                  I found that there was not enough space because the robot
+                  continued drifting forward during the turn. Because of this, I
+                  increased the trigger distance to <code>18 inches</code> to
+                  allow enough space for a full drift.
                 </p>
-
               </div>
             </div>
-            <div class="col-lg-4">
-                    <video class="w-100 rounded-4" controls>
-                      <source src="../assets/lab8/12in.mp4" type="video/mp4" />
-                    </video>
-                  </div>
-            
+
+            <div class="row g-4">
+              <div class="col-lg-4">
+                <video class="w-100 rounded-4" controls>
+                  <source src="../assets/lab8/12in.mp4" type="video/mp4" />
+                </video>
+              </div>
+            </div>
           </section>
 
           <!-- DRIFT -->
@@ -113,35 +131,43 @@
             <h2 class="fw-bolder mb-4">5. Drift (180° Turn)</h2>
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
-
                 <p class="text-muted mb-3">
-                  During the drift phase, I used IMU yaw measurements and a PID controller to rotate the robot by 180°.
+                  During the drift phase, I used IMU yaw measurements and a PID
+                  controller to rotate the robot by 180°.
                 </p>
 
                 <p class="text-muted mb-3">
-                  One key observation was that large PWM values caused the robot to overshoot significantly. 
-                  Since the largest rotation (180°) creates the highest rotational velocity, I reduced the PWM values to prevent over-rotation and improve stability.
+                  One key observation was that large PWM values caused the robot
+                  to overshoot significantly. Since the largest change in
+                  rotational velocity happens when the robot has to turn the full
+                  180°, I had to drastically decrease the PWM signal to prevent
+                  over-rotation and improve stability.
                 </p>
-                <div class="col-lg-4">
+
+                <div class="row g-4 mb-4">
+                  <div class="col-lg-4">
                     <video class="w-100 rounded-4" controls>
                       <source src="../assets/lab8/trial1.mp4" type="video/mp4" />
                     </video>
                   </div>
+                </div>
 
                 <p class="text-muted mb-3">
-                  Additionally, I found that using equal PWM values on both motors did not produce a realistic drift. 
-                  Instead, I intentionally offset the motor speeds so that one side was stronger than the other, which created a smoother and more controlled turning motion.
+                  I also found that using the same PWM signal for both motors
+                  did not make the robot drift well. To make the motion look
+                  more realistic and controlled, I lowered one motor relative to
+                  the other instead of keeping them equal.
                 </p>
-                <div class="col-lg-4">
-                    <video class="w-100 rounded-4" controls>
-                      <source src="../assets/lab8/trial2.mp4" type="video/mp4" />
-                    </video>
-                  </div> 
 
+                <div class="row g-4">
+                  <div class="col-lg-4">
+                    <video class="w-100 rounded-4" controls>
+                      <source src="../assets/lab8/run2.mp4" type="video/mp4" />
+                    </video>
+                  </div>
+                </div>
               </div>
             </div>
-            
-            
           </section>
 
           <!-- RETURN -->
@@ -149,11 +175,11 @@
             <h2 class="fw-bolder mb-4">6. Driving Away</h2>
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
-
                 <p class="text-muted mb-0">
-                  After completing the turn, the robot drives away from the wall to complete the stunt and clearly show successful reorientation.
+                  After completing the turn, the robot drives away from the wall
+                  to complete the stunt and clearly show successful
+                  reorientation.
                 </p>
-
               </div>
             </div>
           </section>
@@ -164,9 +190,8 @@
 
             <div class="card border-0 shadow-sm rounded-4 mb-4">
               <div class="card-body p-4">
-
                 <p class="text-muted mb-3">
-                  Below is the video of a successful drift run.
+                  Below is a video of a successful drift run.
                 </p>
 
                 <div class="row g-4">
@@ -175,26 +200,25 @@
                       <source src="../assets/lab8/best.mp4" type="video/mp4" />
                     </video>
                   </div>
-                  
                 </div>
-
               </div>
             </div>
 
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
-
                 <p class="text-muted mb-4">
                   These plots show ToF distance and yaw angle during the drift.
                 </p>
 
                 <div class="row g-4">
                   <div class="col-lg-6">
-                    <img src="../assets/lab8/plot.png" class="img-fluid rounded-4" />
+                    <img
+                      src="../assets/lab8/plot.png"
+                      class="img-fluid rounded-4"
+                      alt="ToF distance and yaw angle plot"
+                    />
                   </div>
-                  
                 </div>
-
               </div>
             </div>
           </section>
@@ -204,9 +228,11 @@
             <h2 class="fw-bolder mb-4">8. Blooper: The Peepee Dance</h2>
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
-
                 <p class="text-muted mb-3">
-                  One of the more interesting failure modes I observed was what I call the “peepee dance,” where the robot would spin in place uncontrollably and then drive off unpredictably (in one case directly toward my bathroom).
+                  One of the more interesting failure modes I observed was what
+                  I call the “peepee dance,” where the robot would spin in place
+                  uncontrollably and then drive off unpredictably. In one case,
+                  it went directly toward my bathroom.
                 </p>
 
                 <div class="row g-4">
@@ -217,10 +243,13 @@
                   </div>
 
                   <div class="col-lg-6">
-                    <img src="../assets/lab8/bp.png" class="img-fluid rounded-4" />
+                    <img
+                      src="../assets/lab8/bp.png"
+                      class="img-fluid rounded-4"
+                      alt="Blooper plot"
+                    />
                   </div>
                 </div>
-
               </div>
             </div>
           </section>
@@ -230,19 +259,23 @@
             <h2 class="fw-bolder mb-4">9. Discussion</h2>
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
-
                 <p class="text-muted mb-3">
-                  This lab highlighted how difficult it is to control fast dynamic motion. Small changes in distance thresholds or PWM values had a large effect on performance.
+                  This lab highlighted how difficult it is to control fast
+                  dynamic motion. Small changes in distance thresholds or PWM
+                  values had a large effect on performance.
                 </p>
 
                 <p class="text-muted mb-3">
-                  While the Kalman Filter worked well in Lab 7, it was not reliable enough at high speeds for this stunt, so direct sensor tuning provided better results.
+                  While the Kalman Filter worked well in Lab 7, it was not
+                  reliable enough at high speeds for this stunt, so direct
+                  sensor tuning provided better results.
                 </p>
 
                 <p class="text-muted mb-0">
-                  Overall, this lab brought together all previous concepts and demonstrated how estimation and control interact in real-world robotics systems.
+                  Overall, this lab brought together concepts from previous labs
+                  and demonstrated how estimation and control interact in
+                  real-world robotics systems.
                 </p>
-
               </div>
             </div>
           </section>
@@ -252,20 +285,18 @@
             <h2 class="fw-bolder mb-4">10. Acknowledgments</h2>
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
-
                 <p class="text-muted mb-3">
                   I used ChatGPT to help debug code and structure this report.
                 </p>
 
                 <p class="text-muted mb-0">
-                  I also used Akinfolami Akin-Alamu's Spring 2025 to help stucture my report as there
-                  was not much stucture in the Lab 8 handout.
+                  I also used Akinfolami Akin-Alamu’s Spring 2025 work to help
+                  structure my report, since there was not much structure in the
+                  Lab 8 handout.
                 </p>
-
               </div>
             </div>
           </section>
-
         </div>
       </section>
     </main>
@@ -275,6 +306,5 @@
         <div class="small text-muted">© 2026 Jamison L. Taylor Jr.</div>
       </div>
     </footer>
-
   </body>
 </html>

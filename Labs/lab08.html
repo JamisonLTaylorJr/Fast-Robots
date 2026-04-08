@@ -100,6 +100,12 @@
 
               </div>
             </div>
+            <div class="col-lg-4">
+                    <video class="w-100 rounded-4" controls>
+                      <source src="../assets/lab8/12in.mp4" type="video/mp4" />
+                    </video>
+                  </div>
+            
           </section>
 
           <!-- DRIFT -->
@@ -116,14 +122,26 @@
                   One key observation was that large PWM values caused the robot to overshoot significantly. 
                   Since the largest rotation (180°) creates the highest rotational velocity, I reduced the PWM values to prevent over-rotation and improve stability.
                 </p>
+                <div class="col-lg-4">
+                    <video class="w-100 rounded-4" controls>
+                      <source src="../assets/lab8/trial1.mp4" type="video/mp4" />
+                    </video>
+                  </div>
 
                 <p class="text-muted mb-3">
                   Additionally, I found that using equal PWM values on both motors did not produce a realistic drift. 
                   Instead, I intentionally offset the motor speeds so that one side was stronger than the other, which created a smoother and more controlled turning motion.
                 </p>
+                <div class="col-lg-4">
+                    <video class="w-100 rounded-4" controls>
+                      <source src="../assets/lab8/run2.mp4" type="video/mp4" />
+                    </video>
+                  </div> 
 
               </div>
             </div>
+            
+            
           </section>
 
           <!-- RETURN -->
@@ -148,25 +166,16 @@
               <div class="card-body p-4">
 
                 <p class="text-muted mb-3">
-                  Below are videos of successful drift runs.
+                  Below is the video of a successful drift run.
                 </p>
 
                 <div class="row g-4">
                   <div class="col-lg-4">
                     <video class="w-100 rounded-4" controls>
-                      <source src="../assets/lab8/run1.mp4" type="video/mp4" />
+                      <source src="../assets/lab8/best.mp4" type="video/mp4" />
                     </video>
                   </div>
-                  <div class="col-lg-4">
-                    <video class="w-100 rounded-4" controls>
-                      <source src="../assets/lab8/run2.mp4" type="video/mp4" />
-                    </video>
-                  </div>
-                  <div class="col-lg-4">
-                    <video class="w-100 rounded-4" controls>
-                      <source src="../assets/lab8/run3.mp4" type="video/mp4" />
-                    </video>
-                  </div>
+                  
                 </div>
 
               </div>
@@ -181,11 +190,9 @@
 
                 <div class="row g-4">
                   <div class="col-lg-6">
-                    <img src="../assets/lab8/tof_plot.png" class="img-fluid rounded-4" />
+                    <img src="../assets/lab8/plot.png" class="img-fluid rounded-4" />
                   </div>
-                  <div class="col-lg-6">
-                    <img src="../assets/lab8/yaw_plot.png" class="img-fluid rounded-4" />
-                  </div>
+                  
                 </div>
 
               </div>
@@ -210,7 +217,7 @@
                   </div>
 
                   <div class="col-lg-6">
-                    <img src="../assets/lab8/blooper_plot.png" class="img-fluid rounded-4" />
+                    <img src="../assets/lab8/bp.png" class="img-fluid rounded-4" />
                   </div>
                 </div>
 

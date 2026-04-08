@@ -1,121 +1,275 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>MAE 5190 Fast Robots | Jamison Taylor Jr.</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
-        <!-- Custom Google font-->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="../css/styles.css" rel="stylesheet" />
-    </head>
-<body class="d-flex flex-column h-100">
-<main class="flex-shrink-0">
-<nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
-  <div class="container px-5">
-    <a class="navbar-brand" href="../index.html"><span class="fw-bolder text-primary">MAE 5190 Fast Robots</span></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-        <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="../index.html#labs">Labs</a></li>
-        <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<section class="py-5">
-  <div class="container px-5">
-    <div class="row gx-5 justify-content-center">
-      <div class="col-lg-9 col-xl-8 col-xxl-7">
-        <div class="text-center mb-5">
-          <h1 class="fw-bolder">Lab 08: <span class="text-gradient">[Lab Title Placeholder]</span></h1>
-          <p class="lead fw-light text-muted mb-0">MAE 5190 (Fast Robots) &middot; Lab 401</p>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="MAE 5190 Fast Robots - Lab 8" />
+    <meta name="author" content="Jamison L. Taylor Jr." />
+    <title>Lab 8 | MAE 5190 Fast Robots</title>
+
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="../css/styles.css" rel="stylesheet" />
+  </head>
+
+  <body class="d-flex flex-column h-100">
+    <main class="flex-shrink-0">
+
+      <!-- NAVBAR -->
+      <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+        <div class="container px-5">
+          <a class="navbar-brand" href="../index.html">
+            <span class="fw-bolder text-primary">MAE 5190 Fast Robots</span>
+          </a>
         </div>
-        <div class="card shadow border-0 rounded-4 mb-5">
-          <div class="card-body p-5">
-            <h2 class="fw-bolder mb-3">Overview</h2>
-            <p class="text-muted">[Write a 4–8 sentence overview of what this lab was about. What problem were you solving? What did you build?]</p>
-            <hr class="my-4" />
+      </nav>
 
-            <h2 class="fw-bolder mb-3">Objectives</h2>
-            <ul class="text-muted">
-              <li>[Objective 1]</li>
-              <li>[Objective 2]</li>
-              <li>[Objective 3]</li>
-            </ul>
-            <hr class="my-4" />
+      <section class="py-5">
+        <div class="container px-5">
 
-            <h2 class="fw-bolder mb-3">Hardware</h2>
-            <ul class="text-muted">
-              <li>[List sensors/actuators/boards used]</li>
-              <li>[Wiring notes / schematic link]</li>
-            </ul>
-            <hr class="my-4" />
-
-            <h2 class="fw-bolder mb-3">Software</h2>
-            <ul class="text-muted">
-              <li>[Language + toolchain (e.g., C++ / Arduino / ROS / Python)]</li>
-              <li>[Key libraries]</li>
-            </ul>
-            <div class="bg-light rounded-4 p-4">
-              <div class="small text-muted">Code Placeholder</div>
-              <div class="fw-semibold">Add a GitHub link or paste code snippets here later.</div>
-            </div>
-            <hr class="my-4" />
-
-            <h2 class="fw-bolder mb-3">Results</h2>
-            <p class="text-muted">[What worked? What didn’t? Add plots/photos/video links.]</p>
-            <div class="row g-3">
-              <div class="col-md-6">
-                <div class="border rounded-4 p-4 h-100">
-                  <div class="small text-muted">Photo / Screenshot</div>
-                  <div class="fw-semibold">[Drop image into assets/ and link it here]</div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="border rounded-4 p-4 h-100">
-                  <div class="small text-muted">Video Demo</div>
-                  <div class="fw-semibold">[Embed YouTube link or GIF]</div>
-                </div>
-              </div>
-            </div>
-            <hr class="my-4" />
-
-            <h2 class="fw-bolder mb-3">Reflection</h2>
-            <p class="text-muted">[What would you improve next time? Any debugging lessons or design tradeoffs?]</p>
-
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-between mt-4">
-              <a class="btn btn-outline-dark" href="../index.html#labs"><i class="bi bi-arrow-left"></i> Back to Labs</a>
-              <a class="btn btn-primary" href="lab09.html">Next Lab <i class="bi bi-arrow-right"></i></a>
-            </div>
+          <!-- TITLE -->
+          <div class="text-center mb-5">
+            <h1 class="fw-bolder">Lab 8: <span class="text-gradient">Stunts (Drift)</span></h1>
+            <p class="text-muted mb-0">
+              In this lab I combined the Kalman Filter and IMU-based PID control to perform a high-speed drift maneuver.
+            </p>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-</main>
-<footer class="bg-white py-4 mt-auto">
-            <div class="container px-5">
-                <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-                    <div class="col-auto"><div class="small m-0">Copyright &copy; Jamison L. Taylor Jr. 2026</div></div>
-                    <div class="col-auto"><a class="small" href="../index.html#about">Contact</a></div>
-                </div>
-            </div>
-        </footer>
 
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="../js/scripts.js"></script>
-    </body>
+          <!-- OBJECTIVE -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">1. Objective</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-0">
+                  The goal of this lab was to combine all previous control systems to perform a fast stunt. 
+                  I chose Task B (Drift), where the robot drives quickly toward a wall, detects when it is within approximately 3 ft, performs a 180° turn, and then drives away.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- APPROACH -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">2. Approach and Planning</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  This lab felt like a combination of Lab 6 and Lab 7. I used the Kalman Filter to estimate distance to the wall and the IMU-based PID controller to control the robot’s orientation.
+                </p>
+                <p class="text-muted mb-0">
+                  To organize the behavior, I implemented a simple state machine that switches between driving forward, drifting (turning), and driving away.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <!-- STATE MACHINE -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">3. Drift State Machine</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+
+                <p class="text-muted mb-3">
+                  I used a state variable <code>drift_state</code> to control the behavior of the robot:
+                </p>
+
+<pre class="bg-light p-3 rounded-4"><code>int drift_state = 0;
+// 0 = drive toward wall
+// 1 = drift (turn 180)
+// 2 = drive away
+// 3 = stop
+</code></pre>
+
+                <p class="text-muted mb-0">
+                  This allowed me to clearly separate each phase of the stunt and switch control strategies at the correct time.
+                </p>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- FORWARD -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">4. Driving Toward the Wall</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+
+                <p class="text-muted mb-3">
+                  In the first phase, the robot drives quickly toward the wall using the Kalman Filter estimate of distance instead of raw ToF data.
+                </p>
+
+<pre class="bg-light p-3 rounded-4"><code>error1P_drive = distance1_est - targetDistance1;
+
+if (error1P_drive > 0 && drift_state == 0) {
+  drive_backward(70);
+}
+else if (error1P_drive < 0 && drift_state == 0){
+  drift_state = 1;
+}
+</code></pre>
+
+                <p class="text-muted mb-0">
+                  Once the estimated distance drops below the threshold (~3 ft), the system transitions into the drift phase.
+                </p>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- DRIFT -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">5. Drift (180° Turn)</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+
+                <p class="text-muted mb-3">
+                  During the drift phase, the robot switches to orientation control using the IMU. The yaw angle is extracted from the DMP and compared to a 180° target.
+                </p>
+
+<pre class="bg-light p-3 rounded-4"><code>error1P_ori = Gyro_yaw - targetOrientation1;
+</code></pre>
+
+                <p class="text-muted mb-3">
+                  A PID controller determines the turning direction and magnitude. I used a deadband of about 2 degrees to stop the turn cleanly.
+                </p>
+
+<pre class="bg-light p-3 rounded-4"><code>if (fabs(error1P_ori) <= deadband_ori) {
+  drift_state = 2;
+}
+else {
+  drift_right(...) or drift_left(...)
+}
+</code></pre>
+
+                <p class="text-muted mb-0">
+                  I implemented custom drift functions to create a faster turning motion by driving the motors in opposite directions with asymmetric speeds.
+                </p>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- RETURN -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">6. Driving Away</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+
+                <p class="text-muted mb-3">
+                  After completing the turn, the robot drives away from the wall at a constant speed to complete the stunt.
+                </p>
+
+<pre class="bg-light p-3 rounded-4"><code>else if (drift_state == 2){
+  drive_backward(70);
+}
+</code></pre>
+
+                <p class="text-muted mb-0">
+                  This final motion makes the stunt visually clear and demonstrates that the robot successfully reoriented itself.
+                </p>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- RESULTS -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">7. Results</h2>
+
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  Below are videos of successful drift runs. The robot consistently detected the wall, executed the turn, and drove away.
+                </p>
+
+                <div class="row g-4">
+                  <div class="col-lg-4">
+                    <video class="w-100 rounded-4" controls>
+                      <source src="../assets/lab8/run1.mp4" type="video/mp4" />
+                    </video>
+                  </div>
+                  <div class="col-lg-4">
+                    <video class="w-100 rounded-4" controls>
+                      <source src="../assets/lab8/run2.mp4" type="video/mp4" />
+                    </video>
+                  </div>
+                  <div class="col-lg-4">
+                    <video class="w-100 rounded-4" controls>
+                      <source src="../assets/lab8/run3.mp4" type="video/mp4" />
+                    </video>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-4">
+                  The plots below show ToF data, yaw angle, and control signals during the stunt.
+                </p>
+
+                <div class="row g-4">
+                  <div class="col-lg-6">
+                    <img src="../assets/lab8/tof_plot.png" class="img-fluid rounded-4" />
+                  </div>
+                  <div class="col-lg-6">
+                    <img src="../assets/lab8/yaw_plot.png" class="img-fluid rounded-4" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- DISCUSSION -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">8. Discussion</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+
+                <p class="text-muted mb-3">
+                  This lab demonstrated how multiple control systems can be combined into a single behavior. The Kalman Filter helped provide a smoother distance estimate, while the IMU-based PID controller enabled accurate turning.
+                </p>
+
+                <p class="text-muted mb-3">
+                  One challenge was tuning the transition between driving and drifting. Small changes in the distance threshold or PID gains could significantly affect performance.
+                </p>
+
+                <p class="text-muted mb-0">
+                  Overall, this lab tied together everything from previous labs and showed how model-based estimation and control can be used for fast and dynamic motion.
+                </p>
+
+              </div>
+            </div>
+          </section>
+
+          <!-- ACKNOWLEDGMENTS -->
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">9. Acknowledgments</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+
+                <p class="text-muted mb-3">
+                  I used ChatGPT to help structure parts of my code and assist with debugging and formatting this report.
+                </p>
+
+                <p class="text-muted mb-0">
+                  I also worked with Ethan Sarpong and Andrew Donofrio for troubleshooting and testing the robot.
+                </p>
+
+              </div>
+            </div>
+          </section>
+
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-white py-4 mt-auto">
+      <div class="container px-5">
+        <div class="small text-muted">© 2026 Jamison L. Taylor Jr.</div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

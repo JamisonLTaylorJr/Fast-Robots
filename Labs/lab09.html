@@ -58,7 +58,7 @@
                 <p class="text-muted mb-3">
                   The goal of this lab was to map a static room so that the map could later be used for localization and navigation.
                   Since I completed this lab at home instead of in the lab space, I used my own measured scan locations rather than the predetermined class coordinates.
-                  I placed the robot at the points <code>(0,0)</code>, <code>(1.5,6)</code>, <code>(-0.75,4.5)</code>, and <code>(-2.25,3.75)</code>,
+                  I placed the robot at the points <code>(0,0)</code>, <code>(1.5,3)</code>, <code>(2.25,6)</code>, and <code>(-2.25,3)</code>,
                   then rotated it in place and collected distance measurements with my ToF sensors while also logging the robot orientation from the IMU.
                 </p>
                 <p class="text-muted mb-0">
@@ -302,7 +302,7 @@ def postProcess(df, x0, y0):
                 <p class="text-muted mb-3">
                   For each of my home scan locations, I plotted the front and side ToF measurements in polar form first. This helped me check whether
                   the scan shape looked reasonable before combining it with the rest of the room data. The locations I used were
-                  <code>(0,0)</code>, <code>(1.5,6)</code>, <code>(-0.75,4.5)</code>, and <code>(-2.25,3.75)</code>.
+                  <code>(0,0)</code>, <code>(1.5,3)</code>, <code>(2.25,6)</code>, and <code>(-2.25,3)</code>.
                 </p>
                 <p class="text-muted mb-3">
                   In general, the scans matched what I expected. The major room boundaries appeared where they should,
@@ -320,20 +320,20 @@ def postProcess(df, x0, y0):
                   </div>
                   <div class="col-lg-6">
                     <figure class="bg-light rounded-4 p-3 mb-0 text-center">
-                      <h6 class="fw-semibold mb-2">Polar Plot: Location (1.5,6)</h6>
+                      <h6 class="fw-semibold mb-2">Polar Plot: Location (1.5,3)</h6>
                       <img src="../assets/lab9/1.5.png" alt="Polar plot for mapping location 1.5 6" class="img-fluid rounded-4" />
                     </figure>
                   </div>
                   <div class="col-lg-6">
                     <figure class="bg-light rounded-4 p-3 mb-0 text-center">
-                      <h6 class="fw-semibold mb-2">Polar Plot: Location (-0.75,4.5)</h6>
-                      <img src="../assets/lab9/.75.png" alt="Polar plot for mapping location -0.75 4.5" class="img-fluid rounded-4" />
+                      <h6 class="fw-semibold mb-2">Polar Plot: Location (2.25,6)</h6>
+                      <img src="../assets/lab9/2.25.png" alt="Polar plot for mapping location -0.75 4.5" class="img-fluid rounded-4" />
                     </figure>
                   </div>
                   <div class="col-lg-6">
                     <figure class="bg-light rounded-4 p-3 mb-0 text-center">
-                      <h6 class="fw-semibold mb-2">Polar Plot: Location (-2.25,3.75)</h6>
-                      <img src="../assets/lab9/2.25.png" alt="Polar plot for mapping location -2.25 3.75" class="img-fluid rounded-4" />
+                      <h6 class="fw-semibold mb-2">Polar Plot: Location (-2.25,3)</h6>
+                      <img src="../assets/lab9/-2.25.png" alt="Polar plot for mapping location -2.25 3.75" class="img-fluid rounded-4" />
                     </figure>
                   </div>
                 </div>
@@ -348,7 +348,7 @@ def postProcess(df, x0, y0):
                 <p class="text-muted mb-3">
                   After validating the polar plots, I transformed each scan into the inertial reference frame of the room.
                   This produced point clouds that could be overlaid on one another using the known robot locations from my home setup:
-                  <code>(0,0)</code>, <code>(1.5,6)</code>, <code>(-0.75,4.5)</code>, and <code>(-2.25,3.75)</code>.
+                  <code>(0,0)</code>, <code>(1.5,3)</code>, <code>(2.25,6)</code>, and <code>(-2.25,3)</code>.
                 </p>
                 <p class="text-muted mb-0">
                   Once the scans were merged, the room boundaries became much more clear. At that point I could manually draw the line-based map

@@ -269,8 +269,8 @@ def savetocsv_df(loc):
 def postProcess(df, x0, y0):
     loc = f"({x0},{y0})"
 
-    rad_front = -np.deg2rad(df["Angle(deg)"])
-    rad_side = -np.deg2rad(df["Angle(deg)"] + 90)
+    rad_front = -np.deg2rad(df["Angle(deg)"] - 90)
+    rad_side = -np.deg2rad(df["Angle(deg)"])
 
     distF = df["Front(in)"]
     distS = df["Side(in)"]
@@ -363,20 +363,17 @@ def postProcess(df, x0, y0):
                   <div class="col-lg-6">
                     <figure class="bg-light rounded-4 p-3 mb-0 text-center">
                       <h6 class="fw-semibold mb-2">Single Scan in Room Frame</h6>
-                      <img src="../assets/lab9/area.JPEG" alt="Single transformed scan" class="img-fluid rounded-4" />
+                      <img src="../assets/lab9/area.png" alt="Single transformed scan" class="img-fluid rounded-4" />
                     </figure>
                   </div>
                   <div class="col-lg-6">
                     <figure class="bg-light rounded-4 p-3 mb-0 text-center">
                       <h6 class="fw-semibold mb-2">Merged Scatter Plot</h6>
-                      <img src="../assets/lab9/merged_map.png" alt="Merged room mapping plot" class="img-fluid rounded-4" />
+                      <img src="../assets/lab9/map.png" alt="Merged room mapping plot" class="img-fluid rounded-4" />
                     </figure>
                   </div>
                 </div>
 
-                <p class="text-muted mb-0">
-                  Add the merged map image here with different colors for each scan if you have that version saved.
-                </p>
               </div>
             </div>
           </section>

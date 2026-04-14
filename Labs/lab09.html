@@ -391,16 +391,28 @@ def postProcess(df, x0, y0):
                   or noisy distance measurements. The goal was not to preserve every single point, but instead to capture the actual room geometry well enough
                   for future localization tasks.
                 </p>
-                <p class="text-muted mb-0">
-                  Add your final line-map image and the corresponding endpoint lists here.
-                </p>
-
+                
                 <div class="bg-light rounded-4 p-3 mt-4 mb-0">
                   <h5 class="small fw-semibold mb-2">Example Endpoint Format</h5>
-                  <pre class="mb-0 small"><code>x_start = [ ]
-y_start = [ ]
-x_end   = [ ]
-y_end   = [ ]</code></pre>
+                  <pre class="mb-0 small"><code>lines = [
+    ((-45,60),(-15,60)),
+    ((-15,60),(-15,53)),
+    ((-15,53),(15,53)),
+    ((15,53),(15,92)),
+    ((15,92),(40,92)),
+    ((40,92),(40,-18)),
+    ((40,-18),(-7,-18)),
+    ((-7,-18),(-7,25)),
+    ((-7,25),(-15,25)),
+    ((-15,25),(-15,17)),
+    ((-15,17),(-45,17)),
+    ((-45,17),(-45,60)),
+    #inside box
+    ((5,25),(28,25)),
+    ((28,25),(28,10)),
+    ((28,10),(5,10)),
+    ((5,10),(5,25))
+]</code></pre>
                 </div>
               </div>
             </div>
@@ -437,9 +449,7 @@ y_end   = [ ]</code></pre>
             <h2 class="fw-bolder mb-4">10. Media</h2>
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
-                <p class="text-muted mb-3">
-                  Add your mapping video here showing the robot turning in place, stopping, and collecting measurements.
-                </p>
+                
 
                 <div class="row g-4">
                   <div class="col-lg-5">
@@ -452,6 +462,20 @@ y_end   = [ ]</code></pre>
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </section>
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">11. Acknowledgments</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  For the completion of this lab, I used Ethan Sarpongs 2025 page to reference the stucture of the 
+                  python code and the way to plot the data. I also used ChatGPT for code clarification, debugging, and 
+                  to help develop this page of the webside.
+                </p>
+
+                
               </div>
             </div>
           </section>

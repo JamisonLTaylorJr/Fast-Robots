@@ -1,121 +1,479 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>MAE 5190 Fast Robots | Jamison Taylor Jr.</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
-        <!-- Custom Google font-->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="../css/styles.css" rel="stylesheet" />
-    </head>
-<body class="d-flex flex-column h-100">
-<main class="flex-shrink-0">
-<nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
-  <div class="container px-5">
-    <a class="navbar-brand" href="../index.html"><span class="fw-bolder text-primary">MAE 5190 Fast Robots</span></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-        <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="../index.html#labs">Labs</a></li>
-        <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<section class="py-5">
-  <div class="container px-5">
-    <div class="row gx-5 justify-content-center">
-      <div class="col-lg-9 col-xl-8 col-xxl-7">
-        <div class="text-center mb-5">
-          <h1 class="fw-bolder">Lab 09: <span class="text-gradient">[Lab Title Placeholder]</span></h1>
-          <p class="lead fw-light text-muted mb-0">MAE 5190 (Fast Robots) &middot; Lab 401</p>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="MAE 5190 Fast Robots - Lab 9" />
+    <meta name="author" content="Jamison L. Taylor Jr." />
+    <title>Lab 9 | MAE 5190 Fast Robots</title>
+
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="../css/styles.css" rel="stylesheet" />
+  </head>
+
+  <body class="d-flex flex-column h-100">
+    <main class="flex-shrink-0">
+      <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+        <div class="container px-5">
+          <a class="navbar-brand" href="../index.html">
+            <span class="fw-bolder text-primary">MAE 5190 Fast Robots</span>
+          </a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+              <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="../index.html#labs">Labs</a></li>
+              <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
+            </ul>
+          </div>
         </div>
-        <div class="card shadow border-0 rounded-4 mb-5">
-          <div class="card-body p-5">
-            <h2 class="fw-bolder mb-3">Overview</h2>
-            <p class="text-muted">[Write a 4–8 sentence overview of what this lab was about. What problem were you solving? What did you build?]</p>
-            <hr class="my-4" />
+      </nav>
 
-            <h2 class="fw-bolder mb-3">Objectives</h2>
-            <ul class="text-muted">
-              <li>[Objective 1]</li>
-              <li>[Objective 2]</li>
-              <li>[Objective 3]</li>
-            </ul>
-            <hr class="my-4" />
+      <section class="py-5">
+        <div class="container px-5">
+          <div class="text-center mb-5">
+            <h1 class="fw-bolder">Lab 9: <span class="text-gradient">Mapping</span></h1>
+            <p class="text-muted mb-0">
+              In this lab I used orientation control, two ToF sensors, and IMU yaw data to scan my home test area and build a map.
+            </p>
+          </div>
 
-            <h2 class="fw-bolder mb-3">Hardware</h2>
-            <ul class="text-muted">
-              <li>[List sensors/actuators/boards used]</li>
-              <li>[Wiring notes / schematic link]</li>
-            </ul>
-            <hr class="my-4" />
-
-            <h2 class="fw-bolder mb-3">Software</h2>
-            <ul class="text-muted">
-              <li>[Language + toolchain (e.g., C++ / Arduino / ROS / Python)]</li>
-              <li>[Key libraries]</li>
-            </ul>
-            <div class="bg-light rounded-4 p-4">
-              <div class="small text-muted">Code Placeholder</div>
-              <div class="fw-semibold">Add a GitHub link or paste code snippets here later.</div>
-            </div>
-            <hr class="my-4" />
-
-            <h2 class="fw-bolder mb-3">Results</h2>
-            <p class="text-muted">[What worked? What didn’t? Add plots/photos/video links.]</p>
-            <div class="row g-3">
-              <div class="col-md-6">
-                <div class="border rounded-4 p-4 h-100">
-                  <div class="small text-muted">Photo / Screenshot</div>
-                  <div class="fw-semibold">[Drop image into assets/ and link it here]</div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="border rounded-4 p-4 h-100">
-                  <div class="small text-muted">Video Demo</div>
-                  <div class="fw-semibold">[Embed YouTube link or GIF]</div>
-                </div>
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">1. Objective</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  The goal of this lab was to map a static room so that the map could later be used for localization and navigation.
+                  Since I completed this lab at home instead of in the lab space, I used my own measured scan locations rather than the predetermined class coordinates.
+                  I placed the robot at the points <code>(0,0)</code>, <code>(1.5,6)</code>, <code>(-0.75,4.5)</code>, and <code>(-2.25,3.75)</code>,
+                  then rotated it in place and collected distance measurements with my ToF sensors while also logging the robot orientation from the IMU.
+                </p>
+                <p class="text-muted mb-0">
+                  The main idea was still the same as the lab: collect a set of angle-distance measurements, sanity check each scan in polar form,
+                  transform those points into the room frame, and then combine all the scans into one map of my home test area.
+                </p>
               </div>
             </div>
-            <hr class="my-4" />
+          </section>
 
-            <h2 class="fw-bolder mb-3">Reflection</h2>
-            <p class="text-muted">[What would you improve next time? Any debugging lessons or design tradeoffs?]</p>
-
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-between mt-4">
-              <a class="btn btn-outline-dark" href="../index.html#labs"><i class="bi bi-arrow-left"></i> Back to Labs</a>
-              <a class="btn btn-primary" href="lab10.html">Next Lab <i class="bi bi-arrow-right"></i></a>
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">2. Control Strategy</h2>
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  For this lab I chose <strong>orientation control</strong>. Instead of trying to spin continuously and trust equal
+                  angular spacing, I had the robot rotate to a target heading, stop, take the ToF readings, and then move to the
+                  next heading. This made the data collection more reliable because the robot was stationary when each reading was taken.
+                </p>
+                <p class="text-muted mb-0">
+                  I used about <code>15</code> readings total, so each step was roughly <code>25 degrees</code>. That gave me a full
+                  sweep over the room while keeping the scan routine simple and repeatable.
+                </p>
+              </div>
             </div>
+
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  The robot used the IMU DMP quaternion data to compute yaw, wrapped the angle into the range of
+                  <code>-180°</code> to <code>180°</code>, and then used a PD controller to rotate to the next target orientation.
+                  Once the error was small enough, the robot stopped, read both ToF sensors, stored the data, and then incremented
+                  the target by <code>25°</code>.
+                </p>
+
+                <div class="bg-light rounded-4 p-3 mb-0">
+                  <h5 class="small fw-semibold mb-2">Angle Wrapping Helper</h5>
+                  <pre class="mb-0 small"><code>float wrapAngle180(float angle) {
+  while (angle &gt; 180.0f) angle -= 360.0f;
+  while (angle &lt; -180.0f) angle += 360.0f;
+  return angle;
+}</code></pre>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">3. Arduino Mapping Routine</h2>
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  My mapping routine was built as a dedicated command in the Arduino code. When the command started, the robot entered
+                  a loop where it continuously checked Bluetooth, read DMP data from the IMU, waited for both ToF sensors to be ready,
+                  and then ran the orientation controller.
+                </p>
+                <p class="text-muted mb-0">
+                  Once the robot reached the target heading, it stopped, took one reading from both ToF sensors, stored the yaw and distances,
+                  then advanced to the next setpoint. After the scan was complete, the robot sent all logged data back to my computer over BLE.
+                </p>
+              </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <div class="bg-light rounded-4 p-3 mb-4">
+                  <h5 class="small fw-semibold mb-2">Stored Mapping Data</h5>
+                  <pre class="mb-0 small"><code>void store_mapping_data(int i, float starttime, float distance1_in, float distance2_in, float Gyro_yaw){
+  time_list[i]      = (float)(millis() - starttime);
+  Tof1_in[i]        = distance1_in;
+  Tof2_in[i]        = distance2_in;  
+
+  if (i == 0) {
+      Gyro_yaw_list[i]   = 0;
+  }
+  else {
+    Gyro_yaw_list[i]   = Gyro_yaw;
+  }
+}</code></pre>
+                </div>
+
+                <p class="text-muted mb-3">
+                  I used a helper function to save the timestamp, front ToF reading, side ToF reading, and yaw angle into arrays.
+                  These arrays were later sent over Bluetooth and used in Python for post-processing.
+                </p>
+                <p class="text-muted mb-0">
+                  For the first point I forced the yaw value to zero so the scan started from a clean reference heading.
+                </p>
+              </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <div class="bg-light rounded-4 p-3 mb-4">
+                  <h5 class="small fw-semibold mb-2">Core Mapping Controller Logic</h5>
+                  <pre class="mb-0 small"><code>if (((data.header &amp; DMP_header_bitmap_Quat6) &gt; 0) &amp;&amp; 
+    (ToF_Sensor_1.checkForDataReady()) &amp;&amp; 
+    (ToF_Sensor_2.checkForDataReady()) &amp;&amp; tof_count &lt; 15) {
+
+  Gyro_yaw = (float)atan2(t3, t4) * 180.0 / PI + 3.8;
+  Gyro_yaw = wrapAngle180(Gyro_yaw);
+
+  error1P_ori = wrapAngle180(targetOrientation1 - Gyro_yaw);
+
+  control_ori = (kp_ori * error1P_ori) + (kd_ori * error1D_ori);
+  duty2 = fabs(control_ori);
+
+  if (fabs(error1P_ori) &lt;= deadband_ori) {
+    stop_motors();
+
+    int distance1 = ToF_Sensor_1.getDistance();
+    int distance2 = ToF_Sensor_2.getDistance();
+
+    distance1_in = distance1 * 0.0393701f;
+    distance2_in = distance2 * 0.0393701f;
+
+    store_mapping_data(i, starttime, distance1_in, distance2_in, Gyro_yaw);
+
+    targetOrientation1 = wrapAngle180(targetOrientation1 + 25.0f);
+    tof_count++;
+    i++;
+    delay(1000);
+  }
+}</code></pre>
+                </div>
+
+                <p class="text-muted mb-0">
+                  This was the key part of the lab. The robot only logged data once it was within the orientation deadband,
+                  which helped reduce bad readings caused by taking measurements while still turning.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">4. Why I Used Two ToF Sensors</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  My robot used two ToF sensors during the scan. One sensor measured what was in front of the robot,
+                  and the other measured what was to the side. This let me gather more information at each orientation
+                  instead of relying on only one sensor.
+                </p>
+                <p class="text-muted mb-3">
+                  Using two sensors made the scan denser and gave me more wall points after transforming everything into the global frame.
+                  It also gave me a way to compare whether both sensors were producing measurements that made sense relative to each other.
+                </p>
+                <p class="text-muted mb-0">
+                  In the final map, I used both data sets together instead of throwing one away.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">5. Python Data Logging and Post-Processing</h2>
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  After each scan, I sent the logged arrays over Bluetooth and saved them into a pandas DataFrame.
+                  The table contained time, yaw angle, front sensor readings, and side sensor readings.
+                </p>
+
+                <div class="bg-light rounded-4 p-3 mb-0">
+                  <h5 class="small fw-semibold mb-2">Saving the Scan Data</h5>
+                  <pre class="mb-0 small"><code>import pandas as pd
+
+def savetocsv_df(loc):
+    assert isinstance(loc, str)
+    
+    df = pd.DataFrame()
+    
+    df["time(s)"] = time_list
+    df["Angle(deg)"] = Gyro_yaw_list
+    df["Front(in)"] = Tof_Sensor_1_list
+    df["Side(in)"] = Tof_Sensor_2_list
+
+    df.to_csv("improvedMap_loc_" + loc + ".csv", index=False)
+    return df</code></pre>
+                </div>
+              </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  I first checked each scan in polar coordinates. This was a good sanity check because I could quickly tell whether the
+                  measurements looked like the room shape I expected from that robot position. If the polar plot looked reasonable,
+                  then I moved on to transforming the points into the room frame.
+                </p>
+                <p class="text-muted mb-0">
+                  Since the front and side sensors were mounted at different orientations, I used different angle definitions for each one.
+                  The front sensor used the yaw angle directly, while the side sensor used the yaw angle plus <code>90°</code>.
+                </p>
+              </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <div class="bg-light rounded-4 p-3 mb-4">
+                  <h5 class="small fw-semibold mb-2">Transform to the Global Frame</h5>
+                  <pre class="mb-0 small"><code>def transform_gbl(rad, d, x0, y0):
+    x = d * np.cos(rad) + x0
+    y = d * np.sin(rad) + y0
+    return x, y
+
+
+def postProcess(df, x0, y0):
+    loc = f"({x0},{y0})"
+
+    rad_front = -np.deg2rad(df["Angle(deg)"])
+    rad_side = -np.deg2rad(df["Angle(deg)"] + 90)
+
+    distF = df["Front(in)"]
+    distS = df["Side(in)"]
+
+    xf, yf = transform_gbl(rad_front, distF, x0 * 12, y0 * 12)
+    xs, ys = transform_gbl(rad_side, distS, x0 * 12, y0 * 12)
+
+    return pd.concat([pd.Series(xf), pd.Series(xs)], ignore_index=True), \
+           pd.concat([pd.Series(yf), pd.Series(ys)], ignore_index=True)</code></pre>
+                </div>
+
+                <p class="text-muted mb-3">
+                  This transformation moved each local measurement into a fixed room coordinate system. In other words,
+                  the robot measured distances relative to itself, and then I shifted those points using the known robot position
+                  to express them in the map frame.
+                </p>
+                <p class="text-muted mb-0">
+                  Since my scan coordinates were measured in feet, I multiplied <code>x0</code> and <code>y0</code> by <code>12</code>
+                  to convert them into inches before adding them to the transformed points.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">6. Polar Plots and Individual Scan Checks at My Home Scan Locations</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  For each of my home scan locations, I plotted the front and side ToF measurements in polar form first. This helped me check whether
+                  the scan shape looked reasonable before combining it with the rest of the room data. The locations I used were
+                  <code>(0,0)</code>, <code>(1.5,6)</code>, <code>(-0.75,4.5)</code>, and <code>(-2.25,3.75)</code>.
+                </p>
+                <p class="text-muted mb-3">
+                  In general, the scans matched what I expected. The major room boundaries appeared where they should,
+                  and the overall point shape made sense relative to the robot position. The biggest imperfections came from small turning drift,
+                  slight yaw estimation error, and some inconsistency in the ToF readings.
+                </p>
+                <p class="text-muted mb-0">
+                  Add your polar plot images for each of these home scan locations here.
+                </p>
+
+                <div class="row g-4 mt-1">
+                  <div class="col-lg-6">
+                    <figure class="bg-light rounded-4 p-3 mb-0 text-center">
+                      <h6 class="fw-semibold mb-2">Polar Plot: Location (0,0)</h6>
+                      <img src="../assets/lab9/polar_0_0.png" alt="Polar plot for mapping location 0 0" class="img-fluid rounded-4" />
+                    </figure>
+                  </div>
+                  <div class="col-lg-6">
+                    <figure class="bg-light rounded-4 p-3 mb-0 text-center">
+                      <h6 class="fw-semibold mb-2">Polar Plot: Location (1.5,6)</h6>
+                      <img src="../assets/lab9/polar_1_5_6.png" alt="Polar plot for mapping location 1.5 6" class="img-fluid rounded-4" />
+                    </figure>
+                  </div>
+                  <div class="col-lg-6">
+                    <figure class="bg-light rounded-4 p-3 mb-0 text-center">
+                      <h6 class="fw-semibold mb-2">Polar Plot: Location (-0.75,4.5)</h6>
+                      <img src="../assets/lab9/polar_m0_75_4_5.png" alt="Polar plot for mapping location -0.75 4.5" class="img-fluid rounded-4" />
+                    </figure>
+                  </div>
+                  <div class="col-lg-6">
+                    <figure class="bg-light rounded-4 p-3 mb-0 text-center">
+                      <h6 class="fw-semibold mb-2">Polar Plot: Location (-2.25,3.75)</h6>
+                      <img src="../assets/lab9/polar_m2_25_3_75.png" alt="Polar plot for mapping location -2.25 3.75" class="img-fluid rounded-4" />
+                    </figure>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">7. Inertial Frame Plots and Merged Map</h2>
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  After validating the polar plots, I transformed each scan into the inertial reference frame of the room.
+                  This produced point clouds that could be overlaid on one another using the known robot locations from my home setup:
+                  <code>(0,0)</code>, <code>(1.5,6)</code>, <code>(-0.75,4.5)</code>, and <code>(-2.25,3.75)</code>.
+                </p>
+                <p class="text-muted mb-0">
+                  Once the scans were merged, the room boundaries became much more clear. At that point I could manually draw the line-based map
+                  by estimating where the real walls were from the point distributions.
+                </p>
+              </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <div class="row g-4 mb-4">
+                  <div class="col-lg-6">
+                    <figure class="bg-light rounded-4 p-3 mb-0 text-center">
+                      <h6 class="fw-semibold mb-2">Single Scan in Room Frame</h6>
+                      <img src="../assets/lab9/cartesian1.png" alt="Single transformed scan" class="img-fluid rounded-4" />
+                    </figure>
+                  </div>
+                  <div class="col-lg-6">
+                    <figure class="bg-light rounded-4 p-3 mb-0 text-center">
+                      <h6 class="fw-semibold mb-2">Merged Scatter Plot</h6>
+                      <img src="../assets/lab9/merged_map.png" alt="Merged room mapping plot" class="img-fluid rounded-4" />
+                    </figure>
+                  </div>
+                </div>
+
+                <p class="text-muted mb-0">
+                  Add the merged map image here with different colors for each scan if you have that version saved.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">8. Line-Based Map</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  The final step was to convert the merged scatter plot into a line-based map. I manually estimated the wall locations by drawing
+                  line segments over the main clusters of points from my home scans. This simplified the raw scan data into a format that can be used later in simulation.
+                </p>
+                <p class="text-muted mb-3">
+                  Since the real data was not perfectly clean, this step also let me correct small errors caused by drift, slight misalignment,
+                  or noisy distance measurements. The goal was not to preserve every single point, but instead to capture the actual room geometry well enough
+                  for future localization tasks.
+                </p>
+                <p class="text-muted mb-0">
+                  Add your final line-map image and the corresponding endpoint lists here.
+                </p>
+
+                <div class="bg-light rounded-4 p-3 mt-4 mb-0">
+                  <h5 class="small fw-semibold mb-2">Example Endpoint Format</h5>
+                  <pre class="mb-0 small"><code>x_start = [ ]
+y_start = [ ]
+x_end   = [ ]
+y_end   = [ ]</code></pre>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">9. Discussion and Errors</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  Overall, this lab worked well and I was able to build a room map from multiple scan locations in my home setup rather than the class lab space.
+                  The biggest thing that made this possible was using orientation control so the robot could stop before taking each measurement.
+                  That made the data much more usable than trying to read the sensors while spinning freely.
+                </p>
+                <p class="text-muted mb-3">
+                  The main sources of error were slight drift while turning, imperfections in the yaw estimate, and normal ToF noise.
+                  Even if the robot mostly turned on axis, small shifts in position still affected how cleanly the scans lined up after transformation.
+                  Also, if the heading estimate was off by even a few degrees, that would slightly rotate the measured points in the global frame.
+                </p>
+                <p class="text-muted mb-3">
+                  In the middle of a 4 by 4 meter square room, these angle errors would translate into larger position error as the measured distance increased.
+                  So points farther away from the robot would usually show the biggest spread. Even with that, the scans were still accurate enough to identify the walls
+                  and create a reasonable line-based map.
+                </p>
+                <p class="text-muted mb-0">
+                  If I were to improve this lab further, I would try collecting more scan points, reducing turn-to-turn drift even more, and comparing repeated scans from the same location
+                  to measure repeatability.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">10. Media</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  Add your mapping video here showing the robot turning in place, stopping, and collecting measurements.
+                </p>
+
+                <div class="row g-4">
+                  <div class="col-lg-5">
+                    <div class="bg-light rounded-4 p-3">
+                      <h6 class="fw-semibold mb-2">Mapping Scan Video</h6>
+                      <video class="w-100 rounded-4" controls>
+                        <source src="../assets/lab9/mapping_scan.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-white py-4 mt-auto">
+      <div class="container px-5">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-auto">
+            <div class="small text-muted">© 2026 Jamison L. Taylor Jr.</div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-</main>
-<footer class="bg-white py-4 mt-auto">
-            <div class="container px-5">
-                <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-                    <div class="col-auto"><div class="small m-0">Copyright &copy; Jamison L. Taylor Jr. 2026</div></div>
-                    <div class="col-auto"><a class="small" href="../index.html#about">Contact</a></div>
-                </div>
-            </div>
-        </footer>
+    </footer>
 
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="../js/scripts.js"></script>
-    </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

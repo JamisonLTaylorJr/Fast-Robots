@@ -1,63 +1,93 @@
-<section class="py-5">
-  <div class="container px-5">
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="MAE 5190 Fast Robots - Lab 10" />
+    <meta name="author" content="Jamison L. Taylor Jr." />
+    <title>Lab 10 | MAE 5190 Fast Robots</title>
 
-    <div class="text-center mb-5">
-      <h1 class="fw-bolder">Lab 10: <span class="text-gradient">Grid Localization with Bayes Filter</span></h1>
-      <p class="text-muted mb-0">
-        In this lab I implemented a probabilistic localization algorithm using odometry and sensor data.
-      </p>
-    </div>
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="../css/styles.css" rel="stylesheet" />
+  </head>
 
-    <!-- SECTION 1 -->
-    <section class="mb-5">
-      <h2 class="fw-bolder mb-4">1. Understanding Grid Localization</h2>
-      <div class="card border-0 shadow-sm rounded-4">
-        <div class="card-body p-4">
-          <p class="text-muted mb-3">
-            The goal of this lab was to estimate the robot’s pose (x, y, θ) using a Bayes Filter.
-            Instead of tracking an exact position, the robot exists in a discretized grid where each
-            cell represents a possible pose and stores a probability.
-          </p>
-          <p class="text-muted mb-0">
-            The grid used in this lab had dimensions (12, 9, 18), and the belief across all cells
-            must always sum to 1.
-          </p>
+  <body class="d-flex flex-column h-100">
+    <main class="flex-shrink-0">
+      <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+        <div class="container px-5">
+          <a class="navbar-brand" href="../index.html">
+            <span class="fw-bolder text-primary">MAE 5190 Fast Robots</span>
+          </a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+              <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="../index.html#labs">Labs</a></li>
+              <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
+            </ul>
+          </div>
         </div>
-      </div>
-    </section>
+      </nav>
 
-    <!-- SECTION 2 -->
-    <section class="mb-5">
-      <h2 class="fw-bolder mb-4">2. Bayes Filter Overview</h2>
-      <div class="card border-0 shadow-sm rounded-4">
-        <div class="card-body p-4">
-          <p class="text-muted mb-3">
-            The Bayes Filter works in two steps:
-          </p>
-          <ul class="text-muted">
-            <li><b>Prediction:</b> Uses odometry to estimate where the robot moved</li>
-            <li><b>Update:</b> Uses sensor data to correct the estimate</li>
-          </ul>
-          <p class="text-muted mb-0">
-            The prediction step increases uncertainty, while the update step reduces it.
-          </p>
-        </div>
-      </div>
-    </section>
+      <section class="py-5">
+        <div class="container px-5">
+          <div class="text-center mb-5">
+            <h1 class="fw-bolder">Lab 10: <span class="text-gradient">Grid Localization using Bayes Filter</span></h1>
+            <p class="text-muted mb-0">
+              In this lab I implemented a Bayes Filter to localize the robot on a discretized grid using odometry and sensor data.
+            </p>
+          </div>
 
-    <!-- SECTION 3 -->
-    <section class="mb-5">
-      <h2 class="fw-bolder mb-4">3. Computing Control Input</h2>
-      <div class="card border-0 shadow-sm rounded-4">
-        <div class="card-body p-4">
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">1. Grid Localization and Bayes Filter Overview</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  The goal of this lab was to estimate the robot’s pose <code>(x, y, θ)</code> over time using a probabilistic method.
+                  Instead of assuming the robot is at one exact point, grid localization divides the world into a finite 3D grid,
+                  where each cell represents a possible pose and stores a probability value.
+                </p>
+                <p class="text-muted mb-3">
+                  In this lab, the grid had dimensions <code>(12, 9, 18)</code>, corresponding to the discretized x, y, and orientation axes.
+                  The probability values across all cells form the robot’s belief, and the sum of all those probabilities must always be 1.
+                </p>
+                <p class="text-muted mb-0">
+                  The Bayes Filter updates this belief in two parts. The <b>prediction step</b> uses odometry data to estimate where the robot
+                  moved, which increases uncertainty. The <b>update step</b> then uses sensor data to correct that estimate and reduce uncertainty.
+                </p>
+              </div>
+            </div>
+          </section>
 
-          <p class="text-muted mb-3">
-            To implement the motion model, I computed control inputs in the form
-            (rotation1, translation, rotation2) using odometry data.
-          </p>
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">2. Computing the Control Input</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  To use the odometry motion model, I first needed to calculate the control input in the form
+                  <code>(rotation1, translation, rotation2)</code> from the robot’s previous and current odometry poses.
+                </p>
+                <p class="text-muted mb-3">
+                  The first rotation points the robot toward the direction of motion, the translation is the straight-line
+                  distance traveled, and the second rotation accounts for the remaining orientation change after that motion.
+                </p>
 
-          <div class="bg-light rounded-4 p-3 mb-3">
-<pre class="mb-0 small"><code>def compute_control(cur_pose, prev_pose):
+                <div class="bg-light rounded-4 p-3 mb-0">
+                  <h5 class="small fw-semibold mb-2">Control Input Computation</h5>
+                  <pre class="mb-0 small"><code>def compute_control(cur_pose, prev_pose):
     cur_x, cur_y, cur_theta = cur_pose
     prev_x, prev_y, prev_theta = prev_pose
 
@@ -72,24 +102,28 @@
     delta_rot_2 = mapper.normalize_angle(cur_theta - prev_theta - delta_rot_1)
 
     return delta_rot_1, delta_trans, delta_rot_2</code></pre>
-          </div>
+                </div>
+              </div>
+            </div>
+          </section>
 
-          <p class="text-muted mb-0">
-            This breaks motion into two rotations and one translation, while also normalizing angles
-            so they stay within [-180, 180).
-          </p>
-        </div>
-      </div>
-    </section>
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">3. Odometry Motion Model</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  Once I had the control input, I implemented the odometry motion model. This function calculates the probability of transitioning
+                  from one state to another given the measured control input. To do this, I computed the hypothetical control required for a specific
+                  state transition and compared it to the actual odometry-based control input using Gaussian distributions.
+                </p>
+                <p class="text-muted mb-3">
+                  Each component of the motion model, rotation 1, translation, and rotation 2, is treated independently and multiplied together
+                  to get the total transition probability.
+                </p>
 
-    <!-- SECTION 4 -->
-    <section class="mb-5">
-      <h2 class="fw-bolder mb-4">4. Motion Model</h2>
-      <div class="card border-0 shadow-sm rounded-4">
-        <div class="card-body p-4">
-
-          <div class="bg-light rounded-4 p-3 mb-3">
-<pre class="mb-0 small"><code>def odom_motion_model(cur_pose, prev_pose, u):
+                <div class="bg-light rounded-4 p-3 mb-0">
+                  <h5 class="small fw-semibold mb-2">Odometry Motion Model</h5>
+                  <pre class="mb-0 small"><code>def odom_motion_model(cur_pose, prev_pose, u):
     d_rot1, d_trans, d_rot2 = compute_control(cur_pose, prev_pose)
 
     p1 = loc.gaussian(d_rot1, u[0], loc.odom_rot_sigma)
@@ -97,123 +131,238 @@
     p3 = loc.gaussian(d_rot2, u[2], loc.odom_rot_sigma)
 
     return p1 * p2 * p3</code></pre>
-          </div>
+                </div>
+              </div>
+            </div>
+          </section>
 
-          <p class="text-muted mb-0">
-            Each motion component is modeled using a Gaussian distribution, and the total transition
-            probability is the product of all three components.
-          </p>
-        </div>
-      </div>
-    </section>
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">4. Prediction Step</h2>
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  The prediction step computes the prior belief <code>bel_bar</code> based on the previous belief and the motion model.
+                  This is the most computationally expensive part of the Bayes Filter because it considers transitions from many possible
+                  previous states to many possible current states.
+                </p>
+                <p class="text-muted mb-3">
+                  To help reduce computation time, I ignored previous states whose belief was lower than <code>1e-4</code>. Since those states
+                  contribute very little to the final result, skipping them made the prediction step much faster without significantly affecting performance.
+                </p>
 
-    <!-- SECTION 5 -->
-    <section class="mb-5">
-      <h2 class="fw-bolder mb-4">5. Prediction Step</h2>
-      <div class="card border-0 shadow-sm rounded-4">
-        <div class="card-body p-4">
+                <div class="bg-light rounded-4 p-3 mb-0">
+                  <h5 class="small fw-semibold mb-2">Prediction Step Logic</h5>
+                  <pre class="mb-0 small"><code>def prediction_step(cur_odom, prev_odom):
+    u = compute_control(cur_odom, prev_odom)
 
-          <p class="text-muted mb-3">
-            The prediction step updates the belief based on motion.
-          </p>
+    loc.bel_bar = np.zeros_like(loc.bel)
 
-          <div class="bg-light rounded-4 p-3 mb-3">
-<pre class="mb-0 small"><code>threshold = 1e-4
-valid_prev = np.argwhere(loc.bel >= threshold)
+    gx, gy, gt = np.indices(loc.bel.shape)
+    flat_states = list(zip(gx.ravel(), gy.ravel(), gt.ravel()))
 
-for px, py, pt in valid_prev:
-    prev_state = mapper.from_map(px, py, pt)
-    weight = loc.bel[px, py, pt]
+    threshold = 1e-4
+    valid_prev = np.argwhere(loc.bel >= threshold)
 
-    probs = np.array([
-        odom_motion_model(mapper.from_map(cx, cy, ct), prev_state, u)
-        for (cx, cy, ct) in flat_states
-    ])
+    for px, py, pt in valid_prev:
+        prev_state = mapper.from_map(px, py, pt)
+        weight = loc.bel[px, py, pt]
 
-    probs = probs.reshape(loc.bel.shape)
-    loc.bel_bar += weight * probs</code></pre>
-          </div>
+        probs = np.array([
+            odom_motion_model(mapper.from_map(cx, cy, ct), prev_state, u)
+            for (cx, cy, ct) in flat_states
+        ])
 
-          <p class="text-muted mb-0">
-            I ignored very low probability states (&lt; 1e-4) to improve performance, which made a huge difference in runtime.
-          </p>
-        </div>
-      </div>
-    </section>
+        probs = probs.reshape(loc.bel.shape)
+        loc.bel_bar += weight * probs
 
-    <!-- SECTION 6 -->
-    <section class="mb-5">
-      <h2 class="fw-bolder mb-4">6. Sensor Model</h2>
-      <div class="card border-0 shadow-sm rounded-4">
-        <div class="card-body p-4">
+    total = np.sum(loc.bel_bar)
+    if total &gt; 0:
+        loc.bel_bar /= total</code></pre>
+                </div>
+              </div>
+            </div>
 
-          <div class="bg-light rounded-4 p-3 mb-3">
-<pre class="mb-0 small"><code>def sensor_model(obs):
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-0">
+                  This step spreads the belief based on motion uncertainty, which is why the belief becomes more uncertain before the sensor update is applied.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">5. Sensor Model</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  The sensor model compares the expected observations at a given state with the robot’s actual sensor readings.
+                  Each state in the map has 18 expected range measurements, and the likelihood of each of those measurements
+                  is modeled using a Gaussian distribution.
+                </p>
+                <p class="text-muted mb-3">
+                  Since the individual measurements are assumed to be independent, the final sensor likelihood for a state
+                  is the product of the 18 individual likelihoods.
+                </p>
+
+                <div class="bg-light rounded-4 p-3 mb-0">
+                  <h5 class="small fw-semibold mb-2">Sensor Model</h5>
+                  <pre class="mb-0 small"><code>def sensor_model(obs):
     return [
         loc.gaussian(exp_val, meas_val, loc.sensor_sigma)
         for exp_val, meas_val in zip(obs, loc.obs_range_data)
     ]</code></pre>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">6. Update Step</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  The update step corrects the predicted belief using the sensor model. For every possible state in the grid,
+                  I generated the expected sensor readings, compared them to the real measurements, and multiplied those probabilities together
+                  to get the likelihood of being in that state.
+                </p>
+                <p class="text-muted mb-3">
+                  That likelihood was then multiplied by the prior belief <code>bel_bar</code>, and the result was normalized
+                  to get the updated belief <code>bel</code>.
+                </p>
+
+                <div class="bg-light rounded-4 p-3 mb-0">
+                  <h5 class="small fw-semibold mb-2">Update Step Logic</h5>
+                  <pre class="mb-0 small"><code>def update_step():
+    gx, gy, gt = np.indices(loc.bel.shape)
+    flat_states = zip(gx.ravel(), gy.ravel(), gt.ravel())
+
+    likelihoods = np.array([
+        np.prod(
+            sensor_model(
+                mapper.get_views(x, y, t)
+            )
+        )
+        for (x, y, t) in flat_states
+    ])
+
+    likelihoods = likelihoods.reshape(loc.bel.shape)
+
+    loc.bel = loc.bel_bar * likelihoods
+
+    norm = np.sum(loc.bel)
+    if norm &gt; 0:
+        loc.bel /= norm</code></pre>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">7. Results and Localization Performance</h2>
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  I ran the Bayes Filter in the simulator over the sample trajectory and compared the estimated pose to the ground truth and raw odometry.
+                  As expected, the raw odometry drifted away over time because small motion errors continued to accumulate.
+                </p>
+                <p class="text-muted mb-0">
+                  The Bayes Filter performed much better because the sensor update kept correcting the pose estimate based on the expected map observations.
+                  This let the estimated pose stay much closer to the ground truth during the run.
+                </p>
+              </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-4">
+                  The media below can be used to compare the raw odometry results against the Bayes Filter localization results.
+                </p>
+
+                <div class="row g-4 mb-4">
+                  <div class="col-lg-6">
+                    <div class="bg-light rounded-4 p-3 h-100">
+                      <h6 class="fw-semibold mb-2">Raw Odometry</h6>
+                      <video class="w-100 rounded-4" controls>
+                        <source src="../assets/lab10/trajectory.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="bg-light rounded-4 p-3 h-100">
+                      <h6 class="fw-semibold mb-2">Bayes Filter Localization</h6>
+                      <video class="w-100 rounded-4" controls>
+                        <source src="../assets/lab10/real.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-4">
+                  <div class="col-lg-6">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Example Localization Plot</h6>
+                      <img
+                        src="../assets/lab10/localization_plot.png"
+                        alt="Bayes filter localization plot"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Belief / Trajectory Comparison</h6>
+                      <img
+                        src="../assets/lab10/trajectory_comparison.png"
+                        alt="Trajectory comparison plot"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">8. Discussion</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  One important part of this lab was seeing how much better localization gets when odometry and sensor data are fused together.
+                  If I used odometry alone, the robot’s estimate drifted quickly. But once the update step was included, the filter was able to
+                  correct for that drift by matching sensor readings to the map.
+                </p>
+                <p class="text-muted mb-3">
+                  Another major part of the lab was computation time. Since the grid contains many possible states, the prediction step can easily
+                  become very slow if every state is considered every time. Thresholding low-probability states was one of the most helpful ways
+                  to speed up the algorithm.
+                </p>
+                <p class="text-muted mb-0">
+                  Overall, this lab showed how a Bayes Filter can produce a much more reliable pose estimate than raw odometry alone,
+                  even when the robot motion and sensor readings are both noisy.
+                </p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-white py-4 mt-auto">
+      <div class="container px-5">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-auto">
+            <div class="small text-muted">© 2026 Jamison L. Taylor Jr.</div>
           </div>
-
-          <p class="text-muted mb-0">
-            Each state has 18 sensor readings. I compare expected vs measured values using Gaussian probabilities.
-          </p>
         </div>
       </div>
-    </section>
+    </footer>
 
-    <!-- SECTION 7 -->
-    <section class="mb-5">
-      <h2 class="fw-bolder mb-4">7. Update Step</h2>
-      <div class="card border-0 shadow-sm rounded-4">
-        <div class="card-body p-4">
-
-          <div class="bg-light rounded-4 p-3 mb-3">
-<pre class="mb-0 small"><code>loc.bel = loc.bel_bar * likelihoods
-loc.bel /= np.sum(loc.bel)</code></pre>
-          </div>
-
-          <p class="text-muted mb-0">
-            This step combines the predicted belief with sensor likelihoods and normalizes the result.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- RESULTS -->
-    <section class="mb-5">
-      <h2 class="fw-bolder mb-4">8. Results</h2>
-      <div class="card border-0 shadow-sm rounded-4">
-        <div class="card-body p-4">
-
-          <p class="text-muted mb-3"><b>Raw Odometry:</b></p>
-          <video class="w-100 rounded-4 mb-4" controls>
-            <source src="../assets/lab10/odom.mp4" type="video/mp4">
-          </video>
-
-          <p class="text-muted mb-3"><b>Bayes Filter Localization:</b></p>
-          <video class="w-100 rounded-4" controls>
-            <source src="../assets/lab10/bayes.mp4" type="video/mp4">
-          </video>
-
-        </div>
-      </div>
-    </section>
-
-    <!-- DISCUSSION -->
-    <section class="mb-5">
-      <h2 class="fw-bolder mb-4">9. Discussion</h2>
-      <div class="card border-0 shadow-sm rounded-4">
-        <div class="card-body p-4">
-          <ul class="text-muted mb-0">
-            <li>Prediction increases uncertainty while update reduces it</li>
-            <li>Sensor data is critical for correcting drift</li>
-            <li>Skipping low-probability states improves speed a lot</li>
-            <li>Higher resolution grids increase accuracy but cost more computation</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-  </div>
-</section>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

@@ -260,8 +260,7 @@
                         <th>Test</th>
                         <th>Ground Truth Pose</th>
                         <th>Ground Truth in Meters</th>
-                        <th>Localized Belief Pose</th>
-                        <th>Error</th>
+                      
                       </tr>
                     </thead>
                     <tbody>
@@ -269,36 +268,31 @@
                         <td>Pose 1</td>
                         <td><code>(0 ft, 3 ft, 0 deg)</code></td>
                         <td><code>(0, 0.9144)</code></td>
-                        <td>ADD RESULT</td>
-                        <td>ADD ERROR</td>
+                        <
                       </tr>
                       <tr>
                         <td>Pose 2</td>
                         <td><code>(-3 ft, -2 ft, 0 deg)</code></td>
                         <td><code>(-0.9144, -0.6096)</code></td>
-                        <td>ADD RESULT</td>
-                        <td>ADD ERROR</td>
+                        
                       </tr>
                       <tr>
                         <td>Pose 3</td>
                         <td><code>(5 ft, 3 ft, 0 deg)</code></td>
                         <td><code>(1.524, 0.9144)</code></td>
-                        <td>ADD RESULT</td>
-                        <td>ADD ERROR</td>
+                        
                       </tr>
                       <tr>
                         <td>Pose 4</td>
                         <td><code>(0 ft, 0 ft, 0 deg)</code></td>
                         <td><code>(0, 0)</code></td>
-                        <td>ADD RESULT</td>
-                        <td>ADD ERROR</td>
+                       
                       </tr>
                       <tr>
                         <td>Pose 5</td>
                         <td><code>(5 ft, -3 ft, 0 deg)</code></td>
                         <td><code>(1.524, -0.9144)</code></td>
-                        <td>ADD RESULT</td>
-                        <td>ADD ERROR</td>
+                       
                       </tr>
                     </tbody>
                   </table>
@@ -361,44 +355,25 @@
             </div>
           </section>
 
-          <section class="mb-5">
-            <h2 class="fw-bolder mb-4">8. Robot Scan Video</h2>
-            <div class="card border-0 shadow-sm rounded-4">
-              <div class="card-body p-4">
-                <p class="text-muted mb-4">
-                  The video below shows the robot rotating in place while collecting the ToF scan. The goal was to make the
-                  robot turn through a full 360 degrees while collecting enough readings for the localization update step.
-                </p>
-
-                <div class="row g-4">
-                  <div class="col-lg-6">
-                    <div class="bg-light rounded-4 p-3">
-                      <h6 class="fw-semibold mb-2">Observation Loop on Real Robot</h6>
-                      <video class="w-100 rounded-4" controls>
-                        <source src="../assets/lab11/observation_loop.mp4" type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
 
           <section class="mb-5">
-            <h2 class="fw-bolder mb-4">9. Discussion</h2>
+            <h2 class="fw-bolder mb-4">8. Discussion</h2>
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
                 <p class="text-muted mb-3">
-                  Overall, the robot was able to use real ToF scan data to localize itself in the map. The main difference
+                  Overall, the robot was able to use real ToF scan data to localize itself in the map. My specific localization testing 
+                  was not the greatest but is still showed how valuable Bayes Theory can be. The main difference
                   between the simulation and real robot was the quality of the measurements. In simulation, the robot's scan
                   is much cleaner and the rotation is ideal. On the real robot, the readings are affected by sensor noise,
                   small errors in the robot's rotation, and the exact placement of the robot at each marked position.
                 </p>
                 <p class="text-muted mb-3">
-                  The robot localized better at positions where the surrounding walls and obstacles created a more unique
-                  scan. If two locations had similar distance patterns, the belief could spread out or move toward the wrong
-                  pose. This makes sense because the update step is only as strong as the sensor measurements it receives.
+                  The robot localized better at positions where the surrounding walls and obstacles created a more unique scan
+                  and are a little bit closer to walls of the enviorment. If two locations had similar distance patterns, the 
+                  belief could spread out or move toward the wrong pose. This makes sense because the update step is only 
+                  as strong as the sensor measurements it receives. For me to recieve more acurate data, the next step would be 
+                  to increase the amount of tof scans. For this lab I used 1 Tof sensor, but I could use 2, and then change the 
+                  increments from 20 deg to 10 deg for more scans.
                 </p>
                 <p class="text-muted mb-0">
                   One important takeaway is that real-world localization depends heavily on reliable sensing. Even though the
@@ -410,18 +385,14 @@
           </section>
 
           <section class="mb-5">
-            <h2 class="fw-bolder mb-4">10. Challenges</h2>
+            <h2 class="fw-bolder mb-4">9. Challenges</h2>
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
                 <p class="text-muted mb-3">
-                  The biggest challenge was connecting the real robot data collection process to the provided localization
-                  code. The observation loop had to return data in a specific format, so I converted my ToF readings and yaw
-                  readings into NumPy column arrays before returning them.
-                </p>
-                <p class="text-muted mb-3">
-                  Another challenge was the asynchronous Bluetooth structure. Since the robot was sending data back through
+                  One challenge was the asynchronous Bluetooth structure. Since the robot was sending data back through
                   notifications, the observation loop needed to wait until enough readings had arrived before stopping
-                  notifications and returning the arrays.
+                  notifications and returning the arrays. Without waiting the python code would skip over the C++ code
+                  and the robot would do nothing. Figuring out how to use await and async code took some time.
                 </p>
                 <div class="bg-light rounded-4 p-3 mb-0">
                   <h5 class="small fw-semibold mb-2">Important Fix</h5>
@@ -435,7 +406,7 @@
           </section>
 
           <section class="mb-5">
-            <h2 class="fw-bolder mb-4">11. Conclusion</h2>
+            <h2 class="fw-bolder mb-4">10. Conclusion</h2>
             <div class="card border-0 shadow-sm rounded-4">
               <div class="card-body p-4">
                 <p class="text-muted mb-0">
@@ -444,6 +415,22 @@
                   on scan quality, sensor noise, and how closely the robot's actual motion matched the expected 20 degree
                   increments. The lab also showed why real-world robotics is harder than simulation because even small
                   errors in sensing and movement can affect the final belief.
+                </p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <section class="mb-5">
+            <h2 class="fw-bolder mb-4">11. Aknowledgements </h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-0">
+                  For this lab I recieved help general code help from Jack Long's and Trevor Dales' Spring 2025 pages,
+                  and recieved help from Lalo Esparza on how to set up the get_pose code. I also used ChatGPT to help 
+                  me develop my website page and to clean up my python code.
                 </p>
               </div>
             </div>

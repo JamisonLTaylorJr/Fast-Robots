@@ -1,121 +1,518 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>MAE 5190 Fast Robots | Jamison Taylor Jr.</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
-        <!-- Custom Google font-->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="../css/styles.css" rel="stylesheet" />
-    </head>
-<body class="d-flex flex-column h-100">
-<main class="flex-shrink-0">
-<nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
-  <div class="container px-5">
-    <a class="navbar-brand" href="../index.html"><span class="fw-bolder text-primary">MAE 5190 Fast Robots</span></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-        <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="../index.html#labs">Labs</a></li>
-        <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<section class="py-5">
-  <div class="container px-5">
-    <div class="row gx-5 justify-content-center">
-      <div class="col-lg-9 col-xl-8 col-xxl-7">
-        <div class="text-center mb-5">
-          <h1 class="fw-bolder">Lab 12: <span class="text-gradient">[Lab Title Placeholder]</span></h1>
-          <p class="lead fw-light text-muted mb-0">MAE 5190 (Fast Robots) &middot; Lab 401</p>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="MAE 5190 Fast Robots - Lab 12" />
+    <meta name="author" content="Jamison L. Taylor Jr." />
+    <title>Lab 12 | MAE 5190 Fast Robots</title>
+
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="../css/styles.css" rel="stylesheet" />
+  </head>
+
+  <body class="d-flex flex-column h-100">
+    <main class="flex-shrink-0">
+      <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+        <div class="container px-5">
+          <a class="navbar-brand" href="../index.html">
+            <span class="fw-bolder text-primary">MAE 5190 Fast Robots</span>
+          </a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+              <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="../index.html#labs">Labs</a></li>
+              <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
+            </ul>
+          </div>
         </div>
-        <div class="card shadow border-0 rounded-4 mb-5">
-          <div class="card-body p-5">
-            <h2 class="fw-bolder mb-3">Overview</h2>
-            <p class="text-muted">[Write a 4–8 sentence overview of what this lab was about. What problem were you solving? What did you build?]</p>
-            <hr class="my-4" />
+      </nav>
 
-            <h2 class="fw-bolder mb-3">Objectives</h2>
-            <ul class="text-muted">
-              <li>[Objective 1]</li>
-              <li>[Objective 2]</li>
-              <li>[Objective 3]</li>
-            </ul>
-            <hr class="my-4" />
+      <section class="py-5">
+        <div class="container px-5">
+          <div class="text-center mb-5">
+            <h1 class="fw-bolder">Lab 12: <span class="text-gradient">Inverted Pendulum</span></h1>
+            <p class="text-muted mb-0">
+              In this lab I developed a controls procedure that allowed my robot to pop a wheelie and attempt to balance around the inverted pendulum position.
+            </p>
+          </div>
 
-            <h2 class="fw-bolder mb-3">Hardware</h2>
-            <ul class="text-muted">
-              <li>[List sensors/actuators/boards used]</li>
-              <li>[Wiring notes / schematic link]</li>
-            </ul>
-            <hr class="my-4" />
-
-            <h2 class="fw-bolder mb-3">Software</h2>
-            <ul class="text-muted">
-              <li>[Language + toolchain (e.g., C++ / Arduino / ROS / Python)]</li>
-              <li>[Key libraries]</li>
-            </ul>
-            <div class="bg-light rounded-4 p-4">
-              <div class="small text-muted">Code Placeholder</div>
-              <div class="fw-semibold">Add a GitHub link or paste code snippets here later.</div>
-            </div>
-            <hr class="my-4" />
-
-            <h2 class="fw-bolder mb-3">Results</h2>
-            <p class="text-muted">[What worked? What didn’t? Add plots/photos/video links.]</p>
-            <div class="row g-3">
-              <div class="col-md-6">
-                <div class="border rounded-4 p-4 h-100">
-                  <div class="small text-muted">Photo / Screenshot</div>
-                  <div class="fw-semibold">[Drop image into assets/ and link it here]</div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="border rounded-4 p-4 h-100">
-                  <div class="small text-muted">Video Demo</div>
-                  <div class="fw-semibold">[Embed YouTube link or GIF]</div>
-                </div>
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">1. Lab Objective</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  The goal of this lab was to use the robot's closed-loop control capabilities to perform an inverted pendulum style stunt. Instead of doing path planning and navigation, this lab focused on controls, estimation, and tuning so the robot could lift onto two wheels and try to maintain a wheelie position.
+                </p>
+                <p class="text-muted mb-0">
+                  My approach was to recycle the orientation control structure from Lab 6, but instead of controlling yaw, I used the IMU's DMP quaternion output to estimate pitch. This allowed the robot to react to pitch error and drive forward or backward to move itself closer to the balancing angle.
+                </p>
               </div>
             </div>
-            <hr class="my-4" />
+          </section>
 
-            <h2 class="fw-bolder mb-3">Reflection</h2>
-            <p class="text-muted">[What would you improve next time? Any debugging lessons or design tradeoffs?]</p>
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">2. IMU Pitch Estimate from DMP</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  To measure the robot's angle during the wheelie, I used the IMU's onboard Digital Motion Processor. The DMP outputs quaternion data, which can be converted into pitch. This was better than just integrating raw gyroscope data because the raw gyro can drift over time and make the angle estimate less reliable.
+                </p>
+                <p class="text-muted mb-3">
+                  I used the quaternion values to calculate pitch, then calibrated the pitch measurement so the robot's measured range better matched the real physical angle of the robot.
+                </p>
 
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-between mt-4">
-              <a class="btn btn-outline-dark" href="../index.html#labs"><i class="bi bi-arrow-left"></i> Back to Labs</a>
-              <a class="btn btn-primary" href="../index.html#labs">Back to Labs <i class="bi bi-grid-3x3-gap"></i></a>
+                <div class="bg-light rounded-4 p-3 mb-4">
+                  <h5 class="small fw-semibold mb-2">Pitch Estimate from DMP Quaternion Data</h5>
+                  <pre class="mb-0 small"><code>double t0 = +2.0 * (qw * qx + qy * qz);
+double t1 = +1.0 - 2.0 * (qx * qx + qy * qy);
+
+Gyro_pitch = atan2(t0, t1) * 180.0 / PI;</code></pre>
+                </div>
+
+                <div class="row g-4">
+                  <div class="col-lg-6">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">IMU / Robot Setup</h6>
+                      <img
+                        src="../assets/lab12/imu_setup.png"
+                        alt="IMU setup for inverted pendulum lab"
+                        class="img-fluid rounded-4"
+                      />
+                      <figcaption class="small text-muted mt-2">Replace this with a photo of the robot/IMU setup.</figcaption>
+                    </figure>
+                  </div>
+                  <div class="col-lg-6">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Pitch Reading Test</h6>
+                      <img
+                        src="../assets/lab12/pitch_reading_test.png"
+                        alt="Pitch reading test plot"
+                        class="img-fluid rounded-4"
+                      />
+                      <figcaption class="small text-muted mt-2">Replace this with an early pitch reading or calibration plot.</figcaption>
+                    </figure>
+                  </div>
+                </div>
+              </div>
             </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">3. Pitch Calibration</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  The next step was to calibrate the DMP pitch readings. When the robot was placed flat at what should have been 0 degrees, the DMP read <code>0.912 degrees</code>. When the robot was placed against the wall at what should have been 90 degrees, the DMP read <code>89.243 degrees</code>.
+                </p>
+                <p class="text-muted mb-3">
+                  To correct this, I mapped the measured range from <code>0.912 → 89.243</code> to the desired range of <code>0 → 90</code>. This made the pitch value more useful for the controller.
+                </p>
+
+                <div class="bg-light rounded-4 p-3 mb-4">
+                  <h5 class="small fw-semibold mb-2">Calibrated Pitch Equation</h5>
+                  <pre class="mb-0 small"><code>Gyro_pitch = (atan2(t0, t1) * 180.0 / PI - 0.912f) * 90.0f / (89.243f - 0.912f);</code></pre>
+                </div>
+
+                <p class="text-muted mb-3">
+                  After this correction, I found that the robot did not balance perfectly at exactly 90 degrees because of the weight distribution from the electronic components. Through trial and error, I found that adding about <code>1 to 1.5 degrees</code> helped the robot reach equilibrium more consistently.
+                </p>
+
+                <div class="bg-light rounded-4 p-3 mb-4">
+                  <h5 class="small fw-semibold mb-2">Final Pitch Calibration with Offset</h5>
+                  <pre class="mb-0 small"><code>Gyro_pitch = (atan2(t0, t1) * 180.0 / PI - 0.912f) * 90.0f / (89.243f - 0.912f) + 1.0f;</code></pre>
+                </div>
+
+                <div class="row g-4">
+                  <div class="col-lg-6">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">0 Degree Calibration</h6>
+                      <img
+                        src="../assets/lab12/calibration_0deg.png"
+                        alt="0 degree pitch calibration"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+                  <div class="col-lg-6">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">90 Degree Calibration</h6>
+                      <img
+                        src="../assets/lab12/calibration_90deg.png"
+                        alt="90 degree pitch calibration"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">4. Controller Design</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  I created a new case named <code>WHEELEE</code> where I placed the inverted pendulum control logic. The controller calculated the error between the measured pitch angle and the target wheelie angle. Depending on the sign of the error, the robot would drive forward or backward to correct itself.
+                </p>
+                <p class="text-muted mb-3">
+                  The values I logged included time, gyroscopic pitch, total PID output, proportional error, integral error, derivative error, and motor PWM output. This made it easier to compare different gain values and understand how the robot was responding.
+                </p>
+
+                <div class="bg-light rounded-4 p-3 mb-4">
+                  <h5 class="small fw-semibold mb-2">Main Inverted Pendulum Control Logic</h5>
+                  <pre class="mb-0 small"><code>error1P_ori = Gyro_pitch - targetOrientation1;
+
+static unsigned long PID_time2_ori = millis();
+unsigned long PID_time1_ori = millis();
+
+PID_dt_ori = (PID_time1_ori - PID_time2_ori) / 1000.0;
+error1I_ori += error1P_ori * PID_dt_ori;
+
+if (PID_dt_ori &gt; 0) {
+  error1D_ori = (error1P_ori - error1Plast_ori) / PID_dt_ori;
+}
+
+error1Plast_ori = error1P_ori;
+
+if (error1I_ori &gt; 4000) error1I_ori = 4000;
+if (error1I_ori &lt; -4000) error1I_ori = -4000;
+
+PID_time2_ori = PID_time1_ori;
+
+float control_ori = (kp_ori * error1P_ori) +
+                    (ki_ori * error1I_ori) +
+                    (kd_ori * error1D_ori);
+
+duty2 = abs(control_ori);
+
+if (duty2 &lt; duty1Min_drive) duty2 = duty1Min_drive;
+if (duty2 &gt; duty1Max_drive) duty2 = duty1Max_drive;</code></pre>
+                </div>
+
+                <p class="text-muted mb-3">
+                  Since the robot only needed small angle corrections near the balancing point, I decided not to use integral control in my final tuning. Integral control was not as useful for this stunt because it could build up error and cause the robot to overshoot more, especially since the robot needed quick small corrections instead of slow steady-state correction.
+                </p>
+
+                <div class="bg-light rounded-4 p-3 mb-0">
+                  <h5 class="small fw-semibold mb-2">Final Deadband and Motor Direction Logic</h5>
+                  <pre class="mb-0 small"><code>float deadband_ori = 1.25;
+
+if (fabs(error1P_ori) &lt;= deadband_ori) {
+  stop_motors();
+}
+else {
+  if (error1P_ori &gt; 0) {
+    drive_forward(duty2);
+  }
+  else {
+    drive_backward(duty2);
+  }
+}</code></pre>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">5. PWM Minimum and Deadband Tuning</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  Since I recycled parts of my Lab 6 orientation control code, the original minimum PWM value was too high for this task. At first, the minimum PWM was around <code>170</code>, which made the robot react too aggressively and spaz out. After testing, I brought the minimum PWM down to the driving minimum from Lab 4, which was around <code>60</code>.
+                </p>
+                <p class="text-muted mb-3">
+                  I also tested different deadband values from about <code>0.5 degrees</code> to <code>1.5 degrees</code>. A smaller deadband made the controller more sensitive, but it also caused more oscillation near the target angle. I ended up using a deadband of <code>1.25 degrees</code>, which gave the robot enough room to settle without constantly twitching.
+                </p>
+
+                <div class="row g-4">
+                  <div class="col-lg-6">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">PWM Tuning Test</h6>
+                      <img
+                        src="../assets/lab12/pwm_tuning.png"
+                        alt="PWM tuning plot"
+                        class="img-fluid rounded-4"
+                      />
+                      <figcaption class="small text-muted mt-2">Replace this with a PWM tuning plot or screenshot.</figcaption>
+                    </figure>
+                  </div>
+                  <div class="col-lg-6">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Deadband Test</h6>
+                      <img
+                        src="../assets/lab12/deadband_test.png"
+                        alt="Deadband tuning plot"
+                        class="img-fluid rounded-4"
+                      />
+                      <figcaption class="small text-muted mt-2">Replace this with a deadband comparison plot.</figcaption>
+                    </figure>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">6. Proportional Gain Testing</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-4">
+                  I started tuning with proportional control on carpet. I tested <code>Kp = 1.0</code>, <code>Kp = 2.0</code>, and <code>Kp = 4.0</code>. The <code>Kp = 1.0</code> response was too weak and the robot did not always react strongly enough. The <code>Kp = 4.0</code> response was stronger, but it caused more overshoot and oscillation. I ended up using <code>Kp = 2.0</code> because it gave a better balance between response strength and stability.
+                </p>
+
+                <div class="row g-4 mb-4">
+                  <div class="col-lg-4">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Test 1: Kp = 1.0</h6>
+                      <img
+                        src="../assets/lab12/kp1.0.png"
+                        alt="Kp equals 1.0 inverted pendulum plot"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+
+                  <div class="col-lg-4">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Test 2: Kp = 2.0</h6>
+                      <img
+                        src="../assets/lab12/kp2.0.png"
+                        alt="Kp equals 2.0 inverted pendulum plot"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+
+                  <div class="col-lg-4">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Test 3: Kp = 4.0</h6>
+                      <img
+                        src="../assets/lab12/kp4.0.png"
+                        alt="Kp equals 4.0 inverted pendulum plot"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+                </div>
+
+                <div class="row g-4">
+                  <div class="col-lg-4">
+                    <div class="bg-light rounded-4 p-3">
+                      <h6 class="fw-semibold mb-2">Video: Kp = 1.0</h6>
+                      <video class="w-100 rounded-4" controls>
+                        <source src="../assets/lab12/vid_kp1.0.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="bg-light rounded-4 p-3">
+                      <h6 class="fw-semibold mb-2">Video: Kp = 2.0</h6>
+                      <video class="w-100 rounded-4" controls>
+                        <source src="../assets/lab12/vid_kp2.0.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="bg-light rounded-4 p-3">
+                      <h6 class="fw-semibold mb-2">Video: Kp = 4.0</h6>
+                      <video class="w-100 rounded-4" controls>
+                        <source src="../assets/lab12/vid_kp4.0.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">7. Derivative Gain Testing</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-4">
+                  After choosing the proportional gain, I tested derivative control. The derivative term helped add a quicker response when the robot started falling away from the target angle. This was useful because when the robot reached larger errors, such as around 20 degrees away from the balancing point, it sometimes needed a sharper correction to return toward equilibrium.
+                </p>
+                <p class="text-muted mb-4">
+                  I tested <code>Kd = 0.001</code>, <code>Kd = 0.005</code>, and <code>Kd = 0.01</code>. I found that <code>Kd = 0.005</code> gave a solid response on carpet without making the robot too jumpy.
+                </p>
+
+                <div class="row g-4 mb-4">
+                  <div class="col-lg-4">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Test 1: Kd = 0.001</h6>
+                      <img
+                        src="../assets/lab12/kd0.001.png"
+                        alt="Kd equals 0.001 inverted pendulum plot"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+
+                  <div class="col-lg-4">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Test 2: Kd = 0.005</h6>
+                      <img
+                        src="../assets/lab12/kd0.005.png"
+                        alt="Kd equals 0.005 inverted pendulum plot"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+
+                  <div class="col-lg-4">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Test 3: Kd = 0.01</h6>
+                      <img
+                        src="../assets/lab12/kd0.01.png"
+                        alt="Kd equals 0.01 inverted pendulum plot"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+                </div>
+
+                <div class="row g-4">
+                  <div class="col-lg-4">
+                    <div class="bg-light rounded-4 p-3">
+                      <h6 class="fw-semibold mb-2">Video: Kd = 0.001</h6>
+                      <video class="w-100 rounded-4" controls>
+                        <source src="../assets/lab12/vid_kd0.001.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="bg-light rounded-4 p-3">
+                      <h6 class="fw-semibold mb-2">Video: Kd = 0.005</h6>
+                      <video class="w-100 rounded-4" controls>
+                        <source src="../assets/lab12/vid_kd0.005.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+                  <div class="col-lg-4">
+                    <div class="bg-light rounded-4 p-3">
+                      <h6 class="fw-semibold mb-2">Video: Kd = 0.01</h6>
+                      <video class="w-100 rounded-4" controls>
+                        <source src="../assets/lab12/vid_kd0.01.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">8. Final Wheelie Attempts</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-4">
+                  For my final setup, I used <code>Kp = 2.0</code> and <code>Kd = 0.005</code>. I tested the robot on carpet first because the higher friction helped the wheels grip the ground and gave the robot more control while trying to stay near equilibrium. The carpet also helped the robot remain upright slightly longer because it reduced slipping.
+                </p>
+                <p class="text-muted mb-4">
+                  I also tested the robot on a smoother table surface. The table had less friction, so the robot had a harder time maintaining balance. The wheels could move more easily, but the robot also slipped more and had less time to correct itself before falling out of the wheelie position.
+                </p>
+
+                <div class="row g-4 mb-4">
+                  <div class="col-lg-6">
+                    <div class="bg-light rounded-4 p-3">
+                      <h6 class="fw-semibold mb-2">Final Attempt on Carpet</h6>
+                      <video class="w-100 rounded-4" controls>
+                        <source src="../assets/lab12/final_carpet.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <div class="bg-light rounded-4 p-3">
+                      <h6 class="fw-semibold mb-2">Final Attempt on Table</h6>
+                      <video class="w-100 rounded-4" controls>
+                        <source src="../assets/lab12/final_table.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row g-4">
+                  <div class="col-lg-6">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Final Carpet Data</h6>
+                      <img
+                        src="../assets/lab12/final_carpet_plot.png"
+                        alt="Final carpet inverted pendulum plot"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Final Table Data</h6>
+                      <img
+                        src="../assets/lab12/final_table_plot.png"
+                        alt="Final table inverted pendulum plot"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">9. Discussion and Reflection</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  Overall, the inverted pendulum task was much harder than normal orientation control because the robot had to correct itself very quickly while balancing near an unstable point. Small errors in pitch caused the robot to fall forward or backward, so the controller had to react fast without creating too much overshoot.
+                </p>
+                <p class="text-muted mb-3">
+                  The DMP pitch estimate made the control signal cleaner than raw gyroscope integration, but the robot was still limited by loop speed, motor response, friction, and the robot's weight distribution. The final controller worked best on carpet because the surface gave the wheels more grip and made the response easier to control.
+                </p>
+                <p class="text-muted mb-0">
+                  If I continued improving this lab, I would try filtering the pitch signal more carefully, testing derivative-on-measurement to reduce derivative kick, and tuning the controller separately for different surfaces. I would also test different battery and electronics placements to move the center of mass closer to a more stable balancing point.
+                </p>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-white py-4 mt-auto">
+      <div class="container px-5">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-auto">
+            <div class="small text-muted">© 2026 Jamison L. Taylor Jr.</div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-</main>
-<footer class="bg-white py-4 mt-auto">
-            <div class="container px-5">
-                <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-                    <div class="col-auto"><div class="small m-0">Copyright &copy; Jamison L. Taylor Jr. 2026</div></div>
-                    <div class="col-auto"><a class="small" href="../index.html#about">Contact</a></div>
-                </div>
-            </div>
-        </footer>
+    </footer>
 
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="../js/scripts.js"></script>
-    </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

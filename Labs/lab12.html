@@ -100,7 +100,7 @@ Gyro_pitch = atan2(t0, t1) * 180.0 / PI;</code></pre>
                     <figure class="bg-light rounded-4 p-3 mb-0">
                       <h6 class="fw-semibold mb-2">Pitch Reading Test</h6>
                       <img
-                        src="../assets/lab12/pitch_reading_test.png"
+                        src="../assets/lab12/cali.png"
                         alt="Pitch reading test plot"
                         class="img-fluid rounded-4"
                       />
@@ -142,7 +142,7 @@ Gyro_pitch = atan2(t0, t1) * 180.0 / PI;</code></pre>
                     <figure class="bg-light rounded-4 p-3 mb-0">
                       <h6 class="fw-semibold mb-2">0 Degree Calibration</h6>
                       <img
-                        src="../assets/lab12/calibration_0deg.png"
+                        src="../assets/lab12/0deg.png"
                         alt="0 degree pitch calibration"
                         class="img-fluid rounded-4"
                       />
@@ -152,7 +152,7 @@ Gyro_pitch = atan2(t0, t1) * 180.0 / PI;</code></pre>
                     <figure class="bg-light rounded-4 p-3 mb-0">
                       <h6 class="fw-semibold mb-2">90 Degree Calibration</h6>
                       <img
-                        src="../assets/lab12/calibration_90deg.png"
+                        src="../assets/lab12/90deg.png"
                         alt="90 degree pitch calibration"
                         class="img-fluid rounded-4"
                       />
@@ -240,30 +240,6 @@ else {
                   I also tested different deadband values from about <code>0.5 degrees</code> to <code>1.5 degrees</code>. A smaller deadband made the controller more sensitive, but it also caused more oscillation near the target angle. I ended up using a deadband of <code>1.25 degrees</code>, which gave the robot enough room to settle without constantly twitching.
                 </p>
 
-                <div class="row g-4">
-                  <div class="col-lg-6">
-                    <figure class="bg-light rounded-4 p-3 mb-0">
-                      <h6 class="fw-semibold mb-2">PWM Tuning Test</h6>
-                      <img
-                        src="../assets/lab12/pwm_tuning.png"
-                        alt="PWM tuning plot"
-                        class="img-fluid rounded-4"
-                      />
-                      <figcaption class="small text-muted mt-2">Replace this with a PWM tuning plot or screenshot.</figcaption>
-                    </figure>
-                  </div>
-                  <div class="col-lg-6">
-                    <figure class="bg-light rounded-4 p-3 mb-0">
-                      <h6 class="fw-semibold mb-2">Deadband Test</h6>
-                      <img
-                        src="../assets/lab12/deadband_test.png"
-                        alt="Deadband tuning plot"
-                        class="img-fluid rounded-4"
-                      />
-                      <figcaption class="small text-muted mt-2">Replace this with a deadband comparison plot.</figcaption>
-                    </figure>
-                  </div>
-                </div>
               </div>
             </div>
           </section>
@@ -281,7 +257,7 @@ else {
                     <figure class="bg-light rounded-4 p-3 mb-0">
                       <h6 class="fw-semibold mb-2">Test 1: Kp = 1.0</h6>
                       <img
-                        src="../assets/lab12/kp1.0.png"
+                        src="../assets/lab12/kp=1.png"
                         alt="Kp equals 1.0 inverted pendulum plot"
                         class="img-fluid rounded-4"
                       />
@@ -292,7 +268,7 @@ else {
                     <figure class="bg-light rounded-4 p-3 mb-0">
                       <h6 class="fw-semibold mb-2">Test 2: Kp = 2.0</h6>
                       <img
-                        src="../assets/lab12/kp2.0.png"
+                        src="../assets/lab12/kp=2.png"
                         alt="Kp equals 2.0 inverted pendulum plot"
                         class="img-fluid rounded-4"
                       />
@@ -303,7 +279,7 @@ else {
                     <figure class="bg-light rounded-4 p-3 mb-0">
                       <h6 class="fw-semibold mb-2">Test 3: Kp = 4.0</h6>
                       <img
-                        src="../assets/lab12/kp4.0.png"
+                        src="../assets/lab12/kp=4.png"
                         alt="Kp equals 4.0 inverted pendulum plot"
                         class="img-fluid rounded-4"
                       />
@@ -312,29 +288,12 @@ else {
                 </div>
 
                 <div class="row g-4">
-                  <div class="col-lg-4">
-                    <div class="bg-light rounded-4 p-3">
-                      <h6 class="fw-semibold mb-2">Video: Kp = 1.0</h6>
-                      <video class="w-100 rounded-4" controls>
-                        <source src="../assets/lab12/vid_kp1.0.mp4" type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
-                    </div>
-                  </div>
+                  
                   <div class="col-lg-4">
                     <div class="bg-light rounded-4 p-3">
                       <h6 class="fw-semibold mb-2">Video: Kp = 2.0</h6>
                       <video class="w-100 rounded-4" controls>
                         <source src="../assets/lab12/vid_kp2.0.mp4" type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
-                    </div>
-                  </div>
-                  <div class="col-lg-4">
-                    <div class="bg-light rounded-4 p-3">
-                      <h6 class="fw-semibold mb-2">Video: Kp = 4.0</h6>
-                      <video class="w-100 rounded-4" controls>
-                        <source src="../assets/lab12/vid_kp4.0.mp4" type="video/mp4" />
                         Your browser does not support the video tag.
                       </video>
                     </div>
@@ -360,7 +319,7 @@ else {
                     <figure class="bg-light rounded-4 p-3 mb-0">
                       <h6 class="fw-semibold mb-2">Test 1: Kd = 0.001</h6>
                       <img
-                        src="../assets/lab12/kd0.001.png"
+                        src="../assets/lab12/kd = .001.png"
                         alt="Kd equals 0.001 inverted pendulum plot"
                         class="img-fluid rounded-4"
                       />
@@ -371,7 +330,7 @@ else {
                     <figure class="bg-light rounded-4 p-3 mb-0">
                       <h6 class="fw-semibold mb-2">Test 2: Kd = 0.005</h6>
                       <img
-                        src="../assets/lab12/kd0.005.png"
+                        src="../assets/lab12/kd=.005.png"
                         alt="Kd equals 0.005 inverted pendulum plot"
                         class="img-fluid rounded-4"
                       />
@@ -382,7 +341,7 @@ else {
                     <figure class="bg-light rounded-4 p-3 mb-0">
                       <h6 class="fw-semibold mb-2">Test 3: Kd = 0.01</h6>
                       <img
-                        src="../assets/lab12/kd0.01.png"
+                        src="../assets/lab12/kd=.01.png"
                         alt="Kd equals 0.01 inverted pendulum plot"
                         class="img-fluid rounded-4"
                       />
@@ -391,15 +350,6 @@ else {
                 </div>
 
                 <div class="row g-4">
-                  <div class="col-lg-4">
-                    <div class="bg-light rounded-4 p-3">
-                      <h6 class="fw-semibold mb-2">Video: Kd = 0.001</h6>
-                      <video class="w-100 rounded-4" controls>
-                        <source src="../assets/lab12/vid_kd0.001.mp4" type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
-                    </div>
-                  </div>
                   <div class="col-lg-4">
                     <div class="bg-light rounded-4 p-3">
                       <h6 class="fw-semibold mb-2">Video: Kd = 0.005</h6>
@@ -449,7 +399,7 @@ else {
                     <div class="bg-light rounded-4 p-3">
                       <h6 class="fw-semibold mb-2">Final Attempt on Table</h6>
                       <video class="w-100 rounded-4" controls>
-                        <source src="../assets/lab12/final_table.mp4" type="video/mp4" />
+                        <source src="../assets/lab12/finaltable.mp4" type="video/mp4" />
                         Your browser does not support the video tag.
                       </video>
                     </div>

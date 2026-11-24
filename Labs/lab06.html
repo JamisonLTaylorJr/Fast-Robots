@@ -1,121 +1,514 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>MAE 5190 Fast Robots | Jamison Taylor Jr.</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
-        <!-- Custom Google font-->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="../css/styles.css" rel="stylesheet" />
-    </head>
-<body class="d-flex flex-column h-100">
-<main class="flex-shrink-0">
-<nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
-  <div class="container px-5">
-    <a class="navbar-brand" href="../index.html"><span class="fw-bolder text-primary">MAE 5190 Fast Robots</span></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-        <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="../index.html#labs">Labs</a></li>
-        <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<section class="py-5">
-  <div class="container px-5">
-    <div class="row gx-5 justify-content-center">
-      <div class="col-lg-9 col-xl-8 col-xxl-7">
-        <div class="text-center mb-5">
-          <h1 class="fw-bolder">Lab 06: <span class="text-gradient">[Lab Title Placeholder]</span></h1>
-          <p class="lead fw-light text-muted mb-0">MAE 5190 (Fast Robots) &middot; Lab 401</p>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="MAE 5190 Fast Robots - Lab 6" />
+    <meta name="author" content="Jamison L. Taylor Jr." />
+    <title>Lab 6 | MAE 5190 Fast Robots</title>
+
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="../css/styles.css" rel="stylesheet" />
+  </head>
+
+  <body class="d-flex flex-column h-100">
+    <main class="flex-shrink-0">
+      <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+        <div class="container px-5">
+          <a class="navbar-brand" href="../index.html">
+            <span class="fw-bolder text-primary">MAE 5190 Fast Robots</span>
+          </a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+              <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="../index.html#labs">Labs</a></li>
+              <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
+            </ul>
+          </div>
         </div>
-        <div class="card shadow border-0 rounded-4 mb-5">
-          <div class="card-body p-5">
-            <h2 class="fw-bolder mb-3">Overview</h2>
-            <p class="text-muted">[Write a 4–8 sentence overview of what this lab was about. What problem were you solving? What did you build?]</p>
-            <hr class="my-4" />
+      </nav>
 
-            <h2 class="fw-bolder mb-3">Objectives</h2>
-            <ul class="text-muted">
-              <li>[Objective 1]</li>
-              <li>[Objective 2]</li>
-              <li>[Objective 3]</li>
-            </ul>
-            <hr class="my-4" />
+      <section class="py-5">
+        <div class="container px-5">
+          <div class="text-center mb-5">
+            <h1 class="fw-bolder">Lab 6: <span class="text-gradient">Orientation Control with IMU + PD</span></h1>
+            <p class="text-muted mb-0">
+              In this lab I used the IMU gyroscope and DMP yaw estimate to control the robot’s orientation.
+            </p>
+          </div>
 
-            <h2 class="fw-bolder mb-3">Hardware</h2>
-            <ul class="text-muted">
-              <li>[List sensors/actuators/boards used]</li>
-              <li>[Wiring notes / schematic link]</li>
-            </ul>
-            <hr class="my-4" />
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">1. Prelab: Bluetooth Debugging Setup</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  To send and receive data over Bluetooth while the controller was running, I set up a command structure
+                  in the Arduino code named <code>GET_PID_ORI_GAINS_AND_ORIENTATION</code>. This let me send gain
+                  values and target orientation data to the Arduino. I also added lines to
+                  <code>tx_estring_value.append</code> so the robot could send logged values back to my computer for
+                  post-processing.
+                </p>
+                <p class="text-muted mb-3">
+                  The code below shows how I sent values to the Arduino and then sent values back to my computer.
+                </p>
 
-            <h2 class="fw-bolder mb-3">Software</h2>
-            <ul class="text-muted">
-              <li>[Language + toolchain (e.g., C++ / Arduino / ROS / Python)]</li>
-              <li>[Key libraries]</li>
-            </ul>
-            <div class="bg-light rounded-4 p-4">
-              <div class="small text-muted">Code Placeholder</div>
-              <div class="fw-semibold">Add a GitHub link or paste code snippets here later.</div>
-            </div>
-            <hr class="my-4" />
+                <div class="bg-light rounded-4 p-3 mb-4">
+                  <h5 class="small fw-semibold mb-2">Bluetooth Gain / Setpoint Command</h5>
+                  <pre class="mb-0 small"><code>case GET_PID_ORI_GAINS_AND_ORIENTATION:
+{
+  bool Received_input = robot_cmd.get_next_value(kp_ori)
+                     && robot_cmd.get_next_value(ki_ori)
+                     && robot_cmd.get_next_value(kd_ori)
+                     && robot_cmd.get_next_value(targetOrientation1);
+  if (!Received_input) return;
 
-            <h2 class="fw-bolder mb-3">Results</h2>
-            <p class="text-muted">[What worked? What didn’t? Add plots/photos/video links.]</p>
-            <div class="row g-3">
-              <div class="col-md-6">
-                <div class="border rounded-4 p-4 h-100">
-                  <div class="small text-muted">Photo / Screenshot</div>
-                  <div class="fw-semibold">[Drop image into assets/ and link it here]</div>
+  tx_estring_value.clear();
+  tx_estring_value.append("PID Ori Gains are Set, kp_ori = ");
+  tx_estring_value.append(kp_ori);
+  tx_estring_value.append(", ki_ori = ");
+  tx_estring_value.append(ki_ori);
+  tx_estring_value.append(", kd_ori = ");
+  tx_estring_value.append(kd_ori);
+  tx_estring_value.append(", Target Orientation = ");
+  tx_estring_value.append(targetOrientation1);
+
+  tx_characteristic_string.writeValue(tx_estring_value.c_str());
+  break;
+}</code></pre>
+                </div>
+
+                <p class="text-muted mb-3">
+                  The next code block shows how I received values back on my computer and parsed them for plotting and analysis.
+                </p>
+
+                <div class="bg-light rounded-4 p-3 mb-0">
+                  <h5 class="small fw-semibold mb-2">Python Call Example</h5>
+                  <pre class="mb-0 small"><code>def notif_handler(uuid, byte):
+  s = ble.bytearray_to_string(byte) 
+  parts = s.split("|")
+
+  PID_ori      = float(parts[14])
+  Perror_ori   = float(parts[15])
+  Ierror_ori   = float(parts[16])
+  Derror_ori   = float(parts[17])
+  PWM_ori      = float(parts[18])
+
+  PID_ori_list.append(PID_ori)
+  Perror_ori_list.append(Perror_ori)
+  Ierror_ori_list.append(Ierror_ori)
+  Derror_ori_list.append(Derror_ori)
+  PWM_ori_list.append(PWM_ori)
+
+PID_ori_list      = []
+Perror_ori_list   = []
+Ierror_ori_list   = []
+Derror_ori_list   = []
+PWM_ori_list      = []
+
+ble.start_notify(ble.uuid['RX_STRING'], notif_handler)
+ble.send_command(CMD.GET_ALL, "")</code></pre>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="border rounded-4 p-4 h-100">
-                  <div class="small text-muted">Video Demo</div>
-                  <div class="fw-semibold">[Embed YouTube link or GIF]</div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">2. Orientation Control Goal</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-0">
+                  The goal of this lab was to have the robot rotate to a desired heading and stop there with a stable
+                  response. The main challenge was balancing speed and stability so the robot turned quickly enough
+                  without overshooting too much or oscillating around the setpoint.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">3. IMU Input Signal and Orientation Estimate</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  To estimate the robot’s orientation, gyroscope data needs to be integrated over time. Digital
+                  integration sums angular velocity measurements over discrete time steps to estimate the rotation angle.
+                  A problem with this is that even small errors in angular velocity can build up over time and cause drift.
+                </p>
+                <p class="text-muted mb-3">
+                  In my implementation, I used the IMU’s onboard Digital Motion Processor (DMP) and converted the
+                  quaternion output into yaw. This gave a cleaner heading estimate and helped reduce yaw drift compared
+                  to using a simple raw gyro integration by itself.
+                </p>
+
+                <div class="bg-light rounded-4 p-3 mb-4">
+                  <h5 class="small fw-semibold mb-2">Yaw Estimate From DMP Quaternion Data</h5>
+                  <pre class="mb-0 small"><code>icm_20948_DMP_data_t data;
+myICM.readDMPdataFromFIFO(&amp;data);
+
+if ((myICM.status == ICM_20948_Stat_Ok) ||
+    (myICM.status == ICM_20948_Stat_FIFOMoreDataAvail)) {
+
+  if ((data.header &amp; DMP_header_bitmap_Quat6) &gt; 0) {
+
+    double q1 = ((double)data.Quat6.Data.Q1) / 1073741824.0;
+    double q2 = ((double)data.Quat6.Data.Q2) / 1073741824.0;
+    double q3 = ((double)data.Quat6.Data.Q3) / 1073741824.0;
+    double q0 = sqrt(1.0 - ((q1 * q1) + (q2 * q2) + (q3 * q3)));
+
+    double qw = q0;
+    double qx = q2;
+    double qy = q1;
+    double qz = -q3;
+
+    double t3 = +2.0 * (qw * qz + qx * qy);
+    double t4 = +1.0 - 2.0 * (qy * qy + qz * qz);
+    Gyro_yaw = (float)atan2(t3, t4) * 180.0 / PI + 3.8;
+  }
+}</code></pre>
+                </div>
+
+                <p class="text-muted mb-3">
+                  I also needed to calibrate the yaw value so it displayed a more accurate heading. I let the DMP run
+                  while the robot stayed still and watched the yaw drift until it reached a steady-state value around
+                  -3.6 to -3.9 degrees. Based on that, I added a calibration offset of <code>+3.8 degrees</code>.
+                </p>
+
+                <div class="row g-4">
+                  <div class="col-lg-5">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Calibration at +3.8 Degrees</h6>
+                      <img
+                        src="../assets/lab6/calibration.png"
+                        alt="Yaw calibration plot"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
                 </div>
               </div>
             </div>
-            <hr class="my-4" />
+          </section>
 
-            <h2 class="fw-bolder mb-3">Reflection</h2>
-            <p class="text-muted">[What would you improve next time? Any debugging lessons or design tradeoffs?]</p>
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">4. P and D Gain Tuning</h2>
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  For this lab, I tested proportional and derivative control. Proportional control determined how
+                  strongly the robot reacted to error, while derivative control helped reduce overshoot and made the
+                  turning response more damped. I did not use integral control because PD already did a good enough job.
+                </p>
 
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-between mt-4">
-              <a class="btn btn-outline-dark" href="../index.html#labs"><i class="bi bi-arrow-left"></i> Back to Labs</a>
-              <a class="btn btn-primary" href="lab07.html">Next Lab <i class="bi bi-arrow-right"></i></a>
+                <div class="bg-light rounded-4 p-3 mb-0">
+                  <h5 class="small fw-semibold mb-2">PD Controller Logic From My Code</h5>
+                  <pre class="mb-0 small"><code>error1P_ori = Gyro_yaw - targetOrientation1;
+
+unsigned long now = millis();
+PID_dt_ori = (now - PID_time2_ori) / 1000.0;
+PID_time2_ori = now;
+
+if (PID_dt_ori &gt; 0) {
+  error1D_ori = (error1P_ori - error1Plast_ori) / PID_dt_ori;
+} else {
+  error1D_ori = 0;
+}
+
+error1Plast_ori = error1P_ori;
+
+control_ori = (kp_ori * error1P_ori) + (kd_ori * error1D_ori);
+duty2 = abs(control_ori);
+
+if (duty2 &lt; duty1Min_ori) duty2 = duty1Min_ori;
+if (duty2 &gt; duty1Max_ori) duty2 = duty1Max_ori;</code></pre>
+                </div>
+              </div>
             </div>
+
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-4">
+                  These plots show the first three tests I ran with different proportional gains:
+                  <code>Kp = 3.0</code>, <code>Kp = 3.75</code>, and <code>Kp = 4.5</code>.
+                </p>
+                <p class="text-muted mb-3">
+                  I ended up using <code>Kp = 3.75</code> because it gave decent corrective angular velocity while
+                  keeping the overshoot relatively low.
+                </p>
+
+                <div class="row g-4 mb-4">
+                  <div class="col-lg-4">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Test 1: Kp = 3.0</h6>
+                      <img
+                        src="../assets/lab6/kp3.0.png"
+                        alt="Plot showing Kp equals 3.0 orientation data"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+
+                  <div class="col-lg-4">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Test 2: Kp = 3.75</h6>
+                      <img
+                        src="../assets/lab6/kp3.75.png"
+                        alt="Plot showing Kp equals 3.75 orientation data"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+
+                  <div class="col-lg-4">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Test 3: Kp = 4.5</h6>
+                      <img
+                        src="../assets/lab6/kp4.5.png"
+                        alt="Plot showing Kp equals 4.5 orientation data"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+                </div>
+
+                <div class="row g-4">
+                  <div class="col-lg-4">
+                    <div class="bg-light rounded-4 p-3">
+                      <h6 class="fw-semibold mb-2">Test Video: Kp = 3.75</h6>
+                      <video class="w-100 rounded-4" controls>
+                        <source src="../assets/lab6/vidkp.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-4">
+                  These next plots show the first three tests I ran with different derivative gains:
+                  <code>Kd = 20</code>, <code>Kd = 40</code>, and <code>Kd = 60</code>.
+                </p>
+                <p class="text-muted mb-3">
+                  I ended up using <code>Kd = 40</code> because it damped the aggressive angular acceleration and
+                  reduced overshoot compared to <code>Kd = 20</code>, while still keeping better corrective angular
+                  velocity than <code>Kd = 60</code>, which was a bit too damped.
+                </p>
+
+                <div class="row g-4 mb-4">
+                  <div class="col-lg-4">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Test 1: Kd = 20</h6>
+                      <img
+                        src="../assets/lab6/kd20.png"
+                        alt="Plot showing Kd equals 20 orientation data"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+
+                  <div class="col-lg-4">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Test 2: Kd = 40</h6>
+                      <img
+                        src="../assets/lab6/kd40.png"
+                        alt="Plot showing Kd equals 40 orientation data"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+
+                  <div class="col-lg-4">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Test 3: Kd = 60</h6>
+                      <img
+                        src="../assets/lab6/kd60.png"
+                        alt="Plot showing Kd equals 60 orientation data"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+                </div>
+
+                <div class="row g-4">
+                  <div class="col-lg-4">
+                    <div class="bg-light rounded-4 p-3">
+                      <h6 class="fw-semibold mb-2">Test Video: Kd = 40</h6>
+                      <video class="w-100 rounded-4" controls>
+                        <source src="../assets/lab6/vidkd.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">5. Deadband and Motor Command Logic</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  After tuning the turning gains, I added a deadband near the target heading so the robot would stop
+                  once it was close enough instead of constantly trying to correct tiny remaining errors. Without this,
+                  the robot could keep twitching back and forth near the setpoint.
+                </p>
+                <p class="text-muted mb-3">
+                  In my code, the deadband for orientation was set to <code>2 degrees</code>. If the robot was
+                  inside that range, the motors stopped. Otherwise, the robot turned left or right depending on the sign
+                  of the error.
+                </p>
+
+                <div class="bg-light rounded-4 p-3 mb-4">
+                  <h5 class="small fw-semibold mb-2">Deadband Logic From My Code</h5>
+                  <pre class="mb-0 small"><code>float deadband_ori = 2.0;
+
+if (fabs(error1P_ori) &lt;= deadband_ori) {
+  stop_motors();
+  dutystate_ori = 0;
+  ori_finish = 1;
+}
+else {
+  ori_finish = 0;
+
+  if (error1P_ori &gt; 0) {
+    turn_right(duty2);
+    dutystate_ori = 1;
+  }
+  else {
+    turn_left(duty2);
+    dutystate_ori = -1;
+  }
+}</code></pre>
+                </div>
+
+                <div class="bg-light rounded-4 p-3 mb-0">
+                  <h5 class="small fw-semibold mb-2">Turning Functions</h5>
+                  <pre class="mb-0 small"><code>void turn_right(float duty1motor) {
+  float cali = 1.1;
+  duty1motor = (int)abs(duty1motor);
+  int duty2motor = (int)fabs(duty1motor * cali);
+
+  analogWrite(PWM_0, duty1motor);
+  analogWrite(PWM_1, 0);
+  analogWrite(PWM_2, duty2motor);
+  analogWrite(PWM_5, 0);
+}
+
+void turn_left(float duty1motor) {
+  float cali = 1.1;
+  duty1motor = (int)abs(duty1motor);
+  int duty2motor = (int)fabs(duty1motor * cali);
+
+  analogWrite(PWM_0, 0);
+  analogWrite(PWM_1, duty1motor);
+  analogWrite(PWM_2, 0);
+  analogWrite(PWM_5, duty2motor);
+}</code></pre>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">6. Derivative Term and Sampling Time Discussion</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  The derivative term was useful for reducing overshoot, but it is also sensitive to noise. Since the
+                  heading estimate comes from IMU data, fast noise in the signal can make the derivative term jump around.
+                  In practice, derivative action works best when the signal is reasonably smooth.
+                </p>
+                <p class="text-muted mb-3">
+                  Another thing that matters is the timestep. The derivative term depends on <code>dt</code>, so if the
+                  sampling time is inconsistent, then the derivative estimate will also be inconsistent. That is why I
+                  tracked time during the loop and used it directly in the controller calculations.
+                </p>
+                <p class="text-muted mb-3">
+                  To find the sampling rate I took a loop of <code>1000</code> indexes and found the amount of time it took to run the loop.
+                  The timestamp value I recieved was <code>16.64s</code>. Meaning that this loop ran at around <code>60 loops per second</code>.
+                </p>
+                <p class="text-muted mb-3">
+                  Changing the setpoint while the robot is running can also create derivative kick, since the derivative
+                  term reacts strongly to rapid changes in error. For future improvements, filtering or
+                  derivative-on-measurement would help make the controller even smoother.
+                </p>
+
+                <div class="bg-light rounded-4 p-3 mb-0">
+                  <h5 class="small fw-semibold mb-2">Timing in the Control Loop</h5>
+                  <pre class="mb-0 small"><code>const unsigned long starttime = millis();
+
+for (int i = 0; i &lt; Acc_length; i++)
+{
+  const uint32_t t_us = micros();
+
+  // IMU read
+  // BLE processing
+  // controller update
+  // array logging
+
+  time_list[i] = (float)(millis() - starttime);
+}</code></pre>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">7. Wind-Up Protection</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  For the 5000-level part of the lab, wind-up protection is still important to discuss even though I did
+                  not use integral control in the final PD controller. Integrator wind-up happens when the integral term
+                  keeps growing while the motors are saturated or the robot cannot respond well, which can lead to larger
+                  overshoot later.
+                </p>
+                <p class="text-muted mb-3">
+                  In my code, I included clamping logic for the integral term. If I had kept integral control in the
+                  final implementation, this would help prevent the accumulated error from becoming too large.
+                </p>
+
+                <div class="bg-light rounded-4 p-3 mb-0">
+                  <h5 class="small fw-semibold mb-2">Wind-Up Clamp From My Code</h5>
+                  <pre class="mb-0 small"><code>error1I_ori += error1P_ori * PID_dt_ori;
+
+if (error1I_ori &gt; 4000) error1I_ori = 4000;
+if (error1I_ori &lt; -4000) error1I_ori = -4000;</code></pre>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-white py-4 mt-auto">
+      <div class="container px-5">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-auto">
+            <div class="small text-muted">© 2026 Jamison L. Taylor Jr.</div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-</main>
-<footer class="bg-white py-4 mt-auto">
-            <div class="container px-5">
-                <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-                    <div class="col-auto"><div class="small m-0">Copyright &copy; Jamison L. Taylor Jr. 2026</div></div>
-                    <div class="col-auto"><a class="small" href="../index.html#about">Contact</a></div>
-                </div>
-            </div>
-        </footer>
+    </footer>
 
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="../js/scripts.js"></script>
-    </body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

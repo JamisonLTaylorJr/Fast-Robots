@@ -1,121 +1,466 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>MAE 5190 Fast Robots | Jamison Taylor Jr.</title>
-        <!-- Favicon-->
-        <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
-        <!-- Custom Google font-->
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
-        <!-- Bootstrap icons-->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
-        <!-- Core theme CSS (includes Bootstrap)-->
-        <link href="../css/styles.css" rel="stylesheet" />
-    </head>
-<body class="d-flex flex-column h-100">
-<main class="flex-shrink-0">
-<nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
-  <div class="container px-5">
-    <a class="navbar-brand" href="../index.html"><span class="fw-bolder text-primary">MAE 5190 Fast Robots</span></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-        <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
-        <li class="nav-item"><a class="nav-link" href="../index.html#labs">Labs</a></li>
-        <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
-      </ul>
-    </div>
-  </div>
-</nav>
-<section class="py-5">
-  <div class="container px-5">
-    <div class="row gx-5 justify-content-center">
-      <div class="col-lg-9 col-xl-8 col-xxl-7">
-        <div class="text-center mb-5">
-          <h1 class="fw-bolder">Lab 07: <span class="text-gradient">[Lab Title Placeholder]</span></h1>
-          <p class="lead fw-light text-muted mb-0">MAE 5190 (Fast Robots) &middot; Lab 401</p>
-        </div>
-        <div class="card shadow border-0 rounded-4 mb-5">
-          <div class="card-body p-5">
-            <h2 class="fw-bolder mb-3">Overview</h2>
-            <p class="text-muted">[Write a 4–8 sentence overview of what this lab was about. What problem were you solving? What did you build?]</p>
-            <hr class="my-4" />
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="MAE 5190 Fast Robots - Lab 7" />
+    <meta name="author" content="Jamison L. Taylor Jr." />
+    <title>Lab 7 | MAE 5190 Fast Robots</title>
 
-            <h2 class="fw-bolder mb-3">Objectives</h2>
-            <ul class="text-muted">
-              <li>[Objective 1]</li>
-              <li>[Objective 2]</li>
-              <li>[Objective 3]</li>
+    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+    <link href="../css/styles.css" rel="stylesheet" />
+  </head>
+
+  <body class="d-flex flex-column h-100">
+    <main class="flex-shrink-0">
+      <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+        <div class="container px-5">
+          <a class="navbar-brand" href="../index.html">
+            <span class="fw-bolder text-primary">MAE 5190 Fast Robots</span>
+          </a>
+
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+              <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+              <li class="nav-item"><a class="nav-link" href="../index.html#labs">Labs</a></li>
+              <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
             </ul>
-            <hr class="my-4" />
-
-            <h2 class="fw-bolder mb-3">Hardware</h2>
-            <ul class="text-muted">
-              <li>[List sensors/actuators/boards used]</li>
-              <li>[Wiring notes / schematic link]</li>
-            </ul>
-            <hr class="my-4" />
-
-            <h2 class="fw-bolder mb-3">Software</h2>
-            <ul class="text-muted">
-              <li>[Language + toolchain (e.g., C++ / Arduino / ROS / Python)]</li>
-              <li>[Key libraries]</li>
-            </ul>
-            <div class="bg-light rounded-4 p-4">
-              <div class="small text-muted">Code Placeholder</div>
-              <div class="fw-semibold">Add a GitHub link or paste code snippets here later.</div>
-            </div>
-            <hr class="my-4" />
-
-            <h2 class="fw-bolder mb-3">Results</h2>
-            <p class="text-muted">[What worked? What didn’t? Add plots/photos/video links.]</p>
-            <div class="row g-3">
-              <div class="col-md-6">
-                <div class="border rounded-4 p-4 h-100">
-                  <div class="small text-muted">Photo / Screenshot</div>
-                  <div class="fw-semibold">[Drop image into assets/ and link it here]</div>
-                </div>
-              </div>
-              <div class="col-md-6">
-                <div class="border rounded-4 p-4 h-100">
-                  <div class="small text-muted">Video Demo</div>
-                  <div class="fw-semibold">[Embed YouTube link or GIF]</div>
-                </div>
-              </div>
-            </div>
-            <hr class="my-4" />
-
-            <h2 class="fw-bolder mb-3">Reflection</h2>
-            <p class="text-muted">[What would you improve next time? Any debugging lessons or design tradeoffs?]</p>
-
-            <div class="d-grid gap-2 d-sm-flex justify-content-sm-between mt-4">
-              <a class="btn btn-outline-dark" href="../index.html#labs"><i class="bi bi-arrow-left"></i> Back to Labs</a>
-              <a class="btn btn-primary" href="lab08.html">Next Lab <i class="bi bi-arrow-right"></i></a>
-            </div>
           </div>
         </div>
-      </div>
+      </nav>
+
+      <section class="py-5">
+        <div class="container px-5">
+          <div class="text-center mb-5">
+            <h1 class="fw-bolder">Lab 7: <span class="text-gradient">Kalman Filter</span></h1>
+            <p class="text-muted mb-0">
+              In this lab I implemented a Kalman Filter to improve the robot’s position and velocity estimates so it could move faster and more smoothly toward the wall.
+            </p>
+          </div>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">1. Objective</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-0">
+                  The goal of this lab was to use a Kalman Filter to supplement the slower Time of Flight sensor measurements with a model-based estimate of the robot’s state. 
+                  This allows the robot to better estimate both position and velocity between ToF updates and improves the behavior from Lab 5.
+                </p>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">2. Step Response Data Collection</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  To estimate the system dynamics, I drove the robot toward the wall at a constant motor input of <code>152 PWM</code> and logged the ToF output, motor input, and timing data. 
+                  I used my Bluetooth debugging structure again so I could run the robot, save the values in arrays, and then send those values back to Jupyter for analysis.
+                </p>
+                <p class="text-muted mb-3">
+                  This step response data was used to estimate the rise time and overall system behavior, which I later used to build the A and B matrices for the Kalman Filter.
+                </p>
+
+                <div class="bg-light rounded-4 p-3 mb-4">
+                  <h5 class="small fw-semibold mb-2">Bluetooth Data Logging Structure</h5>
+                  <pre class="mb-0 small"><code>case GET_ALL:
+{
+  const unsigned long starttime = millis();
+  Serial.println("Start Collecting Data");
+
+  for (int i = 0; i &lt; Acc_length; i++)
+  {
+    BLEDevice central = BLE.central();
+
+    if (central) {
+      if (central.connected()) {
+        write_data();
+        read_data();
+      }
+    }
+
+    if (!PID_state) break;
+
+    if (ToF_Sensor_1.checkForDataReady()) {
+      int distance1 = ToF_Sensor_1.getDistance();
+      ToF_Sensor_1.clearInterrupt();
+      distance1_in = distance1 * 0.0393701f;
+
+      time_list[i] = (float)(millis() - starttime);
+      Tof_Sensor_1_list[i] = distance1_in;
+      PWM_list[i] = duty1;
+    }
+  }
+  break;
+}</code></pre>
+                </div>                
+                <div class="row g-4">
+                  <div class="col-lg-6">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Step Response ToF Plot</h6>
+                      <img
+                        src="../assets/lab7/tofvstime.png"
+                        alt="ToF step response plot placeholder"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+                </div>
+                <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                
+
+                <div class="row g-4">
+                  <div class="col-lg-4">
+                    <div class="bg-light rounded-4 p-3">
+                      <h6 class="fw-semibold mb-2">Data Collection Video</h6>
+                      <video class="w-100 rounded-4" controls>
+                        <source src="../assets/lab7/first.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">3. Velocity and Rise Time Estimation</h2>
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  After collecting the ToF distance data, I computed the robot’s forward velocity in Python by taking the derivative of position with respect to time. 
+                  This let me analyze the step response in terms of velocity instead of only position.
+                </p>
+                <p class="text-muted mb-3">
+                  From the velocity response, I estimated the rise time and used the 90% value of the maximum speed to identify the response speed of the system.
+                  My measured rise time was about <code>0.868 s</code>.
+                </p>
+                <p class="text-muted mb-3">
+                  I also looked at the loop timing. I had <code>13</code> definitive datapoints in <code>1.229 s</code>, which corresponds to about <code>10.6 loops per second</code>.
+                  That means each loop took about <code>0.0945 s</code> per iteration.
+                </p>
+
+                <div class="bg-light rounded-4 p-3 mb-0">
+                  <h5 class="small fw-semibold mb-2">Python Logic for 90% Rise Time</h5>
+                  <pre class="mb-0 small"><code>max_vel = max(Forward_Velocity_list[:1100])
+vel_90 = 0.9 * max_vel
+
+axs[1].axhline(y=vel_90, linestyle='--', label='90% of Max Velocity')
+
+for i, v in enumerate(Forward_Velocity_list[:1100]):
+    if v &gt;= vel_90:
+        Time_90 = time_list[i]
+        break</code></pre>
+                </div>
+              </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                
+                <div class="row g-4">
+                  <div class="col-lg-6">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Velocity Plot</h6>
+                      <img
+                        src="../assets/lab7/velocityvstime.png"
+                        alt="Velocity plot placeholder"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+
+                  <div class="col-lg-6">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">PWM Plot</h6>
+                      <img
+                        src="../assets/lab7/pwmvstime.png"
+                        alt="PWM plot placeholder"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">4. State Space Model Setup</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  Once I had the step response information, I used it to estimate the <code>drag: 0.0066719</code> and <code>momentum: 0.0022717</code> behavior of the robot and build the state space model. 
+                  The states I used were distance from the wall and velocity.
+                </p>
+                <div class="bg-light rounded-4 p-3 mb-4">
+  <h5 class="small fw-semibold mb-2">System Model and Parameter Estimation</h5>
+  <pre class="mb-0 small"><code>m * dv/dt = -d*v + u
+
+Steady State:
+0 = -d*v_ss + u
+d = u / v_ss
+
+Time Constant:
+tau = t_90 / 2.3
+
+Momentum Term:
+m = d * tau</code></pre>
+</div>
+
+<div class="bg-light rounded-4 p-3 mb-4">
+  <h5 class="small fw-semibold mb-2">State Space Representation</h5>
+  <pre class="mb-0 small"><code>State Vector:
+x = [position, velocity]
+A = [ 0      1
+      0   -d/m ]
+B = [ 0
+      1/m ]
+C = [ -1   0 ]</code></pre>
+</div>
+
+                <p class="text-muted mb-3">
+                  After estimating the model, I discretized the A and B matrices using the sample time. The C matrix was chosen so that the measured output corresponded to the ToF distance reading.
+                </p>
+
+                <div class="bg-light rounded-4 p-3 mb-4">
+                  <h5 class="small fw-semibold mb-2">Discrete System Form</h5>
+                  <pre class="mb-0 small"><code>Ad = np.eye(n) + Delta_T * A
+Bd = Delta_T * B
+C = np.array([[-1, 0]])
+x = np.array([[-TOF[0]], [0]])</code></pre>
+                </div>
+
+                <p class="text-muted mb-3">
+                  I also had to choose covariance matrices for the process noise and sensor noise. These values control how much the filter trusts the model versus the measured sensor data.
+                </p>
+                <div class="bg-light rounded-4 p-3 mb-4">
+  <h5 class="small fw-semibold mb-2">Measurement Noise</h5>
+  <pre class="small mb-0"><code>
+Σ_z = [ σ₃² ]
+
+σ₃² = (20 mm)²</code></pre>
+</div>
+
+<div class="bg-light rounded-4 p-3 mb-4">
+  <h5 class="small fw-semibold mb-2">Process Noise (Dependent on Sampling Time)</h5>
+  <pre class="small mb-0"><code>
+Σ_u = [ σ₁²   0
+         0   σ₂² ]</code></pre>
+</div>
+
+<div class="bg-light rounded-4 p-3 mb-4">
+  <h5 class="small fw-semibold mb-2">Sampling Time</h5>
+  <pre class="small mb-0"><code>
+Δt ≈ 0.0945 s</code></pre>
+</div>
+
+<div class="bg-light rounded-4 p-3 mb-4">
+  <h5 class="small fw-semibold mb-2">Trust in Modeled Position & Velocity</h5>
+  <pre class="small mb-0"><code>
+σ₁ = σ₂ = √(10² · (1 / Δt))
+
+σ₁ = σ₂ =√(100 / 0.0945)
+
+σ₁ ≈ σ₂ ≈ 32.5 mm</code></pre>
+</div>
+
+                <div class="bg-light rounded-4 p-3 mb-0">
+                  <h5 class="small fw-semibold mb-2">Covariance Matrix Setup</h5>
+                  <pre class="mb-0 small"><code>sig_u = np.array([[sigma_1**2, 0],
+                  [0, sigma_2**2]])
+
+sig_z = np.array([[sigma_3**2]])</code></pre>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">5. Kalman Filter in Python</h2>
+            <div class="card border-0 shadow-sm rounded-4 mb-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  Before putting the Kalman Filter on the robot, I first implemented it in Jupyter. This made it easier to check that the model and covariance values made sense before moving everything over to the Artemis.
+                </p>
+                <p class="text-muted mb-3">
+                  The Kalman Filter works in two main steps: prediction and correction. The model predicts the next state, and then the measured ToF value is used to correct that prediction.
+                </p>
+
+                <div class="bg-light rounded-4 p-3 mb-0">
+                  <h5 class="small fw-semibold mb-2">Kalman Filter Function</h5>
+                  <pre class="mb-0 small"><code>def kf(mu, sigma, u, y):
+
+    mu_p = A.dot(mu) + B.dot(u)
+    sigma_p = A.dot(sigma.dot(A.transpose())) + Sigma_u
+
+    sigma_m = C.dot(sigma_p.dot(C.transpose())) + Sigma_z
+    kkf_gain = sigma_p.dot(C.transpose().dot(np.linalg.inv(sigma_m)))
+
+    y_m = y - C.dot(mu_p)
+    mu = mu_p + kkf_gain.dot(y_m)
+    sigma = (np.eye(2) - kkf_gain.dot(C)).dot(sigma_p)
+
+    return mu, sigma</code></pre>
+                </div>
+              </div>
+            </div>
+
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-4">
+                  The figure below is where I will place the Kalman Filter comparison plot between the raw sensor signal and the estimated state.
+                </p>
+
+                <div class="row g-4">
+                  <div class="col-lg-6">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Kalman Filter Estimated vs Raw Data</h6>
+                      <img
+                        src="../assets/lab7/kalman.png"
+                        alt="Kalman filter plot placeholder"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">6. Kalman Filter on the Robot</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  After testing the Kalman Filter in Python, I implemented it on the Artemis using matrix math. 
+                  This let the robot estimate distance and velocity during the control loop instead of waiting only on the next raw ToF update.
+                </p>
+                <p class="text-muted mb-3">
+                  This was useful because the ToF sensor updates more slowly than the controller can run. With the Kalman Filter, I could use an estimated state that updated continuously and gave smoother behavior.
+                </p>
+
+                <div class="bg-light rounded-4 p-3 mb-0">
+                  <h5 class="small fw-semibold mb-2">Matrix Operations on the Robot</h5>
+                  <pre class="mb-0 small"><code>#include &lt;BasicLinearAlgebra.h&gt;
+using namespace BLA;
+
+Matrix&lt;2,1&gt; state = {0,0};
+Matrix&lt;1&gt; u;
+Matrix&lt;2,2&gt; A = {1, 1,
+                 0, 1};
+
+Sigma_p = Ad * Sigma * ~Ad + Sigma_u;</code></pre>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">7. Discussion</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-3">
+                  Overall, the Kalman Filter improved the robot’s state estimate by combining model prediction with measured sensor data. 
+                  Compared to relying on only the raw ToF sensor, the Kalman Filter gave a cleaner estimate of both position and velocity.
+                </p>
+                <p class="text-muted mb-3">
+                  One of the most important parts of this lab was tuning the covariance matrices. If the process noise was too small, the filter responded too slowly. 
+                  If the measurement noise was too small, the filter trusted the sensor too much and became noisier.
+                </p>
+                <p class="text-muted mb-3">
+                  This lab also showed why a model-based estimate can be more useful than simple extrapolation. The Kalman Filter gave a better estimate between sensor updates and set up the robot for faster control in the next lab.
+                </p>
+              </div>
+            </div>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                <p class="text-muted mb-4">
+These are my plots from the Kalman Filter implementation:
+                </p>
+
+                <div class="row g-4">
+                  <div class="col-lg-6">
+                    <figure class="bg-light rounded-4 p-3 mb-0">
+                      <h6 class="fw-semibold mb-2">Kalman Filter Estimated vs Raw Data</h6>
+                      <img
+                        src="../assets/lab7/plots.png"
+                        alt="Kalman filter plot placeholder"
+                        class="img-fluid rounded-4"
+                      />
+                    </figure>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="mb-5">
+            <h2 class="fw-bolder mb-4">8. Video Demonstration</h2>
+            <div class="card border-0 shadow-sm rounded-4">
+              <div class="card-body p-4">
+                
+
+                <div class="row g-4">
+                  <div class="col-lg-4">
+                    <div class="bg-light rounded-4 p-3">
+                      <h6 class="fw-semibold mb-2">Kalman Filter Test Video</h6>
+                      <video class="w-100 rounded-4" controls>
+                        <source src="../assets/lab7/last.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                      </video>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <section class="mb-5">
+  <h2 class="fw-bolder mb-4">9. Acknowledgments</h2>
+  <div class="card border-0 shadow-sm rounded-4">
+    <div class="card-body p-4">
+      <p class="text-muted mb-3">
+        I used ChatGPT to help structure parts of my code, debug implementation issues, and assist with generating and interpreting plots in Python. 
+        It was mainly used as a tool to help understand concepts and speed up development, not to replace my understanding of the material.
+      </p>
+      <p class="text-muted mb-0">
+        I also worked with <strong>Pages Ethan Sarpong</strong> and <strong>Andrew Donofrio</strong>, who helped with executing different parts of the lab and troubleshooting hardware and implementation issues.
+      </p>
     </div>
   </div>
 </section>
-</main>
-<footer class="bg-white py-4 mt-auto">
-            <div class="container px-5">
-                <div class="row align-items-center justify-content-between flex-column flex-sm-row">
-                    <div class="col-auto"><div class="small m-0">Copyright &copy; Jamison L. Taylor Jr. 2026</div></div>
-                    <div class="col-auto"><a class="small" href="../index.html#about">Contact</a></div>
-                </div>
-            </div>
-        </footer>
+        </div>
+      </section>
+    </main>
 
-        <!-- Bootstrap core JS-->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-        <!-- Core theme JS-->
-        <script src="../js/scripts.js"></script>
-    </body>
+    <footer class="bg-white py-4 mt-auto">
+      <div class="container px-5">
+        <div class="row align-items-center justify-content-between">
+          <div class="col-auto">
+            <div class="small text-muted">© 2026 Jamison L. Taylor Jr.</div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
 </html>

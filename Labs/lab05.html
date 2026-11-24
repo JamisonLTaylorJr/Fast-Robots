@@ -1,403 +1,121 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="MAE 5190 Fast Robots - Lab 5" />
-    <meta name="author" content="Jamison L. Taylor Jr." />
-    <title>Lab 5 | MAE 5190 Fast Robots</title>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>MAE 5190 Fast Robots | Jamison Taylor Jr.</title>
+        <!-- Favicon-->
+        <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
+        <!-- Custom Google font-->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet" />
+        <!-- Bootstrap icons-->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" rel="stylesheet" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="../css/styles.css" rel="stylesheet" />
+    </head>
+<body class="d-flex flex-column h-100">
+<main class="flex-shrink-0">
+<nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
+  <div class="container px-5">
+    <a class="navbar-brand" href="../index.html"><span class="fw-bolder text-primary">MAE 5190 Fast Robots</span></a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
+        <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="../index.html#labs">Labs</a></li>
+        <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<section class="py-5">
+  <div class="container px-5">
+    <div class="row gx-5 justify-content-center">
+      <div class="col-lg-9 col-xl-8 col-xxl-7">
+        <div class="text-center mb-5">
+          <h1 class="fw-bolder">Lab 05: <span class="text-gradient">[Lab Title Placeholder]</span></h1>
+          <p class="lead fw-light text-muted mb-0">MAE 5190 (Fast Robots) &middot; Lab 401</p>
+        </div>
+        <div class="card shadow border-0 rounded-4 mb-5">
+          <div class="card-body p-5">
+            <h2 class="fw-bolder mb-3">Overview</h2>
+            <p class="text-muted">[Write a 4–8 sentence overview of what this lab was about. What problem were you solving? What did you build?]</p>
+            <hr class="my-4" />
 
-    <link rel="icon" type="image/x-icon" href="../assets/favicon.ico" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
-    <link href="../css/styles.css" rel="stylesheet" />
-  </head>
-
-  <body class="d-flex flex-column h-100">
-    <main class="flex-shrink-0">
-      <nav class="navbar navbar-expand-lg navbar-light bg-white py-3">
-        <div class="container px-5">
-          <a class="navbar-brand" href="../index.html">
-            <span class="fw-bolder text-primary">MAE 5190 Fast Robots</span>
-          </a>
-
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 small fw-bolder">
-              <li class="nav-item"><a class="nav-link" href="../index.html">Home</a></li>
-              <li class="nav-item"><a class="nav-link" href="../index.html#labs">Labs</a></li>
-              <li class="nav-item"><a class="nav-link" href="../index.html#about">About</a></li>
+            <h2 class="fw-bolder mb-3">Objectives</h2>
+            <ul class="text-muted">
+              <li>[Objective 1]</li>
+              <li>[Objective 2]</li>
+              <li>[Objective 3]</li>
             </ul>
-          </div>
-        </div>
-      </nav>
+            <hr class="my-4" />
 
-      <section class="py-5">
-        <div class="container px-5">
-          <div class="text-center mb-5">
-            <h1 class="fw-bolder">Lab 5: <span class="text-gradient">Linear PID Control + Linear Extrapolation</span></h1>
-            <p class="text-muted mb-0">
-              In this lab I used Time of Flight feedback to drive the robot toward a wall and stop at 12 inches. I built
-              a Bluetooth debugging workflow, tuned PID gains, added a deadband near the setpoint, and discussed how the
-              controller could be improved further with extrapolation between ToF updates.
-            </p>
-          </div>
+            <h2 class="fw-bolder mb-3">Hardware</h2>
+            <ul class="text-muted">
+              <li>[List sensors/actuators/boards used]</li>
+              <li>[Wiring notes / schematic link]</li>
+            </ul>
+            <hr class="my-4" />
 
-          <section class="mb-5">
-            <h2 class="fw-bolder mb-4">1. Prelab: Bluetooth Debugging Setup</h2>
-            <div class="card border-0 shadow-sm rounded-4">
-              <div class="card-body p-4">
-                <p class="text-muted mb-3">
-                  I placed the main ToF and PID behavior inside a Bluetooth command case instead of running it directly in
-                  <code>loop()</code>. This let me start a test from Python, collect data for a fixed number of
-                  iterations, and send the saved arrays back over Bluetooth for plotting.
-                </p>
-                <p class="text-muted mb-3">
-                  In <code>GET_ALL</code>, the robot runs through the control loop, stores time, ToF distance, PID
-                  output, and error terms in arrays, then sends the saved data back after the run. I also made an
-                  <code>END_PID</code> command to stop the run early.
-                </p>
+            <h2 class="fw-bolder mb-3">Software</h2>
+            <ul class="text-muted">
+              <li>[Language + toolchain (e.g., C++ / Arduino / ROS / Python)]</li>
+              <li>[Key libraries]</li>
+            </ul>
+            <div class="bg-light rounded-4 p-4">
+              <div class="small text-muted">Code Placeholder</div>
+              <div class="fw-semibold">Add a GitHub link or paste code snippets here later.</div>
+            </div>
+            <hr class="my-4" />
 
-                <div class="bg-light rounded-4 p-3 mb-0">
-                  <h5 class="small fw-semibold mb-2">Bluetooth Start / Stop Commands</h5>
-                  <pre class="mb-0 small"><code>case GET_ALL:
-{
-  const unsigned long starttime = millis();
-  Serial.println("Start Collecting Data");
-
-  ToF_Sensor_1.startRanging();
-  ToF_Sensor_2.startRanging();
-
-  for (int i = 0; i &lt; Acc_length; i++)
-  {
-    BLEDevice central = BLE.central();
-
-    if (central) {
-      if (central.connected()) {
-        write_data();
-        read_data();
-      }
-    }
-
-    if (!PID_state) break;
-
-    // sensor read + PID + array logging
-  }
-
-  PID_state = true;
-  ToF_Sensor_1.stopRanging();
-  ToF_Sensor_2.stopRanging();
-  stop_motors();
-  break;
-}
-
-case END_PID:
-{
-  PID_state = false;
-  ToF_Sensor_1.stopRanging();
-  ToF_Sensor_2.stopRanging();
-  stop_motors();
-  break;
-}</code></pre>
+            <h2 class="fw-bolder mb-3">Results</h2>
+            <p class="text-muted">[What worked? What didn’t? Add plots/photos/video links.]</p>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="border rounded-4 p-4 h-100">
+                  <div class="small text-muted">Photo / Screenshot</div>
+                  <div class="fw-semibold">[Drop image into assets/ and link it here]</div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="border rounded-4 p-4 h-100">
+                  <div class="small text-muted">Video Demo</div>
+                  <div class="fw-semibold">[Embed YouTube link or GIF]</div>
                 </div>
               </div>
             </div>
-          </section>
+            <hr class="my-4" />
 
-          <section class="mb-5">
-            <h2 class="fw-bolder mb-4">2. Position Control Goal</h2>
-            <div class="card border-0 shadow-sm rounded-4">
-              <div class="card-body p-4">
-                <p class="text-muted mb-0">
-                  The goal was to have the robot drive toward a wall and stop at a setpoint of <strong>12 inches</strong>.
-                  The main challenge was balancing speed and stability so the robot moved quickly without overshooting into
-                  the wall.
-                </p>
-              </div>
+            <h2 class="fw-bolder mb-3">Reflection</h2>
+            <p class="text-muted">[What would you improve next time? Any debugging lessons or design tradeoffs?]</p>
+
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-between mt-4">
+              <a class="btn btn-outline-dark" href="../index.html#labs"><i class="bi bi-arrow-left"></i> Back to Labs</a>
+              <a class="btn btn-primary" href="lab06.html">Next Lab <i class="bi bi-arrow-right"></i></a>
             </div>
-          </section>
-
-          <section class="mb-5">
-            <h2 class="fw-bolder mb-4">3. Proportional Gain Tuning</h2>
-            <div class="card border-0 shadow-sm rounded-4">
-              <div class="card-body p-4">
-                <p class="text-muted mb-3">
-                  I started with proportional control only and tested <code>Kp = 0.1</code>, <code>3</code>,
-                  <code>3.5</code>, and <code>4</code>. At <code>Kp = 0.1</code> the response was too weak. At
-                  <code>Kp = 3</code> the robot moved toward the wall but felt slow. At <code>Kp = 4</code> it became too
-                  aggressive and touched the wall.
-                </p>
-                <p class="text-muted mb-3">
-                  I chose <strong><code>Kp = 3.5</code></strong> as a good starting point. Later, after more tuning with
-                  integral and derivative action, I also tested a stronger final setup.
-                </p>
-
-                <div class="bg-light rounded-4 p-3 mb-0">
-                  <h5 class="small fw-semibold mb-2">PID Output From My Code</h5>
-                  <pre class="mb-0 small"><code>distance1_in = distance1 * 0.0393701f;
-error1P = distance1_in - targetDistance1;
-
-float control = kp * error1P + ki * error1I + kd * error1D;
-duty1 = abs(control);</code></pre>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="mb-5">
-            <h2 class="fw-bolder mb-4">4. Deadband Compensation</h2>
-            <div class="card border-0 shadow-sm rounded-4">
-              <div class="card-body p-4">
-                <p class="text-muted mb-3">
-                  After tuning <code>Kp</code>, I added a deadband to reduce oscillation near the setpoint. Small motor
-                  commands were not always enough to overcome friction, so the robot could jitter close to the target.
-                </p>
-                <p class="text-muted mb-3">
-                  In my code, the deadband was set to <strong>0.75 inches</strong>. Inside that range, the robot stops;
-                  otherwise it drives forward or backward depending on the sign of the error.
-                </p>
-
-                <div class="bg-light rounded-4 p-3 mb-0">
-                  <h5 class="small fw-semibold mb-2">Deadband Logic From My Code</h5>
-                  <pre class="mb-0 small"><code>float deadband = 0.75;
-
-if (fabs(error1P) &lt; deadband) {
-    stop_motors();
-    dutystate = 0;
-}
-else if (error1P &gt; 0) {
-    drive_forward(duty1);
-    dutystate = 1;
-}
-else {
-    drive_backward(duty1);
-    dutystate = -1;
-}</code></pre>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="mb-5">
-            <h2 class="fw-bolder mb-4">5. Integral and Derivative Tuning</h2>
-            <div class="card border-0 shadow-sm rounded-4">
-              <div class="card-body p-4">
-                <p class="text-muted mb-3">
-                  I then tested integral gain values of <code>0.02</code>, <code>0.01</code>, <code>0.005</code>, and
-                  <code>0.002</code>. These were harder to tune because even small changes caused noticeable differences
-                  in behavior. I also tested derivative control to reduce overshoot as the robot approached the wall.
-                </p>
-                <p class="text-muted mb-3">
-                  A combined starting point I used was <strong><code>Kp = 3.5</code>, <code>Ki = 0.02</code>, and
-                  <code>Kd = 0.8</code></strong>. After more tuning, I ended up testing
-                  <strong><code>Kp = 5</code>, <code>Ki = 0.01</code>, and <code>Kd = 1.0</code></strong>.
-                </p>
-
-                <div class="bg-light rounded-4 p-3 mb-0">
-                  <h5 class="small fw-semibold mb-2">Integral, Derivative, and Clamp Logic</h5>
-                  <pre class="mb-0 small"><code>error1I = error1I + error1P * PID_dt * (-1);
-
-if (PID_dt &gt; 0) {
-    error1D = (error1P - error1Plast) / PID_dt;
-} else {
-    error1D = 0;
-}
-
-error1Plast = error1P;
-if (error1I &gt; 4000) error1I = 4000;
-if (error1I &lt; -4000) error1I = -4000;</code></pre>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="mb-5">
-            <h2 class="fw-bolder mb-4">6. ToF Sampling Rate and Extrapolation</h2>
-            <div class="card border-0 shadow-sm rounded-4">
-              <div class="card-body p-4">
-                <p class="text-muted mb-3">
-                  The ToF sensor updates slower than the main control loop, so I did not want the controller to block and
-                  wait for a new reading every iteration. Instead, my code checks whether new ToF data is ready and only
-                  updates the saved distance when a fresh measurement is available.
-                </p>
-                <p class="text-muted mb-3">
-                  My ToF Sensors take around <strong>50-60 ms</strong> to update, while my main PID control loop runs around 158.8
-                  loops per second (about 6.3 ms per loop). This means the controller can run multiple iterations between ToF updates, 
-                  which is why non-blocking logic is important.
-                </p>
-                <p class="text-muted mb-3">
-                  I kept the extrapolation discussion here because that is the next step for improving performance between
-                  sensor updates, but the current code below shows the non-blocking ToF update logic I actually used.
-                </p>
-
-                <div class="bg-light rounded-4 p-3 mb-4">
-                  <h5 class="small fw-semibold mb-2">Current ToF Update Logic</h5>
-                  <pre class="mb-0 small"><code>// Linear extrapolation for ToF distance when no new sensor data is ready
-
-if (ToF_Sensor_1.checkForDataReady()) {
-  float distance1 = ToF_Sensor_1.getDistance();
-  ToF_Sensor_1.clearInterrupt();
-
-  distance1_in = distance1 * 0.0393701f;   // mm -> inches
-  distance1_est = distance1_in;            // update latest estimate
-}
-else if (i > 1) {
-  // Use the last two saved distance points to estimate current distance
-  float x1 = Tof1_in[i - 2];
-  float x2 = Tof1_in[i - 1];
-
-  float t1 = time_list[i - 2] / 1000.0f;   // ms -> s
-  float t2 = time_list[i - 1] / 1000.0f;   // ms -> s
-  float t_now = (float)(millis() - starttime) / 1000.0f;
-
-  if ((t2 - t1) > 0.0001f) {
-      float slope = (x2 - x1) / (t2 - t1);
-      distance1_est = x2 + slope * (t_now - t2);
-  }
-  else {
-      distance1_est = x2;
-  }
-
-  distance1_in = distance1_est;
-}</code></pre>
-                </div>
-
-              </div>
-            </div>
-          </section>
-
-          <section class="mb-5">
-            <h2 class="fw-bolder mb-4">7. Wind-Up Protection</h2>
-            <div class="card border-0 shadow-sm rounded-4">
-              <div class="card-body p-4">
-                <p class="text-muted mb-3">
-                  For the 5000-level version of the lab, I also considered integrator wind-up. This happens when the
-                  integral term keeps building while the motors are saturated or the robot cannot respond well, which can
-                  cause extra overshoot later.
-                </p>
-                <p class="text-muted mb-3">
-                  In my code, I handled this by clamping the accumulated integral error to a fixed range.
-                </p>
-
-                <div class="bg-light rounded-4 p-3 mb-0">
-                  <h5 class="small fw-semibold mb-2">Wind-Up Clamp From My Code</h5>
-                  <pre class="mb-0 small"><code>error1I = error1I + error1P * PID_dt * (-1);
-
-if (error1I &gt; 4000) error1I = 4000;
-if (error1I &lt; -4000) error1I = -4000;</code></pre>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="mb-5">
-            <h2 class="fw-bolder mb-4">8. Experimental Results</h2>
-            <div class="card border-0 shadow-sm rounded-4">
-              <div class="card-body p-4">
-                <p class="text-muted mb-4">
-                  The plots below should show how the robot approached the wall, how close it got to the 12 inch
-                  setpoint, and how the motor commands changed during the run. I also included placeholders for repeated
-                  test videos.
-                </p>
-
-                <div class="row g-4 mb-4">
-                  <div class="col-lg-6">
-                    <figure class="bg-light rounded-4 p-3 mb-0">
-                      <h6 class="fw-semibold mb-2">Kp = 5.0, Ki = 0.01, Kd = 1.0</h6>
-                      <img
-                        src="../assets/lab5/last_data.png"
-                        alt="Plot showing final PID test data"
-                        class="img-fluid rounded-4"
-                      />
-                    </figure>
-                  </div>
-
-                  <div class="col-lg-6">
-                    <figure class="bg-light rounded-4 p-3 mb-0">
-                      <h6 class="fw-semibold mb-2">With Random Input</h6>
-                      <img
-                        src="../assets/lab5/final.png"
-                        alt="Plot showing final PID test data"
-                        class="img-fluid rounded-4"
-                      />
-                    </figure>
-                  </div>
-
-                </div>
-
-                <div class="row g-4">
-                  <div class="col-lg-4">
-                    <div class="bg-light rounded-4 p-3">
-                      <h6 class="fw-semibold mb-2">Kp = 3.5</h6>
-                      <video class="w-100 rounded-4" controls>
-                        <source src="../assets/lab5/kp.mp4" type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-4">
-                    <div class="bg-light rounded-4 p-3">
-                      <h6 class="fw-semibold mb-2">Kp = 3.5 &amp; Ki = 0.1</h6>
-                      <video class="w-100 rounded-4" controls>
-                        <source src="../assets/lab5/ki.mp4" type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
-                    </div>
-                  </div>
-
-                  <div class="col-lg-4">
-                    <div class="bg-light rounded-4 p-3">
-                      <h6 class="fw-semibold mb-2">Kp = 5 &amp; Ki = 0.01 &amp; Kd = 1.0</h6>
-                      <video class="w-100 rounded-4" controls>
-                        <source src="../assets/lab5/kd.mp4" type="video/mp4" />
-                        Your browser does not support the video tag.
-                      </video>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <section class="mb-5">
-            <h2 class="fw-bolder mb-4">9. Conclusion</h2>
-            <div class="card border-0 shadow-sm rounded-4">
-              <div class="card-body p-4">
-                <p class="text-muted mb-0">
-                  Overall, this lab showed how controller tuning, sensor timing, and practical motor limits affect real
-                  robot behavior. My early proportional tuning showed that <code>Kp = 3.5</code> was a good starting
-                  point, and later tuning with <code>Kp = 5</code>, <code>Ki = 0.01</code>, and <code>Kd = 1.0</code>
-                  gave a stronger final response. Deadband logic improved behavior near the setpoint, and clamping the
-                  integral term helped prevent wind-up.
-                </p>
-              </div>
-            </div>
-          </section>
-        </div>
-      </section>
-    </main>
-
-    <footer class="bg-white py-4 mt-auto">
-      <div class="container px-5">
-        <div class="row align-items-center justify-content-between">
-          <div class="col-auto">
-            <div class="small text-muted">© 2026 Jamison L. Taylor Jr.</div>
           </div>
         </div>
       </div>
-    </footer>
+    </div>
+  </div>
+</section>
+</main>
+<footer class="bg-white py-4 mt-auto">
+            <div class="container px-5">
+                <div class="row align-items-center justify-content-between flex-column flex-sm-row">
+                    <div class="col-auto"><div class="small m-0">Copyright &copy; Jamison L. Taylor Jr. 2026</div></div>
+                    <div class="col-auto"><a class="small" href="../index.html#about">Contact</a></div>
+                </div>
+            </div>
+        </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  </body>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="../js/scripts.js"></script>
+    </body>
 </html>
